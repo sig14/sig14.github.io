@@ -76,7 +76,7 @@ pygments_style = None
 # -- Options for HTML output -------------------------------------------------
 
 html_js_files = ['script.js']
-html_extra_path = ['docs/script.js']
+html_extra_path = ['script.js']
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
