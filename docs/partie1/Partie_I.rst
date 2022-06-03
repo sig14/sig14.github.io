@@ -1,4 +1,4 @@
 Cette partie est un exemple
 ===========================
 
-Super.
+La vraie documentation arrive bientôt !

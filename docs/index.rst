@@ -1,5 +1,5 @@
-Bienvenue sur la documentation du SIG14
-=======================================
+Documentation du SIG14
+======================
 
 Le SIG14_ est le dépôt GitHub des outils développés par le pôle SIG du
 Département du Calvados.
@@ -14,5 +14,4 @@ Contenu
 
 .. toctree::
 
-  Partie_I
-  pagetest
+  partie1/Partie_I

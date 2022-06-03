@@ -1,4 +1,4 @@
 Besoin de la documentation ?
 ============================
 
-[Vous la trouverez sur ReadTheDocs !](https://sig14-doc.readthedocs.io/index.html)
+[Elle est hébergée ici, sur Github Pages !](https://sig14.github.io)
