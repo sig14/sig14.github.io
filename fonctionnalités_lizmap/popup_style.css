@@ -1,0 +1,31 @@
+/*CSS for autoComplete object used in Lizmap popup. Mainly changing colors into something found on Lizmap*/
+.autoComplete_wrapper{
+  display:inline-block;/*Removable here, but might be useful someday*/
+  position:relative;
+}
+
+.autoComplete_wrapper>input{
+  color:rgba(0,140,204,.5);
+  background-color:#fff;
+}
+
+.autoComplete_wrapper>input:focus{
+  color:#008ccc;
+}
+
+.autoComplete_wrapper>ul{
+  background-color:#fff;
+  list-style:none;/*Suppressing default dots*/
+  margin-left: 0;/*Suppressing default indentation*/
+  padding-left: 0;/*Could be useful too*/
+}
+
+.autoComplete_wrapper>ul>li mark{
+  background-color:transparent;/*Suppressing default highlight on the marked text*/
+  color:#008ccc;
+}
+
+.autoComplete_wrapper>ul>li:hover{
+  cursor:pointer;/*For it to look like a clickable surface*/
+  background-color:rgba(0,140,204,.25);
+}

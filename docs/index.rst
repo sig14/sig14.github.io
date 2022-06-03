@@ -1,8 +1,9 @@
-Bienvenue sur la documentation privée du SIG14 !
-================================================
+Bienvenue sur la documentation du SIG14
+=======================================
 
-Vous êtes ici sur la page web de documentation,
-générée grâce à la librairie Sphinx de Python.
+Le SIG14_ est le dépôt GitHub des outils développés par le pôle SIG du
+Département du Calvados.
+  .. _SIG14: https://github.com/sig14/tools-doc/
 
 .. note::
 
@@ -12,8 +13,6 @@ Contenu
 -------
 
 .. toctree::
-  :maxdepth: 3
 
-  tutoDoc
-  amélio_lizmap
-  siteAdresse
+  Partie_I
+  pagetest

@@ -1,14 +1,11 @@
-Les fonctionnalités ajoutées à LizMap
-=====================================
-
+# Les fonctionnalités ajoutées à LizMap
 **popup_recherche.js** permet d'ajouter au client
 LizMap web des fonctionnalités pour l'utilisateur.
 
 Il fait appel à la feuille de style **popup_style.css** et est en partie dépendant
 du script **getData.php** (dossier "php").
 
-Fonction de l'outil :
----------------------
+## Fonction de l'outil :
 
 Ce script s'exécute au chargement de la page et ajoute au menu de LizMap un
 bouton (BAN) déclenchant l'ouverture d'une fenêtre modale (popup). Cette popup
@@ -22,8 +19,7 @@ par l'utilisateur.
 Quand l'une ou l'autre est sélectionnée, la popup se referme et la carte se
 focalise sur le point ou sur la commune demandée.
 
-Le fonctionnement dans ses grandes lignes :
--------------------------------------------
+## Le fonctionnement dans ses grandes lignes :
 
 Le bouton, créé en chaîne de caractère, est ajouté au code html d'un élément
 du menu de LizMap. Lors du clic, il déclenche la fonction
@@ -40,8 +36,7 @@ dont le constructeur est importé.
 À chaque changement de valeur d'un champ d'input, une requête est envoyée.
 La suite dépend alors du type de recherche choisi :
 
-Adresse :
-^^^^^^^^^
+### Adresse :
 
 Dans le cas de l'adresse, c'est à l'API Adresse nationale, qui renvoie les
 adresses correspondant au mieux à ce qui a été saisi.
@@ -55,8 +50,7 @@ affichée. Lorsque l'utilisateur en sélectionne une, un Point est créé à par
 des coordonnées de cette adresse et passé en paramètre de la méthode
 ``zoomToExtent()`` de la carte. La popup est ensuite refermée.
 
-Commune :
-^^^^^^^^^
+### Commune :
 
 Dans le cas du nom de commune, c'est à la base de donnée du SIG du CD14 que
 l'expression est envoyée, via un appel au script **getData.php**. La requête SQL
