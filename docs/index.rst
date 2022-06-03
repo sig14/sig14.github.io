@@ -14,4 +14,4 @@ Contenu
 
 .. toctree::
 
-  partie1/Partie_I
+  partie1/page1
