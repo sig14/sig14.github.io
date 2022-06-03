@@ -15,3 +15,5 @@ Contenu
 .. toctree::
 
   partie1/page1
+  partie1/page2
+  partie2/page1
