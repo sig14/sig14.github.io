@@ -75,8 +75,10 @@ pygments_style = None
 
 # -- Options for HTML output -------------------------------------------------
 
-html_js_files = ['../script.js']
-html_extra_path = ['script.js']
+#rst_prolog = """
+#.. meta::
+#    :metatags:
+#"""
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
