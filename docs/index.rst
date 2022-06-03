@@ -18,3 +18,5 @@ Contenu
   partie1/page2
   partie2/page1
   partie2/page2
+  partie3/page1
+  partie3/page2
