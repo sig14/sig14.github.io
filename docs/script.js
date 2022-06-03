@@ -3,3 +3,4 @@ html += "<meta http-equiv='Pragma' content='no-cache'>";
 html += "<meta http-equiv='Expires' content='0'>";
 
 document.getElementsByTagName('head').innerHTML += html;
+console.log("a")
