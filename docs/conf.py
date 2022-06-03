@@ -75,10 +75,12 @@ pygments_style = None
 
 # -- Options for HTML output -------------------------------------------------
 
-#rst_prolog = """
-#.. meta::
-#    :metatags:
-#"""
+rst_prolog = """
+.. meta::
+    :http-equiv=Cache-Control: no-cache, no-store, must-revalidate
+    :http-equiv=Pragma: no-cache
+    :http-equiv=Expires: 0
+"""
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
