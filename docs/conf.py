@@ -75,8 +75,6 @@ pygments_style = None
 
 # -- Options for HTML output -------------------------------------------------
 
-html_js_files = ['https://github.com/sig14/sig14.github.io/blob/main/docs/script.js']
-
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
