@@ -143,12 +143,10 @@
                             displaySome(jsonRes,wrapper);
                           }
                           // Multiple calls to askDB(), each for a result field
-                          askDB("maire");
-                          askDB("conseillersDptx");
-                          askDB("ptsInfo14");
-                          askDB("mairies");
-                          askDB("collegeSecteur");
-                          askDB("sports");
+                          var categories = document.getElementsByClassName("category");
+                          for(let category of categories){
+                            askDB(category.id);
+                          }
                         }
                     }
                 }
