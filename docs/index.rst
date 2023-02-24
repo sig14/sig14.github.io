@@ -1,31 +1,18 @@
-WIKI INTERNE SIG 14
-================================================
+Documentation du SIG14
+======================
 
-Documentation des travaux réalisés par le pôle SIG du Département du Calvados
+Le SIG14_ est le dépôt GitHub des outils développés par le pôle SIG du
+Département du Calvados.
+  .. _SIG14: https://github.com/sig14/tools-doc/
 
-.. Contributeurs ::
+.. note::
 
-   Paul Lemaignen
-   Jérémie Ory
-   Théo Grondin
-   Clément Bellêtre
-   Samuel Audrain
-   Eric Gonçalvès
-   
+   Ce projet est toujours en cours de développement !
 
 Contenu
 -------
 
 .. toctree::
-  :maxdepth: 2
 
-  1- Adressage
-  2- Cadastre
-  3- DECI
-  4- Espaces Naturels Sensibles
-  5- Vélo
-  6- Fibre optique
-  7- Support
-  9- RTK
-  10- Serveur de traitement
-  	
+  partie1/1- Adressage.rst
+  partie1/page2
