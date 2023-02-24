@@ -1,5 +1,4 @@
 Cette partie est un exemple
 ===========================
 
-C'est la page 2 !
-
+La vraie documentation arrive bientôt !
