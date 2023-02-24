@@ -11,7 +11,3 @@ Département du Calvados.
 
 Contenu
 -------
-
-.. toctree::
-
-  partie1/page1
