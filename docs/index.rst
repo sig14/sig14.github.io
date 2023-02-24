@@ -14,5 +14,5 @@ Contenu
 
 .. toctree::
 
-  partie1/1- Adressage.rst
+  partie1/Adressage.rst
   partie1/page2
