@@ -1,0 +1,7 @@
+docutils==0.16    # bugfix, remove in sphinx>3.5.3
+sphinx
+sphinx_rtd_theme
+sphinx-togglebutton
+sphinx-autobuild
+myst_parser
+sphinx_rtd_theme_ext_color_contrast
