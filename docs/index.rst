@@ -7,7 +7,7 @@ Département du Calvados.
 
 .. note::
 
-   Ce projet est toujours en cours de développement !
+   Ce projet est toujours en cours de développement !!
 
 Contenu
 -------
