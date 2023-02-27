@@ -60,7 +60,7 @@ master_doc = 'index'
 
 html_context = {'display_github': True,
                 'github_user': 'sig14',
-                'github_repo': 'manuals',
+                'github_repo': ' sig14.github.io',
                 'github_version': 'master/',
                }
 
