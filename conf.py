@@ -61,7 +61,7 @@ master_doc = 'index'
 html_context = {'display_github': True,
                 'github_user': 'sig14',
                 'github_repo': ' sig14.github.io',
-                'github_version': 'main/',
+                'github_version': 'master/',
                }
 
 # https://github.com/sphinx-contrib/emojicodes/pull/22/files
