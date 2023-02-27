@@ -28,8 +28,6 @@ gh-pages: dirhtml singlehtml latexpdf epub
 	mkdir -p _build/gh-pages/_builds/
 	rsync -a _build/dirhtml/ _build/gh-pages/
 	rsync -a _build/singlehtml/ _build/gh-pages/_builds/singlehtml/
-	rsync -a _build/epub/CodeRefineryManuals.epub _build/gh-pages/_builds/
-	rsync -a _build/latex/CodeRefineryManuals.pdf _build/gh-pages/_builds/
 #	# Include all images in the build, they may be used in other repos.
 	rsync -a --ignore-existing img/ _build/gh-pages/_images/
 
