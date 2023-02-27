@@ -29,13 +29,13 @@ jobs:
         sudo apt update
         sudo make gh-pages-dependencies
     # This parses the sphinx logs and reports problems via gh-actions
-    - uses: ammaraskar/sphinx-problem-matcher@master
+    - uses: ammaraskar/sphinx-problem-matcher@main
     - name: Sphinx Build
       run:
          make gh-pages
     - name: Deploy to gh-pages
       uses: peaceiris/actions-gh-pages@v3
-      if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
+      if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./_build/gh-pages/
