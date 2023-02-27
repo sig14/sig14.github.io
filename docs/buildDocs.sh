@@ -18,8 +18,6 @@ set -x
 
 apt-get update
 apt-get -y install git rsync python3-sphinx python3-sphinx-rtd-theme python3-stemmer
-pip3 install setuptools wheel
-pip3 install docutils==0.16 sphinx>=5.0.0 sphinx-autobuild sphinx_rtd_theme>=0.5.2 myst-parser # sphinxcontrib-qthelp
 
 #####################
 # DECLARE VARIABLES #
@@ -35,8 +33,8 @@ export SOURCE_DATE_EPOCH=$(git log -1 --pretty=%ct)
 
 # build our documentation with sphinx (see docs/conf.py)
 # * https://www.sphinx-doc.org/en/master/usage/quickstart.html#running-the-build
-make clean
-make html
+make -C docs clean
+make -C docs html
 
 #######################
 # Update GitHub Pages #
@@ -87,4 +85,4 @@ popd # return to main repo sandbox root
 
 # exit cleanly
 exit 0
-EEOOFF
+
