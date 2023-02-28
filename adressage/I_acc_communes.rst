@@ -1,4 +1,7 @@
 
+I- Accompagnement des Communes
+******************************
+
 L'adressage est une **compétence communale** qui consiste pour une mairie à nommer les rues et numéroter les habitations. Depuis le 21 février 2022 et la promulgation de la loi relative à la différenciation, la déconcentration, la décentralisation et portant diverses mesures de simplification (`Loi 3DS <https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000045197395>`_), il s'agit même d'une **obligation réglementaire**. Les communes doivent :
 
 * Nommer chaque voie
