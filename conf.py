@@ -17,9 +17,9 @@
 
 # -- Project information -----------------------------------------------------
 
-project = 'CodeRefinery manuals'
-copyright = '2018-2022, The CodeRefinery team'
-author = 'The CodeRefinery team'
+project = 'Documentation SIG14'
+copyright = '2023, SIG14 team'
+author = 'Pôle SIG CD14'
 
 
 # -- General configuration ---------------------------------------------------
