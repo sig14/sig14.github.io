@@ -44,12 +44,3 @@ Ce qui donne ::
 
 	Nombre de communes engagées dans l\'adressage : 326 / 528 soit 61.6%
 
-2- Atlas d'export
-=======================
-
-
-
-
-
-________________________________________________
-
