@@ -3,7 +3,7 @@
 IV- Dépôt BAL
 **************
 
-.. image:: ../img/adressage/V_depot_bal/fme_depot_bal.png
+.. image:: ../img/adressage/V_depot_bal/FME_depot_bal.png
    :width: 880
 
 
