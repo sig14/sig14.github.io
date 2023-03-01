@@ -2,10 +2,10 @@
 
 IV- Dépôt BAL
 **************
+
 .. image:: ../img/adressage/V_depot_bal/fme_depot_bal.png
    :width: 880
 
-REMPLACER IMAGE par PNG METHODO
 
 
 Etalab, via sa plateforme adresse.data.gouv.fr met à disposition une **API** permettant de déposer les mise à jour de **Bases Adresses Locales** dans la **Base Adresse Nationale**. 
@@ -237,8 +237,8 @@ Le traitement pour dépot des BAL à l'API se déroule comme suit :
 			*Valeur =* Token @Value(jeton)
 
 4 *Corps* : 
-			 *Type de données à charger =* Specify Upload Body
-			*Corps de la requête (remplacer les termes après les :") =* { "context": { "nomComplet": "A remplacer", "organisation": "A remplacer" } }
+			*Type de données à charger =* Specify Upload Body
+			*Corps de la requête =* { "context": { "nomComplet": "A remplacer", "organisation": "A remplacer" } }
 			*Type de contenu =* json
 
 5 *Réponse* : 
@@ -475,12 +475,12 @@ Enregistrement au format CSV d'une table de données des adresses créées duran
 
 *Vous pouvez télécharger la dernière version du projet FME en cliquant sur le lien ci dessous :*
 
-`Téléchargement du projet FME <https://github.com/sig14/private-doc/releases/download/mailing/mail_depot_bal_laposte.fmw>`_
+`Téléchargement du FME <https://github.com/sig14/private-doc/releases/download/mailing/mail_depot_bal_laposte.fmw>`_
 
 
 *Le Workbench FME a été déposé sur le serveur APW65. Suivre le lien ci dessous :*
 
-`Lien projet FME APW65 <file://\\apw65\_FME\ADRESSAGE\mail_depot_bal_laposte.fmw>`_ 
+`Lien FME APW65 <file://\\apw65\_FME\ADRESSAGE\mail_depot_bal_laposte.fmw>`_ 
 
 
 Le traitement se déroule comme suit :
