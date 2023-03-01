@@ -5,10 +5,10 @@ II- Application de saisie
 
 
 1- Triggers et fonctions
-=======================
+=========================
 
 1.1 Module d'aide à la numérotation
------------------------------------
+------------------------------------
 
 Il existe deux types de numérotation différents :
 
@@ -89,7 +89,7 @@ Pour la numérotation classique, une fonction soumet le numéro qu'elle considè
 				 numc = numa+2;
 				ELSE
 					FOREACH rec IN ARRAY suff LOOP
-						IF (SELECT TRUE FROM adresse.point_adresse p WHERE p.id_voie = idvoie AND p.numero = numa AND p.suffixe = rec) IS NULL AND NOT test THEN
+						IF (SELECT TRUE FROM adresse.point_adresse p WHERE p.id_voie = idvoie AND p.numero = numa AND p.suffixe = rec) IS NULL AND 				NOT test THEN
 							test = true;
 							numc = numa;
 							s = rec;
@@ -104,7 +104,7 @@ Pour la numérotation classique, une fonction soumet le numéro qu'elle considè
 				ELSIF numb - 2 <= 0 THEN
 					test = false;
 					FOREACH rec IN ARRAY suff LOOP
-						IF (SELECT TRUE FROM adresse.point_adresse p WHERE p.id_voie = idvoie AND p.numero = numb AND p.suffixe = rec) IS NULL AND NOT test THEN
+						IF (SELECT TRUE FROM adresse.point_adresse p WHERE p.id_voie = idvoie AND p.numero = numb AND p.suffixe = rec) IS NULL AND 				NOT test THEN
 							test = true;
 							numc = numb;
 							s = rec;
@@ -125,6 +125,7 @@ Pour la numérotation classique, une fonction soumet le numéro qu'elle considè
 
 			return query SELECT numc, s, idvoie;
 			END;
+
 
 Pour la numérotation métrique, une fonction calcule la distance avec ``ST_Length`` et répartit aussi automatiquement les numéros pairs à droite et impairs à gauche. Via la variable ``sens``, l'utilisateur peut indiquer la voie qu'il a dessiné est à numéroter en sens inverse. L'application prend en compte cette information et calcule le munéro "à l'envers".
 
@@ -179,7 +180,7 @@ Pour la numérotation métrique, une fonction calcule la distance avec ``ST_Leng
 					numc = num;
 				ELSE
 					FOREACH rec IN ARRAY suff LOOP
-						IF (SELECT TRUE FROM adresse.point_adresse p WHERE p.id_voie = idvoie AND p.numero = num AND p.suffixe = rec) IS NULL AND NOT test THEN
+						IF (SELECT TRUE FROM adresse.point_adresse p WHERE p.id_voie = idvoie AND p.numero = num AND p.suffixe = rec) IS NULL AND 				NOT test THEN
 							test = true;
 							numc = num;
 							res = rec;
@@ -206,7 +207,7 @@ De plus, la base de données fournie doit répondre à des normes de qualité s�
 
 
 2.1 - Contrôles postgis
------------------------
+------------------------
 
 Liste de défauts fréquemment rencontrés :
 
