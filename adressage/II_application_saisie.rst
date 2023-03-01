@@ -8,7 +8,7 @@ II- Application de saisie
 =======================
 
 1.1 Module d'aide à la numérotation
--------------------------------
+-----------------------------------
 
 Il existe deux types de numérotation différents :
 
@@ -206,7 +206,7 @@ De plus, la base de données fournie doit répondre à des normes de qualité s�
 
 
 2.1 - Contrôles postgis
---------------------
+-----------------------
 
 Liste de défauts fréquemment rencontrés :
 
@@ -520,7 +520,7 @@ Elle se déclenche à chaque création ou modification sur la table voie.
 
 
 2.2 - Dashboard QGis
------------------
+--------------------
 
 Tableau de bord de suivi des indicateurs clés du projet, intégré aux logiciels SIG utilisés quotidiennement par les équipes et les partenaires.
 
