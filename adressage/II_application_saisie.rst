@@ -626,7 +626,7 @@ Revenir à la table attributaire de « dashboard ».
 
 Donner un nom qui mette en évidence l’action. Ici le titre de la première étiquette que nous appellerons fenêtre dashboard.
 
-Puis indiquer dans le champs label expression l’expression qui s’affichera dans la première fenêtre dashboard, ici, simplement le titre _**'nbr pt total'**_
+Puis indiquer dans le champs label expression l’expression qui s’affichera dans la première fenêtre dashboard, ici, simplement le titre **'nbr pt total'**
 
 
 .. image:: ../img/adressage/III_saisie/dashboard/12_1rst_fenetre_dashboard.png
