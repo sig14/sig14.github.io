@@ -1,7 +1,7 @@
 
 
 IV- Dépôt BAL
-************
+**************
 .. image:: ../img/adressage/V_depot_bal/fme_depot_bal.png
    :width: 880
 
@@ -29,7 +29,7 @@ Ces développements ont été réalisés sous système d'exploitation Windows.
 
 
 1ère Etape : Préparation des données
-=======================
+=====================================
 
 L'ensemble des données adresses mises à jours et certifiées quotidiennement par les Communes dans le cadre de l'accompagnement CD14 sont stockées dans une table (ici nommée **adresse.v_bal_dept**) au sein de la Base de Données SIG du Département.
 
@@ -71,7 +71,7 @@ Les 3 derniers champs de cette table sont mis à jours quotidienement comme suit
 
 	**2-** Execution des script sql  suivants :
 
-			* A 6h00 du matin : 
+		* A 6h00 du matin* : 
 			.. code-block:: sql
 			
 				-- Compte le nombre de points adresse par commune
@@ -83,7 +83,7 @@ Les 3 derniers champs de cette table sont mis à jours quotidienement comme suit
 					)b 
 				where commune.insee_code = b.commune_insee
 		
-			* A 23h00 le soir : 
+		* A 23h00 le soir* : 
 			.. code-block:: sql
 			
 				-- Remet le compte de points modifiés à null dans la table commune
@@ -108,11 +108,10 @@ Les 3 derniers champs de cette table sont mis à jours quotidienement comme suit
 				where commune.insee_code = b.commune_insee;
 
 
-----
 
 
 2e Etape : Chaîne de traitement FME
-=======================
+=====================================
 
 *Vous pouvez télécharger la dernière version du projet FME en cliquant sur le lien ci dessous :*
 
@@ -143,7 +142,7 @@ Supprimer les champs inutiles. Ne garder que les champs suivants :
 
 
 2.2 - Ajouter les jeton d'accès API
------------------------------------
+-------------------------------------
 
 
 
@@ -176,7 +175,7 @@ Pour cela :
 
 
 2.4 - Sélection des communes avec suppression ou ajout de points adresse
-----------------------------------------------------------------------
+--------------------------------------------------------------------------
 
 .. image:: ../img/adressage/V_depot_bal/5_FME_verif_ajout_supr.png
    :width: 780
@@ -185,16 +184,17 @@ Dans cette partie, nous ne conserverons que les communes pour lesquelles des adr
 
 Pour cela :
 
-* Ajouter le transformer **testFilter** pour ne garder que les communes dont le compte de point du matin (*nb_pts_matin*) est différent du compte de point du soir (*nb_pts_soir*).
+- Ajouter le transformer **testFilter** pour ne garder que les communes dont le compte de point du matin (*nb_pts_matin*) est différent du compte de point du soir (*nb_pts_soir*).
+
 .. image:: ../img/adressage/V_depot_bal/6_FME_test_ajout_supr.png
    :scale: 50 %
 
-* Supprimer ensuite les champs non nécessaires à l'aggregation, pour ne conserver que : **le jeton**,  **le nom de la commune** et **le code insee**
+- Supprimer ensuite les champs non nécessaires à l'aggregation, pour ne conserver que : **le jeton**,  **le nom de la commune** et **le code insee**
 
 
 
 2.5 - Agregation des communes filtrées
------------------------------------
+---------------------------------------
 
 
 Une fois les deux filtres éffectués, on agrége l'ensemble des données avec le transformer **Aggregator**.
@@ -233,17 +233,17 @@ Le traitement pour dépot des BAL à l'API se déroule comme suit :
 2 *Méthode HTTP* : POST
 
 3 *En-têtes :*
-			* *Nom =* Authorization
-			* *Valeur =* Token @Value(jeton)
+			*Nom =* Authorization
+			*Valeur =* Token @Value(jeton)
 
 4 *Corps* : 
-			* *Type de données à charger =* Specify Upload Body
-			* *Corps de la requête (remplacer les termes après les :") = * { "context": { "nomComplet": "A remplacer", "organisation": "A remplacer" } }
-			* *Type de contenu =* json
+			 *Type de données à charger =* Specify Upload Body
+			*Corps de la requête (remplacer les termes après les :") =* { "context": { "nomComplet": "A remplacer", "organisation": "A remplacer" } }
+			*Type de contenu =* json
 
 5 *Réponse* : 
-			* *Enregistrer le corps de la réponse dans =* Attribut
-			* *Attribut de réponse =* _response_body
+			*Enregistrer le corps de la réponse dans =* Attribut
+			*Attribut de réponse =* _response_body
 			
 
 
@@ -271,21 +271,21 @@ Le traitement pour dépot des BAL à l'API se déroule comme suit :
 2 *Méthode HTTP* : PUT
 
 4 *Paramètres complémentaires de la requête :*
-			* *Nom =* Content-MD5
-			* *Valeur =* 1234567890abcdedf1234567890abcdedf
+			*Nom =* Content-MD5
+			*Valeur =* 1234567890abcdedf1234567890abcdedf
 
 4 *En-têtes :*
-			* *Nom =* Authorization
-			* *Valeur =* Token @Value(jeton)
+			*Nom =* Authorization
+			*Valeur =* Token @Value(jeton)
 
 5 *Corps* : 
-			* *Type de données à charger =* Envoyer à partir d'un fichier
-			* *Chemin du fichier à charger = * Le chemin vers les fichiers CSV adresse par commune créés en partie I 
-			* *Type de contenu =* text/csv
+			*Type de données à charger =* Envoyer à partir d'un fichier
+			*Chemin du fichier à charger = * Le chemin vers les fichiers CSV adresse par commune créés en partie I 
+			*Type de contenu =* text/csv
 
 6 *Réponse* : 
-			* *Enregistrer le corps de la réponse dans =* Attribut
-			* *Attribut de réponse =* _response_body
+			*Enregistrer le corps de la réponse dans =* Attribut
+			*Attribut de réponse =* _response_body
 			
 
 
@@ -368,8 +368,7 @@ Suite à la réponse de l'API, on supprime les champs inutiles pour ne conserver
 
 Avec le Transformer **StringSearcher**, on extrait par expression régulière les valeurs de chiffres après rowsCounts. L'idée est ici d'extraire le nombre d'adresses publiées de la réponse API.
 		
-		.. code-block:: python
-			(?<=rowsCount":)[\w+.-]+
+	**(?<=rowsCount":)[\w+.-]+**
 
 On créé ensuite un nouvel attribut comprenant le nombre de points extraits de la réponse suivi du texte que l'on souhaite ajouter.
 
@@ -410,7 +409,7 @@ On insère finalement les données dans la table *commune* citée en partie I au
 
 
 3e Etape :  Mailing automatique
-=======================
+================================
 
 En complément de la chaine de traitement détaillée précédemment, un bilan hebdomadaire est réalisée sur la base de données adresse du Département.
 
@@ -423,7 +422,7 @@ Il est transmis chaque début de semaine au chef de projet du Département et au
 3.1 - Enregistrement des données adresses
 ----------------------------------------------------------------------
 
-**Chaque lundi à 4h (n7) et à 5h du matin (n0) ** :
+**Chaque lundi à 4h (n7) et à 5h du matin (n0)** :
 
 Enregistrement au format CSV d'une table de données des adresses sur les communes publiées. Elle contient les champs suivants :
 
@@ -433,7 +432,7 @@ Enregistrement au format CSV d'une table de données des adresses sur les commun
 
  		.. code-block:: sql
 
-				\copy (select a.id_point, a.commune_nom, a.insee_code, a.adresse_complete 
+				copy (select a.id_point, a.commune_nom, a.insee_code, a.adresse_complete 
 				from adresse.v_point_adresse a, adresse.v_communes_publiees b where  a.insee_code = b.insee_code )
 				TO 'D:\BD_adresse\bakup_adresses\v_point_adresse_dimanche.csv' DELIMITER ',' CSV HEADER NULL as 'NULL';
 
@@ -447,7 +446,7 @@ Enregistrement au format CSV d'une table de données des adresses modifiées dur
 
  		.. code-block:: sql
 			
-				\copy (select a.id_point, a.date_modif, a.commune_nom, a.insee_code, a.adresse_complete 
+				copy (select a.id_point, a.date_modif, a.commune_nom, a.insee_code, a.adresse_complete 
 				from adresse.v_point_adresse a, adresse.v_communes_publiees b 
 				where  a.insee_code = b.insee_code and (a.date_modif > current_date - integer '7')) 
 				TO 'D:\BD_adresse\bakup_adresses\v_point_adresse_dimanche_modif.csv' DELIMITER ',' CSV HEADER NULL as 'NULL';
@@ -462,7 +461,7 @@ Enregistrement au format CSV d'une table de données des adresses créées duran
 
  		.. code-block:: sql
 			
-				\copy (select a.id_point, a.date_creation, a.commune_nom, a.insee_code, a.adresse_complete 
+				copy (select a.id_point, a.date_creation, a.commune_nom, a.insee_code, a.adresse_complete 
 				from adresse.v_point_adresse a, adresse.v_communes_publiees b 
 				where  a.insee_code = b.insee_code and (a.date_creation > current_date - integer '7') ) 
 				TO 'D:\BD_adresse\bakup_adresses\v_point_adresse_dimanche_creation.csv' DELIMITER ',' CSV HEADER NULL as 'NULL';
