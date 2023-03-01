@@ -31,7 +31,7 @@ Dans cet exemple, le choix est de faire apparaître deux types d'informations :
 * Une cartographie des communes qui sont engagées dans la démarche ou qui ont terminées leur projet. (**1**)
 * Des statistiques à l'échelle du département (**2**) et du canton en question (**3**).
 
-.. image:: ../immg/adressage/rapport_adressage_canton_bayeux.png
+.. image:: ../img/adressage/rapport_adressage_canton_bayeux.png
    :scale: 50
 
 Les statistiques sont calculées avec des expressions QGIS intégrées dans du code HTML. Dans cet exemple ci-dessous, le nombre de communes accompagnées dans le Calvados est calculé avec le champ ``actif`` de la table ``Communes``. Il indique si la commune a engagé une démarche d'adressage avec le CD14) ::
