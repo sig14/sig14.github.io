@@ -626,7 +626,7 @@ Revenir à la table attributaire de « dashboard ».
 
 Donner un nom qui mette en évidence l’action. Ici le titre de la première étiquette que nous appellerons fenêtre dashboard.
 
-Puis indiquer dans le champs label expression l’expression qui s’affichera dans la première fenêtre dashboard, ici, simplement le titre _***'nbr pt total'**_
+Puis indiquer dans le champs label expression l’expression qui s’affichera dans la première fenêtre dashboard, ici, simplement le titre _**'nbr pt total'**_
 
 
 .. image:: ../img/adressage/III_saisie/dashboard/12_1rst_fenetre_dashboard.png
@@ -680,7 +680,7 @@ Ci-dessous, nous avons organisé la table avec une fenêtre par ligne comme suit
 
 		.. code-block:: sql
 
-			aggregate(layer:= 'Infos Communes', aggregate:='sum', expression:=pt_total, filter:=is_selected('Infos Communes', $currentfeature )  )
+			aggregate(layer:= 'Infos Communes', aggregate:='sum', expression:=pt_total, filter:=is_selected('Infos Communes', '$'currentfeature )  )
 
 3- Nombre de communes accompagnées (champ : actif, valeur : oui) dans la couche Infos Communes
 
@@ -688,7 +688,7 @@ Ci-dessous, nous avons organisé la table avec une fenêtre par ligne comme suit
 
 			aggregate(layer:= 'Infos Communes', aggregate:='count', expression:= actif, filter:= actif LIKE 'Oui' )
 
-*Exemple de rendu
+*Exemple de rendu*
 
 Le Dashboard est utilisé par le pôle SIG afin de contrôler les erreurs de saisies en temps réel par les communes et présenter un bilan général de l'avancement du projet.
 
