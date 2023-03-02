@@ -396,7 +396,7 @@ On lance ensuite une fonction postgrresql/gis dont le code SQL se trouve `ici <h
    :scale: 50
 
 
-Le code HTML (Onglet Urbanisme + parties tab_doc_urba + deroulant : secteurs, zonages, prescriptions, info) se trouve `là <file://K:/Pole_SIG/Interne/03_TRAITEMENTS_SIG/9_lizmap/html/popup_cadastre.html>`_
+Le code HTML (Onglet Urbanisme + parties tab_doc_urba + deroulant : secteurs, zonages, prescriptions, info) se trouve `ici <https://github.com/sig14/sig14.github.io/blob/master/cadastre/html/popup_cadastre.html>`_
 
 
 
@@ -405,7 +405,7 @@ Le code HTML (Onglet Urbanisme + parties tab_doc_urba + deroulant : secteurs, zo
 
 * Mise à jour du CSS dans le panneau de configuration Lizmap
 
-Le code CSS se trouve `à ce lien <file://K:/Pole_SIG/Interne/03_TRAITEMENTS_SIG/9_lizmap/css/style_docs_urba_cadastre.css>`_
+Le code CSS se trouve `en suivant ce lien <https://github.com/sig14/sig14.github.io/blob/master/cadastre/css/docs_urba_cadastre.css>`_
 
 
 .. image:: ../img/cadastre/19_config_css.png
