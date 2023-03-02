@@ -5,6 +5,8 @@ Bienvenue sur le portail dédié à la documentation des activités du pôle SIG
 
 Vous retrouverez sur ce site la description des tâches effectuées par nos équipes, ainsi que des liens utiles vers nos projets et nos fichiers.
 
+Vous pouvez accéder à la page github source en suivant ce lien : [github CD14](https://github.com/sig14/sig14.github.io/)
+
 Bonne visite !
 
 ```{toctree}
