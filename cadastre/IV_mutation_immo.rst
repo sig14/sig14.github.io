@@ -1,6 +1,9 @@
 IV- Onglet Mutations immobilières
 *********************************
 
+.. image:: ../img/cadastre/schema_dvf_cadastre.png
+   :scale: 50
+
 Le jeu de données « Demandes de valeurs foncières », publié et produit par la direction générale des finances publiques, permet de connaître les transactions immobilières intervenues au cours des cinq dernières années. Les données contenues sont issues des actes notariés et des informations cadastrales.
 
 Il es disponible sur le site `datagouv.fr <https://www.data.gouv.fr/fr/datasets/5c4ae55a634f4117716d5656/>`_
@@ -12,9 +15,9 @@ Les fichiers mis à disposition font l’objet d’une mise à jour **semestriel
 A partir de ce fichier, le pôle SIG du Département du Calvados, propose de consulter l'historique des mutations immobilières et leurs valeures foncières à l'échelle d'une parcelle.
 
 
-
-.. image:: ../img/cadastre/schema_dvf_cadastre.png
+.. image:: ../img/cadastre/mutation_immo.gif 
    :scale: 50
+
 
 
 
