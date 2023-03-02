@@ -11,8 +11,7 @@ Les fichiers mis à disposition font l’objet d’une mise à jour **semestriel
 
 A partir de ce fichier, le pôle SIG du Département du Calvados, propose de consulter l'historique des mutations immobilières et leurs valeures foncières à l'échelle d'une parcelle.
 
-.. image:: ../img/cadastre/mutation_immo.gif
-   :scale: 50
+
 
 .. image:: ../img/cadastre/schema_dvf_cadastre.png
    :scale: 50
