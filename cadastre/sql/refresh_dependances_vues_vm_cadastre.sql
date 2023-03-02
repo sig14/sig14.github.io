@@ -1,11 +1,5 @@
 
  
-------
-
-select create_v_vm_cadastre()
-
-  -----
-
  CREATE OR REPLACE FUNCTION create_v_vm_cadastre()
 RETURNS INT AS $$
 DECLARE
