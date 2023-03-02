@@ -248,7 +248,7 @@ Sur la base de cette liste, un ensemble de scripts SQL permettant d’identifier
 2.	Détecter les erreurs de saisie géométrique
 3.	Produire un bilan sur l’ensemble des données de référence.
 
-Les scripts listés sont disponibles ici :`Scripts de contrôle <K:\Pole_SIG\Interne\03_TRAITEMENTS_SIG\1_postgres\adressage\mise_a_niveau_base\upgrade_to_0.9.0_with_trigger.sql>`_ 
+Les scripts listés sont disponibles ici :`Scripts de contrôle <https://github.com/sig14/sig14.github.io/blob/master/adressage/sql/outils_controles.sql>`_ 
 
 Description des scripts
 
@@ -715,4 +715,7 @@ Le Dashboard est utilisé par le pôle SIG afin de contrôler les erreurs de sai
 
 Ci-dessous, un exemple d'affichage des bilans adresses (en haut à droite) après sélection d'une commune sous QGIS.
 
+.. image:: ../img/adressage/III_saisie/dashboard/qgis_dashboard.gif
+   :width: 400px
+   :scale: 50
 
