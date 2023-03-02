@@ -45,7 +45,7 @@ La première étape consiste à créer une table miroir de données routes, en y
 
 Le bornage de ces tronçon permettra par la suite de fixer le parcours de réseau et de mesurer les distances parcourues.
 
-Le code sql de la fonction se trouve ici : `Fonction référentiel bornage routes DECI <file://K:/Pole_SIG/Data/03_TRAITEMENTS_SIG/1_postgres/sdis/fonction_network_deci.sql>`_ 
+Le code sql de la fonction se trouve ici : `Fonction référentiel bornage routes DECI <https://github.com/sig14/sig14.github.io/blob/master/deci/sql/fonction_network_deci.sql>`_ 
 
 2.1 Isoler les ségments de route
 ---------------------------------------------
@@ -140,7 +140,7 @@ Dumper la géométrie des routes pour obtenir les segments de routes.
 La seconde étape consiste à la mise en place d'une fonction déclenchée par un trigger, pour calcul automatique des périmètres 200 et 400 mètres
 à partir de la projection sur le référentiel routier du PEI nouvellement créé. 
 
-Le code sql de la fonction se trouve ici : `Fonction calcul automatique perimètre PEI <file://K:/Pole_SIG/Data/03_TRAITEMENTS_SIG/1_postgres/sdis/trigger_perimetre_bornes_incendie.sql>`_ 
+Le code sql de la fonction se trouve ici : `Fonction calcul automatique perimètre PEI <https://github.com/sig14/sig14.github.io/blob/master/deci/sql/trigger_perimetre_bornes_incendie.sql>`_ 
 
 
 3.1 Restreindre la zone de calcul
