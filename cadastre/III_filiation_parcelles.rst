@@ -18,9 +18,6 @@ Chaque lot d’analyse d’un même document de filiation fait l’objet de deux
 A partir de ce fichier, le pôle SIG du Département du Calvados, propose de consulter la généalogie d'une parcelle.
 
 
-.. image:: ../img/cadastre/23_dfi_cadastre.gif
-   :scale: 50
-
 .. image:: ../img/cadastre/schema_dfi_cadastre.png
    :scale: 50
 
