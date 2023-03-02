@@ -6,12 +6,16 @@ Le service d’interrogation du GPU permet d’obtenir les différentes informat
 Le dépratement met a disposition des communes l'ensemble de ces informations, ainsi que celles du cadastre sur son portail cartographique.
 Afin de faciliter la lecture des informations, l'ensemble des données du GPU sont collectées dans la base de données du Département à chaque mise à jour sur le GPU par les colectivités et agglomérées à l'echelle de la parcelle.
 
+.. image:: ../img/cadastre/7_schema_fiches_dosc_urba.png
+   :scale: 50
+
 Cela permet aux partenaires du CD14 de pouvoir consulter rapidement les informations du GPU liées à chaque parcelle : impact des zonages sur la parcelle, documents pdf associés, etc.
 
 
-.. image:: ../img/cadastre/7_schema_fiches_dosc_urba.png
-   :width: 400px
+
+.. image:: ../img/cadastre/docs_urba.gif
    :scale: 50
+
 
 
 
