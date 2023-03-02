@@ -36,7 +36,7 @@ Pour finir, certaines communes sont soumises au RNU (Réglement National d'Urban
 
 Un premier projet FME récupère les données d'emprise de document ainsi que les zonages PLU et secteurs de cartes communales.
 
-Le workbench FME chargeant les données depuis l'API, réalisant le traitement et l'intégration des données en base se trouve `Ici <file:////apw65/_FME/DOC_URBA/api_gpu2postgis/Calvados/1_api_zonage_gpu2postgis.fmw>`_
+Le workbench FME chargeant les données depuis l'API, réalisant le traitement et l'intégration des données en base se trouve `par ici <file:////apw65/_FME/DOC_URBA/api_gpu2postgis/Calvados/1_api_zonage_gpu2postgis.fmw>`_
 
 
 * Récupération des codes siren EPCI et ajout des potentiels suffixes (code optionnel secteur)
@@ -255,7 +255,7 @@ Pour cela on utilise une fonction postgresql/gis pour alimenter la table parcell
                 ADD deroulant_info varchar;
 
 
-On lance ensuite une fonction postgrresql/gis dont le code SQL se trouve `à cet endroit <file://K:/Pole_SIG/Interne/03_TRAITEMENTS_SIG/1_postgres/doc_urba/fiche_parcelle_doc_urba.sql>`_
+On lance ensuite une fonction postgrresql/gis dont le code SQL se trouve `Par <file://K:/Pole_SIG/Interne/03_TRAITEMENTS_SIG/1_postgres/doc_urba/fiche_parcelle_doc_urba.sql>`_
 
 * Dans un premier temps, la fonction met en place des tables temporaires rapprochant les parcelles du cadastre avec les données du GPU. L'objectif est également de pouvoir indexer ces tables temporaires pour accélerer la suite des traitements.
 
