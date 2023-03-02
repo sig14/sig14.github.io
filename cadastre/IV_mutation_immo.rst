@@ -51,7 +51,7 @@ Pour cela on utilise une fonction postgresql/gis pour alimenter la table parcell
 
 
 
-On lance ensuite une fonction postgrresql/gis dont le code SQL se trouve `à cet endroit <file://K:/Pole_SIG/Interne/03_TRAITEMENTS_SIG/1_postgres/foncier/dvf/fonction_dvf.sql>`_
+On lance ensuite une fonction postgrresql/gis dont le code SQL se trouve `à cet endroit <https://github.com/sig14/sig14.github.io/blob/master/cadastre/sql/fonction_dvf_cadastre.sql>`_
 
 * Dans un premier temps, on séléctionne des valeurs de champs distincts pour éviter les doublons
 
@@ -140,7 +140,7 @@ On lance ensuite une fonction postgrresql/gis dont le code SQL se trouve `à cet
    :scale: 50
 
 
-Le code HTML (onglet mutation immobilière + partie deroulant_dvf) se trouve `par ici <file://K:/Pole_SIG/Interne/03_TRAITEMENTS_SIG/9_lizmap/html/popup_cadastre.html>`_
+Le code HTML (onglet mutation immobilière + partie deroulant_dvf) se trouve `par ici <https://github.com/sig14/sig14.github.io/blob/master/cadastre/html/popup_cadastre.html>`_
 
 
 
@@ -149,7 +149,7 @@ Le code HTML (onglet mutation immobilière + partie deroulant_dvf) se trouve `pa
 
 * Mise à jour du CSS dans le panneau de configuration Lizmap
 
-Le code CSS se `trouve ici <file://K:/Pole_SIG/Interne/03_TRAITEMENTS_SIG/9_lizmap/css/style_dvf_cadastre.css>`_
+Le code CSS se `trouve ici <https://github.com/sig14/sig14.github.io/blob/master/cadastre/css/dvf_cadastre.css>`_
 
 
 .. image:: ../img/cadastre/19_config_css.png
