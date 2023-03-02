@@ -1,7 +1,11 @@
 # Documentation du SIG du Département du Calvados
 
 
-bla bla bla
+Bienvenue sur le portail dédié à la documentation des activités du pôle SIG du Département du Calvados.
+
+Vous retrouverez sur ce site la description des tâches effectuées par nos équipes, ainsi que des liens utiles vers nos projets et nos fichiers.
+
+Bonne visite !
 
 ```{toctree}
 :caption: Adressage
