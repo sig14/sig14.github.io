@@ -148,7 +148,7 @@ Pour cela nous lançons la requête suivante :
                 ;
 
 
-Le code de la VM se trouve `ici <file://K:/Pole_SIG/Interne/03_TRAITEMENTS_SIG/1_postgres/cadastre/_maj_view_annuelle/1_dependances_vues_vms_cadastre.sql>`_
+Le code de la VM se trouve `par ici <file://K:/Pole_SIG/Interne/03_TRAITEMENTS_SIG/1_postgres/cadastre/_maj_view_annuelle/1_dependances_vues_vms_cadastre.sql>`_
 
 .. image:: ../img/cadastre/2_table_dependances_cadastre.png
    :scale: 50
@@ -199,7 +199,7 @@ Pour relancer les vues et vm dépendandante, lancer la requête suivante :
             select create_v_vm_cadastre()
 
 
-Cette requête appelle la fonction dont le code se trouve `ici <file://K:/Pole_SIG/Interne/03_TRAITEMENTS_SIG/1_postgres/cadastre/_maj_view_annuelle/2_refresh_dependances_vues_vm_cadastre.sql>`_
+Cette requête appelle la fonction dont le code se trouve `là <file://K:/Pole_SIG/Interne/03_TRAITEMENTS_SIG/1_postgres/cadastre/_maj_view_annuelle/2_refresh_dependances_vues_vm_cadastre.sql>`_
 
 6- Actualiser les données cadastres des autres schémas
 ========================================================
@@ -208,12 +208,12 @@ Afin de limiter les dépendance au schema cadastre, une copie des données est e
 
 * **adresse**
 
-Le code à lancer pour la copie des données se trouve `ici <file://K:/Pole_SIG/Interne/03_TRAITEMENTS_SIG/1_postgres/adressage/cadastre/maj_anuelle_parcelle_cadastre.sql>`_
+Le code à lancer pour la copie des données se trouve `trouve ici <file://K:/Pole_SIG/Interne/03_TRAITEMENTS_SIG/1_postgres/adressage/cadastre/maj_anuelle_parcelle_cadastre.sql>`_
 
 
 * **fibre_calvados**
 
-Le code à lancer pour la copie des données se trouve `ici <file://file://K:/Pole_SIG/Interne/03_TRAITEMENTS_SIG/1_postgres/fibre/maj_anuelle_parcelle_cadastre.sql>`_
+Le code à lancer pour la copie des données  `est déposé ici <file://file://K:/Pole_SIG/Interne/03_TRAITEMENTS_SIG/1_postgres/fibre/maj_anuelle_parcelle_cadastre.sql>`_
 
 
 7- Actualiser les fiches HTML de la table parcelle_info
