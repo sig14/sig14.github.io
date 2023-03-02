@@ -716,6 +716,5 @@ Le Dashboard est utilisé par le pôle SIG afin de contrôler les erreurs de sai
 Ci-dessous, un exemple d'affichage des bilans adresses (en haut à droite) après sélection d'une commune sous QGIS.
 
 .. image:: ../img/adressage/III_saisie/dashboard/qgis_dashboard.gif
-   :width: 400px
    :scale: 50
 
