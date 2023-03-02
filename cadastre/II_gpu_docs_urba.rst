@@ -41,7 +41,7 @@ Pour finir, certaines communes sont soumises au RNU (Réglement National d'Urban
 
 Un premier projet FME récupère les données d'emprise de document ainsi que les zonages PLU et secteurs de cartes communales.
 
-Le workbench FME chargeant les données depuis l'API, réalisant le traitement et l'intégration des données en base se trouve `par ici <file:////apw65/_FME/DOC_URBA/api_gpu2postgis/Calvados/1_api_zonage_gpu2postgis.fmw>`_
+Le workbench FME chargeant les données depuis l'API, réalisant le traitement et l'intégration des données en base se trouve `par ici <https://github.com/sig14/sig14.github.io/releases/tag/FME_api_zonage_gpu>`_
 
 
 * Récupération des codes siren EPCI et ajout des potentiels suffixes (code optionnel secteur)
@@ -129,7 +129,7 @@ response body : Attribute
 
 Un second projet FME récupère les données de prescriptions linéaires, surfaciques et ponctuel sur le même modèle que précédemment, à l'exception de :
 
-Le workbench FME se trouve `ICI <file:////apw65/_FME/DOC_URBA/api_gpu2postgis/Calvados/api_prescriptions_gpu2postgis.fmw>`_
+Le workbench FME se trouve `ICI <https://github.com/sig14/sig14.github.io/releases/tag/api_prescription_gpu>`_
 
 * Récupération des codes insee des communes historiques qui ne sont pas classées au rnu depuis la table crée dans la partie précédente
 
@@ -172,7 +172,7 @@ response body : Attribute
 
 Un dernier projet FME récupère les données informations prescriptions linéaires, surfaciques et ponctuel sur le même modèle que précédemment.
 
-Le workbench FME se trouve `à cet endroit <file:////apw65/_FME/DOC_URBA/api_gpu2postgis/Calvados/api_info_prescriptions_gpu2postgis.fmw>`_
+Le workbench FME se trouve `à cet endroit <https://github.com/sig14/sig14.github.io/releases/tag/api_info_prescriptions_gpu>`_
 
 
 * Récupération des données depuis l'API avec les "DU _" précédemments créés : données linéaires, surfaces et ponctuels
@@ -448,7 +448,7 @@ A la récéption de ce mail, un membre de l'équipe déclenche un fichier batch,
 Le premier worbench FME supprime les données GPU de la base sur le périmtre des nouvelles données importées.
 
 
-Le workbench FME se `télécharge ici <file:////apw65/_FME/DOC_URBA/api_gpu2postgis/Commune_epci/1_DROP_DATA.fmw>`_
+Le workbench FME se `télécharge ici <https://github.com/sig14/sig14.github.io/releases/tag/FME_drop_data_gpu>`_
 
 
 * Récupération du code siren EPCI ou insee commune entré dans le batch et ajout des potentiels suffixes (code optionnel secteur)
@@ -520,16 +520,16 @@ response body : Attribute
 
 Le second worbench FME insert les nouvelles données GPU au niveau du code partition "DU _" entré dans le batch sur le modèle décrit dans la partie 1.
 
-Le workbench FME se  `trouve ici <file:////apw65/_FME/DOC_URBA/api_gpu2postgis/Commune_epci/2_INSERT_DATA.fmw>`_
+Le workbench FME se  `trouve ici <https://github.com/sig14/sig14.github.io/releases/tag/FME_insert_data_gpu_on_du>`_
 
 
 3.4 - FME/PostgreSQL,GIS : Mise à jour des champs html GPU du cadastre
 ----------------------------------------------------------------------
 
 
-Le dernier worbench FME lance une fonction méttant les champs HTML du cadastre au niveau du nouveau "DU _ partition" éntré dans le batch.
+Le dernier worbench FME lance une fonction mettant à jour les champs HTML du cadastre au niveau du nouveau "DU _ partition" renseigné dans le batch.
 
-Le workbench FME  `se télécharge ici <file:////apw65/_FME/DOC_URBA/api_gpu2postgis/Commune_epci/3_FICHE_DOC_URBA_CADASTRE.fmw">`_
+Le workbench FME  `se télécharge ici <https://github.com/sig14/sig14.github.io/releases/tag/FME_fiches_cadastre_docs_urba_gpu>`_
 
 Ce workbench fonctionne comme le premier workbench récupérant l'emprise, mais avec une dernière requête qui corrige les géométries invalides des documents GPU et qui lance une fonction postgresql de mise à jour des champs HTML de la table parcelle_info du cadastre.
 
