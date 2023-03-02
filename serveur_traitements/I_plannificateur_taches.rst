@@ -439,8 +439,6 @@ Dans le corps du RDV :
 -	Le chemin/url destination des données
 -	Une description du traitement
 
-.. image:: ../img/serveur_traitement/task_calendar.gif
-   :scale: 50
 
 Vous pouvez définir les catégories dans outlook comme ci-dessous pour visualiser la périodicité des traitement en couleur et les modalités d’imports/export de données (entrants, sortants, interne).
 
