@@ -51,6 +51,7 @@ Dans un premier temps, afin de pouvoir correcetement lire le fichier, à l'aide 
               (?:[^\;]*\;){9}(.*)
 
 match1 : **140;001;000;0000299;1;19900305;XXXXXREDACTEURDUDOCUMENTXXXX;00001;2;A0297;A0298;** 
+
 group1 : **A0297;A0298;**
 
 
