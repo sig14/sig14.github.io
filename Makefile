@@ -23,7 +23,7 @@ gh-pages-dependencies:
             latexmk
 # Do all required building for gh-pages, copy the site to
 # _build/gh-pages.
-gh-pages: dirhtml singlehtml latexpdf epub
+gh-pages: dirhtml singlehtml epub
 	mkdir -p _build/gh-pages/
 	mkdir -p _build/gh-pages/_builds/
 	rsync -a _build/dirhtml/ _build/gh-pages/
