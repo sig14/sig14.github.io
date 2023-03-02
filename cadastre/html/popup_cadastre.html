@@ -1,0 +1,201 @@
+
+
+<div class="container popup_lizmap_dd" style="width:100%;">
+    <ul class="nav nav-tabs">
+
+  <li class="active"><a href="#popup_dd_[% $id %]_Infos_parcelle" data-toggle="tab">Infos parcelle</a></li>
+
+  <li class=""><a href="#popup_dd_[% $id %]_Urbanisme" data-toggle="tab">Urbanisme</a></li>
+
+  <li class="[% if ( "tab_filiation" is not null, '', 'hidden') %]"><a href="#popup_dd_[% $id %]_Filiations" data-toggle="tab">Filiations</a></li>
+
+  <li class="[% if ( "deroulant_dvf" is not null, '', 'hidden') %]"><a href="#popup_dd_[% $id %]_Mutations_immobili_res" data-toggle="tab">Mutations_immobilières</a></li>
+</ul>
+<div class="tab-content">
+  <div id="popup_dd_[% $id %]_Infos_parcelle" class="tab-pane active">
+
+<h2>[% SUBSTR("idu",4,3) || ' ' || "code" %]</h2>
+
+                   
+<p>
+<table class="table table-condensed">
+<tr>
+  <th>Commune</th>
+  <td>[% "nomcommune" %] ([% "codecommune" %])</td>
+</tr>
+<tr>
+  <th>Surface : </th>
+  <td>[% "surface_geo" %] m2</td>
+</tr>
+<tr>
+  <th>Contenance : </th>
+  <td>[% "contenance" %] m2</td>
+</tr>
+<tr>
+  <th>Adresse : </th>
+  <td>[% "adresse" %]</td>
+</tr>
+<tr>
+  <th>Urbaine ?</th>
+  <td>[% "urbain" %]</td>
+</tr>
+</table>
+</p>
+
+    
+<h2>PROPRIETAIRES</h2>
+<p>
+<span style="font-size:1.2em;font-weight:bold;">Propriétaires</span>
+</p>
+
+
+
+<p>
+<table class="table table-condensed">
+<tr>
+<td>
+[% replace("proprietaire" , '|', '</td></tr><tr><td>')%]
+</td>
+</tr>
+</table>
+</p>
+
+
+<p>
+<span style="font-size:1.2em;font-weight:bold;">Propriétaires (infos détaillées)</span>
+</p>
+
+
+
+
+
+<p>
+<table class="table table-condensed">
+<tr>
+<td>
+[% replace("proprietaire_info" , '|', '</td></tr><tr><td>')%]
+</td>
+</tr>
+</table>
+</p>
+
+  </div>
+
+  <div id="popup_dd_[% $id %]_Urbanisme" class="tab-pane ">
+    
+                    [% CASE
+                        WHEN "tab_doc_urba" IS NOT NULL OR trim("tab_doc_urba") != ''
+                        THEN concat(
+                            '<p>', 
+                            '<div class="field">', "tab_doc_urba", '</div>',
+                            '</p>'
+                        )
+                        ELSE ''
+                    END %]
+    
+                    [% CASE
+                        WHEN "deroulant_zonage" IS NOT NULL OR trim("deroulant_zonage") != ''
+                        THEN concat(
+                            '<p>', 
+                            '<div class="field">', "deroulant_zonage", '</div>',
+                            '</p>'
+                        )
+                        ELSE ''
+                    END %]
+    
+                    [% CASE
+                        WHEN "deroulant_secteur" IS NOT NULL OR trim("deroulant_secteur") != ''
+                        THEN concat(
+                            '<p>', 
+                            '<div class="field">', "deroulant_secteur", '</div>',
+                            '</p>'
+                        )
+                        ELSE ''
+                    END %]
+    
+                    [% CASE
+                        WHEN "deroulant_prescription" IS NOT NULL OR trim("deroulant_prescription") != ''
+                        THEN concat(
+                            '<p>', 
+                            '<div class="field">', "deroulant_prescription", '</div>',
+                            '</p>'
+                        )
+                        ELSE ''
+                    END %]
+    
+                    [% CASE
+                        WHEN "deroulant_info" IS NOT NULL OR trim("deroulant_info") != ''
+                        THEN concat(
+                            '<p>', 
+                            '<div class="field">', "deroulant_info", '</div>',
+                            '</p>'
+                        )
+                        ELSE ''
+                    END %]
+  </div>
+
+  <div id="popup_dd_[% $id %]_Filiations" class="tab-pane ">
+    
+                    [% CASE
+                        WHEN "tab_filiation" IS NOT NULL OR trim("tab_filiation") != ''
+                        THEN concat(
+                            '<p>', 
+                            '<div class="field">', "tab_filiation", '</div>',
+                            '</p>'
+                        )
+                        ELSE ''
+                    END %]
+  </div>
+
+  <div id="popup_dd_[% $id %]_Mutations_immobili_res" class="tab-pane ">
+    
+                    [% CASE
+                        WHEN "deroulant_dvf" IS NOT NULL OR trim("deroulant_dvf") != ''
+                        THEN concat(
+                            '<p>', 
+                            '<div class="field">', "deroulant_dvf", '</div>',
+                            '</p>'
+                        )
+                        ELSE ''
+                    END %]
+  </div>
+</div>
+</div>
+<style>
+    div.popup_lizmap_dd {
+        margin: 2px;
+    }
+    div.popup_lizmap_dd div {
+        padding: 5px;
+    }
+    div.popup_lizmap_dd div.tab-content{
+        border: 1px solid rgba(150,150,150,0.5);
+    }
+    div.popup_lizmap_dd ul.nav.nav-tabs li a {
+        border: 1px solid rgba(150,150,150,0.5);
+        border-bottom: none;
+        color: grey;
+    }
+    div.popup_lizmap_dd ul.nav.nav-tabs li.active a {
+        color: #333333;
+    }
+    div.popup_lizmap_dd div.tab-content div.tab-pane div {
+        border: 1px solid rgba(150,150,150,0.5);
+        border-radius: 5px;
+        background-color: rgba(150,150,150,0.5);
+    }
+    div.popup_lizmap_dd div.tab-content div.tab-pane div.field,
+    div.popup_lizmap_dd div.field,
+    div.popup_lizmap_dd div.tab-content div.field {
+        background-color: white;
+        border: 1px solid white;
+    }
+    div.popup_lizmap_dd div.tab-content legend {
+        font-weight: bold;
+        font-size: 1em !important;
+        color: #333333;
+        border-bottom: none;
+        margin-top: 15px !important;
+    }
+
+</style>
