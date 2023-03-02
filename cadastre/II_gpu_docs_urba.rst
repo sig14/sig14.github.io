@@ -518,7 +518,7 @@ response body : Attribute
 3.3 - FME : Import des données en fonction de l'emprise
 -------------------------------------------------------
 
-Le second worbench FME insert les nouvelles données GPU au niveau du code partition "DU _" entré dans le batch sur le modèle décrit dans la partie 1.
+Le second worbench FME insère les nouvelles données GPU au niveau du code partition "DU _" entré dans le batch sur le modèle décrit dans la partie 1.
 
 Le workbench FME se  `trouve ici <https://github.com/sig14/sig14.github.io/releases/tag/FME_insert_data_gpu_on_du>`_
 
