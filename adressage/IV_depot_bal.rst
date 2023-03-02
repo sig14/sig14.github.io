@@ -407,11 +407,11 @@ On insère finalement les données dans la table *commune* citée en partie I au
 3e Etape :  Mailing automatique
 ================================
 
-En complément de la chaine de traitement détaillée précédemment, un bilan hebdomadaire est réalisée sur la base de données adresse du Département.
+En complément de la chaine de traitement détaillée précédemment, un bilan hebdomadaire est réalisé sur la base de données adresse du Département.
 
-Ce bilan vise à recenser le détaille des points adresses modifiés, supprimés et ajoutés sur les communes ayant ubliées leur BAN durant les 7 derniers jours.
+Ce bilan vise à recenser le détail des points adresses modifiés, supprimés et ajoutés sur les communes ayant publié leur BAN durant les 7 derniers jours.
 
-Il est transmis chaque début de semaine au chef de projet du Département et aux partennaires du projet (La poste et DGFIP).
+Il est transmis chaque début de semaine au chef de projet adresse du Département et aux partennaires du projet (La poste, DGFIP, ...).
 
 
 
