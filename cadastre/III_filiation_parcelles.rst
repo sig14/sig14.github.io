@@ -1,6 +1,10 @@
 III- Onglet Filiation parcellaire 
 *********************************
 
+.. image:: ../img/cadastre/schema_dfi_cadastre.png
+   :scale: 50
+
+
 Les fichiers départementaux des documents de filiation informatisés (DFI) des parcelles permettent de consulter l'historique des parcelles cadastrales.
 
 Ce fichier recense les modifications parcellaires réalisées depuis l'informatisation de leur procédure de mise à jour qui, selon les départements, est intervenue entre les années 1980 à 1990. L'origine des différentes mises à jour (documents d'arpentage, croquis de conservation, remaniement...) ainsi que leurs dates sont renseignées.
@@ -15,13 +19,15 @@ Chaque lot d’analyse d’un même document de filiation fait l’objet de deux
 
 * celle de type 2 pour toutes ses parcelles filles (il peut n’y en avoir aucune dans le cas de passage au domaine public).
 
+.. image:: ../img/cadastre/filiation_parcelles.gif
+   :scale: 50
+
+
+
 A partir de ce fichier, le pôle SIG du Département du Calvados, propose de consulter la généalogie d'une parcelle.
 
 
-.. image:: ../img/cadastre/schema_dfi_cadastre.png
-   :width: 400px
-   :align: center
-   :scale: 50
+
 
 1- Traitement et import FME des données 
 =========================================
