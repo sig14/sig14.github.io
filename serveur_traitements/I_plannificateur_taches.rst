@@ -13,7 +13,6 @@ Avec la multiplication des taches plannifiées, un traitement FME a éta mis en 
    :scale: 50
 
 
-Le workbench FME se trouve `ici <file:////apw65/_FME/CALENDRIER TACHES/xml_task_windows_scheduler_to_ics.fmw">`_
 
 
 1 - Normes de saisies sur le plannificateur Windows
@@ -88,6 +87,10 @@ LE RESUME ET SON CONTENU DOIT TOUJOURS TERMINER LA DESCRIPTION !!
 
 2 - Fonctionnement du workbbench FME
 ====================================
+
+
+Le workbench FME se trouve `ici <https://github.com/sig14/sig14.github.io/releases/tag/FME_xml_task_windows_scheduler_to_ics>`_
+
 
 2.1 - Charger les fichiers XML task schduler
 ---------------------------------------------
