@@ -19,17 +19,7 @@ A partir de ce fichier, le pôle SIG du Département du Calvados, propose de con
    :scale: 50
 
 
-
-
-1- Traitement et import FME des données 
-=========================================
-
-Un workbench FME récupère les données de valeurs foncières et les intègre dans la base de données du CD14.
-
-Le workbench FME se trouve `là <file:////apw65/_FME/CADASTRE/valeur_fonciere_txt2postgres.fmw>`_
-
-
-2- Champ HTML historique déroulant 
+1- Champ HTML historique déroulant 
 ==========================================
 
 L'objectif est ici de pouvoir consulter l'historique des mutations immobilières et les valeurs foncières à l'échelle de la parcelle.
@@ -38,7 +28,7 @@ L'utilisateur peut en cliquant sur une parcelle, consulter les différentes muta
 
 Pour cela on utilise une fonction postgresql/gis pour alimenter la table parcelle_info du cadastre et une mise en forme du formulaire QGIS en HTML pour publication sur le portail cartographique Lizmap.
 
-2.1 - Fonction postgresql/gis
+1.1 - Fonction postgresql/gis
 -----------------------------
 
 
@@ -144,7 +134,7 @@ Le code HTML (onglet mutation immobilière + partie deroulant_dvf) se trouve `pa
 
 
 
-2.3 - Rendu lizmap
+1.3 - Rendu lizmap
 ------------------
 
 * Mise à jour du CSS dans le panneau de configuration Lizmap
