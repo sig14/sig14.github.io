@@ -19,6 +19,8 @@ A partir de ce fichier, le pôle SIG du Département du Calvados, propose de con
 
 
 .. image:: ../img/cadastre/schema_dfi_cadastre.png
+   :width: 400px
+   :align: center
    :scale: 50
 
 1- Traitement et import FME des données 
@@ -40,34 +42,36 @@ Le workbench FME se trouve `ici <file:////apw65/_FME/CADASTRE/filiation_parcelle
 Dans un premier temps, afin de pouvoir correcetement lire le fichier, à l'aide d'expression régulière et de l'ETL FME
 , les données parcelles sont réunies en listes dans un seul champs.
 
-* Ramplacer XX par !
+140;001;000;0000299;1;19900305;XXXXXREDACTEURDUDOCUMENTXXXX;00001;2;A0297;A0298;
 
-140;001;000;0000299;1;19900305;XXXXXREDACTEURDUDOCUMENTXXXX **!** 00001;2;A0297; A0298;
 
-* Remplacer les 6 première ; par des ! à partir de !
 
+* Identifier les listes de parcelles après le 9e ;
                  
-               **(?=(;[^;]{0,}){1,6}\!);**
+              (?:[^\;]*\;){9}(.*)
 
-140!001!000!0000299!1!19900305!XXXXXREDACTEURDUDOCUMENTXXXX **!** 00001;2;A0297; A0298;
-
-* Remplacer les ;1; par !1!{
-
-140!001!000!0000299!1!19900305!XXXXXREDACTEURDUDOCUMENTXXXX!00001 **!1!{** A0297; A0298;
+match1 : **140;001;000;0000299;1;19900305;XXXXXREDACTEURDUDOCUMENTXXXX;00001;2;A0297;A0298;** 
+group1 : **A0297;A0298;**
 
 
-* Remplacer les ;2; par !2!{
+* Extraire le résultat du group1 dans un attribute creator
 
-140!001!000!0000299!1!19900305!XXXXXREDACTEURDUDOCUMENTXXXX!00001 **!2!{** A0297; A0298;
-
-* Remplacer les ; restants en fin de ligne par des ,
-
-140!001!000!0000299!1!19900305!XXXXXREDACTEURDUDOCUMENTXXXX!00001 **!2!{** A0297, A0298,
+               **@Value(list_parcelles{0}.part)**
 
 
-* Remplacer les! précédements créés pour réatblir le séparateur ; pour les champs
+* Remplacer les valeurs du group du premier match 
 
-140;001;000;0000299;1;19900305;XXXXXREDACTEURDUDOCUMENTXXXX;00001;2;{A0297, A0298,
+match1 : **140;001;000;0000299;1;19900305;XXXXXREDACTEURDUDOCUMENTXXXX;00001;2** 
+
+
+* Remplacer les ; du resultat de liste de parcelle extrait par des ,
+
+group1 : **A0297,A0298,**
+
+
+* Concatener le match 1 et les résultas extraits
+
+**140;001;000;0000299;1;19900305;XXXXXREDACTEURDUDOCUMENTXXXX;00001;2;A0297, A0298,**
 
 * On ajoute ensuite une ligne avec la liste des nom de champs
 
@@ -92,19 +96,10 @@ On effectue une dernière correction du fichier avant intégration dans la base 
 
 * Ajout des prefixes 0 aux sections et codecom en fonction de la longeur des variables (un 0 si length() = 2,  deux 0 si length() =1 .
 
-
-* ajout d'un ! en fin de listes de parcelles
-
-{A0297, A0298, **!**
-
-* remplacer les valeurs ,! par } dans le champs list parcelle pour fermer proprement les listes
-
-{A0297, A0298 **}**
-
-* remplacer les valeurs {! par vide pour valeurs vides si pas de parcelle dans la lsite
-
-
 * suprimmer les espaces dans le champs list parcelle
+
+* suprimmer la dernière virgule en trop dans le champs list parcelle
+
 
 2- Champ HTML historique déroulant 
 ==========================================
