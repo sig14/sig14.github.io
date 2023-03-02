@@ -2,7 +2,7 @@
 I- Mise à jour annuelle
 ******************************
 
-.. image:: ../images/Cadastre/schema_intro_maj_anuelle.png
+.. image:: ../img/cadastre/schema_intro_maj_anuelle.png
    :width: 880
 
 1- Installation du plugin cadastre 
@@ -13,7 +13,7 @@ Télécharger la dernière version stable du plugin cadastre Qgis `ici <https://
 
 Déplacer le zip sur apw65 et installer le depuis le menu **extension** de QGIS.
 
-.. image:: ../images/Cadastre/1_plugin_cadaster.png
+.. image:: ../img/cadastre/1_plugin_cadaster.png
    :scale: 50
 
 Une fois le plugin installé, un nouveau menu Cadastre apparaît dans le menu Extensions de QGIS. Il comporte les sous-menus suivants :
@@ -150,7 +150,7 @@ Pour cela nous lançons la requête suivante :
 
 Le code de la VM se trouve `ici <file://K:/Pole_SIG/Interne/03_TRAITEMENTS_SIG/1_postgres/cadastre/_maj_view_annuelle/1_dependances_vues_vms_cadastre.sql>`_
 
-.. image:: ../images/Cadastre/2_table_dependances_cadastre.png
+.. image:: ../img/cadastre/2_table_dependances_cadastre.png
    :scale: 50
 
 
@@ -162,11 +162,11 @@ Le code de la VM se trouve `ici <file://K:/Pole_SIG/Interne/03_TRAITEMENTS_SIG/1
 
 * Paramètrer le plugin en séléctionnant configuration. Sélectionner les bon noms et types de fichiers.
 
-.. image:: ../images/Cadastre/3_conf_plugin.png
+.. image:: ../img/cadastre/3_conf_plugin.png
    :scale: 50
 
 
-.. image:: ../images/Cadastre/4_conf_plugin_2.png
+.. image:: ../img/cadastre/4_conf_plugin_2.png
    :scale: 50
 
 
@@ -179,11 +179,11 @@ Le code de la VM se trouve `ici <file://K:/Pole_SIG/Interne/03_TRAITEMENTS_SIG/1
 - Fichiers MAJIC: charger le dossier déposé sur APW65
 - Département  : 14
 - Lot : "donner un nom pour l'import"
-.. image:: ../images/Cadastre/5_import_plugin.png
+.. image:: ../img/cadastre/5_import_plugin.png
    :scale: 50
 
 
-.. image:: ../images/Cadastre/6_import_plugin_2.png
+.. image:: ../img/cadastre/6_import_plugin_2.png
    :scale: 50
 
 
@@ -289,7 +289,3 @@ A chaque réimport du cadastre il est nécessaire de recréer et mettre à jour 
         .. code-block:: sql
 
             select ref_foncier.parcelles_valeur_fonciere_lizmap()
-
-
-
-
