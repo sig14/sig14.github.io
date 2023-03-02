@@ -24,7 +24,7 @@ Depuis 2019, le Département du Calvados propose aux communes **un accompagnemen
 
 Afin de pouvoir présenter aux élus la démarche d'adressage et le dispositif d'accompagnement proposé par le Département du Calvados, le Pôle SIG s'est doté d'un projet de génération de **rapports thématiques automatisés**. Ces rapports pouvant donc être transposés à n'importe quelle autre thématique que l'adressage.
 
-Avec la fonctionnalité d'`Atlas de QGIS <http://www.qgistutorials.com/fr/docs/automating_map_creation.html>`_ il est possible de générer une carte pour chaque entité géographique à partir d'un modèle. Ainsi, cet outil permet de produire une carte par commune (ou par canton, EPCI etc.) à partir d'un modèle unique. Pour l'exemple qui va suivre, la maille choisie est celle du canton de façon à pouvoir présenter aux conseillers départementaux un rapport d'avancement de l'adressage sur les communes composant leur territoire. `Un exemplaire est disponible ici <https://mapeo-calvados.fr/system/files/rapport_adressage_canton_bayeux.pdf>`_.
+Avec la fonctionnalité d'`Atlas de QGIS <http://www.qgistutorials.com/fr/docs/automating_map_creation.html>`_ il est possible de générer une carte pour chaque entité géographique à partir d'un modèle. Ainsi, cet outil permet de produire une carte par commune (ou par canton, EPCI etc.) à partir d'un modèle unique. Pour l'exemple qui va suivre, la maille choisie est celle du canton de façon à pouvoir présenter aux conseillers départementaux un rapport d'avancement de l'adressage sur les communes composant leur territoire.
 
 Dans cet exemple, le choix est de faire apparaître deux types d'informations :
 
