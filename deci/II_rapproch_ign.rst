@@ -21,7 +21,7 @@ L'objectif étant de déterminer pour chaque tronçon de BDtopo :
 
 Cette première étape vise à associer pour chaque voie tracée et enregistrée par les communes dans la base de données adresse du Département un tronçon BDtopo IGN.
 
-Pour cela nous faisons appel à la fonction *adresse.id_voie_bdtopo_sdis()* qui se trouve ici : `fonction sql <file://K:/Pole_SIG/Interne/03_TRAITEMENTS_SIG/1_postgres/adressage/sdis/raprochement_adresse_tronçon_sdis/fonction_rapproche_adresses_voie.sql>`_
+Pour cela nous faisons appel à la fonction *adresse.id_voie_bdtopo_sdis()* qui se trouve ici : `fonction sql <https://github.com/sig14/sig14.github.io/blob/master/deci/sql/fonction_rapproche_adresses_voies_ign.sql>`_
 
 1.1 Segmenter les tronçons Bdtopo
 ---------------------------------
@@ -135,7 +135,7 @@ Dans un second temps on rapproche les tronçon dont la majorité des noeuds se t
 
 Cette seconde étape vise à associer pour chaque tronçon, les points adresses dépendant de la voie qui lui a été attribué.
 
-Pour cela nous créons une vue materialisée *adresse.vm_sdis_pts_adresse_bdtopo* dont le code se trouve ici : `vm sql <file://K:/Pole_SIG/Interne/03_TRAITEMENTS_SIG/1_postgres/adressage/sdis/raprochement_adresse_tronçon_sdis/fonction_rapproche_adresses_point.sql>`_
+Pour cela nous créons une vue materialisée *adresse.vm_sdis_pts_adresse_bdtopo* dont le code se trouve ici : `vm sql <https://github.com/sig14/sig14.github.io/blob/master/deci/sql/vm_rapproch_adresses_point_voie_ign.sql>`_
 
 
 2.1 Projeter les points adresses sur les tronçons
@@ -297,7 +297,7 @@ Pour identifier le côté du point adresse par rapport au tronçon.
 
 On identifie ici les points adresses dont le côté n'a pu être determiné : mauvais traçé d'un tronçon, positionnement particulier du point adresse par rapport au tronçon (à l'extrémité d'un tronçon).
 
-Pour cela nous créons une vue materialisée *adresse.vm_sdis_pts_adresse_indetermine * dont le code se trouve ici : `vm sql <file://K:/Pole_SIG/Interne/03_TRAITEMENTS_SIG/1_postgres/adressage/sdis/raprochement_adresse_tronçon_sdis/vm_adresses_indeterminees.sql>`_
+Pour cela nous créons une vue materialisée *adresse.vm_sdis_pts_adresse_indetermine * dont le code se trouve ici : `vm sql <https://github.com/sig14/sig14.github.io/blob/master/deci/sql/vm_adresses_indeterminees_voies_ign.sql>`_
 
 
                    .. code-block:: sql
@@ -329,7 +329,7 @@ Pour cela nous créons une vue materialisée *adresse.vm_sdis_pts_adresse_indete
 
 On identifie ici les voies adresses pour lesquelles aucun tronçon n'a pu être rapporché : pas de tronçon superposé, une trop petite partie du tronçon superposée.
 
-Pour cela nous créons une vue materialisée *adresse.vm_troncon_no_voie_bd_topo* dont le code se trouve ici : `vm sql <file://K:/Pole_SIG/Interne/03_TRAITEMENTS_SIG/1_postgres/adressage/sdis/raprochement_adresse_tronçon_sdis/vm_adresses_indeterminees.sql>`_
+Pour cela nous créons une vue materialisée *adresse.vm_troncon_no_voie_bd_topo* dont le code se trouve ici : `vm sql <https://github.com/sig14/sig14.github.io/blob/master/deci/sql/vm_voies_adresses_sans_tron%C3%A7on_ign.sql>`_
 
 
                   .. code-block:: sql/
