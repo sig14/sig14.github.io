@@ -115,11 +115,7 @@ Les 3 derniers champs de cette table sont mis à jours quotidienement comme suit
 
 *Vous pouvez télécharger la dernière version du projet FME en cliquant sur le lien ci dessous :*
 
-`Téléchargement du projet FME <https://github.com/sig14/private-doc/releases/download/adresse/FME_api_depot_bal.zip>`_
-
-*Le Workbench FME a été déposé sur le serveur APW65. Suivre le lien ci dessous :*
-
-`Lien projet FME APW65 <file:////apw65/_FME/ADRESSAGE/api_depot_bal.fmw>`_ 
+`Téléchargement du projet FME <https://github.com/sig14/sig14.github.io/files/10873043/api_depot_bal.zip>`_
 
 
 2.1 - Ajouter les données sources
@@ -475,12 +471,7 @@ Enregistrement au format CSV d'une table de données des adresses créées duran
 
 *Vous pouvez télécharger la dernière version du projet FME en cliquant sur le lien ci dessous :*
 
-`Téléchargement du FME <https://github.com/sig14/private-doc/releases/download/mailing/mail_depot_bal_laposte.fmw>`_
-
-
-*Le Workbench FME a été déposé sur le serveur APW65. Suivre le lien ci dessous :*
-
-`Lien FME APW65 <file://\\apw65\_FME\ADRESSAGE\mail_depot_bal_laposte.fmw>`_ 
+`Téléchargement du FME <https://github.com/sig14/sig14.github.io/releases/tag/FME_mail>`_
 
 
 Le traitement se déroule comme suit :
