@@ -275,7 +275,7 @@ On lance ensuite une fonction postgrresql/gis dont le code SQL se trouve `ICI <f
    :scale: 50
 
 
-Le code HTML (Onglet Filiations + partie tab_filiation) se trouve `Ici <file://K:/Pole_SIG/Interne/03_TRAITEMENTS_SIG/9_lizmap/html/popup_cadastre.html>`_
+Le code HTML (Onglet Filiations + partie tab_filiation) se trouve `Par ici <file://K:/Pole_SIG/Interne/03_TRAITEMENTS_SIG/9_lizmap/html/popup_cadastre.html>`_
 
 
 
