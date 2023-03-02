@@ -23,3 +23,11 @@ cadastre/II_gpu_docs_urba
 cadastre/III_filiation_parcelles
 cadastre/IV_mutation_immo
 ```
+
+```{toctree}
+:caption: DECI 
+:maxdepth: 1
+
+deci/I_perimetres_pei
+deci/II_rapproch_ign
+```
