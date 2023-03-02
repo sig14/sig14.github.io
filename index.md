@@ -31,3 +31,10 @@ cadastre/IV_mutation_immo
 deci/I_perimetres_pei
 deci/II_rapproch_ign
 ```
+
+```{toctree}
+:caption: Serveur de traitements
+:maxdepth: 1
+
+serveur_traitements/I_plannificateur_taches
+```
