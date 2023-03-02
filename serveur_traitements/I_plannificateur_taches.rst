@@ -9,6 +9,10 @@ Pour cela, des taches sont programmées via le logiciel 'Task scheduler' de wind
 
 Avec la multiplication des taches plannifiées, un traitement FME a éta mis en place pour automatiser la création d'un calendrier partagé des taches windows dans Outlook.
 
+.. image:: ../img/serveur_traitement/task_calendar.gif
+   :scale: 50
+
+
 Le workbench FME se trouve `ici <file:////apw65/_FME/CALENDRIER TACHES/xml_task_windows_scheduler_to_ics.fmw">`_
 
 
