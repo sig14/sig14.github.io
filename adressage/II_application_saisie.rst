@@ -214,26 +214,32 @@ Liste de défauts fréquemment rencontrés :
 * Points adresses hors parcelles
 
 .. image:: ../img/adressage/III_saisie/2.1_erreur_hp.png
+   :width: 480
 
 * Point adresse plus près d’une autre voie que celle à laquelle il est rattaché
 
 .. image:: ../img/adressage/III_saisie/2.1_erreur_adresse_voie.png
+   :width: 480
 
 * Point adresse pair ou impair du mauvais côté de la voie
 
 .. image:: ../img/adressage/III_saisie/2.1_erreur_impair.png
+   :width: 480
 
 * Erreurs de tracé de voies (ex : auto intersection) 
 
 .. image:: ../img/adressage/III_saisie/2.1_erreur_trace.png
+   :width: 480
 
 * Voie portant le même nom qu'une autre voie de la même commune
 
 .. image:: ../img/adressage/III_saisie/2.1_erreur_meme_nom_voie.png
+   :width: 480
 
 * Voies avec un nom trop long
 
 .. image:: ../img/adressage/III_saisie/2.1_erreur_nom_trop_long.png
+   :width: 480
 
 
 Sur la base de cette liste, un ensemble de scripts SQL permettant d’identifier automatiquement ces différents cas :
@@ -263,6 +269,7 @@ Elle calcule également la distance entre le point adresse et sa voie de ratache
 Cette fonction se déclenche à chaque modification de la table point_adresse au niveau de la ligne modifiée.
 
 .. image:: ../img/adressage/III_saisie/2.1_f1.png
+   :width: 480
 
 
 **adresse.point_proj()**
@@ -281,6 +288,7 @@ Fonctions postgis mobilisées :
 •	ST_LineInterpolatePoint(voie.geom, float between 0 and 1)
 
 .. image:: ../img/adressage/III_saisie/2.1_f2.png
+   :width: 480
 
 
 **adresse.segment_prolong()**
@@ -301,6 +309,7 @@ Fonctions postgis mobilisées :
 •	ST_MakeLine(ptgeom, translation_pt)
 
 .. image:: ../img/adressage/III_saisie/2.1_f3.png
+   :width: 480
 
 
 **adresse.f_cote_voie()**
@@ -321,6 +330,7 @@ Fonction postgis mobilisées :
 •	ST_LineCrossingDirection(geom_segment, voie_geom)
 
 .. image:: ../img/adressage/III_saisie/2.1_f4.png
+   :width: 480
 
 
 **adresse.c_erreur_cote_parite()**
@@ -370,6 +380,7 @@ La fonction se déclenche à chaque modification du « geom » du point et s’e
 •	adresse.c_erreur_cote_parite(numero integer, cote_voie  geometry)
 
 .. image:: ../img/adressage/III_saisie/2.1_f5.png
+   :width: 480
 
 
 
@@ -391,6 +402,7 @@ Fonctions postgis mobilisées :
 •	ST_makeline()
 
 .. image:: ../img/adressage/III_saisie/2.1_f6.png
+   :width: 480
 
 **adresse.line_rotation()**
 
@@ -412,6 +424,7 @@ Fonction postgis mobilisées :
 •	ST_CollectionExtract(rotate) 
 
 .. image:: ../img/adressage/III_saisie/2.1_f7.png
+   :width: 480
 
 
 **adresse.f_voie_erreur_trace()**
@@ -436,6 +449,7 @@ La fonction se déclenche à chaque modif/ajout du « geom » de la voie et s’
 •	ST_LineCrossingDirection(New.geom, geom_rotate)
 
 .. image:: ../img/adressage/III_saisie/2.1_f8.png
+   :width: 480
 
 
 **adresse.f_bilan_pt_parcelle()**
@@ -455,6 +469,7 @@ La fonction se déclenche à chaque modif/ajout du « geom » du point adresse.
 
 
 .. image:: ../img/adressage/III_saisie/2.1_f9.png
+   :width: 480
 
 
 **adresse.f_commune_repet_nom_voie()**
@@ -476,6 +491,7 @@ Si aucun nom n’est répertorié elle retournera FALSE sinon TRUE.
 Elle se déclenche à chaque création ou modification d’une valeur du champs nom.
 
 .. image:: ../img/adressage/III_saisie/2.1_f10.png
+   :width: 480
 
 
 **adresse.f_controle_longueur_nom()** 
@@ -495,6 +511,7 @@ Si le nom de la voie fait plus de 24 caractère la fonction retournera TRUE sino
 Elle se déclenche à chaque création ou modification d’une valeur du champs nom.
 
 .. image:: ../img/adressage/III_saisie/2.1_f11.png
+   :width: 480
 
 
 
@@ -516,6 +533,7 @@ Cette requête retourne les voies à moins de 500 mètre de la nouvelle voie cr�
 Elle se déclenche à chaque création ou modification sur la table voie.
 
 .. image:: ../img/adressage/III_saisie/2.1_f12.png
+   :width: 480
 
 
 
@@ -526,7 +544,7 @@ Elle se déclenche à chaque création ou modification sur la table voie.
 Tableau de bord de suivi des indicateurs clés du projet, intégré aux logiciels SIG utilisés quotidiennement par les équipes et les partenaires.
 
 .. image:: ../img/adressage/III_saisie/dashboard/intro.png
-
+   :scale: 50
 
 **Un outil de suivi intégré**
 
@@ -544,13 +562,14 @@ Cette méthode permet, en créant une couche spécifique de tableau de bord, de 
 Créer une couche « dashboard » de polygone composée des champs suivant :
 
 .. image:: ../img/adressage/III_saisie/dashboard/1_champs_dashboard.png 
-
+   :scale: 50
+   
 *Etape 2 : créer un polygone*
 
 Éditer la couche « dashboard » et créer un polygone suivant l’emprise du projet.
 
 .. image:: ../img/adressage/III_saisie/dashboard/2_polygon_dashboard.png  
-
+   :scale: 50
 
 *Etape 3 : symbologie de la couche*
 
@@ -559,47 +578,47 @@ Ouvrir les propriétés de la couche dashboard et dans l’onglet symbologie sé
 Le polygone doit disparaître à l’écran.
 
 .. image:: ../img/adressage/III_saisie/dashboard/3_symbologie_dashboard.png
-
+   :scale: 50
 
 *Etape 4 : paramétrer les étiquettes*
 
 Sélectionner ‘Etiquettes simples’ dans l’onglet Étiquettes. Dans le sous onglet valeur, faites une sélection par expression et inscrivez le code suivant : `eval( "label_expression")`
 
 .. image:: ../img/adressage/III_saisie/dashboard/4_etiquettes_dashboard.png
-
+   :scale: 50
 
 Dans le sous-onglet texte cliquer sur l’icône à droite de la police. Aller chercher type de champs et pointer vers le champ **font** de la table « dashboard » créée à l’étape 1.
 
 .. image:: ../img/adressage/III_saisie/dashboard/5_etiquettes_dashboard.png 
-
+   :scale: 50
 
 
 Faire de même avec le **style** et pointer sur le champs style.
 
 .. image:: ../img/adressage/III_saisie/dashboard/6_etiquettes_dashboard.png 
-
+   :scale: 50
 
 Faire de même avec la **couleur** et pointer sur le champ _**font_color**_.
 
 .. image:: ../img/adressage/III_saisie/dashboard/7_etiquettes_dashboard.png
-
+   :scale: 50
 
 Aller maintenant dans l’onglet **arrière-plan.**
 
 Faire de même que précédemment avec la **taille X** et pointer sur le champ _**width**_.
 
 .. image:: ../img/adressage/III_saisie/dashboard/8_etiquettes_dashboard.png 
-
+   :scale: 50
 
 Faire de même que précédemment avec la **taille Y** et pointer sur le champ _**height**_.
 
 .. image:: ../img/adressage/III_saisie/dashboard/9_etiquettes_dashboard.png 
-
+   :scale: 50
 
 Faire de même avec la **couleur de remplissage** et pointer sur le champ _**bg_colour**_.
 
 .. image:: ../img/adressage/III_saisie/dashboard/10_etiquettes_dashboard.png
-
+   :scale: 50
 
 Aller maintenant dans l’onglet **position**.
 
@@ -611,13 +630,13 @@ Dans le constructeur de requête qui s’ouvre, indiquer la variable suivante : 
 Appuyer sur ok.
 
 .. image:: ../img/adressage/III_saisie/dashboard/11_etiquettes_dashboard.png
-
+   :scale: 50
 
 Pour finir, afin de fixer les étiquettes selon l'emprise de la carte, cocher la case **générateur de géométrie** et inscrire l'expression suivante : start_point( @map_extent )
 
 
 .. image:: ../img/adressage/III_saisie/dashboard/last_emprise_carte_expression.png 
-
+   :scale: 50
 
 
 *Etape 5 : Remplir les champs de la table attributaire*
@@ -630,17 +649,17 @@ Puis indiquer dans le champs label expression l’expression qui s’affichera d
 
 
 .. image:: ../img/adressage/III_saisie/dashboard/12_1rst_fenetre_dashboard.png
-
+   :scale: 50
 
 Paramétrer ensuite les champs qui vont déterminer la taille, la position, la couleur de fond et la police de la première fenêtre Dashboard.
 
 .. image:: ../img/adressage/III_saisie/dashboard/12_1rst_fenetre_suite_dashboard.png
-
+   :scale: 50
 
 Au fur et à mesure des modifications des valeurs de champs, lorsque vous enregistrez, vous devez voir apparaître la 1ere fenêtre Dashboard et les modifications apportées.
 
 .. image:: ../img/adressage/III_saisie/dashboard/12_1rst_fenetre_vue.png 
-
+   :scale: 50
 
 Si aucune fenêtre n’apparaît au niveau de votre projet QGIS, jouez avec les différents champs (surtout label_offset x, label_offset y), cela peut être un problème de position de la fenêtre. Si elle n’apparaît toujours pas, reprenez les étapes précédentes.
 
@@ -649,24 +668,26 @@ Si aucune fenêtre n’apparaît au niveau de votre projet QGIS, jouez avec les 
 Pour créer une nouvelle fenêtre dashboard, passer la table attributaire en mode édition. Copiez la première ligne et coller la dans la partie blanche de la table attributaire. Une deuxième ligne identique apparaît.
 
 .. image:: ../img/adressage/III_saisie/dashboard/13_2nd_fenetre_dashboard.png
-
+   :scale: 50
+   
 *Etape 7 : Paramétrer des requêtes dans les nouvelles lignes*
 
 Une fois la nouvelle entité crée, modifier les valeurs de champs de la seconde pour positionner la deuxième fenêtre sous la première.  Vous pouvez modifier le champs label_expression avec une requête sql qgis qui vous permettra d’afficher la valeur souhaitée dans cette deuxième fenêtre.
 
 
 .. image:: ../img/adressage/III_saisie/dashboard/14_2nd_fenetre_vue.png 
-
+   :scale: 50
 
 *Exemple de table attributaire Dashboard et rendu*
 
 Ci-dessous, nous avons organisé la table avec une fenêtre par ligne comme suit : une 1ère fenêtre avec valeur « titre » suivie d'une fenêtre affichant une valeur « expression ».
 
 .. image:: ../img/adressage/III_saisie/dashboard/15_ex_table_attrib.png
+   :scale: 50
 
 
 .. image:: ../img/adressage/III_saisie/dashboard/16_ex_table_attrib_suite.png
-
+   :scale: 50
 
 *Exemple de requêtes utilisées*
 
