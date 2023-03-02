@@ -283,7 +283,7 @@ Le code HTML (Onglet Filiations + partie tab_filiation) se trouve `Par ici <http
 
 * Mise à jour du CSS dans le panneau de configuration Lizmap
 
-Le code CSS se trouve `là <https://github.com/sig14/sig14.github.io/blob/master/cadastre/css/dfi_cadastre>`_
+Le code CSS se trouve `ici <https://github.com/sig14/sig14.github.io/blob/master/cadastre/css/dfi_cadastre>`_
 
 
 .. image:: ../img/cadastre/19_config_css.png
