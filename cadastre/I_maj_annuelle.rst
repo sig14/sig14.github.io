@@ -45,7 +45,6 @@ Une fois le plugin installé, un nouveau menu Cadastre apparaît dans le menu Ex
 **Fichier ANnuaire TOpographique Initialisé Réduit (FANTOIR)**
 * Télécharger des données à l'échelle de la région Normandie :  `Site fantoir collectivites-locales.gouv.fr <https://www.collectivites-locales.gouv.fr/competences/la-mise-disposition-gratuite-du-fichier-des-voies-et-des-lieux-dits-fantoir>`_
 
-L'ensemble des fichiers sont déposés sur `le serveur APW65 <file:////apw65/_CADASTRE_DONNEES/>`_
 
 3- Recencer les dépendances au schema cadastre
 ================================================
