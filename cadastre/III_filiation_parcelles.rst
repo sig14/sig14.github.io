@@ -38,9 +38,7 @@ Le fichier sépare chaque valeur par un ; .
 
 Le nombre de valeurs de parcelles est variable, ce qui implique un nombre de champ variable.
 
-
-
-Le workbench FME se trouve `ici <file:////apw65/_FME/CADASTRE/filiation_parcelles_dfi_txt2postgres.fmw">`_
+Le workbench FME se trouve `ici <https://github.com/sig14/sig14.github.io/releases/tag/FME_filiation_parcelles_dfi>`_
 
 1.1 Regexp : correction du fichier
 ------------------------------------
