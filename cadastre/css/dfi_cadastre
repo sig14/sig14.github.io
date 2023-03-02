@@ -1,0 +1,40 @@
+    table.t2 {
+  border-collapse: collapse;
+  overflow: hidden;
+}
+table.t2 table {
+  display: none;
+  margin: 10px;
+}
+table.t2 input[type=checkbox] {
+  display: none;
+}
+table.t2 input[type=checkbox]:checked + table {
+  display: table;
+  width: calc(100% - 20px);
+}
+table.t2 label {
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 1000px;
+  z-index: 2;
+}
+table.t2 label:hover {
+  background: rgba(255, 255, 0, 0.2);
+}
+table.t2 > tbody > tr:nth-child(2n) > td {
+  padding: 0;
+}
+table.t2 > tbody > tr:nth-child(2n) > td td {
+  padding: 5px;
+}
+table.t2 th,
+table.t2 td {
+  border: solid 1px #000;
+  text-align: left;
+  padding: 5px;
+  position: relative;
+}
