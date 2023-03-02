@@ -10,6 +10,7 @@ Cela permet aux partenaires du CD14 de pouvoir consulter rapidement les informat
 
 
 .. image:: ../img/cadastre/7_schema_fiches_dosc_urba.png
+   :width: 400px
    :scale: 50
 
 
