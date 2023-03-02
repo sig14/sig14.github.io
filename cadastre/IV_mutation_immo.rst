@@ -24,7 +24,7 @@ A partir de ce fichier, le pôle SIG du Département du Calvados, propose de con
 
 Un workbench FME récupère les données de valeurs foncières et les intègre dans la base de données du CD14.
 
-Le workbench FME se trouve `ici <file:////apw65/_FME/CADASTRE/valeur_fonciere_txt2postgres.fmw>`_
+Le workbench FME se trouve `là <file:////apw65/_FME/CADASTRE/valeur_fonciere_txt2postgres.fmw>`_
 
 
 2- Champ HTML historique déroulant 
@@ -49,7 +49,7 @@ Pour cela on utilise une fonction postgresql/gis pour alimenter la table parcell
 
 
 
-On lance ensuite une fonction postgrresql/gis dont le code SQL se trouve `ici <file://K:/Pole_SIG/Interne/03_TRAITEMENTS_SIG/1_postgres/foncier/dvf/fonction_dvf.sql>`_
+On lance ensuite une fonction postgrresql/gis dont le code SQL se trouve `à cet endroit <file://K:/Pole_SIG/Interne/03_TRAITEMENTS_SIG/1_postgres/foncier/dvf/fonction_dvf.sql>`_
 
 * Dans un premier temps, on séléctionne des valeurs de champs distincts pour éviter les doublons
 
@@ -138,7 +138,7 @@ On lance ensuite une fonction postgrresql/gis dont le code SQL se trouve `ici <f
    :scale: 50
 
 
-Le code HTML (onglet mutation immobilière + partie deroulant_dvf) se trouve `ici <file://K:/Pole_SIG/Interne/03_TRAITEMENTS_SIG/9_lizmap/html/popup_cadastre.html>`_
+Le code HTML (onglet mutation immobilière + partie deroulant_dvf) se trouve `par ici <file://K:/Pole_SIG/Interne/03_TRAITEMENTS_SIG/9_lizmap/html/popup_cadastre.html>`_
 
 
 
@@ -147,7 +147,7 @@ Le code HTML (onglet mutation immobilière + partie deroulant_dvf) se trouve `ic
 
 * Mise à jour du CSS dans le panneau de configuration Lizmap
 
-Le code CSS se trouve `ici <file://K:/Pole_SIG/Interne/03_TRAITEMENTS_SIG/9_lizmap/css/style_dvf_cadastre.css>`_
+Le code CSS se `trouve ici <file://K:/Pole_SIG/Interne/03_TRAITEMENTS_SIG/9_lizmap/css/style_dvf_cadastre.css>`_
 
 
 .. image:: ../img/cadastre/19_config_css.png
