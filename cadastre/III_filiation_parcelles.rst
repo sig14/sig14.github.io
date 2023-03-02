@@ -129,7 +129,7 @@ Pour cela on utilise une fonction postgresql/gis pour alimenter la table parcell
 
 
 
-On lance ensuite une fonction postgrresql/gis dont le code SQL se trouve `ICI <file://K:/Pole_SIG/Interne/03_TRAITEMENTS_SIG/1_postgres/foncier/dfi/fonction_filiation_parcelles_cadastre.sql>`_
+On lance ensuite une fonction postgrresql/gis dont le code SQL se trouve `ICI <https://github.com/sig14/sig14.github.io/blob/master/cadastre/sql/fonction_filiation_parcelles_cadastre.sql>`_
 
 * Dans un premier temps, la fonction met en place une table temporaire (que l'on va indéxer) regroupant ligne par ligne les infos dfi, la nature détaillée des dfi, la liste des parcelles mère et la liste des parcelle filles associées (filiation)
 
@@ -274,7 +274,7 @@ On lance ensuite une fonction postgrresql/gis dont le code SQL se trouve `ICI <f
    :scale: 50
 
 
-Le code HTML (Onglet Filiations + partie tab_filiation) se trouve `Par ici <file://K:/Pole_SIG/Interne/03_TRAITEMENTS_SIG/9_lizmap/html/popup_cadastre.html>`_
+Le code HTML (Onglet Filiations + partie tab_filiation) se trouve `Par ici <https://github.com/sig14/sig14.github.io/blob/master/cadastre/html/popup_cadastre.html>`_
 
 
 
@@ -283,7 +283,7 @@ Le code HTML (Onglet Filiations + partie tab_filiation) se trouve `Par ici <file
 
 * Mise à jour du CSS dans le panneau de configuration Lizmap
 
-Le code CSS se trouve `là <file://K:/Pole_SIG/Interne/03_TRAITEMENTS_SIG/9_lizmap/css/style_dfi_cadastre.css>`_
+Le code CSS se trouve `là <https://github.com/sig14/sig14.github.io/blob/master/cadastre/css/dfi_cadastre>`_
 
 
 .. image:: ../img/cadastre/19_config_css.png
