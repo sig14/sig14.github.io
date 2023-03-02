@@ -1,4 +1,4 @@
-# Documentaion du SIG du Déparetment du Calvados
+# Documentation du SIG du Département du Calvados
 
 
 bla bla bla
