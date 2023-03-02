@@ -8,7 +8,7 @@ I- Mise à jour annuelle
 1- Installation du plugin cadastre 
 ===================================
 
-Télécharger la dernière version stable du plugin cadastre Qgis `ici <https://github.com/3liz/QgisCadastrePlugin/releases>`_
+Télécharger la dernière version stable du plugin cadastre Qgis `ICI <https://github.com/3liz/QgisCadastrePlugin/releases>`_
 
 
 Déplacer le zip sur apw65 et installer le depuis le menu **extension** de QGIS.
@@ -170,7 +170,8 @@ Le code de la VM se trouve `ici <file://K:/Pole_SIG/Interne/03_TRAITEMENTS_SIG/1
    :scale: 50
 
 
-* Lancer l'import postgis avec les paramètres suivants :
+* Lancer l'import postgis avec les paramètres suivants 
+
 - Base de données : Postgis, lizmap
 - Schémas : taper cadastre et créer
 - Fichiers EDIGEO : charger le dossier déposé sur APW65
@@ -179,6 +180,7 @@ Le code de la VM se trouve `ici <file://K:/Pole_SIG/Interne/03_TRAITEMENTS_SIG/1
 - Fichiers MAJIC: charger le dossier déposé sur APW65
 - Département  : 14
 - Lot : "donner un nom pour l'import"
+
 .. image:: ../img/cadastre/5_import_plugin.png
    :scale: 50
 
