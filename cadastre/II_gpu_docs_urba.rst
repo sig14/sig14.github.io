@@ -23,7 +23,7 @@ Dans un premier les données GPU sont chargées dans la base de données du CD14
 
 Les données du GPU sont segementées par collectivité via un code partition formé : 
 
-* du prefixe "DU_"
+* du prefixe "DU _"
 * du code insee commune ou siren epci (en fonction du type de document : carte communale, PLU, PLUI)
 * D'un code optionnel de secteur pour les EPCI (A, B, C, D)
 
@@ -36,7 +36,7 @@ Pour finir, certaines communes sont soumises au RNU (Réglement National d'Urban
 
 Un premier projet FME récupère les données d'emprise de document ainsi que les zonages PLU et secteurs de cartes communales.
 
-Le workbench FME chargeant les données depuis l'API, réalisant le traitement et l'intégration des données en base se trouve `ici <file:////apw65/_FME/DOC_URBA/api_gpu2postgis/Calvados/1_api_zonage_gpu2postgis.fmw>`_
+Le workbench FME chargeant les données depuis l'API, réalisant le traitement et l'intégration des données en base se trouve `Ici <file:////apw65/_FME/DOC_URBA/api_gpu2postgis/Calvados/1_api_zonage_gpu2postgis.fmw>`_
 
 
 * Récupération des codes siren EPCI et ajout des potentiels suffixes (code optionnel secteur)
@@ -68,7 +68,7 @@ response body : Attribute
    :scale: 50
 
 
-* Récupération des données depuis l'API avec les DU_ précédemments créés : données emprise, zonage et secteur carte communale
+* Récupération des données depuis l'API avec les "DU _" précédemments créés : données emprise, zonage et secteur carte communale
 
 On intérroge l'API avec les paramètres suivants :
 
@@ -124,14 +124,14 @@ response body : Attribute
 
 Un second projet FME récupère les données de prescriptions linéaires, surfaciques et ponctuel sur le même modèle que précédemment, à l'exception de :
 
-Le workbench FME se trouve `ici <file:////apw65/_FME/DOC_URBA/api_gpu2postgis/Calvados/api_prescriptions_gpu2postgis.fmw>`_
+Le workbench FME se trouve `ICI <file:////apw65/_FME/DOC_URBA/api_gpu2postgis/Calvados/api_prescriptions_gpu2postgis.fmw>`_
 
 * Récupération des codes insee des communes historiques qui ne sont pas classées au rnu depuis la table crée dans la partie précédente
 
 .. image:: ../img/cadastre/17_rnu_doc_urba.png
    :scale: 50
 
-* Récupération des données depuis l'API avec les DU_ précédemments créés : données linéaires, surfaces et ponctuels
+* Récupération des données depuis l'API avec les "DU _" précédemments créés : données linéaires, surfaces et ponctuels
 
 On intérroge l'API avec les paramètres suivants :
 
@@ -170,7 +170,7 @@ Un dernier projet FME récupère les données informations prescriptions linéai
 Le workbench FME se trouve `à cet endroit <file:////apw65/_FME/DOC_URBA/api_gpu2postgis/Calvados/api_info_prescriptions_gpu2postgis.fmw>`_
 
 
-* Récupération des données depuis l'API avec les DU_ précédemments créés : données linéaires, surfaces et ponctuels
+* Récupération des données depuis l'API avec les "DU _" précédemments créés : données linéaires, surfaces et ponctuels
 
 On intérroge l'API avec les paramètres suivants :
 
@@ -255,7 +255,7 @@ Pour cela on utilise une fonction postgresql/gis pour alimenter la table parcell
                 ADD deroulant_info varchar;
 
 
-On lance ensuite une fonction postgrresql/gis dont le code SQL se trouve `ici <file://K:/Pole_SIG/Interne/03_TRAITEMENTS_SIG/1_postgres/doc_urba/fiche_parcelle_doc_urba.sql>`_
+On lance ensuite une fonction postgrresql/gis dont le code SQL se trouve `à cet endroit <file://K:/Pole_SIG/Interne/03_TRAITEMENTS_SIG/1_postgres/doc_urba/fiche_parcelle_doc_urba.sql>`_
 
 * Dans un premier temps, la fonction met en place des tables temporaires rapprochant les parcelles du cadastre avec les données du GPU. L'objectif est également de pouvoir indexer ces tables temporaires pour accélerer la suite des traitements.
 
@@ -391,7 +391,7 @@ On lance ensuite une fonction postgrresql/gis dont le code SQL se trouve `ici <f
    :scale: 50
 
 
-Le code HTML (Onglet Urbanisme + parties tab_doc_urba + deroulant_: secteurs, zonages, prescriptions, info) se trouve `ici <file://K:/Pole_SIG/Interne/03_TRAITEMENTS_SIG/9_lizmap/html/popup_cadastre.html>`_
+Le code HTML (Onglet Urbanisme + parties tab_doc_urba + deroulant : secteurs, zonages, prescriptions, info) se trouve `là <file://K:/Pole_SIG/Interne/03_TRAITEMENTS_SIG/9_lizmap/html/popup_cadastre.html>`_
 
 
 
@@ -400,7 +400,7 @@ Le code HTML (Onglet Urbanisme + parties tab_doc_urba + deroulant_: secteurs, zo
 
 * Mise à jour du CSS dans le panneau de configuration Lizmap
 
-Le code CSS se trouve `ICI <file://K:/Pole_SIG/Interne/03_TRAITEMENTS_SIG/9_lizmap/css/style_docs_urba_cadastre.css>`_
+Le code CSS se trouve `à ce lien <file://K:/Pole_SIG/Interne/03_TRAITEMENTS_SIG/9_lizmap/css/style_docs_urba_cadastre.css>`_
 
 
 .. image:: ../img/cadastre/19_config_css.png
@@ -436,16 +436,16 @@ A la récéption de ce mail, un membre de l'équipe déclenche un fichier batch,
 
                pause
 
-Le fichier batch se trouve `ici <file:////apw65/_FME/DOC_URBA/api_gpu2postgis/insertion_new_com_epci.bat>`_
+Le fichier batch est ` déposé ici <file:////apw65/_FME/DOC_URBA/api_gpu2postgis/insertion_new_com_epci.bat>`_
 
 
 3.2 - FME :Import de l'emprise et supression des données
--------------------------------------------------------
+---------------------------------------------------------
 
 Le premier worbench FME supprime les données GPU de la base sur le périmtre des nouvelles données importées.
 
 
-Le workbench FME se trouve `ici <file:////apw65/_FME/DOC_URBA/api_gpu2postgis/Commune_epci/1_DROP_DATA.fmw>`_
+Le workbench FME se `télécharge ici <file:////apw65/_FME/DOC_URBA/api_gpu2postgis/Commune_epci/1_DROP_DATA.fmw>`_
 
 
 * Récupération du code siren EPCI ou insee commune entré dans le batch et ajout des potentiels suffixes (code optionnel secteur)
@@ -490,7 +490,7 @@ response body : Attribute
 .. image:: ../img/cadastre/16_reprojection_doc_urba.png
    :scale: 50
 
-* Insertion des données dans la table historique import données et lancemnt d'une requête SQL suprimant les données GPU dont le DU_ ets égal au DU_ de leur emprise intersectent le centroid de la nouvelle emprise
+* Insertion des données dans la table historique import données et lancemnt d'une requête SQL suprimant les données GPU dont le "DU _" ets égal au "DU _" de leur emprise intersectent le centroid de la nouvelle emprise
 
 .. image:: ../img/cadastre/22_supression_partition_.png
    :scale: 50
@@ -515,18 +515,18 @@ response body : Attribute
 3.3 - FME : Import des données en fonction de l'emprise
 -------------------------------------------------------
 
-Le second worbench FME insert les nouvelles données GPU au niveau du code partition DU_ entré dans le batch sur le modèle décrit dans la partie 1.
+Le second worbench FME insert les nouvelles données GPU au niveau du code partition "DU _" entré dans le batch sur le modèle décrit dans la partie 1.
 
-Le workbench FME se trouve `Ici <file:////apw65/_FME/DOC_URBA/api_gpu2postgis/Commune_epci/2_INSERT_DATA.fmw>`_
+Le workbench FME se  `trouve ici <file:////apw65/_FME/DOC_URBA/api_gpu2postgis/Commune_epci/2_INSERT_DATA.fmw>`_
 
 
 3.4 - FME/PostgreSQL,GIS : Mise à jour des champs html GPU du cadastre
 ----------------------------------------------------------------------
 
 
-Le dernier worbench FME lance une fonction méttant les champs HTML du cadastre au niveau du nouveau DU_ partition éntré dans le batch.
+Le dernier worbench FME lance une fonction méttant les champs HTML du cadastre au niveau du nouveau "DU _ partition" éntré dans le batch.
 
-Le workbench FME se trouve `ici <file:////apw65/_FME/DOC_URBA/api_gpu2postgis/Commune_epci/3_FICHE_DOC_URBA_CADASTRE.fmw">`_
+Le workbench FME  `se télécharge ici <file:////apw65/_FME/DOC_URBA/api_gpu2postgis/Commune_epci/3_FICHE_DOC_URBA_CADASTRE.fmw">`_
 
 Ce workbench fonctionne comme le premier workbench récupérant l'emprise, mais avec une dernière requête qui corrige les géométries invalides des documents GPU et qui lance une fonction postgresql de mise à jour des champs HTML de la table parcelle_info du cadastre.
 
@@ -546,4 +546,4 @@ Ce workbench fonctionne comme le premier workbench récupérant l'emprise, mais 
                select ref_urbanisme.fiches_parcelles_lizmap(@Value(partition));
 
 
-Cette dernière fonction fonctionne comme décrit en partie 2, mais uniquement pour les parcelles concernées par les nouveaux documents insérés (au niveau du nouveau DU_ ).
+Cette dernière fonction fonctionne comme décrit en partie 2, mais uniquement pour les parcelles concernées par les nouveaux documents insérés (au niveau du nouveau "DU _" ).
