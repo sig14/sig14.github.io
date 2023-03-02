@@ -260,7 +260,7 @@ Pour cela on utilise une fonction postgresql/gis pour alimenter la table parcell
                 ADD deroulant_info varchar;
 
 
-On lance ensuite une fonction postgrresql/gis dont le code SQL se trouve `Par <file://K:/Pole_SIG/Interne/03_TRAITEMENTS_SIG/1_postgres/doc_urba/fiche_parcelle_doc_urba.sql>`_
+On lance ensuite une fonction postgrresql/gis dont le code SQL se trouve `ici <https://github.com/sig14/sig14.github.io/blob/master/cadastre/sql/fiche_parcelle_doc_urba.sql>`_
 
 * Dans un premier temps, la fonction met en place des tables temporaires rapprochant les parcelles du cadastre avec les données du GPU. L'objectif est également de pouvoir indexer ces tables temporaires pour accélerer la suite des traitements.
 
@@ -440,8 +440,6 @@ A la récéption de ce mail, un membre de l'équipe déclenche un fichier batch,
                D:/apps/FME2022/fme.exe "D:/_FME/DOC_URBA/api_gpu2postgis/Commune_epci/3_FICHE_DOC_URBA_CADASTRE.fmw" --siren %siren% 
 
                pause
-
-Le fichier batch est ` déposé ici <file:////apw65/_FME/DOC_URBA/api_gpu2postgis/insertion_new_com_epci.bat>`_
 
 
 3.2 - FME :Import de l'emprise et supression des données
