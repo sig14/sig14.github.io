@@ -1,6 +1,3 @@
-
-
-
 II- Onglet Documents d'urbanisme GPU
 ************************************
 
@@ -11,9 +8,6 @@ Afin de faciliter la lecture des informations, l'ensemble des données du GPU so
 
 Cela permet aux partenaires du CD14 de pouvoir consulter rapidement les informations du GPU liées à chaque parcelle : impact des zonages sur la parcelle, documents pdf associés, etc.
 
-
-.. image:: ../img/cadastre/8_fiches_dosc_urba.gif
-   :scale: 50
 
 .. image:: ../img/cadastre/7_schema_fiches_dosc_urba.png
    :scale: 50
@@ -29,7 +23,7 @@ Dans un premier les données GPU sont chargées dans la base de données du CD14
 
 Les données du GPU sont segementées par collectivité via un code partition formé : 
 
-* du prefixe DU_
+* du prefixe "DU_"
 * du code insee commune ou siren epci (en fonction du type de document : carte communale, PLU, PLUI)
 * D'un code optionnel de secteur pour les EPCI (A, B, C, D)
 
@@ -80,7 +74,7 @@ On intérroge l'API avec les paramètres suivants :
 
 **emprise** :
 
-URL : https://apicarto.ign.fr/api/gpu/document?partition=DU_@Value(siren)
+URL : "https://apicarto.ign.fr/api/gpu/document?partition=DU_@Value(siren)"
 
 HTPP method : GET
 
@@ -90,7 +84,7 @@ response body : Attribute
 
 Intérrogation de l'API avec les DU_partition précédemment créés
 
-URL : https://apicarto.ign.fr/api/gpu/zone-urba?partition=DU_@Value(siren)
+URL : "https://apicarto.ign.fr/api/gpu/zone-urba?partition=DU_@Value(siren)"
 
 HTPP method : GET
 
@@ -98,7 +92,7 @@ response body : Attribute
 
 **secteur carte communale** :
 
-URL : https://apicarto.ign.fr/api/gpu/secteur-cc?partition=DU_@Value(siren)
+URL : "https://apicarto.ign.fr/api/gpu/secteur-cc?partition=DU_@Value(siren)"
 
 HTPP method : GET
 
@@ -143,7 +137,7 @@ On intérroge l'API avec les paramètres suivants :
 
 **surface** :
 
-URL : https://apicarto.ign.fr/api/gpu/info-surf?partition=DU_@Value(siren)
+URL : "https://apicarto.ign.fr/api/gpu/info-surf?partition=DU_@Value(siren)"
 
 HTPP method : GET
 
@@ -151,7 +145,7 @@ response body : Attribute
 
 **linéaire** :
 
-URL : https://apicarto.ign.fr/api/gpu/info-lin?partition=DU_@Value(siren)
+URL : "https://apicarto.ign.fr/api/gpu/info-lin?partition=DU_@Value(siren)"
 
 HTPP method : GET
 
@@ -160,7 +154,7 @@ response body : Attribute
 
 **ponctuel** :
 
-URL : https://apicarto.ign.fr/api/gpu/info-pct?partition=DU_@Value(siren)
+URL : "https://apicarto.ign.fr/api/gpu/info-pct?partition=DU_@Value(siren)"
 
 HTPP method : GET
 
@@ -173,7 +167,7 @@ response body : Attribute
 
 Un dernier projet FME récupère les données informations prescriptions linéaires, surfaciques et ponctuel sur le même modèle que précédemment.
 
-Le workbench FME se trouve `ici <file:////apw65/_FME/DOC_URBA/api_gpu2postgis/Calvados/api_info_prescriptions_gpu2postgis.fmw>`_
+Le workbench FME se trouve `à cet endroit <file:////apw65/_FME/DOC_URBA/api_gpu2postgis/Calvados/api_info_prescriptions_gpu2postgis.fmw>`_
 
 
 * Récupération des données depuis l'API avec les DU_ précédemments créés : données linéaires, surfaces et ponctuels
@@ -182,7 +176,7 @@ On intérroge l'API avec les paramètres suivants :
 
 **surfaces** :
 
-URL : https://apicarto.ign.fr/api/gpu/info-surf?partition=DU_@Value(siren)
+URL : "https://apicarto.ign.fr/api/gpu/info-surf?partition=DU_@Value(siren)"
 
 HTPP method : GET
 
@@ -190,7 +184,7 @@ response body : Attribute
 
 **linéaires** :
 
-URL : https://apicarto.ign.fr/api/gpu/info-lin?partition=DU_@Value(siren)
+URL : "https://apicarto.ign.fr/api/gpu/info-lin?partition=DU_@Value(siren)"
 
 HTPP method : GET
 
@@ -198,7 +192,7 @@ response body : Attribute
 
 **ponctuels** :
 
-URL : https://apicarto.ign.fr/api/gpu/info-pct?partition=DU_@Value(siren)
+URL : "https://apicarto.ign.fr/api/gpu/info-pct?partition=DU_@Value(siren)"
 
 HTPP method : GET
 
@@ -406,7 +400,7 @@ Le code HTML (Onglet Urbanisme + parties tab_doc_urba + deroulant_: secteurs, zo
 
 * Mise à jour du CSS dans le panneau de configuration Lizmap
 
-Le code CSS se trouve `ici <file://K:/Pole_SIG/Interne/03_TRAITEMENTS_SIG/9_lizmap/css/style_docs_urba_cadastre.css>`_
+Le code CSS se trouve `ICI <file://K:/Pole_SIG/Interne/03_TRAITEMENTS_SIG/9_lizmap/css/style_docs_urba_cadastre.css>`_
 
 
 .. image:: ../img/cadastre/19_config_css.png
@@ -523,7 +517,7 @@ response body : Attribute
 
 Le second worbench FME insert les nouvelles données GPU au niveau du code partition DU_ entré dans le batch sur le modèle décrit dans la partie 1.
 
-Le workbench FME se trouve `ici <file:////apw65/_FME/DOC_URBA/api_gpu2postgis/Commune_epci/2_INSERT_DATA.fmw>`_
+Le workbench FME se trouve `Ici <file:////apw65/_FME/DOC_URBA/api_gpu2postgis/Commune_epci/2_INSERT_DATA.fmw>`_
 
 
 3.4 - FME/PostgreSQL,GIS : Mise à jour des champs html GPU du cadastre
