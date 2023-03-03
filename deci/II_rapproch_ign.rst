@@ -347,7 +347,7 @@ Pour cela nous créons une vue materialisée *adresse.vm_troncon_no_voie_bd_topo
                      inner join adresse.point_adresse p on troncon.id_voie = p.id_voie
                      inner join adresse.v_communes_publiees l  on st_intersects(p.geom,l.geom)
                      ),
-                     point_proj as (--- Séléction des unique des id_points avec id tronçon associés dont la distance est la plus courte (une voie pouvant comprendre 				plusieurs tronçons bdtopo on associe les points adresses aux tronçon le plus proche)
+                     point_proj as (--- Séléction des unique des id_points avec id tronçon associés dont la distance est la plus courte (une voie pouvant comprendre plusieurs tronçons bdtopo on associe les points adresses aux tronçon le plus proche)
                      select distinct on (distance_troncon.id_point) distance_troncon.id_point, distance_troncon.id_troncon, 
                      distance_troncon.id_voie, distance_troncon.numero, distance_troncon.suffixe, distance_troncon.geom, geom_pt_adresse, geom_pt_proj
                      from distance_troncon
@@ -368,6 +368,6 @@ Pour cela nous créons une vue materialisée *adresse.vm_troncon_no_voie_bd_topo
                      geom_segment, geom_pt_adresse, geom_pt_proj
                      from line_cross)
 		     
- 	              select * from point_cote  where cote_voie = 'indefini' or cote_voie ='probleme' ; --- Sélection des points adresses indéfinis ou à problème par 				rapport au tronçon de rattachement
+ 	              select * from point_cote  where cote_voie = 'indefini' or cote_voie ='probleme' ; --- Sélection des points adresses indéfinis ou à problème par rapport au tronçon de rattachement
 
 
