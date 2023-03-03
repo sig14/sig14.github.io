@@ -332,7 +332,7 @@ On identifie ici les voies adresses pour lesquelles aucun tronçon n'a pu être 
 Pour cela nous créons une vue materialisée *adresse.vm_troncon_no_voie_bd_topo* dont le code se trouve ici : `vm sql <https://github.com/sig14/sig14.github.io/blob/master/deci/sql/vm_voies_adresses_sans_tron%C3%A7on_ign.sql>`_
 
 
-                  .. code-block:: sql/
+                  .. code-block:: sql
 
                      with bdtopo_idvoie as (--- Fonction donnant la séléction des id_tronçons bdtopo et des id_voies adresse
                      select * from  adresse.id_voie_bdtopo_sdis()
