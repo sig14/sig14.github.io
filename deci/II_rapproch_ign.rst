@@ -347,13 +347,13 @@ Pour cela nous créons une vue materialisée *adresse.vm_troncon_no_voie_bd_topo
                      inner join adresse.point_adresse p on troncon.id_voie = p.id_voie
                      inner join adresse.v_communes_publiees l  on st_intersects(p.geom,l.geom)
                      ),
-                     point_proj as (--- Séléction des unique des id_points avec id tronçon associés dont la distance est la plus courte (une voie pouvant comprendre plusieurs tronçons bdtopo on associe les points adresses aux tronçon le plus proche)
+                     point_proj as (--- Séléction des unique des id_points avec id tronçon associés dont la distance est la plus courte (une voie pouvant comprendre 				plusieurs tronçons bdtopo on associe les points adresses aux tronçon le plus proche)
                      select distinct on (distance_troncon.id_point) distance_troncon.id_point, distance_troncon.id_troncon, 
                      distance_troncon.id_voie, distance_troncon.numero, distance_troncon.suffixe, distance_troncon.geom, geom_pt_adresse, geom_pt_proj
                      from distance_troncon
                      order by id_point, dist ASC),
                      line_cross as ( --- tracer une ligne prolongées entre le point adresse et son point projeté sur le tronçon
-                     select point_proj.id_point, point_proj.id_troncon, point_proj.id_voie, point_proj.numero, point_proj.suffixe, point_proj.geom, geom_pt_adresse, geom_pt_proj,
+                     select point_proj.id_point, point_proj.id_troncon, point_proj.id_voie, point_proj.numero, point_proj.suffixe, point_proj.geom, geom_pt_adresse, 				geom_pt_proj,
                      ST_MakeLine(geom_pt_adresse,  
                      ST_TRANSLATE(geom_pt_adresse, sin(ST_AZIMUTH(geom_pt_adresse,geom_pt_proj)) * (ST_DISTANCE(geom_pt_adresse,geom_pt_proj)
                      + (ST_DISTANCE(geom_pt_adresse,geom_pt_proj) * (50/49))), cos(ST_AZIMUTH(geom_pt_adresse,geom_pt_proj)) * (ST_DISTANCE(geom_pt_adresse,geom_pt_proj)
@@ -367,7 +367,7 @@ Pour cela nous créons une vue materialisée *adresse.vm_troncon_no_voie_bd_topo
                            ELSE 'probleme' end as cote_voie, 
                      geom_segment, geom_pt_adresse, geom_pt_proj
                      from line_cross)
-
-               select * from point_cote  where cote_voie = 'indefini' or cote_voie ='probleme' ; --- Sélection des points adresses indéfinis ou à problème par rapport au tronçon de rattachement
+		     
+ 	              select * from point_cote  where cote_voie = 'indefini' or cote_voie ='probleme' ; --- Sélection des points adresses indéfinis ou à problème par 				rapport au tronçon de rattachement
 
 
