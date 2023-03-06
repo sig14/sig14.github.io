@@ -493,7 +493,7 @@ response body : Attribute
 .. image:: ../img/cadastre/16_reprojection_doc_urba.png
    :scale: 50
 
-* Insertion des données dans la table historique import données et lancemnt d'une requête SQL suprimant les données GPU dont le "DU _" ets égal au "DU _" de leur emprise intersectent le centroid de la nouvelle emprise
+* Insertion des données dans la table historique import données et lancement d'une requête SQL supprimant les données GPU dont le "DU _" est égal au "DU _" de leur emprise intersectant le buffer de - 500 mètres de la nouvelle emprise insérée.
 
 .. image:: ../img/cadastre/22_supression_partition_.png
    :scale: 50
