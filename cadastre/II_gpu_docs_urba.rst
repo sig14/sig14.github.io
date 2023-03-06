@@ -60,7 +60,7 @@ On intérroge l'API avec les paramètres suivants :
 
 URL : http://apicarto.ign.fr/api/gpu/municipality?insee=@Value(insee)
 
-HTPP method : GET
+HTTP method : GET
 
 response body : Attribute
 
@@ -81,7 +81,7 @@ On intérroge l'API avec les paramètres suivants :
 
 URL : "https://apicarto.ign.fr/api/gpu/document?partition=DU_@Value(siren)"
 
-HTPP method : GET
+HTTP method : GET
 
 response body : Attribute
 
@@ -91,7 +91,7 @@ Intérrogation de l'API avec les DU_partition précédemment créés
 
 URL : "https://apicarto.ign.fr/api/gpu/zone-urba?partition=DU_@Value(siren)"
 
-HTPP method : GET
+HTTP method : GET
 
 response body : Attribute
 
@@ -99,7 +99,7 @@ response body : Attribute
 
 URL : "https://apicarto.ign.fr/api/gpu/secteur-cc?partition=DU_@Value(siren)"
 
-HTPP method : GET
+HTTP method : GET
 
 response body : Attribute
 
@@ -152,7 +152,7 @@ response body : Attribute
 
 URL : "https://apicarto.ign.fr/api/gpu/info-lin?partition=DU_@Value(siren)"
 
-HTPP method : GET
+HTTP method : GET
 
 response body : Attribute
 
@@ -161,7 +161,7 @@ response body : Attribute
 
 URL : "https://apicarto.ign.fr/api/gpu/info-pct?partition=DU_@Value(siren)"
 
-HTPP method : GET
+HTTP method : GET
 
 response body : Attribute
 
@@ -183,7 +183,7 @@ On intérroge l'API avec les paramètres suivants :
 
 URL : "https://apicarto.ign.fr/api/gpu/info-surf?partition=DU_@Value(siren)"
 
-HTPP method : GET
+HTTP method : GET
 
 response body : Attribute
 
@@ -191,7 +191,7 @@ response body : Attribute
 
 URL : "https://apicarto.ign.fr/api/gpu/info-lin?partition=DU_@Value(siren)"
 
-HTPP method : GET
+HTTP method : GET
 
 response body : Attribute
 
@@ -199,7 +199,7 @@ response body : Attribute
 
 URL : "https://apicarto.ign.fr/api/gpu/info-pct?partition=DU_@Value(siren)"
 
-HTPP method : GET
+HTTP method : GET
 
 response body : Attribute
 
@@ -468,7 +468,7 @@ Intérrogation de l'API avec les DU_partition précédemment créés
 
 URL : https://apicarto.ign.fr/api/gpu/document?partition=DU_@Value(siren)
 
-HTPP method : GET
+HTTP method : GET
 
 response body : Attribute
 
@@ -508,7 +508,7 @@ response body : Attribute
                where g.partition =  (
                   select b.partition 
                   from ref_urbanisme.historique_imports_du a
-                  left join ref_urbanisme.gpu_api_emprise b on st_intersects(b.geom, st_pointonsurface(a.geom))
+                  left join ref_urbanisme.gpu_api_emprise b on st_intersects(b.geom, st_buffer(a.geom, -500))
                where a.date_import = now()::date and a.partition like 'DU_$(siren)%'
                group by b.partition);
 
