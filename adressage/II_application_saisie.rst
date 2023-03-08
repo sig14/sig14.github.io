@@ -242,7 +242,7 @@ Liste de défauts fréquemment rencontrés :
    :width: 480
 
 
-Sur la base de cette liste, un ensemble de scripts SQL permettant d’identifier automatiquement ces différents cas :
+Sur la base de cette liste, un ensemble de scripts SQL permet d’identifier automatiquement ces différents cas :
 
 1.	Détecter automatiquement des erreurs de saisie sémantiques dans les données adresses 
 2.	Détecter les erreurs de saisie géométrique
@@ -281,8 +281,8 @@ Projette un point sur la voix de rattachement du point adresse.
 
 *Description*
 
-Retourne une géométrie point dans un champs nommé « geom_pt_proj».
-Elle créer un point à partir de la localisation du point le proche du point adresse d’entré, sur la ligne possédant le même id_voie que ce point d’entré.
+Retourne une géométrie point dans un champ nommé « geom_pt_proj».
+Elle crée un point à partir de la localisation du point le plus proche du point adresse d’entrée, sur la ligne possédant le même id_voie que ce point d’entrée.
 Fonctions postgis mobilisées :
 •	ST_LineLocatePoint(voie.geom, point_adresse.geom) -> float between 0 and 1
 •	ST_LineInterpolatePoint(voie.geom, float between 0 and 1)
@@ -300,7 +300,7 @@ Dessine un segment prolongé du point adresse au point projeté.
 
 *Description*
 
-Retourne une géométrie ligne dans un champs nommé « geom_segment_prolong».
+Retourne une géométrie ligne dans un champ nommé « geom_segment_prolong».
 Dessine un segment du point adresse à un point projeté au 50/49e de la distance entre le point adresse et son point projeté.
 Fonctions postgis mobilisées :
 •	ST_DISTANCE(ptgeom,ptgeom_proj) as distance_pt
@@ -322,9 +322,9 @@ Indique la position du point par rapport à sa voie de rattachement : droite, ga
 
 *Description*
 
-Retourne du texte dans un champs nommé « cote_voie».
+Retourne du texte dans un champ nommé « cote_voie».
 
-Elle identifie si le segment prolongé crée à partir du point projeté sur la voie de rattachement du point adresse, croise la ligne à gauche, à droite, ne croise pas ou croise plusieurs fois.
+Elle identifie si le segment prolongé créé à partir du point projeté sur la voie de rattachement du point adresse, croise la ligne à gauche, à droite, ne croise pas ou croise plusieurs fois.
 
 Fonction postgis mobilisées :
 •	ST_LineCrossingDirection(geom_segment, voie_geom)
@@ -339,13 +339,13 @@ Fonction postgis mobilisées :
 
 Fonction adresse.c_erreur_cote_parite(numero integer, cote_voie  geometry);
 
-Identifie si le point adresse est  pair ou impair et du mauvais coté de la voie à laquelle il est rattaché : true (erreur coté), false (pas derreur) ou indefini. 
+Identifie si le point adresse est pair ou impair et du mauvais côté de la voie à laquelle il est rattaché : true (erreur coté), false (pas derreur) ou indefini. 
 
 Sinon problème (voie mal tracée, point non rattaché à une voie, ...)
 
 *Description*
 
-Retourne du texte dans un champs nommé « erreur_cote_parite».
+Retourne du texte dans un champ nommé « erreur_cote_parite».
 
 Elle identifie si le côté duquel se trouve le point adresse correspond à la parité de son numéro.
 
@@ -359,17 +359,17 @@ Le numéro 5 impair se trouve du coté droit.
 
 *Synopsis*
 
-Fonction trigger adresse.f_erreur_cote_parite();  Identifie les points adresse pair ou impair du mauvais côté de la voie, à gauche ou à droite.
+Fonction trigger adresse.f_erreur_cote_parite();  Identifie les points adresse pairs ou impairs du mauvais côté de la voie, à gauche ou à droite.
 
 *Description*
 
-Retourne un BOOLEAN dans le champ « c_erreur_cote_parite» de la table point_adresse.Elle identifie ainsi si le point adresse crée est à gauches ou à droite de la voie.
+Retourne un BOOLEAN dans le champ « c_erreur_cote_parite» de la table point_adresse. Elle identifie ainsi si le point adresse créé est à gauches ou à droite de la voie.
 
 Si le point adresse est pair, mais à gauche de la voie ou si le point adresse est impair mais à droite de la voie, la fonction retourne TRUE, sinon FALSE.  
 
 Sinon indefini. Sinon problème (voie mal tracée, point non rattaché à une voie, ...)
 
-La fonction se déclenche à chaque modification du « geom » du point et s’effectue 4 étapes :
+La fonction se déclenche à chaque modification du « geom » du point et s’éffectue en 4 étapes :
 1-	Projection du point adresse sur sa voie de rattachement 
 •	adresse.point_proj(pgeom geometry, idv integer)
 2-	Dessin d’un segment prolongé au 50/49 de la taille du segment initial.
@@ -394,9 +394,9 @@ Extrait des segments à partir de polylignes.
 
 *Description*
 
-Retourne une table composé de 3 champs ( id bigint,  id_voie integer, geom_segment geometry).
+Retourne une table composée de 3 champs ( id bigint,  id_voie integer, geom_segment geometry).
 
-Sélectionne les nœuds des voies. Puis trace des lignes entre les différents nœuds crées.
+Sélectionne les nœuds des voies. Puis trace des lignes entre les différents nœuds créés.
 Fonctions postgis mobilisées :
 •	ST_DumpPoints(voie_geom)
 •	ST_makeline()
@@ -410,11 +410,11 @@ Fonctions postgis mobilisées :
 
 Fonction adresse.line_rotation( lgeom geometry);
 
-Retourne les segments au niveau de leur centroides raccourcies de 2/3
+Retourne les segments au niveau de leur centroide raccourcis de 2/3
 
 *Description*
 
-Retourne une géométrie de ligne dans un champs nommé « geom_rotate».
+Retourne une géométrie de ligne dans un champ nommé « geom_rotate».
 
 Elle effectue une rotation à 80,1 degrès d’1/3 du segment au niveau de son centroide.
 Fonction postgis mobilisées :
@@ -440,10 +440,10 @@ Retourne un BOOLEAN dans le champ « c_erreur_trace» de la table adresse.voie.
 
 Elle identifie ainsi si la voie qui croise plusieurs fois un segment retourné. La voie croise plusieurs fois, la fonction retourne TRUE, sinon FALSE.
 
-La fonction se déclenche à chaque modif/ajout du « geom » de la voie et s’effectue 3 étapes :
+La fonction se déclenche à chaque modif/ajout du « geom » de la voie et s’effectue en 3 étapes :
 1-	Extrait des segments à partir de polylignes 
 •	adresse.segment_extract(table_name varchar, id_line varchar, geom_line varchar
-2-	Retourne les segments au niveau de leur centroides raccourcies de 2/3
+2-	Retourne les segments au niveau de leur centroides raccourcis de 2/3
 •	adresse.line_rotation( lgeom geometry);
 3-	Identification du sens de croisement du segment prolongé
 •	ST_LineCrossingDirection(New.geom, geom_rotate)
@@ -461,9 +461,9 @@ Bilan du nombre de points adresses et dernière date de modification d’un poin
 
 *Description*
 
-Retourne un integer dans le champ « nb_pt_adresse» et une DATE dans le champs « date_pt_modif »  de la table adresse.parcelle.
+Retourne un integer dans le champ « nb_pt_adresse» et une DATE dans le champ « date_pt_modif »  de la table adresse.parcelle.
 
-Elle compte d’abords le nombre d’id point adresse par parcelle. Puis ajoute la date de modification associée nulle ou la plus récente.
+Elle compte d’abord le nombre d’id point adresse par parcelle. Puis ajoute la date de modification associée nulle ou la plus récente.
 
 La fonction se déclenche à chaque modif/ajout du « geom » du point adresse.
 
@@ -482,13 +482,13 @@ Identifie les voies portant le même nom qu'une autre voie de la même commune.
 
 *Description*
 
-Retourne un BOOLEAN dans un champs nommé « c-repet-nom_voie» de la table adresse.voie.
+Retourne un BOOLEAN dans un champ nommé « c-repet-nom_voie» de la table adresse.voie.
 
 Elle sélectionne le nom des communes, le nom des voies et le nombre d’itération du nom des voies par commune. 
 
 Si aucun nom n’est répertorié elle retournera FALSE sinon TRUE.
 
-Elle se déclenche à chaque création ou modification d’une valeur du champs nom.
+Elle se déclenche à chaque création ou modification d’une valeur du champ nom.
 
 .. image:: ../img/adressage/III_saisie/2.1_f10.png
    :width: 480
@@ -504,11 +504,11 @@ Identifie les voies portant un nom de plus de 24 caractères.
 
 *Description*
 
-Retourne un BOOLEAN dans un champs nommé « c_long_nom» de la table adresse.voie.
+Retourne un BOOLEAN dans un champ nommé « c_long_nom» de la table adresse.voie.
 
 Si le nom de la voie fait plus de 24 caractère la fonction retournera TRUE sinon FALSE
 
-Elle se déclenche à chaque création ou modification d’une valeur du champs nom.
+Elle se déclenche à chaque création ou modification d’une valeur du champ nom.
 
 .. image:: ../img/adressage/III_saisie/2.1_f11.png
    :width: 480
@@ -526,9 +526,9 @@ Identifie les voies saisies en 2 fois.
 
 *Description*
 
-Retourne un BOOLEAN dans un champs nommé « c_saisie_double» de la table adresse.voie.
+Retourne un BOOLEAN dans un champ nommé « c_saisie_double» de la table adresse.voie.
 
-Cette requête retourne les voies à moins de 500 mètre de la nouvelle voie crée et dont le nom est proche de celui-ci. Si aucune voie n’est répertoriée elle retournera FALSE sinon TRUE.
+Cette requête retourne les voies à moins de 500 mètres de la nouvelle voie créée et dont le nom est proche de celui-ci. Si aucune voie n’est répertoriée elle retournera FALSE sinon TRUE.
 
 Elle se déclenche à chaque création ou modification sur la table voie.
 
@@ -587,13 +587,13 @@ Sélectionner ‘Etiquettes simples’ dans l’onglet Étiquettes. Dans le sous
 .. image:: ../img/adressage/III_saisie/dashboard/4_etiquettes_dashboard.png
    :scale: 50
 
-Dans le sous-onglet texte cliquer sur l’icône à droite de la police. Aller chercher type de champs et pointer vers le champ **font** de la table « dashboard » créée à l’étape 1.
+Dans le sous-onglet texte cliquer sur l’icône à droite de la police. Aller chercher type de champ et pointer vers le champ **font** de la table « dashboard » créée à l’étape 1.
 
 .. image:: ../img/adressage/III_saisie/dashboard/5_etiquettes_dashboard.png 
    :scale: 50
 
 
-Faire de même avec le **style** et pointer sur le champs style.
+Faire de même avec le **style** et pointer sur le champ style.
 
 .. image:: ../img/adressage/III_saisie/dashboard/6_etiquettes_dashboard.png 
    :scale: 50
@@ -624,7 +624,7 @@ Aller maintenant dans l’onglet **position**.
 
 Choisir l’option quadrant de l’image ci-dessous.
 
-Cliquer sur l’icône à droite de **décalage X,Y**. Choisissez cette fois ci la sélection par expression.
+Cliquer sur l’icône à droite de **décalage X,Y**. Choisissez cette fois-ci la sélection par expression.
 
 Dans le constructeur de requête qui s’ouvre, indiquer la variable suivante : `array( "label_offset_x" , "label_offset_y")`  
 Appuyer sur ok.
@@ -645,7 +645,7 @@ Revenir à la table attributaire de « dashboard ».
 
 Donner un nom qui mette en évidence l’action. Ici le titre de la première étiquette que nous appellerons fenêtre dashboard.
 
-Puis indiquer dans le champs label expression l’expression qui s’affichera dans la première fenêtre dashboard, ici, simplement le titre **'nbr pt total'**
+Puis indiquer dans le champ label expression l’expression qui s’affichera dans la première fenêtre dashboard, ici, simplement le titre **'nbr pt total'**
 
 
 .. image:: ../img/adressage/III_saisie/dashboard/12_1rst_fenetre_dashboard.png
@@ -656,7 +656,7 @@ Paramétrer ensuite les champs qui vont déterminer la taille, la position, la c
 .. image:: ../img/adressage/III_saisie/dashboard/12_1rst_fenetre_suite_dashboard.png
    :scale: 50
 
-Au fur et à mesure des modifications des valeurs de champs, lorsque vous enregistrez, vous devez voir apparaître la 1ere fenêtre Dashboard et les modifications apportées.
+Au fur et à mesure des modifications des valeurs de champ, lorsque vous enregistrez, vous devez voir apparaître la 1ere fenêtre Dashboard et les modifications apportées.
 
 .. image:: ../img/adressage/III_saisie/dashboard/12_1rst_fenetre_vue.png 
    :scale: 50
@@ -672,7 +672,7 @@ Pour créer une nouvelle fenêtre dashboard, passer la table attributaire en mod
    
 *Etape 7 : Paramétrer des requêtes dans les nouvelles lignes*
 
-Une fois la nouvelle entité crée, modifier les valeurs de champs de la seconde pour positionner la deuxième fenêtre sous la première.  Vous pouvez modifier le champs label_expression avec une requête sql qgis qui vous permettra d’afficher la valeur souhaitée dans cette deuxième fenêtre.
+Une fois la nouvelle entité créée, modifier les valeurs de champ de la seconde pour positionner la deuxième fenêtre sous la première.  Vous pouvez modifier le champ label_expression avec une requête sql qgis qui vous permettra d’afficher la valeur souhaitée dans cette deuxième fenêtre.
 
 
 .. image:: ../img/adressage/III_saisie/dashboard/14_2nd_fenetre_vue.png 
