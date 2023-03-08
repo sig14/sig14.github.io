@@ -43,14 +43,13 @@ Le workbench FME se trouve `ici <https://github.com/sig14/sig14.github.io/releas
 1.1 Regexp : correction du fichier
 ------------------------------------
 
-Dans un premier temps, afin de pouvoir correcetement lire le fichier, à l'aide d'expression régulière et de l'ETL FME
-, les données parcelles sont réunies en listes dans un seul champs.
+Dans un premier temps, afin de pouvoir correcetement lire le fichier, les données parcelles sont réunies en listes dans un seul champs à l'aide d'expression régulière et de l'ETL FME.
 
 140;001;000;0000299;1;19900305;XXXXXREDACTEURDUDOCUMENTXXXX;00001;2;A0297;A0298;
 
 
 
-* Identifier les listes de parcelles après le 9e ;
+* Identifier les listes de parcelles après le 9e **;**
                  
               (?:[^\;]*\;){9}(.*)
 
@@ -64,12 +63,12 @@ group1 : **A0297;A0298;**
                **@Value(list_parcelles{0}.part)**
 
 
-* Remplacer les valeurs du group du premier match 
+* Supprimer les valeurs du group du premier match 
 
 match1 : **140;001;000;0000299;1;19900305;XXXXXREDACTEURDUDOCUMENTXXXX;00001;2** 
 
 
-* Remplacer les ; du resultat de liste de parcelle extrait par des ,
+* Remplacer les **;** du resultat de liste de parcelles extrait par des **,**
 
 group1 : **A0297,A0298,**
 
@@ -86,7 +85,7 @@ group1 : **A0297,A0298,**
 1.2 Lecture du CSV
 ------------------
 
-Après écrture du fichier, on lit le fichier CSV en exposant la liste des attributs souhaités.
+Après écriture du fichier, on lit le fichier CSV en exposant la liste des attributs souhaités.
 
 .. image:: ../img/cadastre/24_expose_attribute.png
    :scale: 50
@@ -101,7 +100,7 @@ On effectue une dernière correction du fichier avant intégration dans la base 
 
 * Ajout des prefixes 0 aux sections et codecom en fonction de la longeur des variables (un 0 si length() = 2,  deux 0 si length() =1 .
 
-* suprimmer les espaces dans le champs list parcelle
+* suprimmer les espaces dans le champ list parcelle
 
 * suprimmer la dernière virgule en trop dans le champs list parcelle
 
@@ -111,7 +110,7 @@ On effectue une dernière correction du fichier avant intégration dans la base 
 
 L'objectif est ici de pouvoir consulter l'historique des filiations à l'échelle de la parcelle.
 
-L'utilisateur peut en cliquant sur une parcelle, consulter la généalogie de sa parcelle, connaitre sa/ses parcelles méres (antérieur), ses parcelles soeurs (issues de la/les  mêmes parcelles mères) et connaitre la nature de la filiation.
+L'utilisateur peut, en cliquant sur une parcelle, consulter la généalogie de sa parcelle, connaitre sa/ses parcelles méres (antérieur), ses parcelles soeurs (issues de la/des même(s) parcelle(s) mère(s)) et connaître la nature de la filiation.
 
 Pour cela on utilise une fonction postgresql/gis pour alimenter la table parcelle_info du cadastre et une mise en forme du formulaire QGIS en HTML pour publication sur le portail cartographique Lizmap.
 
@@ -119,7 +118,7 @@ Pour cela on utilise une fonction postgresql/gis pour alimenter la table parcell
 -----------------------------
 
 
-* On créé le champ contenant l'html des déroulants détaillant les filiations du plus récent au plus ancien
+* On crée le champ contenant l'html des déroulants détaillant les filiations du plus récent au plus ancien
 
         .. code-block:: sql
 
@@ -127,9 +126,9 @@ Pour cela on utilise une fonction postgresql/gis pour alimenter la table parcell
 
 
 
-On lance ensuite une fonction postgrresql/gis dont le code SQL se trouve `ICI <https://github.com/sig14/sig14.github.io/blob/master/cadastre/sql/fonction_filiation_parcelles_cadastre.sql>`_
+On lance ensuite une fonction postgresql/gis dont le code SQL se trouve `ICI <https://github.com/sig14/sig14.github.io/blob/master/cadastre/sql/fonction_filiation_parcelles_cadastre.sql>`_
 
-* Dans un premier temps, la fonction met en place une table temporaire (que l'on va indéxer) regroupant ligne par ligne les infos dfi, la nature détaillée des dfi, la liste des parcelles mère et la liste des parcelle filles associées (filiation)
+* Dans un premier temps, la fonction met en place une table temporaire (que l'on va indéxer) regroupant ligne par ligne les infos dfi, la nature détaillée des dfi, la liste des parcelles mères et la liste des parcelles filles associées (filiation)
 
         .. code-block:: sql
 
@@ -214,7 +213,7 @@ On lance ensuite une fonction postgrresql/gis dont le code SQL se trouve `ICI <h
 
 
 
-* ... Suite de la table : création du bloc déroulant HTML avec historique des filiations de parcelles dans un champs txt avec num parcelle associé
+* ... Suite de la table : création du bloc déroulant HTML avec historique des filiations de parcelles dans un champ text avec num parcelle associé
 
 
         .. code-block:: sql
@@ -259,7 +258,7 @@ On lance ensuite une fonction postgrresql/gis dont le code SQL se trouve `ICI <h
                group by code_com, pref_section, id_filiation; -- grouper par parcelle, pref section et num parcelle cadastre initial
 
 
-* Mise à jour des champs  HTML de la table parcelle info grace aux identifiants parcelles de la tables précédement crééechelle
+* Mise à jour des champs  HTML de la table parcelle_info grâce aux identifiants parcelles de la table précédement créée.
 
 
 2.2 - Paramètrage Qgis/plugin Lizmap
