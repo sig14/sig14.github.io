@@ -8,7 +8,7 @@ IV- Dépôt BAL
 
 
 
-Etalab, via sa plateforme adresse.data.gouv.fr met à disposition une **API** permettant de déposer les mise à jour de **Bases Adresses Locales** dans la **Base Adresse Nationale**. 
+Etalab, via sa plateforme adresse.data.gouv.fr met à disposition une **API** permettant de déposer les mises à jour de **Bases Adresses Locales** dans la **Base Adresse Nationale**. 
 
 `Documentation github de l'API de dépot <https://github.com/BaseAdresseNationale/api-depot/wiki/Documentation>`_.
 
@@ -192,7 +192,6 @@ Pour cela :
 2.5 - Agregation des communes filtrées
 ---------------------------------------
 
-
 Une fois les deux filtres éffectués, on agrége l'ensemble des données avec le transformer **Aggregator**.
 
 .. image:: ../img/adressage/V_depot_bal/7_FME_aggregation_com.png
@@ -209,7 +208,7 @@ Le traitement pour dépot des BAL à l'API se déroule comme suit :
 
 * Mise à jour des adresses d'une Commune par dépot d'une nouvelle BAL qui écrase l'ancienne :  **REVISION**
 * Téléversement du fichier au format BAL : **TELEVERSEMENT**
-* Validation des donénes transmises :  **VALIDATION**
+* Validation des données transmises :  **VALIDATION**
 * Publication de la nouvelle BAL :  **PUBLICATION**
 * Récupération de la Réponse de l'API : **REPONSE**
 
