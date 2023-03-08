@@ -4,7 +4,7 @@ I- Périmètres des Bornes incendies
 .. image:: ../img/deci/Intro.png
    :width: 880
 
-Dans le cadre du partenariat entre le CD14 et les Services Départementaux d'Incendie et de Secours (SDIS), une application a été dévellopée à destination des communes et partenaires afin de répertorier les points d'eau incendie (**PEI**) du Département.
+Dans le cadre du partenariat entre le CD14 et les Services Départementaux d'Incendie et de Secours (SDIS), une application a été dévelopée à destination des communes et partenaires afin de répertorier les points d'eau incendie (**PEI**) du Département.
 
 La mise à disposition de ces sources d'eau relève de la responsabilité du maire.
 
@@ -38,12 +38,12 @@ L'approche developpée consiste donc à éxploiter la localisation des **PEI**, 
 -	Format : vecteur point 
 
 
-2- Création du linéaire routiers de référence
-========================
+2- Création du linéaire routier de référence
+============================================
 
-La première étape consiste à créer une table miroir de données routes, en y indéxant les points de départ et d'arrrivée de chaque tronçon.
+La première étape consiste à créer une table miroir de données routes, en y indéxant les points de départ et d'arrivée de chaque tronçon.
 
-Le bornage de ces tronçon permettra par la suite de fixer le parcours de réseau et de mesurer les distances parcourues.
+Le bornage de ces tronçons permettra par la suite de fixer le parcours de réseau et de mesurer les distances parcourues.
 
 Le code sql de la fonction se trouve ici : `Fonction référentiel bornage routes DECI <https://github.com/sig14/sig14.github.io/blob/master/deci/sql/fonction_network_deci.sql>`_ 
 
@@ -68,7 +68,7 @@ Dumper la géométrie des routes pour obtenir les segments de routes.
 2.2 Indéxer les startpoints des segments
 ---------------------------------------------
 
-* On boucle sur les géométrie de segement pour alimenter un champs n1.
+* On boucle sur les géométries de segements pour alimenter un champs n1.
 
 * On débute par la valeur 1 et on ajoute 1 à chaque nouvelle géometrie de startpoint dans une liste (indexe).
 
@@ -146,7 +146,7 @@ Le code sql de la fonction se trouve ici : `Fonction calcul automatique perimèt
 3.1 Restreindre la zone de calcul
 ---------------------------------------------
 
-Afin d'optimiser le temps de calcul, on selectionne uniquement les routes à 500 mètres du PEI créé.
+Afin d'optimiser le temps de calcul, on sélectionne uniquement les routes à 500 mètres du PEI créé.
 
             .. code-block:: sql
                                     
@@ -183,7 +183,7 @@ Nous utilserons ici l'expression récursive de postgresql.
 
 
 
-* On créé ensuite les géométries correspondantes aux deux fractions du segment
+* On crée ensuite les géométries correspondantes aux deux fractions du segment
 
 
             .. code-block:: sql
@@ -206,10 +206,10 @@ Nous utilserons ici l'expression récursive de postgresql.
 
 
 * On prépare ensuite la requête initiale de la récursive. Union des deux fractions de segment :
-         - On récupére l'identifiant du segment
+         - On récupère l'identifiant du segment
          - La valeur de n1 pour la première fraction de segment (startpoint)
          - La valeur de n2 pour la deuxième fraction de segment (endpoint) 
-         - On attribut la valeur null pour le n2 du premier segment et le n1 du deuxième segment. 
+         - On attribue la valeur null pour le n2 du premier segment et le n1 du deuxième segment. 
          - On récupère la longueur des fractions de segment (dist_n1 et dist_n2)
          - On stocke l'dentifiant dans une liste (array)
          - On récupère la géométrie des fractions de segment (n1_geom et n2_geom)
@@ -270,7 +270,7 @@ Nous utilserons ici l'expression récursive de postgresql.
          - On conditionne l'ajout de segments (arrête de la recursive) à une distance cumulée de 360 mètres
          - On conditionne l'ajout de segments (arrête de la recursive) au fait que son id ne soit pas dans la liste d'identifiants gardé en mémoire
          - On ferme la recursive, on la lance
-         - On récupère au passge les géométrie de segments DECI qui ont le même id que l'ensemble des segments rapprochés.
+         - On récupère au passage les géométrie de segments DECI qui ont le même id que l'ensemble des segments rapprochés.
 
          .. code-block:: sql
 
@@ -297,7 +297,7 @@ Nous utilserons ici l'expression récursive de postgresql.
 	         select * from resultat where meters <= 360
                                  ),
 
-* On sélectionne ensuite résultats dont la longueur cumulée est supérieure à 360 mètres, on joint les routes DECI en n1 ou n2.
+* On sélectionne ensuite les résultats dont la longueur cumulée est supérieure à 360 mètres, on joint les routes DECI en n1 ou n2.
    
 **si le segment joint en n_2 n'est pas un segment initial (pas de noeuds null)**
          
@@ -336,7 +336,7 @@ Nous utilserons ici l'expression récursive de postgresql.
    :width: 480
 
 
-* Pour finir, on insére dans la table de données à 400 mètre l'UNION des données suivantes :
+* Pour finir, on insère dans la table de données à 400 mètre l'UNION des données suivantes :
             - Buffer de 40 mètres de la géométrie des résultats dont la longueur cumulée est égale ou inférieure à 360 mètres.
             - Buffer de 40 mètres de la géométrie des fractions de segment dont la longueur est égale ou inférieure à 360 mètres.
             - Buffer de 40 mètres de la géométrie des fractions de segment dont la longueur était supérieure à 360 mètres.
