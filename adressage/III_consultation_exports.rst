@@ -22,7 +22,7 @@ Donner un nom à l’action et coller, paramétrer l’action et inscrire le cod
 
 .. image:: ../img/adressage/IV_consultation_export/export_qgis1.png
 
-Les code python pour l’export des points adresse est le suivant :
+Le code python pour l’export des points adresse est le suivant :
 
 		.. code-block:: python
 
@@ -38,12 +38,12 @@ Les code python pour l’export des points adresse est le suivant :
 				value2 = feat['Commune'] # garde en memoire  les valeurs du champs commune
 			cl = QgsProject.instance().mapLayersByName('v_export_pts')[0] # garde en memoire  la couche dénommée
 			iface.setActiveLayer(cl) # active la couche
-			cl.selectByExpression( " \"Code INSEE\" = '{}' ".format(value), QgsVectorLayer.SetSelection) # séléctionne les entité dont le champs code INSEE est égal à la valeur du champs code insee de la première couche
+			cl.selectByExpression( " \"Code INSEE\" = '{}' ".format(value), QgsVectorLayer.SetSelection) # séléctionne les entités dont le champs code INSEE est égal à la valeur du champs code insee de la première couche
 			output_path = r'G:\DDTFE\ST\POLE_SIG\01_PROJETS_SIG\12_Adressage_BAN\02_PROJETS_COMMUNES\Export\export_points\%s_Export_points.csv' % value2 # definit le chemin d'export avec la variable value2 dans le nom
 			QgsVectorFileWriter.writeAsVectorFormat(cl, output_path, "UTF-8", driverName="CSV", onlySelected=True) # Exporte les entité selectionnées
 			iface.messageBar().pushMessage("Export réalisé avec succès vers G/POLE_SIG/12_Adressage_BAN/02_PROJETS_COMMUNES/Export")
 
-Les code python pour l’export des voies est le suivant :
+Le code python pour l’export des voies est le suivant :
 
 		.. code-block:: python
 
