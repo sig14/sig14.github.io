@@ -41,7 +41,7 @@ Pour cela on utilise une fonction postgresql/gis pour alimenter la table parcell
 
 
 
-On lance ensuite une fonction postgrresql/gis dont le code SQL se trouve `à cet endroit <https://github.com/sig14/sig14.github.io/blob/master/cadastre/sql/fonction_dvf_cadastre.sql>`_
+On lance ensuite une fonction postgresql/gis dont le code SQL se trouve `à cet endroit <https://github.com/sig14/sig14.github.io/blob/master/cadastre/sql/fonction_dvf_cadastre.sql>`_
 
 * Dans un premier temps, on séléctionne des valeurs de champs distincts pour éviter les doublons
 
@@ -107,7 +107,7 @@ On lance ensuite une fonction postgrresql/gis dont le code SQL se trouve `à cet
             group by a.geo_parcelle;
 
 
-* indexation de la tbale, vider et updater le champs deroulant html de cadastre.parcelle_info au niveau du numero de parcelle
+* indexation de la tbale, vider et updater le champs deroulant html de cadastre.parcelle_info au niveau du numéro de parcelle
 
         .. code-block:: sql
          
@@ -123,7 +123,7 @@ On lance ensuite une fonction postgrresql/gis dont le code SQL se trouve `à cet
 ------------------------------------
 
 
-* Mise à jour de l'info bulle HTML dans les propriété de la couche QGIS
+* Mise à jour de l'info bulle HTML dans les propriétés de la couche QGIS
 
 
 .. image:: ../img/cadastre/18_info_bulle_html.png
