@@ -11,7 +11,7 @@ I- Mise à jour annuelle
 Télécharger la dernière version stable du plugin cadastre Qgis `ICI <https://github.com/3liz/QgisCadastrePlugin/releases>`_
 
 
-Déplacer le zip sur apw65 et installer le depuis le menu **extension** de QGIS.
+Déziper-le et installer-le depuis le menu **extension** de QGIS.
 
 .. image:: ../img/cadastre/1_plugin_cadaster.png
    :scale: 50
@@ -39,7 +39,7 @@ Une fois le plugin installé, un nouveau menu Cadastre apparaît dans le menu Ex
 
 **Mise A Jour des Informations Cadastrales (MAJIC)**
 
-* Transmission chaque année (juillet/aout) des données MAJIC par la DDFIP. 
+* Transmission chaque année au CD14 (juillet/aout) des données MAJIC par la DDFIP. 
 * Les données MAJIC transmises correspondent à un état des lieux à janvier de l'année courante.
 
 **Fichier ANnuaire TOpographique Initialisé Réduit (FANTOIR)**
@@ -49,11 +49,11 @@ Une fois le plugin installé, un nouveau menu Cadastre apparaît dans le menu Ex
 3- Recencer les dépendances au schema cadastre
 ================================================
 
-La mise à jour des données cadastre dans le base de données postgresql nécessite de remplacer l'intégralité des tables de données, des vues et vues matérialisées qui en dépendent.
+La mise à jour des données cadastre dans la base de données postgresql nécessite de remplacer l'intégralité des tables de données, des vues et vues matérialisées qui en dépendent.
 
-Il est donc nécéessaire de garder en mémoire les vues et vm dépendantes du schema afin de pouvoir les rejlancer après intégration des donénes cadastre.
+Il est donc nécéessaire de garder en mémoire les vues et vues matérialisées dépendantes du schema afin de pouvoir les relancer après intégration des données cadastre.
 
-Nous allons créer une table listant les vues et  vm dépendantes du schema cadastre et le code sql qui leur est associé.
+Nous allons ainsi créer une table listant les vues et vm dépendantes du schema cadastre et le code sql qui leur est associé.
 
 Pour cela nous lançons la requête suivante :
 
@@ -157,9 +157,9 @@ Le code de la table se trouve `par ici <https://github.com/sig14/sig14.github.io
 4- Import des données cadastre
 ================================================
 
-* Modifier le nom du schema cadsatre en schema cadastre2 sur pgadmin, afin, par sécurité, de conserver la précédente version du schema cadsatre.
+* Modifier le nom du schema cadastre en schema cadastre2 sur pgadmin, afin, par sécurité, de conserver la précédente version du schema cadsatre.
 
-* Paramètrer le plugin en séléctionnant configuration. Sélectionner les bon noms et types de fichiers.
+* Paramètrer le plugin en séléctionnant *configuration*. Sélectionner les bon noms et types de fichiers.
 
 .. image:: ../img/cadastre/3_conf_plugin.png
    :scale: 50
@@ -169,7 +169,7 @@ Le code de la table se trouve `par ici <https://github.com/sig14/sig14.github.io
    :scale: 50
 
 
-* Lancer l'import postgis avec les paramètres suivants 
+* Lancer l'import postgis avec les paramètres suivant : 
 
 - Base de données : Postgis, lizmap
 - Schémas : taper cadastre et créer
@@ -191,7 +191,7 @@ Le code de la table se trouve `par ici <https://github.com/sig14/sig14.github.io
 5- Relancer les vues et VM dépendantes du cadastre
 ===================================================
 
-Pour relancer les vues et vm dépendandante, lancer la requête suivante :
+Pour relancer les vues et vm dépendandantes, lancer la requête suivante :
 
       .. code-block:: sql
 
@@ -204,16 +204,16 @@ Cette requête appelle la fonction dont le code se trouve `là <https://github.c
 7- Actualiser les fiches HTML de la table parcelle_info
 =========================================================
 
-Des champs HTML ont été dévellopés par l'équipe SIG du Départements afin de renseigner des informations complémentaires à la parcelle : Reglementation GPU par parcelle, historique des filiations de parcelle, historique des mutations immobilières.
+Des champs HTML ont été dévellopés par l'équipe SIG du Département afin de renseigner des informations complémentaires à la parcelle : Reglementation GPU par parcelle, historique des filiations de parcelle, historique des mutations immobilières.
 
-Les processus de construction des champs est décrit en partie II, III et IV.
+Le processus de construction des champs est décrit en partie II, III et IV.
 
 A chaque réimport du cadastre il est nécessaire de recréer et mettre à jour ces champs.
 
 7.1 - Documents d'urbanisme 
 ----------------------------
 
-* Créer le champ contenant l'html de table contenant les informations GPU par parcelle
+* Créer le champ contenant l'html de la table contenant les informations GPU par parcelle
 
         .. code-block:: sql
 
@@ -237,7 +237,7 @@ A chaque réimport du cadastre il est nécessaire de recréer et mettre à jour 
                 ALTER TABLE cadastre.parcelle_info
                 ADD deroulant_info varchar;
 
-* Lancer la fonction méttant à jour les champs (1 heure environ)
+* Lancer la fonction mettant à jour les champs (1 heure environ)
 
         .. code-block:: sql
 
@@ -247,14 +247,14 @@ A chaque réimport du cadastre il est nécessaire de recréer et mettre à jour 
 7.2 - Filiations parcellaire
 -----------------------------
 
-* Créer les champs contenant l'html des déroulants détaillant l'historique de diliation par parcelle
+* Créer les champs contenant l'html des déroulants détaillant l'historique de filiation par parcelle
 
         .. code-block:: sql
 
             alter table cadastre.parcelle_info add column tab_filiation text;
 
 
-* Lancer la fonction méttant à jour les champs 
+* Lancer la fonction mettant à jour les champs 
 
         .. code-block:: sql
 
@@ -271,7 +271,7 @@ A chaque réimport du cadastre il est nécessaire de recréer et mettre à jour 
             ALTER TABLE cadastre.parcelle_info add column deroulant_dvf varchar;
 
 
-* Lancer la fonction méttant à jour les champs
+* Lancer la fonction mettant à jour les champs
 
         .. code-block:: sql
 
