@@ -6,8 +6,8 @@ CREATE EXTENSION IF NOT EXISTS fuzzystrmatch ;
 --
 
 
---------------------------------------------------------------------------------------
---- C1 T2: Identifier les	points adresse pair ou impair du mauvais coté de la voie
+------------------------------------------------------------------------------------------
+--- CONTROLE 1 : Identifier les	points adresse mal positionnés au niveau de elurs voies
 ------------------------------------------------------------------------------------------
 
 --- C1 T1: Identifier les points adresse plus près d’une autre voie que celle à laquelle il appartient et retourne la distance entre le point et sa voie de ratachement
@@ -50,7 +50,8 @@ where v.id_voie = NEW.id_voie;
 
 $fct$ LANGUAGE plpgsql;
 
---  Fonction qui projete le point sur sa voix de rattachement (elle retourne une valeur correspondant au geom du point projeté) -------------
+
+--- C1 T2:--  Fonction qui projete le point sur sa voix de rattachement (elle retourne une valeur correspondant au geom du point projeté) -------------
 
 Create or replace function  adresse.point_proj(pgeom geometry, idv integer)
 RETURNS TEXT
@@ -89,7 +90,7 @@ $BODY$ LANGUAGE 'plpgsql';
 
 
 
---- C1 T2: FONCTION qui dessine un sgement du point adresse à un point projeté au 50/49e de la distance entre le point adresse et son point projeté 
+--- C1 T3: FONCTION qui dessine un segment du point adresse à un point projeté au 50/49e de la distance entre le point adresse et son point projeté 
 
 Create or replace function  adresse.segment_prolong(ptgeom geometry, ptgeom_proj TEXT)
 RETURNS TEXT
@@ -142,7 +143,7 @@ $BODY$ LANGUAGE 'plpgsql';
 
 
 
---- C1 T4: Fonction qui identifie les	points adresse pair ou impair du mauvais coté de la voie
+--- C1 T4: Fonction qui identifie les points adresse pairs ou impairs du mauvais coté de la voie
      
 
 Create or replace function  adresse.c_erreur_cote_parite(numero integer, cote_voie text)
@@ -174,7 +175,7 @@ $BODY$ LANGUAGE 'plpgsql';
 
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
--- Contrôle 2 : Détecter les erreurs de tracé de voies _ A complèter avec la vue v_c2_line_cross pour identifier les portions problèmatiques
+-- Contrôle 2 : Détecter les erreurs de tracé de voies 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -217,39 +218,18 @@ $BODY$ LANGUAGE 'plpgsql';
 
 
 
---- C2 T3:--  Identifier les voies avec erreur de tracé: qui croisent plusieurs fois un segment retourné
+--- C2 T3:-- VUE Contrôle : Détecter les erreurs de tracé de voies ----- 
 
-CREATE OR REPLACE FUNCTION adresse.f_voie_erreur_trace()
-  RETURNS "trigger" AS
-$fct$
-DECLARE 
-geom_rotate geometry ;
-geom_exist geometry;
-BEGIN 
-/* Cette requête retourne les segments au niveau de leur centroides raccourcies de 2/3
-*/
-Select adresse.line_rotation(g.geom_segment) into geom_rotate from
-/* Cette requête extrait des segments à partir de polylignes _ pas possible d'utiliser la fonction dans ce cas
-*/
-(SELECT * from (SELECT ROW_NUMBER() OVER() as id, dumps.id_voie, ST_MakeLine(lag((pt).geom, 1, NULL) OVER (PARTITION BY dumps.id_voie ORDER BY dumps.id_voie, (pt).path), (pt).geom) AS geom_segment
-  FROM (SELECT NEW.id_voie as id_voie, NEW.geom as geom, ST_DumpPoints(NEW.geom) AS pt ) dumps)s WHERE s.geom_segment IS NOT NULL)g;
-
-
-/* Cette requête identifie si la voie croise plusieurs fois les segments retournés
-*/
-Select geom_rotate into geom_exist
-WHERE ST_LineCrossingDirection(New.geom, geom_rotate) = '-2' or  ST_LineCrossingDirection(New.geom, geom_rotate) = '2'
-or ST_LineCrossingDirection(New.geom, geom_rotate) = '3' or ST_LineCrossingDirection(New.geom, geom_rotate) = '-3';
-
-IF geom_exist is not null THEN
-NEW.c_erreur_trace = TRUE ; -- retourne vrai si il y a erreur de tracé
-ELSE
-NEW.c_erreur_trace = FALSE; -- si pas d'erreur retourne faux
-
-END IF;
-RETURN    NEW ; 
-END;$fct$
-  LANGUAGE plpgsql;
+drop materialized view if exists adresse.v_controle_voie;
+create materialized view adresse.v_controle_voie as
+Select r.id, r.id_voie, r.geom_segment, r.geom_rotate, r.erreur_voie
+from
+(select id, segment_extract.id_voie, geom_segment, adresse.line_rotation(geom_segment) as geom_rotate,
+ST_LineCrossingDirection(adresse.line_rotation(geom_segment), voie.geom) = '-2' or  ST_LineCrossingDirection(adresse.line_rotation(geom_segment), voie.geom) = '2'
+or ST_LineCrossingDirection(adresse.line_rotation(geom_segment), voie.geom) = '3' or ST_LineCrossingDirection(adresse.line_rotation(geom_segment), voie.geom) = '-3' as erreur_voie
+from adresse.segment_extract('adresse.voie', 'voie.id_voie', 'voie.geom'), adresse.voie
+where voie.id_voie =  segment_extract.id_voie)r
+where r.erreur_voie = true;
 
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
