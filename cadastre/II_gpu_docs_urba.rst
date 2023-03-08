@@ -3,7 +3,7 @@ II- Onglet Documents d'urbanisme GPU
 
 Le service d’interrogation du GPU permet d’obtenir les différentes informations d’urbanisme intersectant une géométrie (ponctuelle ou surfacique). Ces informations sont disponibles en consultation et en téléchargement sur le `Géoportail de l'urbanisme <https://www.geoportail-urbanisme.gouv.fr/>`_
 
-Le dépratement met a disposition des communes l'ensemble de ces informations, ainsi que celles du cadastre sur son portail cartographique.
+Le Département met a disposition des communes l'ensemble de ces informations, ainsi que celles du cadastre sur son portail cartographique.
 Afin de faciliter la lecture des informations, l'ensemble des données du GPU sont collectées dans la base de données du Département à chaque mise à jour sur le GPU par les colectivités et agglomérées à l'echelle de la parcelle.
 
 .. image:: ../img/cadastre/7_schema_fiches_dosc_urba.png
@@ -32,9 +32,9 @@ Les données du GPU sont segementées par collectivité via un code partition fo
 * du code insee commune ou siren epci (en fonction du type de document : carte communale, PLU, PLUI)
 * D'un code optionnel de secteur pour les EPCI (A, B, C, D)
 
-Pour le Calvados, les codes insee des communes correspondent aux codes insee des communes historique (avant loi NOTRE).
+Pour le Calvados, les codes insee des communes correspondent aux codes insee des communes historiques (avant loi NOTRE).
 
-Pour finir, certaines communes sont soumises au RNU (Réglement National d'Urbanisme) et n'ont donc pas de documents d'urbanisme enregistrée sur le GPU.
+Pour finir, certaines communes sont soumises au RNU (Réglement National d'Urbanisme) et n'ont donc pas de documents d'urbanisme enregistrés sur le GPU.
 
 1.1 - Zonages et cartes communales
 -----------------------------------
@@ -54,9 +54,9 @@ Le workbench FME chargeant les données depuis l'API, réalisant le traitement e
 .. image:: ../img/cadastre/10_insee_communes_doc_urba.png
    :scale: 50
 
-* Intérogation de l'API pour connaitre les communes au RNU ou non
+* Interrogation de l'API pour connaître les communes au RNU ou non
 
-On intérroge l'API avec les paramètres suivants :
+On interroge l'API avec les paramètres suivant :
 
 URL : http://apicarto.ign.fr/api/gpu/municipality?insee=@Value(insee)
 
@@ -75,7 +75,7 @@ response body : Attribute
 
 * Récupération des données depuis l'API avec les "DU _" précédemments créés : données emprise, zonage et secteur carte communale
 
-On intérroge l'API avec les paramètres suivants :
+On interroge l'API avec les paramètres suivant :
 
 **emprise** :
 
@@ -87,7 +87,7 @@ response body : Attribute
 
 **zonage** :
 
-Intérrogation de l'API avec les DU_partition précédemment créés
+Interrogation de l'API avec les DU_partition précédemment créés
 
 URL : "https://apicarto.ign.fr/api/gpu/zone-urba?partition=DU_@Value(siren)"
 
@@ -127,18 +127,18 @@ response body : Attribute
 1.2 - Prescriptions
 -------------------
 
-Un second projet FME récupère les données de prescriptions linéaires, surfaciques et ponctuel sur le même modèle que précédemment, à l'exception de :
+Un second projet FME récupère les données de prescriptions linéaires, surfaciques et ponctuels sur le même modèle que précédemment :
 
 Le workbench FME se trouve `ICI <https://github.com/sig14/sig14.github.io/releases/tag/api_prescription_gpu>`_
 
-* Récupération des codes insee des communes historiques qui ne sont pas classées au rnu depuis la table crée dans la partie précédente
+* Récupération des codes insee des communes historiques qui ne sont pas classées au rnu depuis la table créée dans la partie précédente
 
 .. image:: ../img/cadastre/17_rnu_doc_urba.png
    :scale: 50
 
 * Récupération des données depuis l'API avec les "DU _" précédemments créés : données linéaires, surfaces et ponctuels
 
-On intérroge l'API avec les paramètres suivants :
+On interroge l'API avec les paramètres suivants :
 
 **surface** :
 
@@ -170,14 +170,14 @@ response body : Attribute
 1.3- Infos prescriptions
 -------------------------
 
-Un dernier projet FME récupère les données informations prescriptions linéaires, surfaciques et ponctuel sur le même modèle que précédemment.
+Un dernier projet FME récupère les données informations prescriptions linéaires, surfaciques et ponctuels sur le même modèle que précédemment.
 
 Le workbench FME se trouve `à cet endroit <https://github.com/sig14/sig14.github.io/releases/tag/api_info_prescriptions_gpu>`_
 
 
 * Récupération des données depuis l'API avec les "DU _" précédemments créés : données linéaires, surfaces et ponctuels
 
-On intérroge l'API avec les paramètres suivants :
+On interroge l'API avec les paramètres suivants :
 
 **surfaces** :
 
@@ -210,7 +210,7 @@ response body : Attribute
 
 L'objectif est ici de pouvoir consulter les données du GPU à l'échelle de la parcelle.
 
-L'utilisateur peut en cliquant sur une parcelle, consulter les données du GPU qui intersectent la parcelle, ouvrir les documents pdf associés sur le portail du GPU et connaitre l'impact des réglements sur la parcelle.
+L'utilisateur peut en cliquant sur une parcelle, consulter les données du GPU qui intersectent la parcelle, ouvrir les documents pdf associés sur le portail du GPU et connaître l'impact des réglements sur la parcelle.
 
 Pour cela on utilise une fonction postgresql/gis pour alimenter la table parcelle_info du cadastre et une mise en forme du formulaire QGIS en HTML pour publication sur le portail cartographique Lizmap.
 
@@ -218,7 +218,7 @@ Pour cela on utilise une fonction postgresql/gis pour alimenter la table parcell
 2.1 - Fonction postgresql/gis
 -----------------------------
 
-* En premier lieu, on corrige les géométries invalides des données GPU intégrés à la base de données CD14
+* En premier lieu, on corrige les géométries invalides des données GPU intégrées à la base de données CD14
 
         .. code-block:: sql
 
@@ -235,7 +235,7 @@ Pour cela on utilise une fonction postgresql/gis pour alimenter la table parcell
                 update ref_urbanisme.gpu_api_info_prescription_lin set geom = ST_MakeValid(geom);
 
 
-* On Créé le champ contenant l'html de table contenant les informations GPU par parcelle
+* On Crée le champ contenant l'html de table contenant les informations GPU par parcelle
 
         .. code-block:: sql
 
@@ -243,7 +243,7 @@ Pour cela on utilise une fonction postgresql/gis pour alimenter la table parcell
                 ADD tab_doc_urba varchar;
 
 
-* On créé ensuite les champs contenant l'html des déroulants détaillant les informations contenues dans le tableau
+* On crée ensuite les champs contenant l'html des déroulants détaillant les informations contenues dans le tableau
 
         .. code-block:: sql
 
@@ -260,7 +260,7 @@ Pour cela on utilise une fonction postgresql/gis pour alimenter la table parcell
                 ADD deroulant_info varchar;
 
 
-On lance ensuite une fonction postgrresql/gis dont le code SQL se trouve `ici <https://github.com/sig14/sig14.github.io/blob/master/cadastre/sql/fiche_parcelle_doc_urba.sql>`_
+On lance ensuite une fonction postgresql/gis dont le code SQL se trouve `ici <https://github.com/sig14/sig14.github.io/blob/master/cadastre/sql/fiche_parcelle_doc_urba.sql>`_
 
 * Dans un premier temps, la fonction met en place des tables temporaires rapprochant les parcelles du cadastre avec les données du GPU. L'objectif est également de pouvoir indexer ces tables temporaires pour accélerer la suite des traitements.
 
@@ -310,7 +310,7 @@ On lance ensuite une fonction postgrresql/gis dont le code SQL se trouve `ici <h
                      on   z.geo_parcelle = p.geo_parcelle
                      )
 
-* On ne conserve que les entités dont l'impact sur la parcelle est supérieure à 1 ou qui sont des ponctuels et on construit les liens html pour consultation des documents pdf sur le GPU (concatenation de blocs html + num partition + clé dossier pdf emprise + nom de fichier)
+* On ne conserve que les entités dont l'impact sur la parcelle est supérieur à 1 ou qui sont des ponctuels et on construit les liens html pour consultation des documents pdf sur le GPU (concatenation de blocs html + num partition + clé dossier pdf emprise + nom de fichier)
 
          .. code-block:: sql
             
@@ -345,7 +345,7 @@ On lance ensuite une fonction postgrresql/gis dont le code SQL se trouve `ici <h
                            where a.type_doc = 'Zonages'
                            group by a.parcelle
 
-* creation du tableau HTML principal détaillant le zonage ou carte communale, les prescriptions et les infos prescriptions et ajout des déroulants de détails précédemment crééS
+* création du tableau HTML principal détaillant le zonage ou carte communale, les prescriptions et les infos prescriptions et ajout des déroulants de détails précédemment créés
 
          .. code-block:: sql
 
@@ -389,7 +389,7 @@ On lance ensuite une fonction postgrresql/gis dont le code SQL se trouve `ici <h
 2.2 - Paramètrage Qgis/plugin Lizmap
 ------------------------------------
 
-* Mise à jour de l'info bulle HTML dans les propriété de la couche QGIS
+* Mise à jour de l'info bulle HTML dans les propriétés de la couche QGIS
 
 
 .. image:: ../img/cadastre/18_info_bulle_html.png
@@ -415,19 +415,19 @@ Le code CSS se trouve `en suivant ce lien <https://github.com/sig14/sig14.github
 3- Mise à jour quotidienne des données
 ======================================
 
-A chaque modification d'un document ou ajout par une collectivité sur le GPU, le pôle SIG du Département met à jour les données issues du GPU dans la base de donnée CD14 et met éhalement à jour les fiches HTML de la table patrcelle info du cadastre.
+A chaque modification d'un document ou ajout par une collectivité sur le GPU, le pôle SIG du Département met à jour les données issues du GPU dans la base de donnée CD14 et met également à jour les fiches HTML de la table parcelle_info du cadastre.
 
 
 3.1 - Mailing auto
 -----------------------------
 
-Le Géoportail de l'Urbanisme met à disposition un flux ATOM permettant de connaitre les dernières mises à jour de documents sur le GPU.
+Le Géoportail de l'Urbanisme met à disposition un flux ATOM permettant de connaître les dernières mises à jour de documents sur le GPU.
 
 La documentation suivante décrit comment exploiter ce flux : `<https://www.geoportail-urbanisme.gouv.fr/image/UtilisationATOM_GPU_1-0.pdf>`_
 
 Le pôle SIG utilise un site dédié qui exploite ce flux afin d'envoyer un mail à l'équipe SIG à chaque ajout d'une commmune du Département du calvados.
 
-A la récéption de ce mail, un membre de l'équipe déclenche un fichier batch, permettant d'indiquer le numéro de partition et lançant 3 workbench FME de supresssion, d'intégration des données GPU dans la BD CD14 et de mise à jour des champs HTML des parcelles du cadastre.
+A la récéption de ce mail, un membre de l'équipe déclenche un fichier batch, permettant d'indiquer le numéro de partition et lancant 3 workbench FME de supresssion, d'intégration des données GPU dans la BD CD14 et de mise à jour des champs HTML des parcelles du cadastre.
 
             .. code-block:: batch
 
@@ -442,10 +442,10 @@ A la récéption de ce mail, un membre de l'équipe déclenche un fichier batch,
                pause
 
 
-3.2 - FME :Import de l'emprise et supression des données
----------------------------------------------------------
+3.2 - FME : Import de l'emprise et supression des données
+----------------------------------------------------------
 
-Le premier worbench FME supprime les données GPU de la base sur le périmtre des nouvelles données importées.
+Le premier worbench FME supprime les données GPU de la base sur le périmètre des nouvelles données importées.
 
 
 Le workbench FME se `télécharge ici <https://github.com/sig14/sig14.github.io/releases/tag/FME_drop_data_gpu>`_
@@ -464,7 +464,7 @@ Le workbench FME se `télécharge ici <https://github.com/sig14/sig14.github.io/
 
 *Paramètres interrogation API* :
 
-Intérrogation de l'API avec les DU_partition précédemment créés
+Interrogation de l'API avec les DU_partition précédemment créés
 
 URL : https://apicarto.ign.fr/api/gpu/document?partition=DU_@Value(siren)
 
@@ -493,7 +493,7 @@ response body : Attribute
 .. image:: ../img/cadastre/16_reprojection_doc_urba.png
    :scale: 50
 
-* Insertion des données dans la table historique import données et lancement d'une requête SQL supprimant les données GPU dont le "DU _" est égal au "DU _" de leur emprise intersectant le buffer de - 500 mètres de la nouvelle emprise insérée.
+* Insertion des données dans la table historique_import_donnees et lancement d'une requête SQL supprimant les données GPU dont le "DU _" est égal au "DU _" de leur emprise intersectant le buffer de - 500 mètres de la nouvelle emprise insérée.
 
 .. image:: ../img/cadastre/22_supression_partition_.png
    :scale: 50
