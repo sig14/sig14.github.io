@@ -10,6 +10,45 @@ CREATE EXTENSION IF NOT EXISTS fuzzystrmatch ;
 --- C1 T2: Identifier les	points adresse pair ou impair du mauvais coté de la voie
 ------------------------------------------------------------------------------------------
 
+--- C1 T1: Identifier les points adresse plus près d’une autre voie que celle à laquelle il appartient et retourne la distance entre le point et sa voie de ratachement
+
+CREATE OR REPLACE FUNCTION adresse.f_point_voie_distant()
+  RETURNS "trigger" AS
+$fct$
+DECLARE 
+voie_rat  integer ;
+dist_ratach      integer;
+
+BEGIN 
+
+/* Cette requête retourne l'id_voie le plus proche du nouveau point adresse crée
+*/
+select g.voie into voie_rat from (select v.id_voie as voie , ST_Distance(NEW.geom, v.geom) as dist
+from adresse.voie v
+where ST_DWithin(v.geom, NEW.geom, 10000) 
+ORDER BY dist LIMIT 1) g ;
+
+/* Cette requête calcul la distance entre le point et sa voie de ratachement
+*/
+select ST_Distance(NEW.geom, v.geom) into dist_ratach
+from adresse.voie v
+where v.id_voie = NEW.id_voie;
+
+/* si erreur True, sinon false
+*/
+    IF voie_rat = NEW.id_voie THEN
+        NEW.c_erreur_dist_voie = FALSE; -- Faux, si le point adresse est proche de sa voie de ratachement
+    ELSE
+        NEW.c_erreur_dist_voie = TRUE; -- Sinon vrai
+    END IF;
+
+        NEW.c_dist_voie = dist_ratach;
+
+    RETURN NEW; 
+	END;
+
+
+$fct$ LANGUAGE plpgsql;
 
 --  Fonction qui projete le point sur sa voix de rattachement (elle retourne une valeur correspondant au geom du point projeté) -------------
 
@@ -49,7 +88,8 @@ $BODY$ LANGUAGE 'plpgsql';
 
 
 
---- FONCTION qui dessine un sgement du point adresse à un point projeté au 50/49e de la distance entre le point adresse et son point projeté 
+
+--- C1 T2: FONCTION qui dessine un sgement du point adresse à un point projeté au 50/49e de la distance entre le point adresse et son point projeté 
 
 Create or replace function  adresse.segment_prolong(ptgeom geometry, ptgeom_proj TEXT)
 RETURNS TEXT
@@ -73,7 +113,8 @@ $BODY$ LANGUAGE 'plpgsql';
 
 
 
---- Fonction qui trouve les points à droites et à gauche
+
+--- C1 T3:--- Fonction qui trouve les points à droites et à gauche
 
 Create or replace function  adresse.f_cote_voie(idv integer, geom_segment TEXT)
 RETURNS TEXT
@@ -100,7 +141,8 @@ $BODY$ LANGUAGE 'plpgsql';
 
 
 
---- Fonction qui identifie les	points adresse pair ou impair du mauvais coté de la voie
+
+--- C1 T4: Fonction qui identifie les	points adresse pair ou impair du mauvais coté de la voie
      
 
 Create or replace function  adresse.c_erreur_cote_parite(numero integer, cote_voie text)
@@ -135,7 +177,8 @@ $BODY$ LANGUAGE 'plpgsql';
 -- Contrôle 2 : Détecter les erreurs de tracé de voies _ A complèter avec la vue v_c2_line_cross pour identifier les portions problèmatiques
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
---  EXTRAIRE LES SEGMENTS DE POLYLIGNE
+
+--- C2 T1:--  EXTRAIRE LES SEGMENTS DE POLYLIGNE
 Create or replace function  adresse.segment_extract(table_name varchar, id_line varchar, geom_line varchar)
 RETURNS TABLE ( id bigint,  id_voie integer, geom_segment geometry ) -- retourne une table avec les id segment, leur id_voie et leurs géométries
 AS $BODY$
@@ -154,7 +197,8 @@ $BODY$ LANGUAGE 'plpgsql';
 
 
 
---  CREER CENTROID  1/3 DES SEGMENTS, ROTATIONS 
+
+--- C2 T2:--  CREER CENTROID  1/3 DES SEGMENTS, ROTATIONS 
 
 Create or replace function  adresse.line_rotation(lgeom geometry)
 RETURNS GEOMETRY
@@ -173,287 +217,128 @@ $BODY$ LANGUAGE 'plpgsql';
 
 
 
+--- C2 T3:--  Identifier les voies avec erreur de tracé: qui croisent plusieurs fois un segment retourné
 
---
--- Début TABLE_sequence
---
-
-
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
--- TABLE adresse.point_adresse
--------------------------------------------------------------------------------------------------------------------------------------------------------
-
--- point_adresse.c_erreur_voie
-
-
-ALTER TABLE adresse.point_adresse
-ADD COLUMN c_erreur_dist_voie BOOLEAN  ;
-
-
---- point_adresse.c_dist_voie
-
-ALTER TABLE adresse.point_adresse
-ADD COLUMN c_dist_voie  integer ;
+CREATE OR REPLACE FUNCTION adresse.f_voie_erreur_trace()
+  RETURNS "trigger" AS
+$fct$
+DECLARE 
+geom_rotate geometry ;
+geom_exist geometry;
+BEGIN 
+/* Cette requête retourne les segments au niveau de leur centroides raccourcies de 2/3
+*/
+Select adresse.line_rotation(g.geom_segment) into geom_rotate from
+/* Cette requête extrait des segments à partir de polylignes _ pas possible d'utiliser la fonction dans ce cas
+*/
+(SELECT * from (SELECT ROW_NUMBER() OVER() as id, dumps.id_voie, ST_MakeLine(lag((pt).geom, 1, NULL) OVER (PARTITION BY dumps.id_voie ORDER BY dumps.id_voie, (pt).path), (pt).geom) AS geom_segment
+  FROM (SELECT NEW.id_voie as id_voie, NEW.geom as geom, ST_DumpPoints(NEW.geom) AS pt ) dumps)s WHERE s.geom_segment IS NOT NULL)g;
 
 
--- point_adresse.geom_pt_proj
+/* Cette requête identifie si la voie croise plusieurs fois les segments retournés
+*/
+Select geom_rotate into geom_exist
+WHERE ST_LineCrossingDirection(New.geom, geom_rotate) = '-2' or  ST_LineCrossingDirection(New.geom, geom_rotate) = '2'
+or ST_LineCrossingDirection(New.geom, geom_rotate) = '3' or ST_LineCrossingDirection(New.geom, geom_rotate) = '-3';
 
+IF geom_exist is not null THEN
+NEW.c_erreur_trace = TRUE ; -- retourne vrai si il y a erreur de tracé
+ELSE
+NEW.c_erreur_trace = FALSE; -- si pas d'erreur retourne faux
 
-ALTER TABLE adresse.point_adresse
-ADD COLUMN geom_pt_proj TEXT  ;
-
-
-
-
--- point_adresse.geom_segment_prolong
-
-ALTER TABLE adresse.point_adresse
-ADD COLUMN geom_segment_prolong TEXT  ;
-
-
-
-
--- point_adresse.cote_voie
-
-ALTER TABLE adresse.point_adresse
-ADD COLUMN cote_voie TEXT ;
-
-
--- point_adresse.c_erreur_cote_parite
-
-ALTER TABLE adresse.point_adresse
-ADD COLUMN c_erreur_cote_parite TEXT ;
-
-
-
-
-
+END IF;
+RETURN    NEW ; 
+END;$fct$
+  LANGUAGE plpgsql;
 
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
---  TABLE adresse.voie
+-- Contrôle 3 : problèmes répétitions voies
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--C3.T1 Identifier les voies portant le même nom qu'une autre voie de la même commune
 
 
---- voie.c_erreur_trace
+CREATE OR REPLACE FUNCTION adresse.f_commune_repet_nom_voie()
+  RETURNS "trigger" AS
+$fct$
+DECLARE 
+repet integer ;
+BEGIN 
 
-ALTER TABLE adresse.voie
-ADD COLUMN c_erreur_trace  BOOLEAN   ;
+/* Cette requête retourne 
+*/
+SELECT count(g.nom) into repet ----------- Séléctionne le nombre de répétition des noms de voies depuis..... 
+          FROM (select c.id_com, c.geom, v.nom--------------------------------------------------------------------------------------------------------------------
+from adresse.voie v
+inner join adresse.commune c on st_intersects(c.geom, v.geom)---------------------- la séléction de l'ensemble des id_com, geom communes et noms de voie regroupés
+group by c.id_com, c.geom, v.nom) g----------------------------------------------------------------------------------------------------------------------------------
+         WHERE levenshtein(g.nom, NEW.nom) <= 1 ---- fonction comparant les noms proches à 1 caractère près
+           AND g.id_com IS NOT DISTINCT FROM ------------------------------------------------------ Contrainte pour n'avoir que les répétion dont l'id commune est lié à l'id commune du nouveau nom de voie saisi
+		   (select g.id_com where st_intersects(g.geom,NEW.geom) and g.nom = NEW.nom) ;
 
 
+    IF repet = 0 THEN
+        NEW.c_repet_nom_voie = FALSE; -- retrourne faux si pas de repetition de nom
+    ELSE
+        NEW.c_repet_nom_voie = TRUE; -- retrourne vrai si repetition de nom
+    END IF;
+    RETURN NEW; 
+END;
+$fct$ LANGUAGE plpgsql;
 
----voie.c_repet_nom_voie
 
-ALTER TABLE adresse.voie
-ADD COLUMN c_repet_nom_voie BOOLEAN   ;
 
 
+-- C3.T2: Identifier les voies avec un nom trop long
 
----voie.c_long_nom
 
-  ALTER TABLE adresse.voie
-ADD COLUMN  c_long_nom  BOOLEAN  ; 
+CREATE OR REPLACE FUNCTION adresse.f_controle_longueur_nom() 
+RETURNS "trigger" AS
+$fct$
+BEGIN
 
+/* Cette requête retourne 
+*/
+       		IF char_length(NEW.nom) < 24
+        THEN NEW.c_long_nom = FALSE ; -- retrourne faux si le nom fait moins de 24 caractères
+        ELSE
+             NEW.c_long_nom = TRUE ; -- retrourne vrai si le nom est trop long
+        END IF;
+        RETURN NEW; 
+        END;
+$fct$ LANGUAGE plpgsql;
 
 
----voie.c_saisie_double
 
-ALTER TABLE adresse.voie
-ADD COLUMN c_saisie_double BOOLEAN  ; 
 
+-- C3.T3: IDENTIFIER LES VOIES SAISIES EN 2 FOIS :
 
 
 
------------------------------------------------------------------------------------------------------------------------------------------------------------------------
--- TABLE adresse.parcelle
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION adresse.f_voie_double_saisie()
+  RETURNS "trigger" AS
+$fct$
+DECLARE
+repet integer;
+BEGIN 
+/* Cette requête retourne  les voies à moins de 500 mètre de la nouvelle voie crée et dont le nom est proche de celui ci
+*/
+select v.id_voie into repet
+from adresse.voie v
+where st_distance(NEW.geom, v.geom) < '500'
+AND levenshtein(CONCAT(NEW.typologie, ' ', NEW.nom), CONCAT(v.typologie, ' ', v.nom)) <= 1;
 
---- parcelle.nb_pt_adresse 
+IF repet is not null 
+THEN NEW.c_saisie_double = TRUE; -- retrourne vrai si la voie est saisie deux fois
+ELSE
+NEW.c_saisie_double = FALSE; -- retrourne faux si la voie n'est pas saisie deux fois
 
-ALTER TABLE adresse.parcelle
-ADD COLUMN nb_pt_adresse  INTEGER  ;
 
+END IF;
+    RETURN NEW; 
 
---- parcelle.date_pt_modif 
+ END;
+$fct$ LANGUAGE plpgsql;
 
 
-ALTER TABLE adresse.parcelle
-ADD COLUMN date_pt_modif  DATE  ; 
 
-
-
-
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
--- TABLE adresse.commune
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
---- commune.pt_hors_parcelle 
-
-ALTER TABLE adresse.commune
-ADD COLUMN pt_hors_parcelle  INTEGER  ;
-
---- commune.pt_hors_parcelle_valid
-ALTER TABLE adresse.commune
-ADD COLUMN pt_hors_parcelle_valid INTEGER  ;
-
---- commune.nb_pt_valide 
-ALTER TABLE adresse.commune
-ADD COLUMN nb_pt_valide      INTEGER  ; 
-
---- commune.nb_pt_erreur 
-ALTER TABLE adresse.commune
-ADD COLUMN nb_pt_erreur      INTEGER  ;
-
---- commune.nb_a_verif
-ALTER TABLE adresse.commune
-ADD COLUMN nb_a_verif        INTEGER  ;
-
---- commune.nb_pt_no_valid
-ALTER TABLE adresse.commune
-ADD COLUMN nb_pt_no_valid    INTEGER  ;
-
---- commune.pt_total 
-ALTER TABLE adresse.commune
-ADD COLUMN pt_total          INTEGER  ;
-
---- commune.pct_pt_reel_valid 
-ALTER TABLE adresse.commune
-ADD COLUMN pct_pt_reel_valid INTEGER  ;
-
----commune.voie_non_valid
-
-ALTER TABLE adresse.commune
-ADD COLUMN voie_non_valid INTEGER ;
-
----commune.voie_valid
-ALTER TABLE adresse.commune
-ADD COLUMN voie_valid INTEGER  ;
-
----commune.pct_voie_valid
-ALTER TABLE adresse.commune
-ADD COLUMN pct_voie_valid      INTEGER ;
-
----commune.voie_total 
-ALTER TABLE adresse.commune
-ADD COLUMN voie_total INTEGER ;
-
---
--- Fin TABLE_SEQUENCE
---
-
---
--- Début VIEW
---
-
--- VUE Contrôle : Détecter les erreurs de tracé de voies ----- Faire tourner en PGCRON
-
-drop materialized view if exists adresse.v_controle_voie;
-create materialized view adresse.v_controle_voie as
-Select r.id, r.id_voie, r.geom_segment, r.geom_rotate, r.erreur_voie
-from
-(select id, segment_extract.id_voie, geom_segment, adresse.line_rotation(geom_segment) as geom_rotate,
-ST_LineCrossingDirection(adresse.line_rotation(geom_segment), voie.geom) = '-2' or  ST_LineCrossingDirection(adresse.line_rotation(geom_segment), voie.geom) = '2'
-or ST_LineCrossingDirection(adresse.line_rotation(geom_segment), voie.geom) = '3' or ST_LineCrossingDirection(adresse.line_rotation(geom_segment), voie.geom) = '-3' as erreur_voie
-from adresse.segment_extract('adresse.voie', 'voie.id_voie', 'voie.geom'), adresse.voie
-where voie.id_voie =  segment_extract.id_voie)r
-where r.erreur_voie = true;
-
-
--- VUE lien points adresse voies rattachement :
-
-create view adresse.v_lien_pa_voie as select p.id_point, p.id_voie, c_dist_voie, ST_MakeLine(p.geom, ST_GeomFromText(p.geom_pt_proj, 2154)) as geom
-from adresse.point_adresse p ;
---
--- Fin VIEW
---
-
-
-
-
---
--- Début COMMENT
---
-
-
--- point_adresse.c_erreur_dist_voie
-COMMENT ON COLUMN adresse.point_adresse.c_erreur_dist_voie IS 'identifie les points adresse plus près d’une autre voie que celle à laquelle il appartient';
-
--- point_adresse.c_point_voie_distant
-COMMENT ON COLUMN adresse.point_adresse.c_dist_voie IS 'Calcul la distance entre le point adresse et sa voie de rattachement';
-
--- point_adresse.geom_pt_proj
-
-COMMENT ON COLUMN adresse.point_adresse.geom_pt_proj IS 'geometrie du point adressse projeté sur sa voie de ratachement';
-
-
--- point_adresse.geom_segment_prolong
-
-COMMENT ON COLUMN adresse.point_adresse.geom_segment_prolong IS 'géometrie du segment tracé entre le point adresse et le point projeté sur sa voie de ratachement. Prolongé de son 50/49e';
-
--- point_adresse.cote_voie
-
-COMMENT ON COLUMN adresse.point_adresse.cote_voie IS 'indique la position du point par rapport à sa voie de ratachement : droite, gauche, indéfinie. Sinon problème (voie mal tracée, point non rattaché à une voie, ...)';
-
-
--- point_adresse.c_erreur_cote_parite
-COMMENT ON COLUMN adresse.point_adresse.c_erreur_cote_parite IS 'identifie les points adresse pair ou impair du mauvais coté de la voie à laquelle il est rattaché : true (erreur coté), false (pas derreur) ou indefini. Sinon problème (voie mal tracée, point non rattaché à une voie, ...)';
-
-
--- voie.c_erreur_trace
-COMMENT ON COLUMN adresse.voie.c_erreur_trace IS 'erreur de tracé de voies recourbées sur ou vers elles mêmes';
--- voie.c_repet_nom_voie
-COMMENT ON COLUMN adresse.voie.c_repet_nom_voie IS 'voie portant le même nom qu1 autre voie de la même commune';
-
--- voie.c_long_nom
-COMMENT ON COLUMN adresse.voie.c_long_nom IS 'voie portant un nom de plus de 24 charactères';
-
--- voie.c_saisie_double
-COMMENT ON COLUMN adresse.voie.c_saisie_double IS 'Voies à moins de 50 mètres de distance portant le même nom';
-
--- parcelle. nb_pt_adresse
-COMMENT ON COLUMN adresse.parcelle.nb_pt_adresse IS 'nombre de points adresse par parcelle';
-
--- parcelle.date_pt_modif
-COMMENT ON COLUMN adresse.parcelle.date_pt_modif IS 'derniere modification des points adresse par parcelle';
-
--- commune.pt_hors_parcelle
-COMMENT ON COLUMN adresse.commune.pt_hors_parcelle IS 'nombre de point adresse hors parcelle/commune';
-
--- commune.pt_hors_parcelle_valid
-COMMENT ON COLUMN adresse.commune.pt_hors_parcelle_valid IS 'nombre de point adresse hors parcelle validés/commune';
--- commune.nb_pt_valide
-COMMENT ON COLUMN adresse.commune.nb_pt_valide IS 'nombre de point adresse marqués comme validés par les users/commune';
-
--- commune.nb_pt_erreur 
-COMMENT ON COLUMN adresse.commune.nb_pt_erreur IS 'nombre de point adresse en erreur/commune';
-
--- commune.nb_a_verif
-COMMENT ON COLUMN adresse.commune.pt_hors_parcelle_valid IS 'nombre de point adresse à vérifier sur le terrain/commune';
-
--- commune.nb_pt_no_valid
-COMMENT ON COLUMN adresse.commune.pt_hors_parcelle_valid IS 'nombre de point adresse non validés/commune';
-
--- commune.pt_total
-COMMENT ON COLUMN adresse.commune.pt_hors_parcelle_valid IS 'nombre de point adresse total/commune';
-
--- commune.pct_pt_reel_valid 
-COMMENT ON COLUMN adresse.commune.pt_hors_parcelle_valid IS 'nombre de point  adresse réellement validés/commune';
-
-
--- commune.voie_non_valid
-COMMENT ON COLUMN adresse.commune.voie_non_valid IS 'nombre de voies non validées/commune';
-
--- commune.voie_valid
-COMMENT ON COLUMN adresse.commune.voie_valid IS 'nombre de voies  validées/commune';
-
--- commune.voie_total
-COMMENT ON COLUMN adresse.commune.voie_total IS 'nombre de voies total/commune';
-
--- commune.pct_voie_valid
-COMMENT ON COLUMN adresse.commune.pct_voie_valid IS 'pourcentage de voie validé/commune';
-
---
--- FIN COMMENT
---
-
-COMMIT;
