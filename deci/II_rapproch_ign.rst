@@ -5,7 +5,7 @@ II- Rapprochement adresse BDtopo IGN
 Afin de faciliter le travail d'intervention des secours, le pôle SIg à répondu à une demande de rapprochement des adresses BAL dont dispose le Département avec les tronçons de voies IGN.
 
 L'objectif étant de déterminer pour chaque tronçon de BDtopo :
-* Le  nom de la voie
+* Le nom de la voie
 * Le premier numéro à droite
 * Le premier numéro à gauche
 * Le dernier numéro à droite
@@ -16,7 +16,7 @@ L'objectif étant de déterminer pour chaque tronçon de BDtopo :
 
 
 
-1- Rapprochements des voies adresses avec les tronçons routes
+1- Rapprochement des voies adresses avec les tronçons routes
 =============================================================
 
 Cette première étape vise à associer pour chaque voie tracée et enregistrée par les communes dans la base de données adresse du Département un tronçon BDtopo IGN.
@@ -26,9 +26,9 @@ Pour cela nous faisons appel à la fonction *adresse.id_voie_bdtopo_sdis()* qui 
 1.1 Segmenter les tronçons Bdtopo
 ---------------------------------
 
-Dans un premier temps, la fonction créé une table temporaire des noeuds de BDtopo que l'on va pouvoir indéxer pour accélerer le traitement :
+Dans un premier temps, la fonction crée une table temporaire des noeuds de BDtopo que l'on va pouvoir indéxer pour accélerer le traitement :
 
-         **1 - Séléction des périmètres communes bdtopo correspondant aux périmètres des communes adresses publiées** (pour circonscrire les tronçons sur les bons périmètres)
+         **1 - Sélection des périmètres communes bdtopo correspondant aux périmètres des communes adresses publiées** (pour circonscrire les tronçons sur les bons périmètres)
 
             .. code-block:: sql
 
@@ -63,7 +63,7 @@ Dans un premier temps, la fonction créé une table temporaire des noeuds de BDt
 1.2 Segmenter les tronçons Bdtopo
 ---------------------------------
 
-Dans un second temps on rapproche les tronçon dont la majorité des noeuds se trouve sur une voie adresse.
+Dans un second temps on rapproche les tronçons dont la majorité des noeuds se trouve sur une voie adresse.
 
          **1 - Buffer des voies adresses**
 
@@ -178,12 +178,12 @@ On projete le point sur le tronçon le plus prohce associé à la voie dont dép
 
       
 
-2.2 Determiné de quels côtés se trouve les point adresse
+2.2 Determiner de quels côtés se trouve les points adresse
 -----------------------------------------------------------
 
 Pour identifier le côté du point adresse par rapport au tronçon.
 
-         **1 - Tracer une ligne prolongées entre le point adresse et son point projeté sur le tronçon**
+         **1 - Tracer une ligne prolongée entre le point adresse et son point projeté sur le tronçon**
 
              .. code-block:: sql
 
@@ -214,7 +214,7 @@ Pour identifier le côté du point adresse par rapport au tronçon.
 
 
 
-2.3 Ne conserver que les premier et derniers points adresse
+2.3 Ne conserver que les premiers et derniers points adresse
 -------------------------------------------------------------
 
 Pour identifier le côté du point adresse par rapport au tronçon.
@@ -265,7 +265,7 @@ Pour identifier le côté du point adresse par rapport au tronçon.
                         order by d.id_troncon, dist ASC)
 
 
-         **3 - Jointure des précdentes sélection :** tronçons rapproché (z),  geométrie tronçon ign (e) et  nom complet des voies(v)
+         **3 - Jointure des précédentes sélections :** tronçons rapprochés (z),  geométrie tronçon ign (e) et  nom complet des voies (v)
 
 
             .. code-block:: sql
@@ -292,10 +292,10 @@ Pour identifier le côté du point adresse par rapport au tronçon.
 
 
 
-3- Liste des points adresses indeterminés
+3- Liste des points adresse indeterminés
 =========================================
 
-On identifie ici les points adresses dont le côté n'a pu être determiné : mauvais traçé d'un tronçon, positionnement particulier du point adresse par rapport au tronçon (à l'extrémité d'un tronçon).
+On identifie ici les points adresse dont le côté n'a pu être determiné : mauvais tracé d'un tronçon, positionnement particulier du point adresse par rapport au tronçon (à l'extrémité d'un tronçon).
 
 Pour cela nous créons une vue materialisée *adresse.vm_sdis_pts_adresse_indetermine * dont le code se trouve ici : `vm sql <https://github.com/sig14/sig14.github.io/blob/master/deci/sql/vm_adresses_indeterminees_voies_ign.sql>`_
 
@@ -324,7 +324,7 @@ Pour cela nous créons une vue materialisée *adresse.vm_sdis_pts_adresse_indete
 
 
 
-4- Voies adresses non affiliée à un tronçon 
+4- Voies adresses non affiliées à un tronçon 
 ==============================================
 
 On identifie ici les voies adresses pour lesquelles aucun tronçon n'a pu être rapporché : pas de tronçon superposé, une trop petite partie du tronçon superposée.
