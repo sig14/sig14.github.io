@@ -3,11 +3,11 @@
 I- Plannificateur de tâches
 ******************************
  
-Dans le cadre de ses missions, le pôle SIG du Département enrichit la base de données épaisse, effectue des mise à jour automatique (interconnexion aux API via l’ETL FME) et des traitements spécifiques sur la base de données.
+Dans le cadre de ses missions, le pôle SIG du Département enrichit la base de données épaisse, effectue des mises à jour automatiques (interconnexion aux API via l’ETL FME) et des traitements spécifiques sur la base de données.
 
 Pour cela, des taches sont programmées via le logiciel 'Task scheduler' de windows.
 
-Avec la multiplication des taches plannifiées, un traitement FME a éta mis en place pour automatiser la création d'un calendrier partagé des taches windows dans Outlook.
+Avec la multiplication des taches plannifiées, un traitement FME a été mis en place pour automatiser la création d'un calendrier partagé des taches windows dans Outlook.
 
 .. image:: ../img/serveur_traitement/task_calendar.gif
    :scale: 50
@@ -64,13 +64,13 @@ LE RESUME ET SON CONTENU DOIT TOUJOURS TERMINER LA DESCRIPTION !!
 1.2 - Onglet déclencheur
 -------------------------
 
-* La date de démarrage doit toujour commencer le même jour que celui programmé (ex : si programmé les lundi, démarrage un lundi ou si programmé le prmier vendredi du mois, démarrage un premier vendredi)
+* La date de démarrage doit toujour commencer le même jour que celui programmé (ex : si programmé les lundi, démarrage un lundi ou si programmé le premier vendredi du mois, démarrage un premier vendredi)
 
 
 .. image:: ../img/serveur_traitement/0_2_date_progra.png
    :scale: 50
 
-* On ne définit pas d'arrêt de la tâche à cette étape (on se sert de l'execution limite à une autre étape, cela risque de concurencer)
+* On ne définit pas d'arrêt de la tâche à cette étape (on se sert de l'exécution limite à une autre étape, cela risque de concurencer)
 
 .. image:: ../img/serveur_traitement/0_3_no_limit_in_time.png
    :scale: 50
@@ -79,7 +79,7 @@ LE RESUME ET SON CONTENU DOIT TOUJOURS TERMINER LA DESCRIPTION !!
 -----------------------
 
 
-* Programmer l'arrêt de la tâche en fonction de sa duére réelle (c'est cette limite qui va définir la durée de la tâche : en heure ou en minutes)
+* Programmer l'arrêt de la tâche en fonction de sa durée réelle (c'est cette limite qui va définir la durée de la tâche : en heure ou en minutes)
 
 .. image:: ../img/serveur_traitement/0_4_execution_time_limit.png
    :scale: 50
@@ -107,7 +107,7 @@ FME récupère l'ensemble des fichiers XML se trouvant dans ce dossier.
    :scale: 50
 
 
-* Récupération du texte entre les balises URI (nom de la tache)
+* Récupération du texte entre les balises **URI** (nom de la tache)
 
         .. code-block:: sql
 
@@ -117,7 +117,7 @@ FME récupère l'ensemble des fichiers XML se trouvant dans ce dossier.
 
 
 
-* Récupération du texte entre les balises command (actions effectuées par la tâche) sous forme de listes
+* Récupération du texte entre les balises **command** (actions effectuées par la tâche) sous forme de listes
 
         .. code-block:: sql
 
@@ -126,39 +126,39 @@ FME récupère l'ensemble des fichiers XML se trouvant dans ce dossier.
 * Concatenation des listes d'actions
 
 
-* Récupération du texte entre les balises Description (Description de la tâche) sous forme de listes
+* Récupération du texte entre les balises **Description** (Description de la tâche) sous forme de listes
 
         .. code-block:: sql
 
             (?<=<Description>)(.*)(?=<\/Description>)
 
 
-* remplacer les sauts de lignes des description par des balises \n puis saut de ligne (interprétables par Outlook)
+* remplacer les sauts de lignes des description par des balises **\n** puis saut de ligne (interprétables par Outlook)
 
 
-* Recupération de la valeur entre les balises StarBoundary (heure et date de démarrage de la tache)
+* Recupération de la valeur entre les balises **StarBoundary** (heure et date de démarrage de la tache)
 
         .. code-block:: sql
 
              (?<=StartBoundary>)(.*?)(?=<\/StartBoundary)
 
-* Supprimer les : et - de la date de démarrage (interprétables par Outlook) 
+* Supprimer les **:** et **-** de la date de démarrage (interprétables par Outlook) 
 
 
-* Recupération de la valeur après balises SheduleBy (programation par intervale : mois, jours, années)
+* Recupération de la valeur après balises **SheduleBy** (programation par intervale : mois, jours, années)
 
         .. code-block:: sql
 
             (?<=ScheduleBy)(\w*)(?=>)
 
-* Recupération de la valeur après ExecutionTimeLimit (limite de temps avant interuption de la tâche)
+* Recupération de la valeur après **ExecutionTimeLimit** (limite de temps avant interuption de la tâche)
 
         .. code-block:: sql
 
             (?<=ExecutionTimeLimit>)(\w*)
 
 
-* Recupération de la valeur comprise entre CATEGORIE et . (categorie de donénes entrantes, sortantes ou flux internes)
+* Recupération de la valeur comprise entre **CATEGORIE** et **.** (categorie de donénes entrantes, sortantes ou flux internes)
 
         .. code-block:: sql
 
@@ -217,7 +217,7 @@ FME récupère l'ensemble des fichiers XML se trouvant dans ce dossier.
 
 **Pour les temporalité Day** :
 
-* Recupération des chifres après la balise DaysInterval (interval de jours pour lancement de la tâche)
+* Recupération des chiffres après la balise **DaysInterval** (interval de jours pour lancement de la tâche)
 
         .. code-block:: sql
 
@@ -226,7 +226,7 @@ FME récupère l'ensemble des fichiers XML se trouvant dans ce dossier.
 
 **Pour les temporalité Week** :
 
-* Recupération des chifres Entre les balises WeeksInterval (interval de semaines pour lancement de la tâche)
+* Recupération des chifres Entre les balises **WeeksInterval** (interval de semaines pour lancement de la tâche)
 
         .. code-block:: sql
 
@@ -235,7 +235,7 @@ FME récupère l'ensemble des fichiers XML se trouvant dans ce dossier.
 
 **Pour les temporalité Month** :
 
-* Recupération du texte Entre les balises Months (différents mois de lancement de la tâche)
+* Recupération du texte Entre les balises **Months** (différents mois de lancement de la tâche)
 
         .. code-block:: sql
 
@@ -248,7 +248,7 @@ FME récupère l'ensemble des fichiers XML se trouvant dans ce dossier.
 
                 (?<=<)(.*?\/>)
 
-* Recupération du chiffre après la balise Day (jour des mois de lancement de la tâche)
+* Recupération du chiffre après la balise **Day** (jour des mois de lancement de la tâche)
 
         .. code-block:: sql
 
@@ -262,13 +262,13 @@ FME récupère l'ensemble des fichiers XML se trouvant dans ce dossier.
 **Pour les temporalité MonthDayOfWeek** :
 
 
-* Recupération des chiffres après la balise Week (numéro de semaine de lancement)
+* Recupération des chiffres après la balise **Week** (numéro de semaine de lancement)
 
         .. code-block:: sql
 
             (?<=<Week>)(\d*)
 
-* Recupération deu texte Entre les balises DaysofWeek (jours de la semaine pour lancement de la tâche)
+* Recupération deu texte Entre les balises **DaysofWeek** (jours de la semaine pour lancement de la tâche)
 
         .. code-block:: sql
 
@@ -279,7 +279,7 @@ FME récupère l'ensemble des fichiers XML se trouvant dans ce dossier.
 
 
 
-* Recupération du texte Entre les balises Months (différents mois de lancement de la tâche)
+* Recupération du texte Entre les balises **Months** (différents mois de lancement de la tâche)
 
         .. code-block:: sql
 
@@ -303,7 +303,7 @@ FME récupère l'ensemble des fichiers XML se trouvant dans ce dossier.
 
 * Création du numéro de mois correspondant à la valeur de mois extraite
 
-* Préfixer les attributs Days et Month en fonction de leur longueur et mise en forme de la date pour Outlook
+* Préfixer les attributs **Days** et **Month** en fonction de leur longueur et mise en forme de la date pour Outlook
 
 
 
