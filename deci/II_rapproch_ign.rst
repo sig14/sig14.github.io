@@ -26,7 +26,7 @@ Pour cela nous faisons appel à la fonction *adresse.id_voie_bdtopo_sdis()* qui 
 1.1 Segmenter les tronçons Bdtopo
 ---------------------------------
 
-Dans un premier temps, la fonction crée une table temporaire des noeuds de BDtopo que l'on va pouvoir indéxer pour accélerer le traitement :
+Dans un premier temps, la fonction crée une table temporaire des nœuds de BDtopo que l'on va pouvoir indexer pour accélérer le traitement :
 
          **1 - Sélection des périmètres communes bdtopo correspondant aux périmètres des communes adresses publiées** (pour circonscrire les tronçons sur les bons périmètres)
 
@@ -41,7 +41,7 @@ Dans un premier temps, la fonction crée une table temporaire des noeuds de BDto
                            where st_intersects(b.geom,commune_pub.geom)
                            ) 
 
-         **2 - Création de noeuds bdtopo** : segemntation des tronçons tous les 10 mètres, transformation des segments en multipoints, dump pour avoir des géométries uniques.
+         **2 - Création de noeuds bdtopo** : segmentation des tronçons tous les 10 mètres, transformation des segments en multipoints, dump pour avoir des géométries uniques.
 
 
 
@@ -110,7 +110,7 @@ Dans un second temps on rapproche les tronçons dont la majorité des noeuds se 
                             group by f.id, f.id_voie
                             ),
 
-         **6 - Rapprochement des tronçons à une voie adresse si la majorité de ses noeuds sont compris dans son buffer** 
+         **6 - Rapprochement des tronçons à une voie adresse si la majorité de ses nœuds est comprise dans son buffer** 
 
                   .. code-block:: sql
 
@@ -135,7 +135,7 @@ Dans un second temps on rapproche les tronçons dont la majorité des noeuds se 
 
 Cette seconde étape vise à associer pour chaque tronçon, les points adresses dépendant de la voie qui lui a été attribué.
 
-Pour cela nous créons une vue materialisée *adresse.vm_sdis_pts_adresse_bdtopo* dont le code se trouve ici : `vm sql <https://github.com/sig14/sig14.github.io/blob/master/deci/sql/vm_rapproch_adresses_point_voie_ign.sql>`_
+Pour cela nous créons une vue matérialisée *adresse.vm_sdis_pts_adresse_bdtopo* dont le code se trouve ici : `vm sql <https://github.com/sig14/sig14.github.io/blob/master/deci/sql/vm_rapproch_adresses_point_voie_ign.sql>`_
 
 
 2.1 Projeter les points adresses sur les tronçons
@@ -160,7 +160,7 @@ On projete le point sur le tronçon le plus prohce associé à la voie dont dép
                   ),
 
 
-         **2 - Séléction unique des id_points avec id tronçon associés dont la distance est la plus courte** : pour une voie comprenant plusieurs tronçons bdtopo on associe les points adresses aux tronçon le plus proche)
+         **2 - Sélection unique des id_points avec id tronçon associés dont la distance est la plus courte** : pour une voie comprenant plusieurs tronçons bdtopo on associe les points adresses aux tronçon le plus proche)
 
 
             .. code-block:: sql
@@ -219,7 +219,7 @@ Pour identifier le côté du point adresse par rapport au tronçon.
 
 Pour identifier le côté du point adresse par rapport au tronçon.
 
-         **1 - Séléction des tronçons sur les communes dont l'adressage est certifié/publié sur La BAN**
+         **1 - Sélection des tronçons sur les communes dont l'adressage est certifié/publié sur La BAN**
 
              .. code-block:: sql
 
@@ -232,7 +232,7 @@ Pour identifier le côté du point adresse par rapport au tronçon.
                         where st_intersects(b.geom,commune_publ.geom)
                      ), 
 
-         **2 - Séléction des points adresses droite/gauches les plus proches du point de fin et départ du tronçon**
+         **2 - Sélection des points adresses droite/gauches les plus proches du point de fin et départ du tronçon**
 
             .. code-block:: sql
 
@@ -327,7 +327,7 @@ Pour cela nous créons une vue materialisée *adresse.vm_sdis_pts_adresse_indete
 4- Voies adresses non affiliées à un tronçon 
 ==============================================
 
-On identifie ici les voies adresses pour lesquelles aucun tronçon n'a pu être rapporché : pas de tronçon superposé, une trop petite partie du tronçon superposée.
+On identifie ici les voies adresses pour lesquelles aucun tronçon n'a pu être rapproché : pas de tronçon superposé, une trop petite partie du tronçon superposée.
 
 Pour cela nous créons une vue materialisée *adresse.vm_troncon_no_voie_bd_topo* dont le code se trouve ici : `vm sql <https://github.com/sig14/sig14.github.io/blob/master/deci/sql/vm_voies_adresses_sans_tron%C3%A7on_ign.sql>`_
 
