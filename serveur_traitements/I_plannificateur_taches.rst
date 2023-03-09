@@ -5,9 +5,9 @@ I- Plannificateur de tâches
  
 Dans le cadre de ses missions, le pôle SIG du Département enrichit la base de données épaisse, effectue des mises à jour automatiques (interconnexion aux API via l’ETL FME) et des traitements spécifiques sur la base de données.
 
-Pour cela, des taches sont programmées via le logiciel 'Task scheduler' de windows.
+Pour cela, des tâches sont programmées via le logiciel 'Task scheduler' de windows.
 
-Avec la multiplication des taches plannifiées, un traitement FME a été mis en place pour automatiser la création d'un calendrier partagé des taches windows dans Outlook.
+Avec la multiplication des tâches plannifiées, un traitement FME a été mis en place pour automatiser la création d'un calendrier partagé des tâches windows dans Outlook.
 
 .. image:: ../img/serveur_traitement/task_calendar.gif
    :scale: 50
@@ -79,7 +79,7 @@ LE RESUME ET SON CONTENU DOIT TOUJOURS TERMINER LA DESCRIPTION !!
 -----------------------
 
 
-* Programmer l'arrêt de la tâche en fonction de sa durée réelle (c'est cette limite qui va définir la durée de la tâche : en heure ou en minutes)
+* Programmer l'arrêt de la tâche en fonction de sa durée réelle (c'est cette limite qui va définir la durée de la tâche : en heures ou en minutes)
 
 .. image:: ../img/serveur_traitement/0_4_execution_time_limit.png
    :scale: 50
@@ -95,7 +95,7 @@ Le workbench FME se trouve `ici <https://github.com/sig14/sig14.github.io/releas
 2.1 - Charger les fichiers XML task schduler
 ---------------------------------------------
 
-A chaque création d'une tache sur le logiciel 'Task scheduler' de Windows, un fichier xml est enregistré sur C:\Windows\System32\Tasks\*
+A chaque création d'une tâche sur le logiciel 'Task scheduler' de Windows, un fichier xml est enregistré sur C:\Windows\System32\Tasks\*
 
 FME récupère l'ensemble des fichiers XML se trouvant dans ce dossier.
 
@@ -107,13 +107,13 @@ FME récupère l'ensemble des fichiers XML se trouvant dans ce dossier.
    :scale: 50
 
 
-* Récupération du texte entre les balises **URI** (nom de la tache)
+* Récupération du texte entre les balises **URI** (nom de la tâche)
 
         .. code-block:: sql
 
             (?<=<URI>)(.*)(?=<\/URI>)
 
-* Exclure les taches qui commencent par "\User_Feed_" (tâches par défaut de windows)
+* Exclure les tâches qui commencent par "\User_Feed_" (tâches par défaut de windows)
 
 
 
@@ -123,7 +123,7 @@ FME récupère l'ensemble des fichiers XML se trouvant dans ce dossier.
 
             (?<=<Command>)(.*?)(?=<\/Command>)
 
-* Concatenation des listes d'actions
+* Concaténation des listes d'actions
 
 
 * Récupération du texte entre les balises **Description** (Description de la tâche) sous forme de listes
@@ -136,7 +136,7 @@ FME récupère l'ensemble des fichiers XML se trouvant dans ce dossier.
 * remplacer les sauts de lignes des description par des balises **\n** puis saut de ligne (interprétables par Outlook)
 
 
-* Recupération de la valeur entre les balises **StarBoundary** (heure et date de démarrage de la tache)
+* Récupération de la valeur entre les balises **StarBoundary** (heure et date de démarrage de la tâche)
 
         .. code-block:: sql
 
@@ -145,26 +145,26 @@ FME récupère l'ensemble des fichiers XML se trouvant dans ce dossier.
 * Supprimer les **:** et **-** de la date de démarrage (interprétables par Outlook) 
 
 
-* Recupération de la valeur après balises **SheduleBy** (programation par intervale : mois, jours, années)
+* Récupération de la valeur après balises **SheduleBy** (programmation par interval : mois, jours, années)
 
         .. code-block:: sql
 
             (?<=ScheduleBy)(\w*)(?=>)
 
-* Recupération de la valeur après **ExecutionTimeLimit** (limite de temps avant interuption de la tâche)
+* Récupération de la valeur après **ExecutionTimeLimit** (limite de temps avant interuption de la tâche)
 
         .. code-block:: sql
 
             (?<=ExecutionTimeLimit>)(\w*)
 
 
-* Recupération de la valeur comprise entre **CATEGORIE** et **.** (categorie de donénes entrantes, sortantes ou flux internes)
+* Récupération de la valeur comprise entre **CATEGORIE** et **.** (catégorie de donénes entrantes, sortantes ou flux internes)
 
         .. code-block:: sql
 
             (?<=CATEGORIE :)(.*?)(?=\.)
 
-* Supression des espaces dans le champs categorie
+* Supression des espaces dans le champs catégorie
 
 2.3 - Crétaion des champs pour le listing excel
 ------------------------------------------------
@@ -217,7 +217,7 @@ FME récupère l'ensemble des fichiers XML se trouvant dans ce dossier.
 
 **Pour les temporalité Day** :
 
-* Recupération des chiffres après la balise **DaysInterval** (interval de jours pour lancement de la tâche)
+* Récupération des chiffres après la balise **DaysInterval** (interval de jours pour lancement de la tâche)
 
         .. code-block:: sql
 
@@ -226,7 +226,7 @@ FME récupère l'ensemble des fichiers XML se trouvant dans ce dossier.
 
 **Pour les temporalité Week** :
 
-* Recupération des chifres Entre les balises **WeeksInterval** (interval de semaines pour lancement de la tâche)
+* Récupération des chifres Entre les balises **WeeksInterval** (interval de semaines pour lancement de la tâche)
 
         .. code-block:: sql
 
@@ -235,7 +235,7 @@ FME récupère l'ensemble des fichiers XML se trouvant dans ce dossier.
 
 **Pour les temporalité Month** :
 
-* Recupération du texte Entre les balises **Months** (différents mois de lancement de la tâche)
+* Récupération du texte Entre les balises **Months** (différents mois de lancement de la tâche)
 
         .. code-block:: sql
 
@@ -248,7 +248,7 @@ FME récupère l'ensemble des fichiers XML se trouvant dans ce dossier.
 
                 (?<=<)(.*?\/>)
 
-* Recupération du chiffre après la balise **Day** (jour des mois de lancement de la tâche)
+* Récupération du chiffre après la balise **Day** (jour des mois de lancement de la tâche)
 
         .. code-block:: sql
 
@@ -262,13 +262,13 @@ FME récupère l'ensemble des fichiers XML se trouvant dans ce dossier.
 **Pour les temporalité MonthDayOfWeek** :
 
 
-* Recupération des chiffres après la balise **Week** (numéro de semaine de lancement)
+* Récupération des chiffres après la balise **Week** (numéro de semaine de lancement)
 
         .. code-block:: sql
 
             (?<=<Week>)(\d*)
 
-* Recupération deu texte Entre les balises **DaysofWeek** (jours de la semaine pour lancement de la tâche)
+* Récupération du texte entre les balises **DaysofWeek** (jours de la semaine pour lancement de la tâche)
 
         .. code-block:: sql
 
@@ -279,7 +279,7 @@ FME récupère l'ensemble des fichiers XML se trouvant dans ce dossier.
 
 
 
-* Recupération du texte Entre les balises **Months** (différents mois de lancement de la tâche)
+* Récupération du texte Entre les balises **Months** (différents mois de lancement de la tâche)
 
         .. code-block:: sql
 
@@ -410,7 +410,7 @@ interval : Toutes les @Value(week_interval) semaines
 
 **Pour les temporalité Month** :
 
-periodicite : mesnuel
+periodicite : mensuel
 interval : 
 Le @Value(num_day) des mois de : 
 @Value(months)
@@ -435,8 +435,8 @@ Dans outlook, importer le calendrier à partir du fichier ICS créé.
 
 En cliquant sur un rendez-vous, vous pouvez consulter :
 
--	Periodicité des traitements (si paramétrage des catégories dans Outlook : plus bas dans le mail)
--	Le nom de la tache (objet)
+-	La périodicité des traitements (si paramétrage des catégories dans Outlook : plus bas dans le mail)
+-	Le nom de la tâche (objet)
 -	L’emplacement de l’action effectuée (emplacement)
 -	L’heure de début
 -	L’heure de fin (limite d’exécution du traitement)
@@ -447,7 +447,7 @@ Dans le corps du RDV :
 -	Une description du traitement
 
 
-Vous pouvez définir les catégories dans outlook comme ci-dessous pour visualiser la périodicité des traitement en couleur et les modalités d’imports/export de données (entrants, sortants, interne).
+Vous pouvez définir les catégories dans outlook comme ci-dessous pour visualiser la périodicité des traitements en couleur et les modalités d’imports/export de données (entrants, sortants, interne).
 
 -> Dans Accueil , indicateurs , classer
 
