@@ -268,7 +268,6 @@ Nous utilserons ici l'expression récursive de postgresql.
 
 * On termine la recursive :
          - On conditionne l'ajout de segments (arrête de la recursive) à une distance cumulée de 360 mètres
-         - On conditionne l'ajout de segments (arrête de la recursive) au fait que son id ne soit pas dans la liste d'identifiants gardée en mémoire
          - On ferme la recursive, on la lance
          - On récupère au passage les géométrie de segments DECI qui ont le même id que l'ensemble des segments rapprochés.
 
@@ -276,7 +275,7 @@ Nous utilserons ici l'expression récursive de postgresql.
 
             ng	
                   where 
-                     ng.meters < 360 and  not (ng.id = ANY(ng.path_id)) -- filtre sur la distance max +secu en cas de maillage, pour éviter de boucler sur les mêmes segments(on ne reprend pas de segemnt qui a été gardé en mémoire)
+                     ng.meters < 360  -- filtre sur la distance max 
             )  
             select sg.id, sg._n1, sg._n2, sg.meters,  r.geom, sg.geom_initiale
             from search_graph sg
