@@ -23,9 +23,9 @@ L'inconvénient est que ce système n'est pas évolutif. En cas de nouvelles con
 
 .. image:: ../img/adressage/numerotation_metrique.png
 
-Ce second système consiste à calculer le numéro en fonction de la distance depuis le début de la voie. Beaucoup plus évolutif car elle permet d'intercaler autant de numéros que l'on souhaite, cette numérotation permet également de donner une information précieuse sur la distance à parcourir jusqu'à la propriété. Cela est notamment très utile pour les secours ou les livreurs. Les numéros pairs et impairs peuvent être séparer de chaque côté de la voie, bien que ce ne soit pas obligatoire.
+Ce second système consiste à calculer le numéro en fonction de la distance depuis le début de la voie. Beaucoup plus évolutif car elle permet d'intercaler autant de numéros que l'on souhaite, cette numérotation permet également de donner une information précieuse sur la distance à parcourir jusqu'à la propriété. Cela est notamment très utile pour les secours ou les livreurs. Les numéros pairs et impairs peuvent être séparés de chaque côté de la voie, bien que ce ne soit pas obligatoire.
 
-Quel que soit le type de numérotation choisit par la commune, l'application propose une aide à la numérotation automatique.
+Quel que soit le type de numérotation choisi par la commune, l'application propose une aide à la numérotation automatique.
 
 Pour la numérotation classique, une fonction soumet le numéro qu'elle considère être le plus juste à l'utilisateur en regardant les numéros déjà présents avant et après sur la voie. Au positionnement d'un premier point adresse à droite de la voie, l'outil proposera le n°2, puis pour un second le n°4 et ainsi de suite. À la création d'un point adresse entre le n°2 et le n°4, l'outil proposera un n°2 bis puis un n°2 ter etc.
 
@@ -127,7 +127,7 @@ Pour la numérotation classique, une fonction soumet le numéro qu'elle considè
 			END;
 
 
-Pour la numérotation métrique, une fonction calcule la distance avec ``ST_Length`` et répartit aussi automatiquement les numéros pairs à droite et impairs à gauche. Via la variable ``sens``, l'utilisateur peut indiquer la voie qu'il a dessiné est à numéroter en sens inverse. L'application prend en compte cette information et calcule le munéro "à l'envers".
+Pour la numérotation métrique, une fonction calcule la distance avec ``ST_Length`` et répartit aussi automatiquement les numéros pairs à droite et impairs à gauche. Via la variable ``sens``, l'utilisateur peut sélectionner la voie qu'il a dessinée et la numéroter en sens inverse. L'application prend en compte cette information et calcule le nunéro "à l'envers".
 
 		.. code-block:: sql
 
@@ -211,7 +211,7 @@ De plus, la base de données fournie doit répondre à des normes de qualité s�
 
 Liste de défauts fréquemment rencontrés :
 
-* Points adresses hors parcelles
+* Points adresse hors parcelles
 
 .. image:: ../img/adressage/III_saisie/2.1_erreur_hp.png
    :width: 480
@@ -244,7 +244,7 @@ Liste de défauts fréquemment rencontrés :
 
 Sur la base de cette liste, un ensemble de scripts SQL permet d’identifier automatiquement ces différents cas :
 
-1.	Détecter automatiquement des erreurs de saisie sémantiques dans les données adresses 
+1.	Détecter automatiquement des erreurs de saisie sémantiques dans les données adresse 
 2.	Détecter les erreurs de saisie géométrique
 3.	Produire un bilan sur l’ensemble des données de référence.
 
@@ -265,7 +265,7 @@ Retourne un BOOLEAN dans le champ c_erreur_dist_voie» de la table point_adresse
 Retourne un Integer dans le champ « c_dist_voie» de la table point_adresse.
 Elle identifie ainsi la voie la plus proche dans un rayon de 10 km autour du point. Si la voie identifiée contient un « id_voie » différent de celui du point, la fonction retourne TRUE, sinon FALSE.
 
-Elle calcule également la distance entre le point adresse et sa voie de ratachement.
+Elle calcule également la distance entre le point adresse et sa voie de rattachement.
 Cette fonction se déclenche à chaque modification de la table point_adresse au niveau de la ligne modifiée.
 
 .. image:: ../img/adressage/III_saisie/2.1_f1.png
@@ -326,7 +326,7 @@ Retourne du texte dans un champ nommé « cote_voie».
 
 Elle identifie si le segment prolongé créé à partir du point projeté sur la voie de rattachement du point adresse, croise la ligne à gauche, à droite, ne croise pas ou croise plusieurs fois.
 
-Fonction postgis mobilisées :
+Fonction postgis mobilisée :
 •	ST_LineCrossingDirection(geom_segment, voie_geom)
 
 .. image:: ../img/adressage/III_saisie/2.1_f4.png
@@ -363,7 +363,7 @@ Fonction trigger adresse.f_erreur_cote_parite();  Identifie les points adresse p
 
 *Description*
 
-Retourne un BOOLEAN dans le champ « c_erreur_cote_parite» de la table point_adresse. Elle identifie ainsi si le point adresse créé est à gauches ou à droite de la voie.
+Retourne un BOOLEAN dans le champ « c_erreur_cote_parite» de la table point_adresse. Elle identifie ainsi si le point adresse créé est à gauche ou à droite de la voie.
 
 Si le point adresse est pair, mais à gauche de la voie ou si le point adresse est impair mais à droite de la voie, la fonction retourne TRUE, sinon FALSE.  
 
@@ -414,7 +414,7 @@ Retourne les segments au niveau de leur centroide raccourcis de 2/3
 
 *Description*
 
-Retourne une géométrie de ligne dans un champ nommé « geom_rotate».
+Retourne une géométrie de lignes dans un champ nommé « geom_rotate».
 
 Elle effectue une rotation à 80,1 degrès d’1/3 du segment au niveau de son centroide.
 Fonction postgis mobilisées :
@@ -457,7 +457,7 @@ La fonction se déclenche à chaque modif/ajout du « geom » de la voie et s’
 *Synopsis*
 
 Fonction adresse.f_bilan_pt_parcelle();
-Bilan du nombre de points adresses et dernière date de modification d’un point par parcelle.
+Bilan du nombre de points adresse et dernière date de modification d’un point par parcelle.
 
 *Description*
 
@@ -506,7 +506,7 @@ Identifie les voies portant un nom de plus de 24 caractères.
 
 Retourne un BOOLEAN dans un champ nommé « c_long_nom» de la table adresse.voie.
 
-Si le nom de la voie fait plus de 24 caractère la fonction retournera TRUE sinon FALSE
+Si le nom de la voie fait plus de 24 caractères la fonction retournera TRUE sinon FALSE
 
 Elle se déclenche à chaque création ou modification d’une valeur du champ nom.
 
@@ -551,15 +551,15 @@ Tableau de bord de suivi des indicateurs clés du projet, intégré aux logiciel
 Au sein du pôle SIG, nous souhaitions obtenir une vue d’ensemble des données produites au fur et à mesure de l’avancement du projet. Il fallait donc identifier une solution SIG permettant d’assurer un suivi interactif des données (contrôle des erreurs de saisies et bilan de l'avancement du projet).
 Elle devait s’intégrer au logiciel QGIS utilisé par le chargé de mission SIG du Département et sur l’application cartographique Lizmap à disposition des communes et des partenaires.
 
-Nous nous sommes appuyés sur une méthodologie publiée sur le site <https://plugins.QGIS.org/geopackages/5/> (Sutton, 2020) , afin de développer un « Dashboard » par manipulation des étiquettes de couches QGIS.
+Nous nous sommes appuyés sur une méthodologie publiée sur le site <https://plugins.QGIS.org/geopackages/5/> (Sutton, 2020) , afin de développer un « dashboard » par manipulation des étiquettes de couches QGIS.
 
 Cette méthode permet, en créant une couche spécifique de tableau de bord, de paramétrer le style des étiquettes de la couche et via requêtes sql d’agrégation, de produire un tableau interactif de suivi des données présentes dans le projet QGIS.
 
-**Les étapes de construction du Dashboard**
+**Les étapes de construction du dashboard**
 
 *Etape 1 : création de la couche dashboard*
 
-Créer une couche « dashboard » de polygone composée des champs suivant :
+Créer une couche « dashboard » de polygones composée des champs suivant :
 
 .. image:: ../img/adressage/III_saisie/dashboard/1_champs_dashboard.png 
    :scale: 50
@@ -645,7 +645,7 @@ Revenir à la table attributaire de « dashboard ».
 
 Donner un nom qui mette en évidence l’action. Ici le titre de la première étiquette que nous appellerons fenêtre dashboard.
 
-Puis indiquer dans le champ label expression l’expression qui s’affichera dans la première fenêtre dashboard, ici, simplement le titre **'nbr pt total'**
+Puis indiquer dans le champ "label expression" l’expression qui s’affichera dans la première fenêtre dashboard, ici, simplement le titre **'nbr pt total'**
 
 
 .. image:: ../img/adressage/III_saisie/dashboard/12_1rst_fenetre_dashboard.png
@@ -665,7 +665,7 @@ Si aucune fenêtre n’apparaît au niveau de votre projet QGIS, jouez avec les 
 
 *Etape 6 : Créer de nouvelles fenêtres dashboard*
 
-Pour créer une nouvelle fenêtre dashboard, passer la table attributaire en mode édition. Copiez la première ligne et coller la dans la partie blanche de la table attributaire. Une deuxième ligne identique apparaît.
+Pour créer une nouvelle fenêtre dashboard, passer la table attributaire en mode édition. Copier la première ligne et coller la dans la partie blanche de la table attributaire. Une deuxième ligne identique apparaît.
 
 .. image:: ../img/adressage/III_saisie/dashboard/13_2nd_fenetre_dashboard.png
    :scale: 50
@@ -678,7 +678,7 @@ Une fois la nouvelle entité créée, modifier les valeurs de champ de la second
 .. image:: ../img/adressage/III_saisie/dashboard/14_2nd_fenetre_vue.png 
    :scale: 50
 
-*Exemple de table attributaire Dashboard et rendu*
+*Exemple de table attributaire dashboard et rendu*
 
 Ci-dessous, nous avons organisé la table avec une fenêtre par ligne comme suit : une 1ère fenêtre avec valeur « titre » suivie d'une fenêtre affichant une valeur « expression ».
 
@@ -697,7 +697,7 @@ Ci-dessous, nous avons organisé la table avec une fenêtre par ligne comme suit
 
 			aggregate(layer:= 'Infos Communes', aggregate:='sum', expression:=pt_total)
 
-2- Total de la somme des valeurs de la collonne pt_total des entités sélectionnées sur la couche Infos Communes
+2- Total de la somme des valeurs de la colonne pt_total des entités sélectionnées sur la couche Infos Communes
 
 		.. code-block:: sql
 
@@ -711,7 +711,7 @@ Ci-dessous, nous avons organisé la table avec une fenêtre par ligne comme suit
 
 *Exemple de rendu*
 
-Le Dashboard est utilisé par le pôle SIG afin de contrôler les erreurs de saisies en temps réel par les communes et présenter un bilan général de l'avancement du projet.
+Le dashboard est utilisé par le pôle SIG afin de contrôler les erreurs de saisies en temps réel par les communes et présenter un bilan général de l'avancement du projet.
 
 Ci-dessous, un exemple d'affichage des bilans adresses (en haut à droite) après sélection d'une commune sous QGIS.
 
