@@ -43,7 +43,7 @@ Le workbench FME se trouve `ici <https://github.com/sig14/sig14.github.io/releas
 1.1 Regexp : correction du fichier
 ------------------------------------
 
-Dans un premier temps, afin de pouvoir correcetement lire le fichier, les données parcelles sont réunies en listes dans un seul champs à l'aide d'expression régulière et de l'ETL FME.
+Dans un premier temps, afin de pouvoir correcetement lire le fichier, les données parcelles sont réunies en listes dans un seul champ à l'aide d'expression régulière et de l'ETL FME.
 
 140;001;000;0000299;1;19900305;XXXXXREDACTEURDUDOCUMENTXXXX;00001;2;A0297;A0298;
 
@@ -77,7 +77,7 @@ group1 : **A0297,A0298,**
 
 **140;001;000;0000299;1;19900305;XXXXXREDACTEURDUDOCUMENTXXXX;00001;2;A0297, A0298,**
 
-* On ajoute ensuite une ligne avec la liste des nom de champs
+* On ajoute ensuite une ligne avec la liste des nom de champ
 
 .. image:: ../img/cadastre/23_add_name_fiel_.png
    :scale: 50
@@ -98,11 +98,11 @@ On effectue une dernière correction du fichier avant intégration dans la base 
 .. image:: ../img/cadastre/25_retraitement_dfi.png
    :scale: 50
 
-* Ajout des prefixes 0 aux sections et codecom en fonction de la longeur des variables (un 0 si length() = 2,  deux 0 si length() =1 .
+* Ajout des préfixes 0 aux sections et codecom en fonction de la longueur des variables (un 0 si length() = 2,  deux 0 si length() =1 .
 
-* suprimmer les espaces dans le champ list parcelle
+* supprimmer les espaces dans le champ list parcelle
 
-* suprimmer la dernière virgule en trop dans le champs list parcelle
+* supprimmer la dernière virgule en trop dans le champ list parcelle
 
 
 2- Champ HTML historique déroulant 
@@ -128,7 +128,7 @@ Pour cela on utilise une fonction postgresql/gis pour alimenter la table parcell
 
 On lance ensuite une fonction postgresql/gis dont le code SQL se trouve `ICI <https://github.com/sig14/sig14.github.io/blob/master/cadastre/sql/fonction_filiation_parcelles_cadastre.sql>`_
 
-* Dans un premier temps, la fonction met en place une table temporaire (que l'on va indéxer) regroupant ligne par ligne les infos dfi, la nature détaillée des dfi, la liste des parcelles mères et la liste des parcelles filles associées (filiation)
+* Dans un premier temps, la fonction met en place une table temporaire (que l'on va indexer) regroupant ligne par ligne les infos dfi, la nature détaillée des dfi, la liste des parcelles mères et la liste des parcelles filles associées (filiation)
 
         .. code-block:: sql
 
