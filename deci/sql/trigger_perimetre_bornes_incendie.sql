@@ -169,7 +169,7 @@ with resultat as (-- lancement réursive
 			) ng	
 
 			where 
-				ng.meters < 360 and  not (ng.id = ANY(ng.path_id)) -- filtre sur la distance max +secu en cas de maillage, pour éviter de boucler sur les mêmes segments(on ne reprend pas de segemnt qui a été gardé en mémoire)
+				ng.meters < 360  -- filtre sur la distance max 
 	)  
 	select sg.id, sg._n1, sg._n2, sg.meters,  r.geom, sg.geom_initiale
 	from search_graph sg
