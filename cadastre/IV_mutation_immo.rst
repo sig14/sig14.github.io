@@ -6,7 +6,7 @@ IV- Onglet Mutations immobilières
 
 Le jeu de données « Demandes de valeurs foncières », publié et produit par la direction générale des finances publiques, permet de connaître les transactions immobilières intervenues au cours des cinq dernières années. Les données contenues sont issues des actes notariés et des informations cadastrales.
 
-Il es disponible sur le site `datagouv.fr <https://www.data.gouv.fr/fr/datasets/5c4ae55a634f4117716d5656/>`_
+Il est disponible sur le site `datagouv.fr <https://www.data.gouv.fr/fr/datasets/5c4ae55a634f4117716d5656/>`_
 
 Les fichiers correspondant chacun à un millésime sont mis à disposition au format.txt. sur cinq ans.
 
@@ -43,7 +43,7 @@ Pour cela on utilise une fonction postgresql/gis pour alimenter la table parcell
 
 On lance ensuite une fonction postgresql/gis dont le code SQL se trouve `à cet endroit <https://github.com/sig14/sig14.github.io/blob/master/cadastre/sql/fonction_dvf_cadastre.sql>`_
 
-* Dans un premier temps, on séléctionne des valeurs de champs distincts pour éviter les doublons
+* Dans un premier temps, on sélectionne des valeurs de champs distincts pour éviter les doublons
 
         .. code-block:: sql
 
@@ -53,7 +53,7 @@ On lance ensuite une fonction postgresql/gis dont le code SQL se trouve `à cet 
                         a.no_disposition,...
 
 
-* On joint les natures de cultures et cultures spéciales (créer une table à partir de la notice descriptive disponible sur le site `datagouv.fr <https://www.data.gouv.fr/fr/datasets/5c4ae55a634f4117716d5656/>`_ , ainsi que les numéros de parcelles du cadastre.
+* On joint les natures de cultures et cultures spéciales (créer une table à partir de la notice descriptive disponible sur le site `datagouv.fr <https://www.data.gouv.fr/fr/datasets/5c4ae55a634f4117716d5656/>`_ ), ainsi que les numéros de parcelles du cadastre.
 
         .. code-block:: sql
 
@@ -69,7 +69,7 @@ On lance ensuite une fonction postgresql/gis dont le code SQL se trouve `à cet 
             left join ref_foncier.valeurs_foncieres_cultures_speciales d on a.nature_culture_speciale = d.code)
 
 
-* Creation du champ html : bloc html + info mutation, decomposition type local + nature culture
+* Création du champ html : bloc html + info mutation, décomposition type local + nature culture
 
         .. code-block:: sql
 
@@ -98,7 +98,7 @@ On lance ensuite une fonction postgresql/gis dont le code SQL se trouve `à cet 
                group by a.geo_parcelle, a.date_mutation, valeur_fonciere, nature_mutation, adresse,surf_terrain
 
 
-* Aggreger les déroulants par parcelle et les ordonner par date de mutation
+* Agréger les déroulants par parcelle et les ordonner par date de mutation
 
         .. code-block:: sql
 
@@ -107,7 +107,7 @@ On lance ensuite une fonction postgresql/gis dont le code SQL se trouve `à cet 
             group by a.geo_parcelle;
 
 
-* indexation de la tbale, vider et updater le champs deroulant html de cadastre.parcelle_info au niveau du numéro de parcelle
+* indexation de la table, vider et updater le champ déroulant html de cadastre.parcelle_info au niveau du numéro de parcelle
 
         .. code-block:: sql
          
