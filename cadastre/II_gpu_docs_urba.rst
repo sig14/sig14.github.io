@@ -3,7 +3,7 @@ II- Onglet Documents d'urbanisme GPU
 
 Le service d’interrogation du GPU permet d’obtenir les différentes informations d’urbanisme intersectant une géométrie (ponctuelle ou surfacique). Ces informations sont disponibles en consultation et en téléchargement sur le `Géoportail de l'urbanisme <https://www.geoportail-urbanisme.gouv.fr/>`_
 
-Le Département met a disposition des communes l'ensemble de ces informations, ainsi que celles du cadastre sur son portail cartographique.
+Le Département met à disposition des communes l'ensemble de ces informations, ainsi que celles du cadastre sur son portail cartographique.
 Afin de faciliter la lecture des informations, l'ensemble des données du GPU sont collectées dans la base de données du Département à chaque mise à jour sur le GPU par les colectivités et agglomérées à l'echelle de la parcelle.
 
 .. image:: ../img/cadastre/7_schema_fiches_dosc_urba.png
@@ -24,9 +24,9 @@ Cela permet aux partenaires du CD14 de pouvoir consulter rapidement les informat
 
 L'import des données de l'API GPU se fait via le logiciel ETL FME.
 
-Dans un premier les données GPU sont chargées dans la base de données du CD14 à l'échelle du Calvados.
+Dans un premier temps les données GPU sont chargées dans la base de données du CD14 à l'échelle du Calvados.
 
-Les données du GPU sont segementées par collectivité via un code partition formé : 
+Les données du GPU sont segmentées par collectivité via un code partition formé : 
 
 * du prefixe "DU _"
 * du code insee commune ou siren epci (en fonction du type de document : carte communale, PLU, PLUI)
@@ -136,9 +136,9 @@ Le workbench FME se trouve `ICI <https://github.com/sig14/sig14.github.io/releas
 .. image:: ../img/cadastre/17_rnu_doc_urba.png
    :scale: 50
 
-* Récupération des données depuis l'API avec les "DU _" précédemments créés : données linéaires, surfaces et ponctuels
+* Récupération des données depuis l'API avec les "DU _" précédemment créés : données linéaires, surfaces et ponctuels
 
-On interroge l'API avec les paramètres suivants :
+On interroge l'API avec les paramètres suivant :
 
 **surface** :
 
@@ -177,7 +177,7 @@ Le workbench FME se trouve `à cet endroit <https://github.com/sig14/sig14.githu
 
 * Récupération des données depuis l'API avec les "DU _" précédemments créés : données linéaires, surfaces et ponctuels
 
-On interroge l'API avec les paramètres suivants :
+On interroge l'API avec les paramètres suivant :
 
 **surfaces** :
 
@@ -235,7 +235,7 @@ Pour cela on utilise une fonction postgresql/gis pour alimenter la table parcell
                 update ref_urbanisme.gpu_api_info_prescription_lin set geom = ST_MakeValid(geom);
 
 
-* On Crée le champ contenant l'html de table contenant les informations GPU par parcelle
+* On crée le champ contenant l'html de table contenant les informations GPU par parcelle
 
         .. code-block:: sql
 
@@ -283,7 +283,7 @@ On lance ensuite une fonction postgresql/gis dont le code SQL se trouve `ici <ht
                   ON temp_parcelle_zonage_ref_urbanisme USING gist (geom);
 
 
-* Dans un second temps, on réalise l'union des tables temporaires, on calcul l'impact des zonages GPU par parcelle (par intersection) ainsi que la surface totale de chaque zonage. 
+* Dans un second temps, on réalise l'union des tables temporaires, on calcule l'impact des zonages GPU par parcelle (par intersection) ainsi que la surface totale de chaque zonage. 
 
 
 *exemple d'UNION des zonages PLU et secteurs cartes communales*
@@ -415,7 +415,7 @@ Le code CSS se trouve `en suivant ce lien <https://github.com/sig14/sig14.github
 3- Mise à jour quotidienne des données
 ======================================
 
-A chaque modification d'un document ou ajout par une collectivité sur le GPU, le pôle SIG du Département met à jour les données issues du GPU dans la base de donnée CD14 et met également à jour les fiches HTML de la table parcelle_info du cadastre.
+A chaque modification d'un document ou ajout par une collectivité sur le GPU, le pôle SIG du Département met à jour les données issues du GPU dans la base de données CD14 et met également à jour les fiches HTML de la table parcelle_info du cadastre.
 
 
 3.1 - Mailing auto
@@ -427,7 +427,7 @@ La documentation suivante décrit comment exploiter ce flux : `<https://www.geop
 
 Le pôle SIG utilise un site dédié qui exploite ce flux afin d'envoyer un mail à l'équipe SIG à chaque ajout d'une commmune du Département du calvados.
 
-A la récéption de ce mail, un membre de l'équipe déclenche un fichier batch, permettant d'indiquer le numéro de partition et lancant 3 workbench FME de supresssion, d'intégration des données GPU dans la BD CD14 et de mise à jour des champs HTML des parcelles du cadastre.
+A la réception de ce mail, un membre de l'équipe déclenche un fichier batch, permettant d'indiquer le numéro de partition et lançant 3 workbench FME de suppression, d'intégration des données GPU dans la BD CD14 et de mise à jour des champs HTML des parcelles du cadastre.
 
             .. code-block:: batch
 
