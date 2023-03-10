@@ -59,7 +59,7 @@ Une seconde table de données regroupe l'ensemble des données adresses aglomér
 
 Les 3 derniers champs de cette table sont mis à jours quotidienement comme suit :
 
-    **1-** Mise en place de fichiers Batch pour execution des script sql via psql 
+    **1-** Mise en place de fichiers Batch pour exécution des script sql via psql 
 			.. code-block:: Batch
 
 				@echo off
@@ -69,7 +69,7 @@ Les 3 derniers champs de cette table sont mis à jours quotidienement comme suit
 				"D:\PostgreSQL\11\bin\psql.exe" -h %PGHOSTNAME% -U %PGUSER% -d %PGROLE% -p %PGPORT% -f D:\_cron_postgres\adressage\api_ban\scripts\count_pts_matin.sql
 				endlocal
 
-	**2-** Execution des script sql  suivants :
+	**2-** Ex2cution des script sql  suivants :
 
 		* A 6h00 du matin* : 
 			.. code-block:: sql
@@ -137,7 +137,7 @@ Supprimer les champs inutiles. Ne garder que les champs suivants :
 
 
 
-2.2 - Ajouter les jeton d'accès API
+2.2 - Ajouter les jetons d'accès API
 -------------------------------------
 
 
@@ -165,7 +165,7 @@ Pour cela :
 .. image:: ../img/adressage/V_depot_bal/4_FME_test_MAJ.png
    :scale: 50 %
 
-* Supprimer ensuite les champs non nécessaires à l'agregation, pour ne conserver que : **le jeton**,  **le nom de la commune** et **le code insee**
+* Supprimer ensuite les champs non nécessaires à l'agrégation, pour ne conserver que : **le jeton**,  **le nom de la commune** et **le code insee**
 
 
 
@@ -189,7 +189,7 @@ Pour cela :
 
 
 
-2.5 - Agregation des communes filtrées
+2.5 - Agrégation des communes filtrées
 ---------------------------------------
 
 Une fois les deux filtres éffectués, on agrége l'ensemble des données avec le transformer **Aggregator**.
@@ -370,7 +370,7 @@ On créé ensuite un nouvel attribut comprenant le nombre de points extraits de 
 .. image:: ../img/adressage/V_depot_bal/17_FME_mail_attrribute_create.png
    :width: 480
 
-Puis, on met en place une liste sur le champs précédemment créé et on va concatener la liste au niveau des sauts de lignes. Ceci pour n'obtenir qu'une seule entité à intégrer dans le mail.
+Puis, on met en place une liste sur le champ précédemment créé et on va concatener la liste au niveau des sauts de lignes. Ceci pour n'obtenir qu'une seule entité à intégrer dans le mail.
 
 .. image:: ../img/adressage/V_depot_bal/18_FME_mail_list_concat.png
    :scale: 50 %
@@ -394,7 +394,7 @@ Après identification du compte de points publiés, on supprime les champs inuti
 * Le nombre de points publiés extrait par **StringSearcher**  (*_rows*)
 * Le code INSEE de la commune
 
-On créé ensuite un champs *date_depot_api* avec la date du jour (**AttributeCreator** : @DateTimeFormat(@DateTimeNow(local), %Y%m%d)).
+On crée ensuite un champs *date_depot_api* avec la date du jour (**AttributeCreator** : @DateTimeFormat(@DateTimeNow(local), %Y%m%d)).
 
 On insère finalement les données dans la table *commune* citée en partie I au niveau de la correspondance insee (**DatabaseUpdater**).
 
@@ -475,7 +475,7 @@ Enregistrement au format CSV d'une table de données des adresses créées duran
 
 Le traitement se déroule comme suit :
 
-* Jointures des de points adresses n0 - n7 , ne garder que les n0 non joints
+* Jointures des points adresse n0 - n7 , ne garder que les n0 non joints
 
 .. image:: ../img/adressage/V_depot_bal/22_mailing_comptage_n0_n7.png
    :width: 680
@@ -485,10 +485,10 @@ Le traitement se déroule comme suit :
 .. image:: ../img/adressage/V_depot_bal/22_mailing_comparaison_n0__modifn7.png
    :width: 680
 
-* export csv pour piece jointe des adresses suprimees et modifiées
+* export csv pour pièce jointe des adresses suprimées et modifiées
 
 
-* Comptage Points adresses modfiés durant les 7 derniers jours et non créés durant les 7 derniers jours
+* Comptage des points adresse modifiés durant les 7 derniers jours et non créés durant les 7 derniers jours
 
 .. image:: ../img/adressage/V_depot_bal/23_mailing_comparaison_n0_n7.png
    :width: 680
