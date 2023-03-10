@@ -28,7 +28,7 @@ Avec la fonctionnalité d'`Atlas de QGIS <http://www.qgistutorials.com/fr/docs/a
 
 Dans cet exemple, le choix est de faire apparaître deux types d'informations :
 
-* Une cartographie des communes qui sont engagées dans la démarche ou qui ont terminées leur projet. (**1**)
+* Une cartographie des communes qui sont engagées dans la démarche ou qui ont terminé leur projet. (**1**)
 * Des statistiques à l'échelle du département (**2**) et du canton en question (**3**).
 
 .. image:: ../img/adressage/rapport_adressage_canton_bayeux.png
