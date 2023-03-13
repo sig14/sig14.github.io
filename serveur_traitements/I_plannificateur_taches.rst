@@ -166,7 +166,7 @@ FME récupère l'ensemble des fichiers XML se trouvant dans ce dossier.
 
 * Supression des espaces dans le champs catégorie
 
-2.3 - Crétaion des champs pour le listing excel
+2.3 - Création des champs pour le listing excel
 ------------------------------------------------
 
 .. image:: ../img/serveur_traitement/I_8_listing_excel.png
