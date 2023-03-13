@@ -1,20 +1,20 @@
 
 
-III- Consultation et exports des données
+III- Consultation et export des données
 *****************************************
 
 
 1- Outils d'export
 =======================
 
-1.1 Export BAL Qgis
+1.1 Export BAL QGIS
 ---------------------
 
-Création d’une commande qgis pour exporter les données points adresse et voies par commune avec un simple clik bouton.
+Création d’une commande QGIS pour exporter les données points adresses et voies par commune avec un simple clik bouton.
 
 **Etape 1 : ouverture de la console action**
 
-Ouvrir la console « action » depuis les propriétés de la couche Commune (ici la couche Accompagnement alias du projet de la table adresse.commune).
+Ouvrir la console « action » depuis les propriétés de la couche Commune (ici la couche ```Accompagnement```  alias du projet de la table ``` adresse.commune```).
 
 **Etape 2 : paramétrer l'action**
 
