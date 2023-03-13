@@ -14,7 +14,7 @@ Création d’une commande QGIS pour exporter les données points adresses et vo
 
 **Etape 1 : ouverture de la console action**
 
-Ouvrir la console « action » depuis les propriétés de la couche Commune (ici la couche ``Accompagnement``  alias du projet de la table `` adresse.commune``).
+Ouvrir la console « action » depuis les propriétés de la couche Commune (ici la couche ``Accompagnement``  alias du projet de la table ``adresse.commune``).
 
 **Etape 2 : paramétrer l'action**
 
