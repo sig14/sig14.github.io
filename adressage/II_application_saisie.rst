@@ -196,7 +196,7 @@ Pour la numérotation métrique, une fonction calcule la distance avec ``ST_Leng
 
 
 
-2- Outils de contrôles
+2- Outils de contrôle
 =======================
 
 Solution SIG permettant d’affiner et de réduire le temps de contrôle de saisie des agents et d’assurer un suivi interactif des données.
