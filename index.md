@@ -1,4 +1,4 @@
-# Documentation du SIG du Département du Calvados
+# Documentation SIG du Département du Calvados
 
 
 Bienvenue sur le portail dédié à la documentation des activités du pôle SIG du Département du Calvados.
