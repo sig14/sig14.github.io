@@ -73,30 +73,39 @@ On lance ensuite une fonction postgresql/gis dont le code SQL se trouve `à cet 
 
         .. code-block:: sql
 
-               select a.geo_parcelle, a.date_mutation,
-                     
-                     concat('<br><details class="accordion_valeur_fonc"><summary>', nature_mutation,' / ', coalesce(valeur_fonciere,null, 'xx'),' euros <br>', 
-                     date_mutation,'<br>',coalesce(a.adresse,null, ''), '</summary>',
-                     string_agg( ('<br> '|| case when a.type_local = 'Maison' then '<img class="fit-picture" src="https://raw.githubusercontent.com/sig14/sig14.github.io/main/img/house.png" width="20"' 
-                                                   when a.type_local = 'Appartement' then '<img class="fit-picture" src="https://raw.githubusercontent.com/sig14/sig14.github.io/main/img/apartment-xxl.png" width="20"' 
-                                                   when a.type_local = 'Local industriel. commercial ou assimilé' then '<img class="fit-picture" src="https://raw.githubusercontent.com/sig14/sig14.github.io/main/img/shop.png" width="20"' 
-                                                   when a.type_local = 'Dépendance' then '<img class="fit-picture" src="https://raw.githubusercontent.com/sig14/sig14.github.io/main/img/dependance.png" width="20"'
-                                                   else '' end || '</img>     '||-- decompostion du type de local : ajout d'un lien vers image github associé selon le type
-                     
-                                 concat(a.type_local,' <br>     ')
-                                 ||case when (a.nb_piece_princ = '0' or a.nb_piece_princ is null) then ''
-                                    else concat(a.nb_piece_princ::text, ' pièces<br>     ') end ||
-                                 case when (a.surf_reelle_bati = '0' or a.surf_reelle_bati is null) then '' else concat(a.surf_reelle_bati::text, 'm²<br>') end), '' order by date_mutation::date DESC
-                                 ),--- ajout de la nature terrain si present : surface terrain avec image terrain associé , null si pas de valeur de surface
-                           nullif(concat( '<br><br><img class="fit-picture" src="https://raw.githubusercontent.com/sig14/sig14.github.io/main/img/grass.png" width="20" </img> Terrain<br>' , surf_terrain, ' m² <br>'),
-                           '<br><br><img class="fit-picture" src="https://raw.githubusercontent.com/sig14/sig14.github.io/main/img/grass.png" width="20" </img> Terrain<br> m² <br>'),
-                           
-                           nullif(translate(array_agg( DISTINCT nature_culture::text )::text, '{}', '' ), 'NULL'),'<br>' --- aggregation des natures de cultures, null si pas de valeur
-                           , nullif(replace(translate(array_agg( DISTINCT nature_culture_speciale::text)::text, '{}', ''), 'NULL', ''), ''), '</details>'  --- aggregation des natures de cultures spéciales, null si pas de valeur
-                           ) as deroulant_dvf
-               from parcelles_dvf a
-               group by a.geo_parcelle, a.date_mutation, valeur_fonciere, nature_mutation, adresse,surf_terrain
+              group_parcelle as (--- creation du champ html : bloc html + info mutation, decomposition type local + nature culture
+                  select a.geo_parcelle, a.date_mutation,
+       
+                  concat('<br><details class="accordion_valeur_fonc"><summary>', nature_mutation,' / ', coalesce(valeur_fonciere,null, 'xx'),' euros <br>', 
+                  date_mutation,'<br>',coalesce(a.adresse,null, ''), '</summary>',
+                  string_agg( ('<br> '|| case when a.type_local = 'Maison' then '<img class="fit-picture" src="https://raw.githubusercontent.com/sig14/sig14.github.io/main/img/house.png" width="20"' 
+                                    when a.type_local = 'Appartement' then '<img class="fit-picture" src="https://raw.githubusercontent.com/sig14/sig14.github.io/main/img/apartment-xxl.png" width="20"' 
+                                    when a.type_local = 'Local industriel. commercial ou assimilé' then '<img class="fit-picture" src="https://raw.githubusercontent.com/sig14/sig14.github.io/main/img/shop.png" width="20"' 
+                                    when a.type_local = 'Dépendance' then '<img class="fit-picture" src="https://raw.githubusercontent.com/sig14/sig14.github.io/main/img/dependance.png" width="20"'
+                                    else '' end || '</img>     '||-- decompostion du type de local : ajout d'un lien vers image github associé selon le type
+        
+                    concat(a.type_local,' <br>     ')
+                    ||case when (a.nb_piece_princ = '0' or a.nb_piece_princ is null) then ''
+                     else concat(a.nb_piece_princ::text, ' pièces<br>     ') end ||
+                    case when (a.surf_reelle_bati = '0' or a.surf_reelle_bati is null) then '' else concat(a.surf_reelle_bati::text, 'm²<br>') end), '' order by date_mutation::date DESC
+                    )) as html_general,
+                    
+                    
+                concat(    
+                    --- ajout de la nature terrain si present : surface terrain avec image terrain associé , null si pas de valeur de surface
+               nullif(concat( '<br><br><img class="fit-picture" src="https://raw.githubusercontent.com/sig14/sig14.github.io/main/img/grass.png" width="20" </img> Terrain<br>' , surf_terrain, ' m² <br>'),
+            '<br><br><img class="fit-picture" src="https://raw.githubusercontent.com/sig14/sig14.github.io/main/img/grass.png" width="20" </img> Terrain<br> m² <br>'),
+            
+             nullif(translate(array_agg( DISTINCT nature_culture::text )::text, '{}', '' ), 'NULL'),'<br>' --- aggregation des natures de cultures, null si pas de valeur
+            , nullif(replace(translate(array_agg( DISTINCT nature_culture_speciale::text)::text, '{}', ''), 'NULL', ''), '')  --- aggregation des natures de cultures    spéciales, null si pas de valeur
+               ) as html_terrain
+            from pars a
+            group by a.geo_parcelle, a.date_mutation, valeur_fonciere, nature_mutation, adresse,surf_terrain
+               ),
 
+         concatenation as (select a.geo_parcelle, a.date_mutation, concat(html_general, string_agg((html_terrain), ''), '</details>' ) as deroulant_dvf
+         from group_parcelle a
+         group by a.geo_parcelle, a.date_mutation, html_general)
 
 * Agréger les déroulants par parcelle et les ordonner par date de mutation
 
