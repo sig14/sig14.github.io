@@ -69,6 +69,16 @@ on b.geo_parcelle = concat(concat(code_dep, '0'), code_com, pref_section, sectio
 left join ref_foncier.valeurs_foncieres_cultures c on a.nature_culture = c.code 
 left join ref_foncier.valeurs_foncieres_cultures_speciales d on a.nature_culture_speciale = d.code),
 
+
+pars as (select a.geo_parcelle, a.date_mutation, valeur_fonciere, nature_mutation, adresse,surf_terrain, a.type_local,a.nb_piece_princ, a.surf_reelle_bati, a.nature_culture,  a.nature_culture_speciale
+    from    parcelles_dvf a
+    group by
+a.geo_parcelle, a.date_mutation, valeur_fonciere, nature_mutation, adresse,surf_terrain, a.type_local,a.nb_piece_princ, a.surf_reelle_bati, a.nature_culture,  a.nature_culture_speciale, a.surf_terrain
+
+),
+
+
+
  group_parcelle as (--- creation du champ html : bloc html + info mutation, decomposition type local + nature culture
 select a.geo_parcelle, a.date_mutation,
        
@@ -91,7 +101,7 @@ select a.geo_parcelle, a.date_mutation,
              nullif(translate(array_agg( DISTINCT nature_culture::text )::text, '{}', '' ), 'NULL'),'<br>' --- aggregation des natures de cultures, null si pas de valeur
             , nullif(replace(translate(array_agg( DISTINCT nature_culture_speciale::text)::text, '{}', ''), 'NULL', ''), ''), '</details>'  --- aggregation des natures de cultures spéciales, null si pas de valeur
             ) as deroulant_dvf
-from parcelles_dvf a
+from pars a
 group by a.geo_parcelle, a.date_mutation, valeur_fonciere, nature_mutation, adresse,surf_terrain
 )
 
@@ -109,11 +119,12 @@ RAISE NOTICE 'update de la table parcelle_info';
 
 --- passser les valeurs de deroulant à null
 
-update cadastre.parcelle_info set deroulant_dvf = null;
+update cadastre.parcelle_info set deroulant_dvf = 'Pas de mutation connue';
 
 -- update du champs deroulant html de cadastre.parcelle_info au niveau du numero de parcelle
 
 update cadastre.parcelle_info set deroulant_dvf = b.deroulant_dvf from temp_dvf b where b.geo_parcelle = parcelle_info.geo_parcelle;
+
 
 RAISE NOTICE 'drop table temp';
 
@@ -125,6 +136,7 @@ return 'Déroulants dvf intégrées';
 END
 $BODY$
 LANGUAGE plpgsql;
+
 
 ----
 --Lancement de la fonction
