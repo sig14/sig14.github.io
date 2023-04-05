@@ -112,7 +112,7 @@ On lance ensuite une fonction postgresql/gis dont le code SQL se trouve `à cet 
         .. code-block:: sql
 
             select a.geo_parcelle, string_agg((deroulant_dvf), '' order by date_mutation::date DESC) as deroulant_dvf
-            from group_parcelle a
+            from concatenation a
             group by a.geo_parcelle;
 
 
