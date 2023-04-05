@@ -68,7 +68,14 @@ On lance ensuite une fonction postgresql/gis dont le code SQL se trouve `à cet 
             left join ref_foncier.valeurs_foncieres_cultures c on a.nature_culture = c.code 
             left join ref_foncier.valeurs_foncieres_cultures_speciales d on a.nature_culture_speciale = d.code)
 
+            pars as (select a.geo_parcelle, a.date_mutation, valeur_fonciere, nature_mutation, adresse,surf_terrain, a.type_local,a.nb_piece_princ, a.surf_reelle_bati,   a.nature_culture,  a.nature_culture_speciale
+                from    parcelles_dvf a
+                group by
+            a.geo_parcelle, a.date_mutation, valeur_fonciere, nature_mutation, adresse,surf_terrain, a.type_local,a.nb_piece_princ, a.surf_reelle_bati, a.nature_culture,  a.nature_culture_speciale, a.surf_terrain
 
+            ),
+            
+            
 * Création du champ html : bloc html + info mutation, décomposition type local + nature culture
 
         .. code-block:: sql
