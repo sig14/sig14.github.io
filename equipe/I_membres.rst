@@ -17,7 +17,7 @@ Théo Grondin
 Chargé de mission SIG, theo.grondin@calvados.fr
 - 02.31.57.12.30
 
-Expertises : QGIS, postgreSQL/GIS, FME, lizmap, DECI, urbanisme, cadastre
+Expertises : QGIS, postgreSQL/GIS, FME, lizmap, DECI, urbanisme, cadastre, etc.
 
 .. image:: /equipe/photo_theo.jpg
    :width: 150
@@ -25,7 +25,7 @@ Expertises : QGIS, postgreSQL/GIS, FME, lizmap, DECI, urbanisme, cadastre
 
 Clément Bellêtre
 ===========================
-Chargé de mission SIG/, clement.belletre@calvados.fr
+Chargé de mission SIG, clement.belletre@calvados.fr
 - 02.31.57.12.08
 
 Expertises : QGIS, Lizmap, Adressage
@@ -34,7 +34,7 @@ Expertises : QGIS, Lizmap, Adressage
    :width: 150
    :alt: A screen capture showing the elements of the course outline in the LMS.
 
-Samuel Adurain
+Samuel Audrain
 ===========================
 Géomaticen, samuel.audrain@calvados.fr
 - 02.31.57.13.79
