@@ -9,6 +9,15 @@ Vous pouvez accéder à la page github source en suivant ce lien : [github CD14]
 
 Bonne visite !
 
+
+```{toctree}
+:caption: Equipe
+:maxdepth: 1
+
+equipe/equipe
+```
+
+
 ```{toctree}
 :caption: Adressage
 :maxdepth: 1
