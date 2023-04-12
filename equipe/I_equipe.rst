@@ -4,7 +4,7 @@ I- Membres
 Jérémie Ory
 ===========================
 Responsable du pôle SIG, jeremie.ory@calvados.fr
-02.31.57.11.51
+- 02.31.57.11.51
 
 Expertises : QGIS, postgreSQL/GIS, services web, lizmap, adressage, cadastre, etc.
 
@@ -15,7 +15,7 @@ Expertises : QGIS, postgreSQL/GIS, services web, lizmap, adressage, cadastre, et
 Théo Grondin
 ===========================
 Chargé de mission SIG, theo.grondin@calvados.fr
-02.31.57.12.30
+- 02.31.57.12.30
 
 Expertises : QGIS, postgreSQL/GIS, FME, lizmap, urbanisme, cadastre
 
@@ -26,7 +26,7 @@ Expertises : QGIS, postgreSQL/GIS, FME, lizmap, urbanisme, cadastre
 Clément Bellêtre
 ===========================
 Chargé de mission SIG/, clement.belletre@calvados.fr
-02.31.57.12.08
+- 02.31.57.12.08
 
 Expertises : QGIS, Lizmap, Adressage
 
@@ -36,8 +36,8 @@ Expertises : QGIS, Lizmap, Adressage
 
 Samuel Adurain
 ===========================
-Chargé de mission SIG, samuel.audrain@calvados.fr
-02.31.57.12.08
+Géomaticen, samuel.audrain@calvados.fr
+- 02.31.57.13.79
 
 Expertises : QGIS, Lizmap, gestion des routes
 
