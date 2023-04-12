@@ -14,7 +14,8 @@ Bonne visite !
 :caption: Équipe
 :maxdepth: 1
 
-equipe/I_equipe
+equipe/I_membres
+equipe/II_contact
 ```
 
 
