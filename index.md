@@ -11,7 +11,7 @@ Bonne visite !
 
 
 ```{toctree}
-:caption: Equipe
+:caption: Équipe
 :maxdepth: 1
 
 equipe/I_equipe
