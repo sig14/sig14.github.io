@@ -44,7 +44,3 @@ Expertises : QGIS, Lizmap, gestion des routes
 .. image:: /equipe/photo_samuel.jpg
    :width: 150
    :alt: A screen capture showing the elements of the course outline in the LMS.
-   
-II- Contact
-*********************************
-L'équipe est disponible à l'adresse mail suivante : sig@calvados.fr
