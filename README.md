@@ -1,4 +1,4 @@
-Besoin de la documentation ?
+Vous cherches des infos sur le SIG du CD14 ?
 ============================
 
-[Elle est hébergée ici, sur Github Pages ](https://sig14.github.io)
+[Des ressources documentaires sont hébergées ici, sur Github Pages ](https://sig14.github.io)
