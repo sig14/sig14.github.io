@@ -3,12 +3,18 @@ I- Membres
 
 Jérémie Ory
 ===========================
-Responsable du pôle SIG, jeremie.ory@calvados.fr
-- 02.31.57.11.51
-
-Expertises : QGIS, postgreSQL/GIS, services web, lizmap, open data, adressage, urbanisme, cadastre, etc.
-
-.. image:: /equipe/photo_jeremie.jpg
+> #### Responsable du pôle SIG
+> jeremie.ory@calvados.fr - 02.31.57.11.51
+> **Expertises :** 
+> - QGIS
+> - postgreSQL/GIS
+> - webmapping (Lizmap)
+> - open data
+> - adressage
+> - urbanisme
+> - cadastre
+> - etc.
+> .. image:: /equipe/photo_jeremie.jpg
    :width: 150
    :alt: A screen capture showing the elements of the course outline in the LMS.
 
