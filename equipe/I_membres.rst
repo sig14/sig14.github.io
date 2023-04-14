@@ -5,7 +5,7 @@ Jérémie Ory
 ===========================
 .. image:: /equipe/photo_jeremie.jpg
    :width: 150
-   :alt: A screen capture showing the elements of the course outline in the LMS.
+   :alt: A screen capture showing the elements of the course outline in the LMS.  
 
 Responsable du pôle SIG, jeremie.ory@calvados.fr - 02.31.57.11.51  
 
@@ -23,8 +23,6 @@ Chargé de mission SIG, theo.grondin@calvados.fr - 02.31.57.12.30
 
 - **Expertises :** QGIS, postgreSQL/GIS, FME, lizmap
 - **Thématiques métiers :** adressage, deci, urbanisme, cadastre
-
-
 
 Clément Bellêtre
 ===========================
