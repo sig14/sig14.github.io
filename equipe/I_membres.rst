@@ -4,7 +4,7 @@ I- Membres
 Jérémie Ory
 ===========================
 > #### Responsable du pôle SIG
-> jeremie.ory@calvados.fr - 02.31.57.11.51
+> jeremie.ory@calvados.fr / 02.31.57.11.51
 > **Expertises :** 
 > - QGIS
 > - postgreSQL/GIS
