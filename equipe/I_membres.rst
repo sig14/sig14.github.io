@@ -3,6 +3,7 @@ I- Membres
 
 Jérémie Ory  
 ===========================
+
 .. image:: /equipe/photo_jeremie.jpg
    :width: 150
    :alt: A screen capture showing the elements of the course outline in the LMS.  
