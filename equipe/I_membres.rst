@@ -1,20 +1,12 @@
 I- Membres
 *********************************
 
-Jérémie Ory
+Jérémie Ory  
 ===========================
+Responsable du pôle SIG, jeremie.ory@calvados.fr - 02.31.57.11.51  
 
-> #### Responsable du pôle SIG
->
-> **Expertises :** 
-> - QGIS
-> - postgreSQL/GIS
-> - webmapping (Lizmap)
-> - open data
-> - adressage
-> - urbanisme
-> - cadastre
-> - etc.
+- **Expertises :** QGIS, postgreSQL/GIS, webmapping, modélisation, analyse spatiale, open data
+- **Thématiques métiers :** adressage, DECI, urbanisme, cadastre
 
 .. image:: /equipe/photo_jeremie.jpg
    :width: 150
@@ -25,7 +17,8 @@ Théo Grondin
 Chargé de mission SIG, theo.grondin@calvados.fr
 - 02.31.57.12.30
 
-Expertises : QGIS, postgreSQL/GIS, FME, lizmap, DECI, urbanisme, cadastre, etc.
+- **Expertises :** QGIS, postgreSQL/GIS, FME, lizmap
+- **Thématiques métiers :** adressage, deci, urbanisme, cadastre
 
 .. image:: /equipe/photo_theo.jpg
    :width: 150
@@ -36,7 +29,8 @@ Clément Bellêtre
 Chargé de mission SIG, clement.belletre@calvados.fr
 - 02.31.57.12.08
 
-Expertises : QGIS, Lizmap, Adressage
+- **Expertises :** QGIS, postgreSQL/GIS, lizmap
+- **Thématiques métiers :** adressage, deci
 
 .. image:: /equipe/photo_clement.jpg
    :width: 150
@@ -47,7 +41,8 @@ Samuel Audrain
 Géomaticen, samuel.audrain@calvados.fr
 - 02.31.57.13.79
 
-Expertises : QGIS, Lizmap, gestion des routes
+- **Expertises :** QGIS, postgreSQL/GIS, lizmap
+- **Thématiques métiers :** cadastre, urbanisme, gestion des routes
 
 .. image:: /equipe/photo_samuel.jpg
    :width: 150
