@@ -1,7 +1,7 @@
 # Ressources SIG du Département du Calvados
 
 
-L'équipe SIG du Département du Calvados utilise ce site pour documenter et partager certaines de ses activités. Vous retrouverez sur ce site la description des traitements effectués par nos équipes, ainsi que des liens utiles vers les fichiers de configuration et les données associées.
+L'équipe SIG du Département du Calvados utilise ce site pour documenter et partager certaines de ses activités. Vous trouverez notamment sur ce site la description de traitements effectués soit avec l'ETL FME soit directement en base de données avec PostgreSQL/GIS.
 
 Vous pouvez accéder à la page github source en suivant ce lien : [github CD14](https://github.com/sig14/sig14.github.io/)
 
