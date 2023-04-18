@@ -47,8 +47,17 @@ deci/II_rapproch_ign
 ```
 
 ```{toctree}
-:caption: Serveur de traitements
+:caption: Traitements FME
 :maxdepth: 1
 
-serveur_traitements/I_plannificateur_taches
+traitements_fme/I_plannificateur_taches
+```
+
+
+```{toctree}
+:caption: Traitements GDAL
+:maxdepth: 1
+
+traitements_gdal/I_geopackage
+traitements_gdal/I_cog
 ```
