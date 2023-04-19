@@ -4,7 +4,7 @@ I- Membres
 Jérémie Ory  
 ===========================
 
-.. image:: img/equipe/photo_jeremie.jpg
+.. image:: ../img/equipe/photo_jeremie.jpg
    :width: 150
    :alt: A screen capture showing the elements of the course outline in the LMS.  
 
@@ -16,7 +16,7 @@ Responsable du pôle SIG, jeremie.ory@calvados.fr - 02.31.57.11.51
 Théo Grondin
 ===========================
 
-.. image:: img/equipe/photo_theo.jpg
+.. image:: ../img/equipe/photo_theo.jpg
    :width: 150
    :alt: A screen capture showing the elements of the course outline in the LMS.
 
@@ -28,7 +28,7 @@ Chargé de mission SIG, theo.grondin@calvados.fr - 02.31.57.12.30
 Clément Bellêtre
 ===========================
 
-.. image:: img/equipe/photo_clement.jpg
+.. image:: ../img/equipe/photo_clement.jpg
    :width: 150
    :alt: A screen capture showing the elements of the course outline in the LMS.
 
@@ -40,7 +40,7 @@ Chargé de mission SIG, clement.belletre@calvados.fr - 02.31.57.12.08
 Samuel Audrain
 ===========================
 
-.. image:: img/equipe/photo_samuel.jpg
+.. image:: ../img/equipe/photo_samuel.jpg
    :width: 150
    :alt: A screen capture showing the elements of the course outline in the LMS.
 
