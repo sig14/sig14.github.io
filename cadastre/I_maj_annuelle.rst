@@ -1,5 +1,5 @@
 
-I- Mise à jour annuelle
+I- Mettre à jour les données EDIGEO / Majic III (maj annuelle)
 ******************************
 
 .. image:: ../img/cadastre/schema_intro_maj_anuelle.png
