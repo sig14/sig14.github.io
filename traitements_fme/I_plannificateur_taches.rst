@@ -1,4 +1,4 @@
-I- Produire un calendrier associé au plannificateur de tâches
+I- Produire un calendrier des tâches du plannificateur
 ******************************
  
 Dans le cadre de ses missions, le pôle SIG du Département enrichit la base de données épaisse, effectue des mises à jour automatiques (interconnexion aux API via l’ETL FME) et des traitements spécifiques sur la base de données.
