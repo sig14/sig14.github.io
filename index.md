@@ -59,5 +59,5 @@ traitements_fme/I_plannificateur_taches
 :maxdepth: 1
 
 traitements_gdal/I_geopackage
-traitements_gdal/I_cog
+traitements_gdal/II_cog
 ```
