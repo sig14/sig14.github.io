@@ -1,4 +1,4 @@
-II- Onglet Documents d'urbanisme GPU
+II- Ajouter un onglet "Documents d'urbanisme GPU" à la pop-up cadastre de Lizmap
 ************************************
 
 Le service d’interrogation du GPU permet d’obtenir les différentes informations d’urbanisme intersectant une géométrie (ponctuelle ou surfacique). Ces informations sont disponibles en consultation et en téléchargement sur le `Géoportail de l'urbanisme <https://www.geoportail-urbanisme.gouv.fr/>`_
