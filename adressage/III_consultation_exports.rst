@@ -1,6 +1,6 @@
 
 
-III- Consultater et exporter les données "Adresses" depuis QGIS
+III- Consulter et exporter les données "Adresses" depuis QGIS
 *****************************************
 
 
