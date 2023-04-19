@@ -1,5 +1,3 @@
-
-
 I- Plannificateur de tâches
 ******************************
  
@@ -9,7 +7,7 @@ Pour cela, des tâches sont programmées via le logiciel 'Task scheduler' de win
 
 Avec la multiplication des tâches plannifiées, un traitement FME a été mis en place pour automatiser la création d'un calendrier partagé des tâches windows dans Outlook.
 
-.. image:: ../img/traitements_fme/task_calendar.gif
+.. image:: ../img/traitements_fme/calendar/task_calendar.gif
    :scale: 50
 
 
@@ -57,7 +55,7 @@ NE PAS OUBLIER LE |* A LA FIN !!
 
 LE RESUME ET SON CONTENU DOIT TOUJOURS TERMINER LA DESCRIPTION !!
 
-.. image:: ../img/traitements_fme/0_1_description.png
+.. image:: ../img/traitements_fme/calendar/0_1_description.png
    :scale: 50
 
 
@@ -67,12 +65,12 @@ LE RESUME ET SON CONTENU DOIT TOUJOURS TERMINER LA DESCRIPTION !!
 * La date de démarrage doit toujour commencer le même jour que celui programmé (ex : si programmé les lundi, démarrage un lundi ou si programmé le premier vendredi du mois, démarrage un premier vendredi)
 
 
-.. image:: ../img/traitements_fme/0_2_date_progra.png
+.. image:: ../img/traitements_fme/calendar/0_2_date_progra.png
    :scale: 50
 
 * On ne définit pas d'arrêt de la tâche à cette étape (on se sert de l'exécution limite à une autre étape, cela risque de concurencer)
 
-.. image:: ../img/traitements_fme/0_3_no_limit_in_time.png
+.. image:: ../img/traitements_fme/calendar/0_3_no_limit_in_time.png
    :scale: 50
 
 1.1 - Onglet Paramètres
@@ -81,7 +79,7 @@ LE RESUME ET SON CONTENU DOIT TOUJOURS TERMINER LA DESCRIPTION !!
 
 * Programmer l'arrêt de la tâche en fonction de sa durée réelle (c'est cette limite qui va définir la durée de la tâche : en heures ou en minutes)
 
-.. image:: ../img/traitements_fme/0_4_execution_time_limit.png
+.. image:: ../img/traitements_fme/calendar/0_4_execution_time_limit.png
    :scale: 50
 
 
@@ -103,7 +101,7 @@ FME récupère l'ensemble des fichiers XML se trouvant dans ce dossier.
 2.2 - Extraction des données de temporalités (REGEXP)
 ------------------------------------------------------
 
-.. image:: ../img/traitements_fme/I_1_extract_data.png
+.. image:: ../img/traitements_fme/calendar/I_1_extract_data.png
    :scale: 50
 
 
@@ -169,7 +167,7 @@ FME récupère l'ensemble des fichiers XML se trouvant dans ce dossier.
 2.3 - Création des champs pour le listing excel
 ------------------------------------------------
 
-.. image:: ../img/traitements_fme/I_8_listing_excel.png
+.. image:: ../img/traitements_fme/calendar/I_8_listing_excel.png
    :scale: 50
 
 * Récupération des valeurs entre DESTINATION et |* (url ou nom de la destination des données)
@@ -202,7 +200,7 @@ FME récupère l'ensemble des fichiers XML se trouvant dans ce dossier.
 2.4 - Filtre sur les temporalités 
 -------------------------------------------
 
-.. image:: ../img/traitements_fme/I_2_filtre_temporalite.png
+.. image:: ../img/traitements_fme/calendar/I_2_filtre_temporalite.png
    :scale: 50
 
 
@@ -211,7 +209,7 @@ FME récupère l'ensemble des fichiers XML se trouvant dans ce dossier.
 2.5 - Extraction du détail de temporalité
 -------------------------------------------
 
-.. image:: ../img/traitements_fme/I_3_detail_temporalite.png
+.. image:: ../img/traitements_fme/calendar/I_3_detail_temporalite.png
    :scale: 50
 
 
@@ -298,7 +296,7 @@ FME récupère l'ensemble des fichiers XML se trouvant dans ce dossier.
 2.6 - Mise en forme du détail de temporalité
 -------------------------------------------
 
-.. image:: ../img/traitements_fme/I_4_mise_en_forme_detail_temporalite.png
+.. image:: ../img/traitements_fme/calendar/I_4_mise_en_forme_detail_temporalite.png
    :scale: 50
 
 * Création du numéro de mois correspondant à la valeur de mois extraite
@@ -310,7 +308,7 @@ FME récupère l'ensemble des fichiers XML se trouvant dans ce dossier.
 2.7 - Structuration du texte au format ICS
 -------------------------------------------
 
-.. image:: ../img/traitements_fme/I_5_structuration.png
+.. image:: ../img/traitements_fme/calendar/I_5_structuration.png
    :scale: 50
 
 
@@ -372,7 +370,7 @@ END:VEVENT
 2.8 - Ecriture du fichier ics
 -----------------------------
 
-.. image:: ../img/traitements_fme/I_6_writer.png
+.. image:: ../img/traitements_fme/calendar/I_6_writer.png
    :scale: 50
 
 Dans les paramètres d'attribut du writer, modifier la valeur :
@@ -384,14 +382,14 @@ END:VCALENDAR
 
 Et enregistrer en destination Text file avec suffixe .ics dans le nom.
 
-.. image:: ../img/traitements_fme/I_7_save_as_ics.png
+.. image:: ../img/traitements_fme/calendar/I_7_save_as_ics.png
    :scale: 50
 
 
 2.9 - Mise en forme Excel
 -----------------------------
 
-.. image:: ../img/traitements_fme/I_9_mise en_forme_excel.png
+.. image:: ../img/traitements_fme/calendar/I_9_mise en_forme_excel.png
    :scale: 50
 
 * Création de la périodicité  et de l'interval
@@ -430,7 +428,7 @@ Le @Value(num_day) de la @Value(week) eme semaine des mois de :
 
 Dans outlook, importer le calendrier à partir du fichier ICS créé.
 
-.. image:: ../img/traitements_fme/II_1_import_ics.png
+.. image:: ../img/traitements_fme/calendar/II_1_import_ics.png
    :scale: 50
 
 En cliquant sur un rendez-vous, vous pouvez consulter :
@@ -451,12 +449,11 @@ Vous pouvez définir les catégories dans outlook comme ci-dessous pour visualis
 
 -> Dans Accueil , indicateurs , classer
 
-.. image:: ../img/traitements_fme/II_1_categories_outlook.png
+.. image:: ../img/traitements_fme/calendar/II_1_categories_outlook.png
    :scale: 50
 
 
 Dans Excel, ouvrir le fichier .xls
 
-.. image:: ../img/traitements_fme/II_1_result_excel.png
+.. image:: ../img/traitements_fme/calendar/II_1_result_excel.png
    :scale: 50
-
