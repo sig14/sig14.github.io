@@ -1,4 +1,4 @@
-III- Onglet Filiation parcellaire 
+III- Ajouter un onglet "Filiation parcellaire" à la pop-up cadastre de Lizmap 
 *********************************
 
 .. image:: ../img/cadastre/schema_dfi_cadastre.png
