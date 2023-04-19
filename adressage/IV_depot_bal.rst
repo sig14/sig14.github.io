@@ -1,6 +1,6 @@
 
 
-IV- Dépôt BAL
+IV- Dépôser une BAL via l'API BAN avec FME
 **************
 
 .. image:: ../img/adressage/V_depot_bal/FME_depot_bal.png
