@@ -1,4 +1,4 @@
-IV- Onglet Mutations immobilières
+IV- Ajouter un onglet "Mutations immobilières" à la pop-up cadastre de Lizmap
 *********************************
 
 .. image:: ../img/cadastre/schema_dvf_cadastre.png
