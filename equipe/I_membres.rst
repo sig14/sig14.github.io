@@ -28,7 +28,7 @@ Chargé de mission SIG, theo.grondin@calvados.fr - 02.31.57.12.30
 Clément Bellêtre
 ===========================
 
-.. image:: ../img/equipe/photo_clement.jpg
+.. image:: ../img/equipe/photo_clement.png
    :width: 150
    :alt: A screen capture showing the elements of the course outline in the LMS.
 
