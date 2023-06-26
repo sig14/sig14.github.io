@@ -3,14 +3,17 @@ alter table cadastre.parcelle_info add column tab_filiation text;
 
 
 ---  Fonction de création/maj d'un déroulant HTML de l'historique des filiations de parcelles dans un champs txt de la table cadstre.parcelle_info
-CREATE OR REPLACE FUNCTION ref_foncier.tab_filiation_lizmap()
-RETURNS 
-text
-  AS $BODY$
+
+CREATE OR REPLACE FUNCTION ref_foncier.tab_filiation_lizmap(
+	)
+    RETURNS text
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE PARALLEL UNSAFE
+AS $BODY$
 DECLARE 
 
 BEGIN
-
 
 RAISE NOTICE 'creation table temporaire dfi';
 
@@ -34,14 +37,11 @@ create UNLOGGED TABLE temp_parcelles_dfi as
         when a.nature_dfi = '7' then 'lotissement'
             when a.nature_dfi = '8' then 'rénovation'end as nature_dfi,-- détail de la nature en fonction du code_nature
 
-
-
     a.list_parcelle AS parcelles_meres, -- liste des parcelles mères quand type_ligne = 1
     b.list_parcelle AS parcelles_filles --liste des parcelles filles associées aux parcelles mères quand type_ligne = 2 (jointure sur date, code com, section, id_dfi et numero d'analyse)
    FROM ref_foncier.parcelles_dfi a,
     ref_foncier.parcelles_dfi b
   WHERE a.type_ligne = '1'::text AND b.type_ligne = '2'::text AND concat(a.date_valid, a.code_com, a.pref_section, a.id_dfi, a.num_analyse) = concat(b.date_valid, b.code_com, b.pref_section, b.id_dfi, b.num_analyse);
-
 
 RAISE NOTICE 'creation des indexes de la table temporaire dfi';
 
@@ -49,7 +49,6 @@ RAISE NOTICE 'creation des indexes de la table temporaire dfi';
    CREATE INDEX index_temp_parcelles_dfi ON  temp_parcelles_dfi USING btree (code_com);
 
       CREATE INDEX index2_temp_parcelles_dfi ON  temp_parcelles_dfi USING btree (pref_section);
-
 
 RAISE NOTICE 'creation table temporaire init';
 
@@ -83,15 +82,11 @@ RAISE NOTICE 'creation des indexes de la table temporaire dfi';
 
             CREATE INDEX index3_temp_parcelles_init ON  temp_parcelles_init USING btree (parcelles_filles);
 
-
 RAISE NOTICE 'lancement de la recursive pour temp table filiation';
-
-
 
 ------------------------------------------------------------
 -- création d'une table temporaire contenant le déroulant HTML de l'historique des filiations de parcelles dans un champs txt avec num parcelle associé
 ---------------------------------------------------------
-
 
          CREATE UNLOGGED TABLE temp_parcelle_filiation as
 
@@ -123,7 +118,6 @@ RAISE NOTICE 'lancement de la recursive pour temp table filiation';
 
  result as (select row_number() over() as fid, a.* from search_meres a ) --- selectionner le resultat de la recursive et ajouter un id unique
 
-
 select row_number() over() as id, --- creation du html
     concat(-- bloc html creant la table deroulante
     '<table class = "t2">
@@ -135,23 +129,23 @@ select row_number() over() as id, --- creation du html
   </thead>
   <tbody>',
   string_agg(-- aggregation des infos  dfi filles, meres et soeurs : date, parcelles ordonnées par le numéro de filiation 
-    ('<tr>
-      <td><label for="row'||fid || '"></label>' ||  date_valid::text::date || 
+    concat('<tr>
+      <td><label for="row',fid , '"></label>' ,  date_valid::text::date ,
       '</td>
-      <td>'|| nature_dfi || '</td>
+      <td>', nature_dfi , '</td>
     </tr><tr>
       <td colspan="6">
-        <input id="row'||fid||'" type="checkbox">
+        <input id="row',fid,'" type="checkbox">
         <table>
-          <tr>
+          <tr class = "body_blue">
             <th>Nouvelle(s) parcelle(s)</th>
             <th>Parcelle(s) soeur(s)</th>
             <td>Ancienne(s) parcelle(s)</td>
        </tr>
           <tr>
-            <th>'||translate(parcelles_filles::text, '{}', '')||'</th>
-            <th>'||translate(parcelles_soeurs::text, '{}', '')||'</th>
-            <td>'||translate(parcelles_meres::text, '{}', '')||'</td>
+            <th>',translate(parcelles_filles::text, '{}', ''),'</th>
+            <th>',translate(parcelles_soeurs::text, '{}', ''),'</th>
+            <td>',translate(parcelles_meres::text, '{}', ''),'</td>
           </tr>
         </table>'
        ) , '</td>
@@ -168,15 +162,13 @@ select row_number() over() as id, --- creation du html
     
    CREATE INDEX index_temp_parcelle_filiation ON  temp_parcelle_filiation USING btree (num_parcelle);
 
-
-
     RAISE NOTICE 'update du champs parcelle_info ';
 
 --- update du champ html filiation au niveau du num parcelle
 
 update cadastre.parcelle_info set tab_filiation = a.tab_filiation from temp_parcelle_filiation a where a.num_parcelle = geo_parcelle;
 
-
+update cadastre.parcelle_info set tab_filiation = 'Pas de données' where tab_filiation is null;
 
     RAISE NOTICE 'drop tables temporaires ';
 
@@ -190,7 +182,7 @@ drop table temp_parcelles_init;
 --- texte retourné en fin de fonction
 return 'Filiation terminée';
 END
-$BODY$
+$BODY$;
 LANGUAGE plpgsql;
 
 
