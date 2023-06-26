@@ -65,7 +65,13 @@ select  distinct on (
        d.libelle as nature_culture_speciale -- ajout de la nature culture spéciale 
 from cadastre.parcelle_info b --- jointure de la tbale parcelle_info 
 inner join  ref_foncier.valeurs_foncieres a
-on b.geo_parcelle = concat(concat(code_dep, '0'), code_com, pref_section, section, no_plan) 
+on b.geo_parcelle = concat(concat(code_dep, '0'), 
+case when length(code_com) = 1 then concat('00', code_com)
+when length(code_com) = 2 then concat('0', code_com)
+else code_com end
+ , pref_section,
+ case when length(section) = 1 then concat('0', section)
+ else  section end, no_plan) 
 left join ref_foncier.valeurs_foncieres_cultures c on a.nature_culture = c.code 
 left join ref_foncier.valeurs_foncieres_cultures_speciales d on a.nature_culture_speciale = d.code),
 
