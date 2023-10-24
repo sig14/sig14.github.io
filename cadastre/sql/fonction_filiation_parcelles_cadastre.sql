@@ -113,7 +113,7 @@ RAISE NOTICE 'lancement de la recursive pour temp table filiation';
             d.id_filiation --- conserver le numéro de parcelle cadastre initial en txt
 
             from temp_parcelles_dfi c, search_meres d
-            where d.parcelles_meres::text[]  @> c.parcelles_filles::text[] -- jointure des parcelles dfi aux parcelles initiales quand au moins une parcelle de la liste parcelle mère initiale est comprise dans la liste parcelle fille dfi
+            where d.parcelles_meres::text[]  && c.parcelles_filles::text[] -- jointure des parcelles dfi aux parcelles initiales quand au moins une parcelle de la liste parcelle mère initiale est comprise dans la liste parcelle fille dfi
             AND concat(d.code_com, d.pref_section) = concat(c.code_com, c.pref_section)), -- et sur le code commune et prefixe de section
 
  result as (select row_number() over() as fid, a.* from search_meres a ) --- selectionner le resultat de la recursive et ajouter un id unique
