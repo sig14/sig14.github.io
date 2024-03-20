@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>III- Consulter et exporter les données “Adresses” depuis QGIS &mdash; Documentation SIG14  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sphinx_rtd_theme_ext_color_contrast.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+        <script>let toggleHintShow = 'Click to show';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="../../_static/togglebutton.js"></script>
+        <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex/" />
+    <link rel="search" title="Search" href="../../search/" />
+    <link rel="next" title="IV- Déposer une BAL via l’API BAN avec FME" href="../IV_depot_bal/" />
+    <link rel="prev" title="II- Application de saisie" href="../II_application_saisie/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../">
+            
+              <img src="../../_static/CD14_petit.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search/" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Équipe</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../equipe/I_membres/">I- Membres</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../equipe/II_contact/">II- Contact</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Adressage</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../I_acc_communes/">I- Accompagnement des Communes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../II_application_saisie/">II- Application de saisie</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">III- Consulter et exporter les données “Adresses” depuis QGIS</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#outils-d-export">1- Outils d’export</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#export-bal-qgis">1.1 Export BAL QGIS</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../IV_depot_bal/">IV- Déposer une BAL via l’API BAN avec FME</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Cadastre</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../cadastre/I_maj_annuelle/">I- Mettre à jour les données EDIGEO / Majic III (maj annuelle)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cadastre/II_gpu_docs_urba/">II- Ajouter un onglet “Documents d’urbanisme GPU” à la pop-up cadastre de Lizmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cadastre/III_filiation_parcelles/">III- Ajouter un onglet “Filiation parcellaire” à la pop-up cadastre de Lizmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cadastre/IV_mutation_immo/">IV- Ajouter un onglet “Mutations immobilières” à la pop-up cadastre de Lizmap</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">DECI</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../deci/I_perimetres_pei/">I- Périmètres des bornes incendies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../deci/II_rapproch_ign/">II- Rapprochement adresse BDtopo IGN</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Traitements FME</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../traitements_fme/I_plannificateur_taches/">I- Produire un calendrier des tâches du plannificateur</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Traitements GDAL</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../traitements_gdal/I_geopackage/">I- Produire un GeoPackage des orthos tuilées</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../traitements_gdal/II_cog/">II- Produire un COG à partir des orthos IGN</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../">Documentation SIG14</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">III- Consulter et exporter les données “Adresses” depuis QGIS</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/sig14/sig14.github.io/blob/master/adressage/III_consultation_exports.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="iii-consulter-et-exporter-les-donnees-adresses-depuis-qgis">
+<h1>III- Consulter et exporter les données “Adresses” depuis QGIS<a class="headerlink" href="#iii-consulter-et-exporter-les-donnees-adresses-depuis-qgis" title="Permalink to this heading"></a></h1>
+<div class="section" id="outils-d-export">
+<h2>1- Outils d’export<a class="headerlink" href="#outils-d-export" title="Permalink to this heading"></a></h2>
+<div class="section" id="export-bal-qgis">
+<h3>1.1 Export BAL QGIS<a class="headerlink" href="#export-bal-qgis" title="Permalink to this heading"></a></h3>
+<p>Création d’une commande QGIS pour exporter les données points adresses et voies par commune avec un simple clik bouton.</p>
+<p><strong>Etape 1 : ouverture de la console action</strong></p>
+<p>Ouvrir la console « action » depuis les propriétés de la couche Commune (ici la couche <code class="docutils literal notranslate"><span class="pre">Accompagnement</span></code>  alias du projet de la table <code class="docutils literal notranslate"><span class="pre">adresse.commune</span></code>).</p>
+<p><strong>Etape 2 : paramétrer l’action</strong></p>
+<p>Donner un nom à l’action et coller, paramétrer l’action et inscrire le code python dans la console.</p>
+<img alt="../../_images/export_qgis1.png" src="../../_images/export_qgis1.png" />
+<p>Le code python pour l’export des points adresse est le suivant :</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># importer les biblihotèques</span>
+<span class="kn">from</span> <span class="nn">qgis.utils</span> <span class="kn">import</span> <span class="n">iface</span>
+<span class="kn">from</span> <span class="nn">qgis.core</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">qgis.gui</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="n">layer</span> <span class="o">=</span> <span class="n">iface</span><span class="o">.</span><span class="n">activeLayer</span><span class="p">()</span> <span class="c1"># garde en memoire  la couche active</span>
+<span class="n">selection</span> <span class="o">=</span> <span class="n">layer</span><span class="o">.</span><span class="n">selectedFeatures</span><span class="p">()</span> <span class="c1"># garde en memoire  les entités sélectionnées</span>
+<span class="k">for</span> <span class="n">feat</span> <span class="ow">in</span> <span class="n">selection</span><span class="p">:</span>  <span class="c1"># boucle sur les couches sélectionnées</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">feat</span><span class="p">[</span><span class="s1">&#39;Code INSEE&#39;</span><span class="p">]</span> <span class="c1"># garde en memoire  les valeurs du champs code insee</span>
+<span class="k">for</span> <span class="n">feat</span> <span class="ow">in</span> <span class="n">selection</span><span class="p">:</span>
+        <span class="n">value2</span> <span class="o">=</span> <span class="n">feat</span><span class="p">[</span><span class="s1">&#39;Commune&#39;</span><span class="p">]</span> <span class="c1"># garde en memoire  les valeurs du champs commune</span>
+<span class="n">cl</span> <span class="o">=</span> <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">mapLayersByName</span><span class="p">(</span><span class="s1">&#39;v_export_pts&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># garde en memoire  la couche dénommée</span>
+<span class="n">iface</span><span class="o">.</span><span class="n">setActiveLayer</span><span class="p">(</span><span class="n">cl</span><span class="p">)</span> <span class="c1"># active la couche</span>
+<span class="n">cl</span><span class="o">.</span><span class="n">selectByExpression</span><span class="p">(</span> <span class="s2">&quot; </span><span class="se">\&quot;</span><span class="s2">Code INSEE</span><span class="se">\&quot;</span><span class="s2"> = &#39;</span><span class="si">{}</span><span class="s2">&#39; &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">value</span><span class="p">),</span> <span class="n">QgsVectorLayer</span><span class="o">.</span><span class="n">SetSelection</span><span class="p">)</span> <span class="c1"># séléctionne les entités dont le champs code INSEE est égal à la valeur du champs code insee de la première couche</span>
+<span class="n">output_path</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;G:\DDTFE\ST\POLE_SIG\01_PROJETS_SIG\12_Adressage_BAN\02_PROJETS_COMMUNES\Export\export_points\</span><span class="si">%s</span><span class="s1">_Export_points.csv&#39;</span> <span class="o">%</span> <span class="n">value2</span> <span class="c1"># definit le chemin d&#39;export avec la variable value2 dans le nom</span>
+<span class="n">QgsVectorFileWriter</span><span class="o">.</span><span class="n">writeAsVectorFormat</span><span class="p">(</span><span class="n">cl</span><span class="p">,</span> <span class="n">output_path</span><span class="p">,</span> <span class="s2">&quot;UTF-8&quot;</span><span class="p">,</span> <span class="n">driverName</span><span class="o">=</span><span class="s2">&quot;CSV&quot;</span><span class="p">,</span> <span class="n">onlySelected</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1"># Exporte les entité selectionnées</span>
+<span class="n">iface</span><span class="o">.</span><span class="n">messageBar</span><span class="p">()</span><span class="o">.</span><span class="n">pushMessage</span><span class="p">(</span><span class="s2">&quot;Export réalisé avec succès vers G/POLE_SIG/12_Adressage_BAN/02_PROJETS_COMMUNES/Export&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Le code python pour l’export des voies est le suivant :</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qgis.utils</span> <span class="kn">import</span> <span class="n">iface</span>
+<span class="kn">from</span> <span class="nn">qgis.core</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">qgis.gui</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="n">layer</span> <span class="o">=</span> <span class="n">iface</span><span class="o">.</span><span class="n">activeLayer</span><span class="p">()</span>
+<span class="n">selection</span> <span class="o">=</span> <span class="n">layer</span><span class="o">.</span><span class="n">selectedFeatures</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">feat</span> <span class="ow">in</span> <span class="n">selection</span><span class="p">:</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">feat</span><span class="p">[</span><span class="s1">&#39;Code INSEE&#39;</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">feat</span> <span class="ow">in</span> <span class="n">selection</span><span class="p">:</span>
+        <span class="n">value2</span> <span class="o">=</span> <span class="n">feat</span><span class="p">[</span><span class="s1">&#39;Commune&#39;</span><span class="p">]</span>
+<span class="n">cl</span> <span class="o">=</span> <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">mapLayersByName</span><span class="p">(</span><span class="s1">&#39;v_export_voies&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">iface</span><span class="o">.</span><span class="n">setActiveLayer</span><span class="p">(</span><span class="n">cl</span><span class="p">)</span>
+<span class="n">cl</span><span class="o">.</span><span class="n">selectByExpression</span><span class="p">(</span> <span class="s2">&quot; </span><span class="se">\&quot;</span><span class="s2">Code INSEE</span><span class="se">\&quot;</span><span class="s2"> = &#39;</span><span class="si">{}</span><span class="s2">&#39; &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">value</span><span class="p">),</span> <span class="n">QgsVectorLayer</span><span class="o">.</span><span class="n">SetSelection</span><span class="p">)</span>
+<span class="n">output_path</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;G:\DDTFE\ST\POLE_SIG\01_PROJETS_SIG\12_Adressage_BAN\02_PROJETS_COMMUNES\Export\export_voies\</span><span class="si">%s</span><span class="s1">_Export_voies.csv&#39;</span> <span class="o">%</span> <span class="n">value2</span>
+<span class="n">QgsVectorFileWriter</span><span class="o">.</span><span class="n">writeAsVectorFormat</span><span class="p">(</span><span class="n">cl</span><span class="p">,</span> <span class="n">output_path</span><span class="p">,</span> <span class="s2">&quot;UTF-8&quot;</span><span class="p">,</span> <span class="n">driverName</span><span class="o">=</span><span class="s2">&quot;CSV&quot;</span><span class="p">,</span> <span class="n">onlySelected</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">iface</span><span class="o">.</span><span class="n">messageBar</span><span class="p">()</span><span class="o">.</span><span class="n">pushMessage</span><span class="p">(</span><span class="s2">&quot;Export réalisé avec succès vers G/POLE_SIG/12_Adressage_BAN/02_PROJETS_COMMUNES/Export&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>Etape 3 : test exécution de l’action</strong></p>
+<p>Sélectionner la couche en entrée et la commune pour laquelle vous voulez réaliser l’export. Et utiliser la commande action.</p>
+<img alt="../../_images/export_qgis2.png" src="../../_images/export_qgis2.png" />
+<p>Faire un clic droit sur la carte</p>
+<img alt="../../_images/export_qgis3.png" src="../../_images/export_qgis3.png" />
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../II_application_saisie/" class="btn btn-neutral float-left" title="II- Application de saisie" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../IV_depot_bal/" class="btn btn-neutral float-right" title="IV- Déposer une BAL via l’API BAN avec FME" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, SIG14 team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

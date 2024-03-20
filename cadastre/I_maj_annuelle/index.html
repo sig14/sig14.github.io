@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>I- Mettre à jour les données EDIGEO / Majic III (maj annuelle) &mdash; Documentation SIG14  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sphinx_rtd_theme_ext_color_contrast.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+        <script>let toggleHintShow = 'Click to show';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="../../_static/togglebutton.js"></script>
+        <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex/" />
+    <link rel="search" title="Search" href="../../search/" />
+    <link rel="next" title="II- Ajouter un onglet “Documents d’urbanisme GPU” à la pop-up cadastre de Lizmap" href="../II_gpu_docs_urba/" />
+    <link rel="prev" title="IV- Déposer une BAL via l’API BAN avec FME" href="../../adressage/IV_depot_bal/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../">
+            
+              <img src="../../_static/CD14_petit.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search/" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Équipe</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../equipe/I_membres/">I- Membres</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../equipe/II_contact/">II- Contact</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Adressage</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../adressage/I_acc_communes/">I- Accompagnement des Communes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../adressage/II_application_saisie/">II- Application de saisie</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../adressage/III_consultation_exports/">III- Consulter et exporter les données “Adresses” depuis QGIS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../adressage/IV_depot_bal/">IV- Déposer une BAL via l’API BAN avec FME</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Cadastre</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">I- Mettre à jour les données EDIGEO / Majic III (maj annuelle)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#installation-du-plugin-cadastre">1- Installation du plugin cadastre</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#recuperation-des-donnees-cadastre">2- Récupération des données cadastre</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#recenser-les-dependances-au-schema-cadastre">3- Recenser les dépendances au schéma cadastre</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#import-des-donnees-cadastre">4- Import des données cadastre</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#relancer-les-vues-et-vm-dependantes-du-cadastre">5- Relancer les vues et VM dépendantes du cadastre</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#actualiser-les-fiches-html-de-la-table-parcelle-info">7- Actualiser les fiches HTML de la table parcelle_info</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#documents-d-urbanisme">7.1 - Documents d’urbanisme</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#filiations-parcellaires">7.2 - Filiations parcellaires</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mutations-immobilieres">7.3 - Mutations immobilières</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../II_gpu_docs_urba/">II- Ajouter un onglet “Documents d’urbanisme GPU” à la pop-up cadastre de Lizmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../III_filiation_parcelles/">III- Ajouter un onglet “Filiation parcellaire” à la pop-up cadastre de Lizmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../IV_mutation_immo/">IV- Ajouter un onglet “Mutations immobilières” à la pop-up cadastre de Lizmap</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">DECI</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../deci/I_perimetres_pei/">I- Périmètres des bornes incendies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../deci/II_rapproch_ign/">II- Rapprochement adresse BDtopo IGN</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Traitements FME</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../traitements_fme/I_plannificateur_taches/">I- Produire un calendrier des tâches du plannificateur</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Traitements GDAL</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../traitements_gdal/I_geopackage/">I- Produire un GeoPackage des orthos tuilées</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../traitements_gdal/II_cog/">II- Produire un COG à partir des orthos IGN</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../">Documentation SIG14</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">I- Mettre à jour les données EDIGEO / Majic III (maj annuelle)</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/sig14/sig14.github.io/blob/master/cadastre/I_maj_annuelle.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="i-mettre-a-jour-les-donnees-edigeo-majic-iii-maj-annuelle">
+<h1>I- Mettre à jour les données EDIGEO / Majic III (maj annuelle)<a class="headerlink" href="#i-mettre-a-jour-les-donnees-edigeo-majic-iii-maj-annuelle" title="Permalink to this heading"></a></h1>
+<a class="reference internal image-reference" href="../../_images/schema_intro_maj_anuelle.png"><img alt="../../_images/schema_intro_maj_anuelle.png" src="../../_images/schema_intro_maj_anuelle.png" style="width: 880px;" /></a>
+<div class="section" id="installation-du-plugin-cadastre">
+<h2>1- Installation du plugin cadastre<a class="headerlink" href="#installation-du-plugin-cadastre" title="Permalink to this heading"></a></h2>
+<p>Télécharger la dernière version stable du plugin cadastre Qgis <a class="reference external" href="https://github.com/3liz/QgisCadastrePlugin/releases">ICI</a></p>
+<p>Déziper-le et installer-le depuis le menu <strong>extension</strong> de QGIS.</p>
+<a class="reference internal image-reference" href="../../_images/1_plugin_cadaster.png"><img alt="../../_images/1_plugin_cadaster.png" src="../../_images/1_plugin_cadaster.png" style="width: 648.5px; height: 378.0px;" /></a>
+<p>Une fois le plugin installé, un nouveau menu Cadastre apparaît dans le menu Extensions de QGIS. Il comporte les sous-menus suivants :</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Importer des données</p></li>
+<li><p>Charger des données</p></li>
+<li><p>Outils de recherche</p></li>
+<li><p>Exporter la vue</p></li>
+<li><p>Configurer le plugin</p></li>
+<li><p>À propos</p></li>
+<li><p>Notes de version</p></li>
+<li><p>Aide</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="recuperation-des-donnees-cadastre">
+<h2>2- Récupération des données cadastre<a class="headerlink" href="#recuperation-des-donnees-cadastre" title="Permalink to this heading"></a></h2>
+<p><strong>Plan Cadastral Informatisé (PCI)</strong></p>
+<ul class="simple">
+<li><p>Télécharger les données Millésime 1er au 1er janvier du PCI Vecteur au format EDIGEO :  <a class="reference external" href="https://cadastre.data.gouv.fr/datasets/plan-cadastral-informatise">Site cadastre EDIGEO</a></p></li>
+</ul>
+<p><strong>Mise A Jour des Informations Cadastrales (MAJIC)</strong></p>
+<ul class="simple">
+<li><p>Transmission chaque année au CD14 (juillet/aout) des données MAJIC par la DDFIP.</p></li>
+<li><p>Les données MAJIC transmises correspondent à un état des lieux à janvier de l’année courante.</p></li>
+</ul>
+<p><strong>Fichier ANnuaire TOpographique Initialisé Réduit (FANTOIR)</strong>
+* Télécharger des données à l’échelle de la région Normandie :  <a class="reference external" href="https://www.collectivites-locales.gouv.fr/competences/la-mise-disposition-gratuite-du-fichier-des-voies-et-des-lieux-dits-fantoir">Site fantoir collectivites-locales.gouv.fr</a></p>
+</div>
+<div class="section" id="recenser-les-dependances-au-schema-cadastre">
+<h2>3- Recenser les dépendances au schéma cadastre<a class="headerlink" href="#recenser-les-dependances-au-schema-cadastre" title="Permalink to this heading"></a></h2>
+<p>La mise à jour des données cadastre dans la base de données postgresql nécessite de remplacer l’intégralité des tables de données, des vues et vues matérialisées qui en dépendent.</p>
+<p>Il est donc nécéssaire de garder en mémoire les vues et vues matérialisées dépendantes du schéma afin de pouvoir les relancer après intégration des données cadastre.</p>
+<p>Nous allons ainsi créer une table listant les vues et vm dépendantes du schéma cadastre et le code sql qui leur est associé.</p>
+<p>Pour cela nous lançons la requête suivante :</p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">drop</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="k">exists</span><span class="w"> </span><span class="k">public</span><span class="p">.</span><span class="n">dependances_v_vm_cadastre</span><span class="p">;</span>
+<span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w">  </span><span class="k">public</span><span class="p">.</span><span class="n">dependances_v_vm_cadastre</span><span class="w"> </span><span class="k">as</span>
+<span class="k">with</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="k">as</span>
+
+<span class="p">(</span><span class="k">WITH</span><span class="w"> </span><span class="k">RECURSIVE</span><span class="w"> </span><span class="n">s</span><span class="p">(</span><span class="n">start_schemaname</span><span class="p">,</span><span class="w"> </span><span class="n">start_relname</span><span class="p">,</span><span class="w"> </span><span class="n">start_relkind</span><span class="p">,</span><span class="w"> </span><span class="n">relhasindex</span><span class="p">,</span><span class="w"> </span><span class="n">schemaname</span><span class="p">,</span><span class="w"> </span><span class="n">relname</span><span class="p">,</span><span class="w"> </span><span class="n">relkind</span><span class="p">,</span><span class="w"> </span><span class="n">reloid</span><span class="p">,</span><span class="w"> </span><span class="n">owneroid</span><span class="p">,</span><span class="w"> </span><span class="n">ownername</span><span class="p">,</span><span class="w"> </span><span class="n">depth</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span><span class="c1">--recursive sur l&#39;ensemble des données du schema cadastre</span>
+<span class="w">        </span><span class="k">SELECT</span><span class="w"> </span><span class="n">n</span><span class="p">.</span><span class="n">nspname</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">start_schemaname</span><span class="p">,</span><span class="w"> </span><span class="c1">-- nom du schema</span>
+<span class="w">            </span><span class="k">c</span><span class="p">.</span><span class="n">relname</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">start_relname</span><span class="p">,</span><span class="w"> </span><span class="c1">-- nom de la table</span>
+<span class="w">            </span><span class="k">c</span><span class="p">.</span><span class="n">relkind</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">start_relkind</span><span class="p">,</span>
+<span class="w">            </span><span class="k">c</span><span class="p">.</span><span class="n">relhasindex</span><span class="p">,</span>
+<span class="w">            </span><span class="n">n2</span><span class="p">.</span><span class="n">nspname</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">schemaname</span><span class="p">,</span><span class="w"> </span><span class="c1">-- nom du schema de la table dépendante</span>
+<span class="w">            </span><span class="n">c2</span><span class="p">.</span><span class="n">relname</span><span class="p">,</span><span class="w"> </span><span class="c1">-- nom de la table dépendante</span>
+<span class="w">            </span><span class="n">c2</span><span class="p">.</span><span class="n">relkind</span><span class="p">,</span>
+<span class="w">            </span><span class="n">c2</span><span class="p">.</span><span class="n">oid</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">reloid</span><span class="p">,</span>
+<span class="w">            </span><span class="n">au</span><span class="p">.</span><span class="n">oid</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">owneroid</span><span class="p">,</span>
+<span class="w">            </span><span class="n">au</span><span class="p">.</span><span class="n">rolname</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">ownername</span><span class="p">,</span>
+<span class="w">            </span><span class="mi">0</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">depth</span><span class="w"> </span><span class="c1">-- Commencer la dépendance à 0</span>
+<span class="w">        </span><span class="k">FROM</span><span class="w"> </span><span class="n">pg_class</span><span class="w"> </span><span class="k">c</span>
+<span class="w">            </span><span class="k">JOIN</span><span class="w"> </span><span class="n">pg_namespace</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">relnamespace</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="p">.</span><span class="n">oid</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="p">(</span><span class="k">c</span><span class="p">.</span><span class="n">relkind</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">ANY</span><span class="w"> </span><span class="p">(</span><span class="nb">ARRAY</span><span class="p">[</span><span class="s1">&#39;m&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;v&#39;</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="s1">&#39;t&#39;</span><span class="p">,</span><span class="s1">&#39;f&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;p&#39;</span><span class="p">]))</span><span class="w"> </span><span class="c1">-- on commence par lister les tables, vues, vm dus chema cadastre</span>
+<span class="w">            </span><span class="k">JOIN</span><span class="w"> </span><span class="n">pg_depend</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">oid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">refobjid</span>
+<span class="w">            </span><span class="k">JOIN</span><span class="w"> </span><span class="n">pg_rewrite</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">objid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">oid</span>
+<span class="w">            </span><span class="k">JOIN</span><span class="w"> </span><span class="n">pg_class</span><span class="w"> </span><span class="n">c2</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">ev_class</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">c2</span><span class="p">.</span><span class="n">oid</span>
+<span class="w">            </span><span class="k">JOIN</span><span class="w"> </span><span class="n">pg_namespace</span><span class="w"> </span><span class="n">n2</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">n2</span><span class="p">.</span><span class="n">oid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">c2</span><span class="p">.</span><span class="n">relnamespace</span>
+<span class="w">            </span><span class="k">JOIN</span><span class="w"> </span><span class="n">pg_authid</span><span class="w"> </span><span class="n">au</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">au</span><span class="p">.</span><span class="n">oid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">c2</span><span class="p">.</span><span class="n">relowner</span>
+<span class="w">    </span><span class="k">where</span><span class="w"> </span><span class="n">n</span><span class="p">.</span><span class="n">nspname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;cadastre&#39;</span><span class="w"> </span><span class="c1">-- on limite le schema d&#39;origine au cadastre</span>
+<span class="w">        </span><span class="k">UNION</span><span class="w"> </span><span class="c1">-- union pour la récursivité</span>
+<span class="w">        </span><span class="k">SELECT</span><span class="w"> </span><span class="n">s_1</span><span class="p">.</span><span class="n">start_schemaname</span><span class="p">,</span>
+<span class="w">            </span><span class="n">s_1</span><span class="p">.</span><span class="n">start_relname</span><span class="p">,</span>
+<span class="w">            </span><span class="n">s_1</span><span class="p">.</span><span class="n">start_relkind</span><span class="p">,</span>
+<span class="w">            </span><span class="n">s_1</span><span class="p">.</span><span class="n">relhasindex</span><span class="p">,</span>
+<span class="w">            </span><span class="n">n</span><span class="p">.</span><span class="n">nspname</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">schemaname</span><span class="p">,</span>
+<span class="w">            </span><span class="n">c2</span><span class="p">.</span><span class="n">relname</span><span class="p">,</span>
+<span class="w">            </span><span class="n">c2</span><span class="p">.</span><span class="n">relkind</span><span class="p">,</span>
+<span class="w">            </span><span class="n">c2</span><span class="p">.</span><span class="n">oid</span><span class="p">,</span>
+<span class="w">            </span><span class="n">au</span><span class="p">.</span><span class="n">oid</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">owneroid</span><span class="p">,</span>
+<span class="w">            </span><span class="n">au</span><span class="p">.</span><span class="n">rolname</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">ownername</span><span class="p">,</span>
+<span class="w">            </span><span class="n">s_1</span><span class="p">.</span><span class="n">depth</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">depth</span><span class="w"> </span><span class="c1">-- on ajoute 1 pour chaque dépendance trouvée</span>
+<span class="w">        </span><span class="k">FROM</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="n">s_1</span>
+<span class="w">            </span><span class="k">JOIN</span><span class="w"> </span><span class="n">pg_depend</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">s_1</span><span class="p">.</span><span class="n">reloid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">refobjid</span>
+<span class="w">            </span><span class="k">JOIN</span><span class="w"> </span><span class="n">pg_rewrite</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">objid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">oid</span>
+<span class="w">            </span><span class="k">JOIN</span><span class="w"> </span><span class="n">pg_class</span><span class="w"> </span><span class="n">c2</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">ev_class</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">c2</span><span class="p">.</span><span class="n">oid</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="p">(</span><span class="n">c2</span><span class="p">.</span><span class="n">relkind</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">ANY</span><span class="w"> </span><span class="p">(</span><span class="nb">ARRAY</span><span class="p">[</span><span class="s1">&#39;m&#39;</span><span class="p">::</span><span class="ss">&quot;char&quot;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;v&#39;</span><span class="p">::</span><span class="ss">&quot;char&quot;</span><span class="p">]))</span><span class="w"> </span><span class="c1">--- on limite les dependances aux vues et vues materialisées</span>
+<span class="w">            </span><span class="k">JOIN</span><span class="w"> </span><span class="n">pg_namespace</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">n</span><span class="p">.</span><span class="n">oid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">c2</span><span class="p">.</span><span class="n">relnamespace</span>
+<span class="w">            </span><span class="k">JOIN</span><span class="w"> </span><span class="n">pg_authid</span><span class="w"> </span><span class="n">au</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">au</span><span class="p">.</span><span class="n">oid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">c2</span><span class="p">.</span><span class="n">relowner</span>
+<span class="w">        </span><span class="k">WHERE</span><span class="w"> </span><span class="n">s_1</span><span class="p">.</span><span class="n">reloid</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">c2</span><span class="p">.</span><span class="n">oid</span><span class="w"> </span><span class="c1">--- on joint les dépendance au niveau de l&#39;oid</span>
+<span class="w">        </span><span class="p">)</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="c1">-- lancement de la recursive</span>
+<span class="w">    </span><span class="n">s</span><span class="p">.</span><span class="n">schemaname</span><span class="p">::</span><span class="nb">varchar</span><span class="p">,</span>
+<span class="w">    </span><span class="n">s</span><span class="p">.</span><span class="n">relname</span><span class="p">::</span><span class="nb">varchar</span><span class="p">,</span>
+<span class="w">    </span><span class="n">s</span><span class="p">.</span><span class="n">relkind</span><span class="p">,</span>
+<span class="w">    </span><span class="k">sum</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">depth</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">depth</span><span class="p">,</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="k">when</span><span class="w"> </span><span class="n">relkind</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;v&#39;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="s1">&#39;VIEW&#39;</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;MATERIALIZED VIEW&#39;</span><span class="w"> </span><span class="k">end</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">kind</span><span class="w"> </span><span class="c1">-- on précise les acronymes view et matview</span>
+<span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">s</span>
+<span class="w">        </span><span class="k">group</span><span class="w"> </span><span class="k">by</span>
+<span class="w">    </span><span class="n">s</span><span class="p">.</span><span class="n">schemaname</span><span class="p">,</span>
+<span class="w">    </span><span class="n">s</span><span class="p">.</span><span class="n">relname</span><span class="p">,</span>
+<span class="w">    </span><span class="n">s</span><span class="p">.</span><span class="n">relkind</span><span class="p">,</span>
+<span class="w">    </span><span class="n">s</span><span class="p">.</span><span class="n">depth</span>
+<span class="w">    </span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">depth</span><span class="p">),</span>
+
+<span class="n">z</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span><span class="k">select</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="o">*</span><span class="p">,</span>
+<span class="k">case</span><span class="w"> </span><span class="k">when</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">relkind</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;m&#39;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">definition</span><span class="w"> </span><span class="c1">-- on ajoute les requêtes sql dans un champs</span>
+<span class="k">ELSE</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">view_definition</span><span class="w"> </span><span class="k">end</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">query</span><span class="p">,</span>
+<span class="n">i</span><span class="p">.</span><span class="n">indexdef</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">queryndex</span><span class="w"> </span><span class="c1">-- on ajoute les requêtes d&#39;indexe dans un champs</span>
+<span class="k">from</span><span class="w"> </span><span class="n">a</span>
+<span class="k">left</span><span class="w"> </span><span class="k">join</span><span class="w">  </span><span class="n">pg_matviews</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">schemaname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">schemaname</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">matviewname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">relname</span>
+<span class="k">left</span><span class="w"> </span><span class="k">join</span><span class="w">  </span><span class="n">information_schema</span><span class="p">.</span><span class="n">views</span><span class="w"> </span><span class="k">c</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">table_schema</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">schemaname</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="k">table_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">relname</span>
+<span class="k">left</span><span class="w"> </span><span class="k">join</span>
+<span class="w">    </span><span class="n">pg_indexes</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">schemaname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">schemaname</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">tablename</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">relname</span>
+<span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">depth</span><span class="p">)</span>
+
+
+<span class="k">select</span><span class="w"> </span><span class="n">z</span><span class="p">.</span><span class="n">schemaname</span><span class="p">::</span><span class="nb">varchar</span><span class="p">,</span>
+<span class="w">    </span><span class="n">z</span><span class="p">.</span><span class="n">relname</span><span class="p">::</span><span class="nb">varchar</span><span class="p">,</span>
+<span class="w">    </span><span class="n">z</span><span class="p">.</span><span class="n">relkind</span><span class="p">,</span>
+<span class="w">    </span><span class="n">z</span><span class="p">.</span><span class="n">kind</span><span class="p">,</span>
+<span class="w">    </span><span class="k">sum</span><span class="p">(</span><span class="n">z</span><span class="p">.</span><span class="n">depth</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">depth</span><span class="p">,</span><span class="w"> </span><span class="c1">--on somme les dépendances pour ordoner le futur rafraichissemnt en focntion du nume de dépendance</span>
+<span class="w">    </span><span class="n">z</span><span class="p">.</span><span class="n">query</span><span class="p">,</span><span class="w"> </span><span class="n">z</span><span class="p">.</span><span class="n">queryndex</span>
+<span class="k">from</span><span class="w"> </span><span class="n">z</span>
+<span class="k">group</span><span class="w"> </span><span class="k">by</span>
+<span class="w">    </span><span class="n">z</span><span class="p">.</span><span class="n">schemaname</span><span class="p">,</span>
+<span class="w">    </span><span class="n">z</span><span class="p">.</span><span class="n">relname</span><span class="p">,</span>
+<span class="w">    </span><span class="n">z</span><span class="p">.</span><span class="n">relkind</span><span class="p">,</span>
+<span class="w">    </span><span class="n">z</span><span class="p">.</span><span class="n">kind</span><span class="p">,</span>
+<span class="w">    </span><span class="n">z</span><span class="p">.</span><span class="n">query</span><span class="p">,</span>
+<span class="n">z</span><span class="p">.</span><span class="n">queryndex</span>
+<span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">depth</span><span class="p">;</span>
+<span class="p">;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Le code de la table se trouve <a class="reference external" href="https://github.com/sig14/sig14.github.io/blob/master/cadastre/sql/_maj_view_annuelle.sql">par ici</a></p>
+<a class="reference internal image-reference" href="../../_images/2_table_dependances_cadastre.png"><img alt="../../_images/2_table_dependances_cadastre.png" src="../../_images/2_table_dependances_cadastre.png" style="width: 659.0px; height: 210.0px;" /></a>
+</div>
+<div class="section" id="import-des-donnees-cadastre">
+<h2>4- Import des données cadastre<a class="headerlink" href="#import-des-donnees-cadastre" title="Permalink to this heading"></a></h2>
+<ul class="simple">
+<li><p>Modifier le nom du schema cadastre en schéma cadastre2 sur pgadmin, afin, par sécurité, de conserver la précédente version du schéma cadastre.</p></li>
+<li><p>Paramètrer le plugin en sélectionnant <em>configuration</em>. Sélectionner les bons noms et types de fichiers.</p></li>
+</ul>
+<a class="reference internal image-reference" href="../../_images/3_conf_plugin.png"><img alt="../../_images/3_conf_plugin.png" src="../../_images/3_conf_plugin.png" style="width: 492.0px; height: 231.5px;" /></a>
+<a class="reference internal image-reference" href="../../_images/4_conf_plugin_2.png"><img alt="../../_images/4_conf_plugin_2.png" src="../../_images/4_conf_plugin_2.png" style="width: 323.0px; height: 384.0px;" /></a>
+<ul class="simple">
+<li><p>Lancer l’import postgis avec les paramètres suivant :</p></li>
+</ul>
+<ul class="simple">
+<li><p>Base de données : Postgis, lizmap</p></li>
+<li><p>Schémas : taper cadastre et créer</p></li>
+<li><p>Fichiers EDIGEO : charger le dossier déposé sur APW65</p></li>
+<li><p>scr source : 2154</p></li>
+<li><p>scr cible : 2154</p></li>
+<li><p>Fichiers MAJIC: charger le dossier déposé sur APW65</p></li>
+<li><p>Département  : 14</p></li>
+<li><p>Lot : “donner un nom pour l’import”</p></li>
+</ul>
+<a class="reference internal image-reference" href="../../_images/5_import_plugin.png"><img alt="../../_images/5_import_plugin.png" src="../../_images/5_import_plugin.png" style="width: 478.0px; height: 268.5px;" /></a>
+<a class="reference internal image-reference" href="../../_images/6_import_plugin_2.png"><img alt="../../_images/6_import_plugin_2.png" src="../../_images/6_import_plugin_2.png" style="width: 361.0px; height: 363.0px;" /></a>
+</div>
+<div class="section" id="relancer-les-vues-et-vm-dependantes-du-cadastre">
+<h2>5- Relancer les vues et VM dépendantes du cadastre<a class="headerlink" href="#relancer-les-vues-et-vm-dependantes-du-cadastre" title="Permalink to this heading"></a></h2>
+<p>Pour relancer les vues et vm dépendantes, lancer la requête suivante :</p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">select</span><span class="w"> </span><span class="n">create_v_vm_cadastre</span><span class="p">()</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Cette requête appelle la fonction dont le code se trouve <a class="reference external" href="https://github.com/sig14/sig14.github.io/blob/master/cadastre/sql/refresh_dependances_vues_vm_cadastre.sql">là</a></p>
+</div>
+<div class="section" id="actualiser-les-fiches-html-de-la-table-parcelle-info">
+<h2>7- Actualiser les fiches HTML de la table parcelle_info<a class="headerlink" href="#actualiser-les-fiches-html-de-la-table-parcelle-info" title="Permalink to this heading"></a></h2>
+<p>Des champs HTML ont été développés par l’équipe SIG du Département afin de renseigner des informations complémentaires à la parcelle : Règlementation GPU par parcelle, historique des filiations de parcelle, historique des mutations immobilières.</p>
+<p>Le processus de construction des champs est décrit en partie II, III et IV.</p>
+<p>A chaque réimport du cadastre il est nécessaire de recréer et mettre à jour ces champs.</p>
+<div class="section" id="documents-d-urbanisme">
+<h3>7.1 - Documents d’urbanisme<a class="headerlink" href="#documents-d-urbanisme" title="Permalink to this heading"></a></h3>
+<ul>
+<li><p>Créer le champ contenant l’html de la table contenant les informations GPU par parcelle</p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">cadastre</span><span class="p">.</span><span class="n">parcelle_info</span>
+<span class="k">ADD</span><span class="w"> </span><span class="n">tab_doc_urba</span><span class="w"> </span><span class="nb">varchar</span><span class="p">;</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Créer les champs contenant l’html des déroulants détaillant les informations contenues dans le tableau</p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">cadastre</span><span class="p">.</span><span class="n">parcelle_info</span>
+<span class="k">ADD</span><span class="w"> </span><span class="n">deroulant_zonage</span><span class="w"> </span><span class="nb">varchar</span><span class="p">;</span>
+
+<span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">cadastre</span><span class="p">.</span><span class="n">parcelle_info</span>
+<span class="k">ADD</span><span class="w"> </span><span class="n">deroulant_secteur</span><span class="w"> </span><span class="nb">varchar</span><span class="p">;</span>
+
+<span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">cadastre</span><span class="p">.</span><span class="n">parcelle_info</span>
+<span class="k">ADD</span><span class="w"> </span><span class="n">deroulant_prescription</span><span class="w"> </span><span class="nb">varchar</span><span class="p">;</span>
+
+<span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">cadastre</span><span class="p">.</span><span class="n">parcelle_info</span>
+<span class="k">ADD</span><span class="w"> </span><span class="n">deroulant_info</span><span class="w"> </span><span class="nb">varchar</span><span class="p">;</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Lancer la fonction mettant à jour les champs (1 heure environ)</p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">select</span><span class="w"> </span><span class="n">ref_urbanisme</span><span class="p">.</span><span class="n">fiches_parcelles_lizmap</span><span class="p">();</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ul>
+</div>
+<div class="section" id="filiations-parcellaires">
+<h3>7.2 - Filiations parcellaires<a class="headerlink" href="#filiations-parcellaires" title="Permalink to this heading"></a></h3>
+<ul>
+<li><p>Créer les champs contenant l’html des déroulants détaillant l’historique de filiation par parcelle</p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">alter</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">cadastre</span><span class="p">.</span><span class="n">parcelle_info</span><span class="w"> </span><span class="k">add</span><span class="w"> </span><span class="k">column</span><span class="w"> </span><span class="n">tab_filiation</span><span class="w"> </span><span class="nb">text</span><span class="p">;</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Lancer la fonction mettant à jour les champs</p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">select</span><span class="w"> </span><span class="n">ref_foncier</span><span class="p">.</span><span class="n">tab_filiation_lizmap</span><span class="p">()</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ul>
+</div>
+<div class="section" id="mutations-immobilieres">
+<h3>7.3 - Mutations immobilières<a class="headerlink" href="#mutations-immobilieres" title="Permalink to this heading"></a></h3>
+<ul>
+<li><p>Créer les champs contenant l’html des déroulants détaillant les mutations immobilières</p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">cadastre</span><span class="p">.</span><span class="n">parcelle_info</span><span class="w"> </span><span class="k">add</span><span class="w"> </span><span class="k">column</span><span class="w"> </span><span class="n">deroulant_dvf</span><span class="w"> </span><span class="nb">varchar</span><span class="p">;</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Lancer la fonction mettant à jour les champs</p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">select</span><span class="w"> </span><span class="n">ref_foncier</span><span class="p">.</span><span class="n">parcelles_valeur_fonciere_lizmap</span><span class="p">()</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../../adressage/IV_depot_bal/" class="btn btn-neutral float-left" title="IV- Déposer une BAL via l’API BAN avec FME" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../II_gpu_docs_urba/" class="btn btn-neutral float-right" title="II- Ajouter un onglet “Documents d’urbanisme GPU” à la pop-up cadastre de Lizmap" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, SIG14 team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

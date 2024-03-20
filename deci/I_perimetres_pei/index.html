@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>I- Périmètres des bornes incendies &mdash; Documentation SIG14  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sphinx_rtd_theme_ext_color_contrast.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+        <script>let toggleHintShow = 'Click to show';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="../../_static/togglebutton.js"></script>
+        <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex/" />
+    <link rel="search" title="Search" href="../../search/" />
+    <link rel="next" title="II- Rapprochement adresse BDtopo IGN" href="../II_rapproch_ign/" />
+    <link rel="prev" title="IV- Ajouter un onglet “Mutations immobilières” à la pop-up cadastre de Lizmap" href="../../cadastre/IV_mutation_immo/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../">
+            
+              <img src="../../_static/CD14_petit.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search/" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Équipe</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../equipe/I_membres/">I- Membres</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../equipe/II_contact/">II- Contact</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Adressage</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../adressage/I_acc_communes/">I- Accompagnement des Communes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../adressage/II_application_saisie/">II- Application de saisie</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../adressage/III_consultation_exports/">III- Consulter et exporter les données “Adresses” depuis QGIS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../adressage/IV_depot_bal/">IV- Déposer une BAL via l’API BAN avec FME</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Cadastre</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../cadastre/I_maj_annuelle/">I- Mettre à jour les données EDIGEO / Majic III (maj annuelle)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cadastre/II_gpu_docs_urba/">II- Ajouter un onglet “Documents d’urbanisme GPU” à la pop-up cadastre de Lizmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cadastre/III_filiation_parcelles/">III- Ajouter un onglet “Filiation parcellaire” à la pop-up cadastre de Lizmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cadastre/IV_mutation_immo/">IV- Ajouter un onglet “Mutations immobilières” à la pop-up cadastre de Lizmap</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">DECI</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">I- Périmètres des bornes incendies</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#referentiels-de-donnees">1- Référentiels de données</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#bd-topo-troncons-de-routes">1.1 BD Topo tronçons de routes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#points-eau-incendie-deci">1.2 Points Eau incendie DECI</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#creation-du-lineaire-routier-de-reference">2- Création du linéaire routier de référence</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#isoler-les-segments-de-route">2.1 Isoler les segments de route</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#indexer-les-startpoints-des-segments">2.2 Indexer les startpoints des segments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#indexer-les-endpoints-des-segments">2.3 Indexer les endpoints des segments</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#automatisation-de-la-creation-des-perimetres">3- Automatisation de la création des pèrimètres</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#restreindre-la-zone-de-calcul">3.1 Restreindre la zone de calcul</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#recursive-parcourir-le-lineaire-a-400-metres">3.2 Récursive : parcourir le linéaire à 400 mètres</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fractionner-les-segments-trop-longs">3.3 Fractionner les segments trop longs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../II_rapproch_ign/">II- Rapprochement adresse BDtopo IGN</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Traitements FME</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../traitements_fme/I_plannificateur_taches/">I- Produire un calendrier des tâches du plannificateur</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Traitements GDAL</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../traitements_gdal/I_geopackage/">I- Produire un GeoPackage des orthos tuilées</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../traitements_gdal/II_cog/">II- Produire un COG à partir des orthos IGN</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../">Documentation SIG14</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">I- Périmètres des bornes incendies</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/sig14/sig14.github.io/blob/master/deci/I_perimetres_pei.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="i-perimetres-des-bornes-incendies">
+<h1>I- Périmètres des bornes incendies<a class="headerlink" href="#i-perimetres-des-bornes-incendies" title="Permalink to this heading"></a></h1>
+<a class="reference internal image-reference" href="../../_images/Intro.png"><img alt="../../_images/Intro.png" src="../../_images/Intro.png" style="width: 880px;" /></a>
+<p>Dans le cadre du partenariat entre le CD14 et les Services Départementaux d’Incendie et de Secours (SDIS), une application a été développée à destination des communes et partenaires afin de répertorier les points d’eau incendie (<strong>PEI</strong>) du Département.</p>
+<p>La mise à disposition de ces sources d’eau relève de la responsabilité du maire.</p>
+<p>Ainsi, où que les pompiers interviennent en zone habitée, ils devraient disposer d’un accès à l’eau à moins de <strong>200 mètres</strong> et d’une distance maximale de <strong>400 mètres</strong> entre les points d’eau incendie.</p>
+<p>Ainsi, une réfléxion a été menée pour calculer automatiquement ces 2 périmètres le long des routes à chaque création de borne incendie.</p>
+<p>L’approche developpée consiste donc à éxploiter la localisation des <strong>PEI</strong>, créer des linéaires d’isodistances et les périmètres de <strong>200</strong> et <strong>400</strong> mètres via la route.</p>
+<a class="reference internal image-reference" href="../../_images/schema_part_I.png"><img alt="../../_images/schema_part_I.png" src="../../_images/schema_part_I.png" style="width: 580px;" /></a>
+<div class="section" id="referentiels-de-donnees">
+<h2>1- Référentiels de données<a class="headerlink" href="#referentiels-de-donnees" title="Permalink to this heading"></a></h2>
+<div class="section" id="bd-topo-troncons-de-routes">
+<h3>1.1 BD Topo tronçons de routes<a class="headerlink" href="#bd-topo-troncons-de-routes" title="Permalink to this heading"></a></h3>
+<p><strong>Caractéristiques</strong> :
+*       Source : IGN
+*       Réseau routier
+*       Format : vecteurs Multilinestring</p>
+</div>
+<div class="section" id="points-eau-incendie-deci">
+<h3>1.2 Points Eau incendie DECI<a class="headerlink" href="#points-eau-incendie-deci" title="Permalink to this heading"></a></h3>
+<p><strong>Caractéristiques</strong> :
+-       Source : SDIS
+-       Poteaux ou bouches d’incendie, raccordés au réseau d’eau potable
+-       Format : vecteur point</p>
+</div>
+</div>
+<div class="section" id="creation-du-lineaire-routier-de-reference">
+<h2>2- Création du linéaire routier de référence<a class="headerlink" href="#creation-du-lineaire-routier-de-reference" title="Permalink to this heading"></a></h2>
+<p>La première étape consiste à créer une table miroir de données routes, en y indéxant les points de départ et d’arrivée de chaque tronçon.</p>
+<p>Le bornage de ces tronçons permettra par la suite de fixer le parcours de réseau et de mesurer les distances parcourues.</p>
+<p>Le code sql de la fonction se trouve ici : <a class="reference external" href="https://github.com/sig14/sig14.github.io/blob/master/deci/sql/fonction_network_deci.sql">Fonction référentiel bornage routes DECI</a></p>
+<div class="section" id="isoler-les-segments-de-route">
+<h3>2.1 Isoler les segments de route<a class="headerlink" href="#isoler-les-segments-de-route" title="Permalink to this heading"></a></h3>
+<p>Dumper la géométrie des routes pour obtenir les segments de routes.</p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">sdis</span><span class="p">.</span><span class="n">route_deci_segments</span><span class="w"> </span><span class="k">as</span>
+<span class="k">select</span>
+<span class="n">row_number</span><span class="p">()</span><span class="w"> </span><span class="n">over</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">id</span><span class="p">,</span>
+<span class="n">a</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">oid</span><span class="p">,</span>
+<span class="n">dump</span><span class="p">.</span><span class="n">geom</span>
+<span class="k">from</span>
+<span class="n">sdis</span><span class="p">.</span><span class="ss">&quot;2d_deci_bdtopo&quot;</span><span class="w"> </span><span class="n">a</span><span class="p">,</span>
+<span class="n">st_dump</span><span class="p">(</span><span class="n">geom</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">dump</span>
+
+<span class="w"> </span><span class="p">;</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="indexer-les-startpoints-des-segments">
+<h3>2.2 Indexer les startpoints des segments<a class="headerlink" href="#indexer-les-startpoints-des-segments" title="Permalink to this heading"></a></h3>
+<ul>
+<li><p>On boucle sur les géométries de segments pour alimenter un champs n1.</p></li>
+<li><p>On débute par la valeur 1 et on ajoute 1 à chaque nouvelle géometrie de startpoint dans une liste (indexe).</p></li>
+<li><p>On garde également en mémoire la géométrie dans une liste (points).</p></li>
+<li><p>A chaque création d’entité, on vérifie la position du startpoint dans la liste (points).
+Si aucune position dans la liste on ajoute une valeur n1 (n+n1).
+Sinon, on donne la valeur de n de la liste (indexe) selon la position du startpoint dans la liste (points) au champs n1.</p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="w">         </span><span class="k">for</span><span class="w"> </span><span class="n">rec</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">sdis</span><span class="p">.</span><span class="n">route_deci_segments</span><span class="w"> </span><span class="n">loop</span>
+<span class="c1">-- Première extrémité</span>
+<span class="w">         </span><span class="n">pt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">st_startpoint</span><span class="p">(</span><span class="n">rec</span><span class="p">.</span><span class="n">geom</span><span class="p">);</span>
+<span class="c1">-- On cherche si ce point a déjà un numéro de noeud</span>
+<span class="w">         </span><span class="n">pos</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">array_position</span><span class="p">(</span><span class="n">points</span><span class="p">,</span><span class="w"> </span><span class="n">pt</span><span class="p">);</span>
+<span class="w">         </span><span class="k">if</span><span class="w"> </span><span class="n">pos</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="c1">-- le point n&#39;est pas encore indexé</span>
+<span class="c1">-- on crée un numéro et on l&#39;insère</span>
+<span class="w">               </span><span class="k">update</span><span class="w"> </span><span class="n">sdis</span><span class="p">.</span><span class="n">route_deci_segments</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">n1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rec</span><span class="p">.</span><span class="n">id</span><span class="p">;</span>
+<span class="w">               </span><span class="n">points</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">array_append</span><span class="p">(</span><span class="n">points</span><span class="p">,</span><span class="w"> </span><span class="n">pt</span><span class="p">);</span>
+<span class="w">               </span><span class="n">indexe</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">array_append</span><span class="p">(</span><span class="n">indexe</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="p">);</span>
+<span class="w">               </span><span class="n">n</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">          </span><span class="k">else</span>
+<span class="w"> </span><span class="c1">-- on prend le numéro existant</span>
+<span class="w">               </span><span class="n">pos</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">array_position</span><span class="p">(</span><span class="n">points</span><span class="p">,</span><span class="w"> </span><span class="n">pt</span><span class="p">);</span>
+<span class="w">               </span><span class="k">update</span><span class="w"> </span><span class="n">sdis</span><span class="p">.</span><span class="n">route_deci_segments</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">n1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">indexe</span><span class="p">[</span><span class="n">pos</span><span class="p">]</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rec</span><span class="p">.</span><span class="n">id</span><span class="p">;</span>
+<span class="w">          </span><span class="k">end</span><span class="w"> </span><span class="k">if</span><span class="p">;</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ul>
+<a class="reference internal image-reference" href="../../_images/1_start_point.png"><img alt="../../_images/1_start_point.png" src="../../_images/1_start_point.png" style="width: 480px;" /></a>
+</div>
+<div class="section" id="indexer-les-endpoints-des-segments">
+<h3>2.3 Indexer les endpoints des segments<a class="headerlink" href="#indexer-les-endpoints-des-segments" title="Permalink to this heading"></a></h3>
+<ul>
+<li><p>On applique la même méthode sur les endpoints</p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="c1">-- Seconde extrémité</span>
+<span class="w">        </span><span class="n">pt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">st_endpoint</span><span class="p">(</span><span class="n">rec</span><span class="p">.</span><span class="n">geom</span><span class="p">);</span>
+<span class="w">        </span><span class="n">pos</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">array_position</span><span class="p">(</span><span class="n">points</span><span class="p">,</span><span class="w"> </span><span class="n">pt</span><span class="p">);</span>
+<span class="w">  </span><span class="c1">-- On cherche si ce point a déjà un numéro de noeud</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">pos</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="c1">-- le point n&#39;est pas encore indexé</span>
+<span class="w">       </span><span class="c1">-- on crée un numéro et on l&#39;insère</span>
+<span class="w">                </span><span class="k">update</span><span class="w"> </span><span class="n">sdis</span><span class="p">.</span><span class="n">route_deci_segments</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">n2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rec</span><span class="p">.</span><span class="n">id</span><span class="p">;</span>
+<span class="w">                </span><span class="n">points</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">array_append</span><span class="p">(</span><span class="n">points</span><span class="p">,</span><span class="w"> </span><span class="n">pt</span><span class="p">);</span>
+<span class="w">                </span><span class="n">indexe</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">array_append</span><span class="p">(</span><span class="n">indexe</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="p">);</span>
+<span class="w">                </span><span class="n">n</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">        </span><span class="k">else</span>
+<span class="w">       </span><span class="c1">-- on prend le numéro existant</span>
+<span class="w">                </span><span class="n">pos</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">array_position</span><span class="p">(</span><span class="n">points</span><span class="p">,</span><span class="w"> </span><span class="n">pt</span><span class="p">);</span>
+<span class="w">                </span><span class="k">update</span><span class="w"> </span><span class="n">sdis</span><span class="p">.</span><span class="n">route_deci_segments</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">n2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">indexe</span><span class="p">[</span><span class="n">pos</span><span class="p">]</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rec</span><span class="p">.</span><span class="n">id</span><span class="p">;</span>
+<span class="w">        </span><span class="k">end</span><span class="w"> </span><span class="k">if</span><span class="p">;</span>
+<span class="k">end</span><span class="w"> </span><span class="n">loop</span><span class="p">;</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ul>
+<a class="reference internal image-reference" href="../../_images/2_end_point.png"><img alt="../../_images/2_end_point.png" src="../../_images/2_end_point.png" style="width: 480px;" /></a>
+</div>
+</div>
+<div class="section" id="automatisation-de-la-creation-des-perimetres">
+<h2>3- Automatisation de la création des pèrimètres<a class="headerlink" href="#automatisation-de-la-creation-des-perimetres" title="Permalink to this heading"></a></h2>
+<p>La seconde étape consiste à la mise en place d’une fonction déclenchée par un trigger, pour calcul automatique des périmètres 200 et 400 mètres
+à partir de la projection sur le référentiel routier du PEI nouvellement créé.</p>
+<p>Le code sql de la fonction se trouve ici : <a class="reference external" href="https://github.com/sig14/sig14.github.io/blob/master/deci/sql/trigger_perimetre_bornes_incendie.sql">Fonction calcul automatique perimètre PEI</a></p>
+<div class="section" id="restreindre-la-zone-de-calcul">
+<h3>3.1 Restreindre la zone de calcul<a class="headerlink" href="#restreindre-la-zone-de-calcul" title="Permalink to this heading"></a></h3>
+<p>Afin d’optimiser le temps de calcul, on sélectionne uniquement les routes à 500 mètres du PEI créé.</p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">CREATE</span><span class="w"> </span><span class="n">UNLOGGED</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">route_deci</span><span class="w"> </span><span class="c1">--- création d&#39;une table temporaire qui sélectionne les segments_deci dans un buffer de 500 mètre autour du nouveau point créé</span>
+<span class="k">as</span>
+<span class="w">   </span><span class="k">select</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="o">*</span>
+<span class="w">   </span><span class="k">from</span><span class="w"> </span><span class="n">sdis</span><span class="p">.</span><span class="n">route_deci_segments</span><span class="w"> </span><span class="n">r</span>
+<span class="w">   </span><span class="k">where</span><span class="w"> </span><span class="n">st_intersects</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">geom</span><span class="p">,</span><span class="w"> </span><span class="n">st_buffer</span><span class="p">(</span><span class="k">NEW</span><span class="p">.</span><span class="n">geom</span><span class="p">,</span><span class="w"> </span><span class="mi">500</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;quad_segs=8&#39;</span><span class="p">))</span><span class="w"> </span><span class="p">;</span>
+
+<span class="k">CREATE</span><span class="w">  </span><span class="k">INDEX</span><span class="w"> </span><span class="n">route_deci_idx</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">route_deci</span><span class="w"> </span><span class="p">(</span><span class="n">id</span><span class="p">);</span><span class="c1">---création d&#39;un indexe sur l&#39;id de la table</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="recursive-parcourir-le-lineaire-a-400-metres">
+<h3>3.2 Récursive : parcourir le linéaire à 400 mètres<a class="headerlink" href="#recursive-parcourir-le-lineaire-a-400-metres" title="Permalink to this heading"></a></h3>
+<p>Nous utilserons ici l’expression récursive de postgresql.</p>
+<ul>
+<li><p>On localise d’abords le segment le plus proche à moins de 40 mètres du nouveau PEI créé.</p></li>
+<li><p>On identifie la fraction du segment au niveau du point projeté (ST_LineLocatePoint)</p></li>
+<li><p>On calcul la longueur de la fraction du segment (longeur segment X fraction)</p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">select</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="n">st_length</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">geom</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">ST_LineLocatePoint</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">geom</span><span class="p">,</span><span class="w"> </span><span class="n">st_closestpoint</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">geom</span><span class="p">,</span><span class="w"> </span><span class="k">NEW</span><span class="p">.</span><span class="n">geom</span><span class="p">))</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">longueur_depart</span><span class="p">,</span><span class="w"> </span><span class="c1">---fraction de la longeur du segment de départ au niveau du point projeté sur le segment le plus proche</span>
+<span class="n">ST_LineLocatePoint</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">geom</span><span class="p">,</span><span class="w"> </span><span class="n">st_closestpoint</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">geom</span><span class="p">,</span><span class="w"> </span><span class="k">NEW</span><span class="p">.</span><span class="n">geom</span><span class="p">))</span><span class="w">  </span><span class="k">as</span><span class="w"> </span><span class="n">fraction</span><span class="w"> </span><span class="c1">--- fraction du segment de départ au niveau du point projeté sur le segment le plus proche</span>
+<span class="k">from</span><span class="w"> </span><span class="n">route_deci</span><span class="w"> </span><span class="n">r</span>
+<span class="k">where</span><span class="w"> </span><span class="n">st_intersects</span><span class="p">(</span><span class="n">st_buffer</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">geom</span><span class="p">,</span><span class="w"> </span><span class="mi">40</span><span class="p">),</span><span class="k">NEW</span><span class="p">.</span><span class="n">geom</span><span class="p">)</span><span class="w"> </span><span class="c1">-- segment de départ à 40 mètre du point créé</span>
+<span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">st_distance</span><span class="w"> </span><span class="p">(</span><span class="k">NEW</span><span class="p">.</span><span class="n">geom</span><span class="p">,</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">geom</span><span class="p">)</span><span class="w"> </span><span class="k">limit</span><span class="w"> </span><span class="mi">1</span><span class="c1">-- On garde seulement un segment (le plus proche)</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ul>
+<a class="reference internal image-reference" href="../../_images/3_calcul_dist.png"><img alt="../../_images/3_calcul_dist.png" src="../../_images/3_calcul_dist.png" style="width: 480px;" /></a>
+<ul>
+<li><p>On crée ensuite les géométries correspondantes aux deux fractions du segment</p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="n">n1_distance</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span>
+<span class="w">   </span><span class="c1">-- on récupère pour le premier segement, juste une fraction (car la borne n&#39;est pas située</span>
+<span class="w">   </span><span class="c1">-- pile à une extrémité</span>
+<span class="w">                  </span><span class="k">select</span><span class="w"> </span><span class="n">longueur_depart</span><span class="w">  </span><span class="k">as</span><span class="w"> </span><span class="n">dist_n1</span><span class="p">,</span><span class="w"> </span><span class="n">st_linesubstring</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">geom</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">fraction</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">n1_geom</span><span class="w"> </span><span class="c1">-- ici on stocke la fraction de geom à parcourir</span>
+<span class="w">                  </span><span class="k">from</span><span class="w"> </span><span class="n">premier_troncon</span><span class="w"> </span><span class="n">p</span>
+<span class="w">                         </span><span class="p">),</span>
+<span class="w">          </span><span class="n">n2_distance</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span>
+<span class="w">   </span><span class="c1">-- idem pour le deuxième noeud</span>
+<span class="w">                  </span><span class="k">select</span><span class="w"> </span><span class="n">st_length</span><span class="p">(</span><span class="n">geom</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">longueur_depart</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">dist_n2</span><span class="p">,</span><span class="w"> </span><span class="n">st_linesubstring</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">geom</span><span class="p">,</span><span class="w"> </span><span class="n">fraction</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">n2_geom</span><span class="w"> </span><span class="c1">-- On calcul la longeur 2e fraction du segement en soustrayant la longeur de la 1ere fraction à la longeur du segment . On stocke également la geom à parcourir</span>
+<span class="w">                  </span><span class="k">from</span><span class="w"> </span><span class="n">premier_troncon</span><span class="w"> </span><span class="n">p</span>
+<span class="w">                         </span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ul>
+<a class="reference internal image-reference" href="../../_images/4_geom_fractions.png"><img alt="../../_images/4_geom_fractions.png" src="../../_images/4_geom_fractions.png" style="width: 480px;" /></a>
+<ul>
+<li><dl>
+<dt>On prépare ensuite la requête initiale de la récursive. Union des deux fractions de segment :</dt><dd><ul>
+<li><p>On récupère l’identifiant du segment</p></li>
+<li><p>La valeur de n1 pour la première fraction de segment (startpoint)</p></li>
+<li><p>La valeur de n2 pour la deuxième fraction de segment (endpoint)</p></li>
+<li><p>On attribue la valeur null pour le n2 du premier segment et le n1 du deuxième segment.</p></li>
+<li><p>On récupère la longueur des fractions de segment (dist_n1 et dist_n2)</p></li>
+<li><p>On stocke l’dentifiant dans une liste (array)</p></li>
+<li><p>On récupère la géométrie des fractions de segment (n1_geom et n2_geom)</p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="n">n1_distance</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span>
+<span class="w">      </span><span class="k">select</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="w">   </span><span class="n">n1</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">n2</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">dist_n1</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">meters</span><span class="p">,</span><span class="w"> </span><span class="nb">ARRAY</span><span class="p">[</span><span class="n">p</span><span class="p">.</span><span class="n">id</span><span class="p">]</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">path_id</span><span class="p">,</span><span class="w">  </span><span class="n">n1_geom</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">geom_initiale</span><span class="w"> </span><span class="c1">-- on récupérer la valeur du noeud 1, null pour noeud 2 pour ne pas associer des segment du mauvais coté dans la recursive. On stocke également l&#39;id (array)</span>
+<span class="w">                </span><span class="k">from</span><span class="w"> </span><span class="n">n1_distance</span><span class="p">,</span><span class="w"> </span><span class="n">premier_troncon</span><span class="w"> </span><span class="n">p</span>
+<span class="w">             </span><span class="k">union</span><span class="w"> </span><span class="c1">-- pour partir dans les deux direction (noeud 1 et noeud 2)</span>
+<span class="w">                </span><span class="k">select</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="w">  </span><span class="k">null</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">n1</span><span class="p">,</span><span class="w"> </span><span class="n">n2</span><span class="w"> </span><span class="p">,</span><span class="w">  </span><span class="n">dist_n2</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">meters</span><span class="p">,</span><span class="w"> </span><span class="nb">ARRAY</span><span class="p">[</span><span class="n">p</span><span class="p">.</span><span class="n">id</span><span class="p">]</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">path_id</span><span class="p">,</span><span class="w"> </span><span class="n">n2_geom</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">geom_initiale</span><span class="c1">-- idem que pour la première direction. null au n1 pour ne pas associer des segments de ce coté.</span>
+<span class="w">                </span><span class="k">from</span><span class="w"> </span><span class="n">n2_distance</span><span class="p">,</span><span class="w"> </span><span class="n">premier_troncon</span><span class="w"> </span><span class="n">p</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<a class="reference internal image-reference" href="../../_images/5_requête_initiale.png"><img alt="../../_images/5_requ%C3%AAte_initiale.png" src="../../_images/5_requ%C3%AAte_initiale.png" style="width: 680px;" /></a>
+<ul>
+<li><dl>
+<dt>On sélectionne les segments de routes qui ont les mêmes noeuds que les segments de la requête initiale:</dt><dd><ul>
+<li><p>On séléctionne les segments de routes DECI dont le n2 ou le n1 correspond au n2 ou n1 de la requête initiale</p></li>
+<li><p>On récupère leur identifiant</p></li>
+<li><p>On récupère leur n1</p></li>
+<li><p>On récupère la geom de la fraction de segment associée</p></li>
+<li><p>On récupère la liste d’identifiants gardée en mémoire de la fraction de segment associée</p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="n">ng</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">id</span><span class="p">,</span>
+<span class="w">                           </span><span class="n">r</span><span class="p">.</span><span class="n">n1</span>
+<span class="w">                           </span><span class="k">as</span><span class="w"> </span><span class="n">_n1</span><span class="p">,</span>
+<span class="w">                           </span><span class="n">r</span><span class="p">.</span><span class="n">n2</span><span class="w">  </span><span class="k">as</span><span class="w"> </span><span class="n">_n2</span><span class="p">,</span>
+<span class="w">                           </span><span class="n">sg</span><span class="p">.</span><span class="n">meters</span><span class="p">,</span><span class="w"> </span><span class="c1">-- distance cumulée</span>
+<span class="w">                           </span><span class="n">sg</span><span class="p">.</span><span class="n">path_id</span><span class="p">,</span>
+<span class="w">                           </span><span class="n">r</span><span class="p">.</span><span class="n">geom</span><span class="p">,</span><span class="w"> </span><span class="c1">-- geométrie du segment en cours de parcours</span>
+<span class="w">                           </span><span class="n">sg</span><span class="p">.</span><span class="n">geom_initiale</span><span class="w"> </span><span class="c1">-- géométrie de départ (fraction du premie rsegement, en fonction de la projection de la borne dessus)</span>
+<span class="w">                      </span><span class="k">from</span><span class="w"> </span><span class="n">search_graph</span><span class="w"> </span><span class="n">sg</span><span class="p">,</span><span class="w"> </span><span class="n">route_deci</span><span class="w"> </span><span class="n">r</span>
+<span class="w">                      </span><span class="k">where</span><span class="w"> </span><span class="p">(</span>
+<span class="w">                                   </span><span class="n">sg</span><span class="p">.</span><span class="n">_n2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">n1</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="n">sg</span><span class="p">.</span><span class="n">_n1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">n2</span><span class="w">  </span><span class="c1">-- on cherche tout n1 ou n2 qui correspond à la fin de notre segment courant</span>
+<span class="w">                                   </span><span class="k">or</span><span class="w"> </span><span class="n">sg</span><span class="p">.</span><span class="n">_n1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">n1</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="n">sg</span><span class="p">.</span><span class="n">_n2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">n2</span><span class="p">))</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>On ajoute une UNION entre ces résultats et la requête initiale pour la récursivité:</dt><dd><ul class="simple">
+<li><p>On sélectionne les id, les nœuds et les géometries de segments de routes rapprochés</p></li>
+<li><p>On aditionne la longueur de la geometrie rapprochée à la longueur de fraction du segment</p></li>
+<li><p>On stocke l’id du segment rapproché dans la liste d’identifiants gardée en mémoire</p></li>
+</ul>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">select</span><span class="w"> </span><span class="k">distinct</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="p">(</span><span class="n">ng</span><span class="p">.</span><span class="n">id</span><span class="p">)</span>
+<span class="w">                    </span><span class="n">ng</span><span class="p">.</span><span class="n">id</span><span class="p">,</span>
+<span class="w">                    </span><span class="n">ng</span><span class="p">.</span><span class="n">_n1</span><span class="p">,</span>
+<span class="w">                    </span><span class="n">ng</span><span class="p">.</span><span class="n">_n2</span><span class="p">,</span>
+<span class="w">                    </span><span class="n">ng</span><span class="p">.</span><span class="n">meters</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">st_length</span><span class="p">(</span><span class="n">ng</span><span class="p">.</span><span class="n">geom</span><span class="p">),</span><span class="c1">-- on ajoute la longeur du nouveau segment associé à la distance cumulée</span>
+<span class="w">                    </span><span class="n">ng</span><span class="p">.</span><span class="n">path_id</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">ng</span><span class="p">.</span><span class="n">id</span><span class="p">,</span>
+<span class="w">                    </span><span class="n">ng</span><span class="p">.</span><span class="n">geom_initiale</span>
+<span class="w">               </span><span class="k">from</span><span class="w"> </span><span class="n">ng</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>On termine la recursive :</dt><dd><ul class="simple">
+<li><p>On conditionne l’ajout de segments (arrête de la recursive) à une distance cumulée de 360 mètres</p></li>
+<li><p>On ferme la recursive, on la lance</p></li>
+<li><p>On récupère au passage les géométrie de segments DECI qui ont le même id que l’ensemble des segments rapprochés.</p></li>
+</ul>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="n">ng</span>
+<span class="w">      </span><span class="k">where</span>
+<span class="w">         </span><span class="n">ng</span><span class="p">.</span><span class="n">meters</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">360</span><span class="w">  </span><span class="c1">-- filtre sur la distance max</span>
+<span class="p">)</span>
+<span class="k">select</span><span class="w"> </span><span class="n">sg</span><span class="p">.</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">sg</span><span class="p">.</span><span class="n">_n1</span><span class="p">,</span><span class="w"> </span><span class="n">sg</span><span class="p">.</span><span class="n">_n2</span><span class="p">,</span><span class="w"> </span><span class="n">sg</span><span class="p">.</span><span class="n">meters</span><span class="p">,</span><span class="w">  </span><span class="n">r</span><span class="p">.</span><span class="n">geom</span><span class="p">,</span><span class="w"> </span><span class="n">sg</span><span class="p">.</span><span class="n">geom_initiale</span>
+<span class="k">from</span><span class="w"> </span><span class="n">search_graph</span><span class="w"> </span><span class="n">sg</span>
+<span class="k">join</span><span class="w"> </span><span class="n">route_deci</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sg</span><span class="p">.</span><span class="n">id</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+</ul>
+<a class="reference internal image-reference" href="../../_images/6_recursive.png"><img alt="../../_images/6_recursive.png" src="../../_images/6_recursive.png" style="width: 880px;" /></a>
+</div>
+<div class="section" id="fractionner-les-segments-trop-longs">
+<h3>3.3 Fractionner les segments trop longs<a class="headerlink" href="#fractionner-les-segments-trop-longs" title="Permalink to this heading"></a></h3>
+<ul>
+<li><dl>
+<dt>Pour la suite du traitement, on conserve les résultats dont la longueur cumulée est égale ou inférieure à 360 mètres.</dt><dd><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="n">troncons_valides</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span>
+<span class="w">     </span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">resultat</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">meters</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">360</span>
+<span class="w">                     </span><span class="p">),</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+<li><p>On sélectionne ensuite les résultats dont la longueur cumulée est supérieure à 360 mètres, on joint les routes DECI en n1 ou n2.</p></li>
+</ul>
+<p><strong>si le segment joint en n_2 n’est pas un segment initial (pas de noeuds null)</strong></p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="n">st_linesubstring</span><span class="p">(</span><span class="n">t</span><span class="p">.</span><span class="n">geom</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="n">st_length</span><span class="p">(</span><span class="n">t</span><span class="p">.</span><span class="n">geom</span><span class="p">)</span><span class="o">-</span><span class="p">(</span><span class="n">t</span><span class="p">.</span><span class="n">meters</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">360</span><span class="p">))</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">st_length</span><span class="p">(</span><span class="n">t</span><span class="p">.</span><span class="n">geom</span><span class="p">))</span>
+</pre></div>
+</div>
+</div></blockquote>
+<a class="reference internal image-reference" href="../../_images/7_fraction_cas_1.png"><img alt="../../_images/7_fraction_cas_1.png" src="../../_images/7_fraction_cas_1.png" style="width: 880px;" /></a>
+<p><strong>si le segment joint en n_2 n’est pas un segment initial  (pas de noeuds null)</strong></p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="n">st_linesubstring</span><span class="p">(</span><span class="n">st_reverse</span><span class="p">(</span><span class="n">t</span><span class="p">.</span><span class="n">geom</span><span class="p">),</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">   </span><span class="p">(</span><span class="n">st_length</span><span class="p">(</span><span class="n">t</span><span class="p">.</span><span class="n">geom</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="p">(</span><span class="n">t</span><span class="p">.</span><span class="n">meters</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">360</span><span class="p">))</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">st_length</span><span class="p">(</span><span class="n">t</span><span class="p">.</span><span class="n">geom</span><span class="p">))</span>
+</pre></div>
+</div>
+</div></blockquote>
+<a class="reference internal image-reference" href="../../_images/8_fraction_cas_2.png"><img alt="../../_images/8_fraction_cas_2.png" src="../../_images/8_fraction_cas_2.png" style="width: 880px;" /></a>
+<p><strong>si le segment est le segment initial fraction 1 (noeud 2 est null)</strong></p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="n">st_linesubstring</span><span class="p">(</span><span class="n">st_reverse</span><span class="p">(</span><span class="n">t</span><span class="p">.</span><span class="n">geom_initiale</span><span class="p">),</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">   </span><span class="p">(</span><span class="n">st_length</span><span class="p">(</span><span class="n">t</span><span class="p">.</span><span class="n">geom_initiale</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="p">(</span><span class="n">t</span><span class="p">.</span><span class="n">meters</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">360</span><span class="p">))</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">st_length</span><span class="p">(</span><span class="n">t</span><span class="p">.</span><span class="n">geom_initiale</span><span class="p">))</span>
+</pre></div>
+</div>
+</div></blockquote>
+<a class="reference internal image-reference" href="../../_images/9_fraction_cas_3.png"><img alt="../../_images/9_fraction_cas_3.png" src="../../_images/9_fraction_cas_3.png" style="width: 380px;" /></a>
+<p><strong>si le segment est le segment initial fraction 2 (noeud 1 est null)</strong></p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="n">st_linesubstring</span><span class="p">(</span><span class="n">t</span><span class="p">.</span><span class="n">geom_initiale</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="n">st_length</span><span class="p">(</span><span class="n">t</span><span class="p">.</span><span class="n">geom_initiale</span><span class="p">)</span><span class="o">-</span><span class="p">(</span><span class="n">t</span><span class="p">.</span><span class="n">meters</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">360</span><span class="p">))</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">st_length</span><span class="p">(</span><span class="n">t</span><span class="p">.</span><span class="n">geom_initiale</span><span class="p">))</span>
+</pre></div>
+</div>
+</div></blockquote>
+<a class="reference internal image-reference" href="../../_images/10_fraction_cas_4.png"><img alt="../../_images/10_fraction_cas_4.png" src="../../_images/10_fraction_cas_4.png" style="width: 480px;" /></a>
+<ul>
+<li><dl>
+<dt>Pour finir, on insère dans la table de données à 400 mètres l’UNION des données suivantes :</dt><dd><blockquote>
+<div><ul class="simple">
+<li><p>Buffer de 40 mètres de la géométrie des résultats dont la longueur cumulée est égale ou inférieure à 360 mètres.</p></li>
+<li><p>Buffer de 40 mètres de la géométrie des fractions de segment dont la longueur est égale ou inférieure à 360 mètres.</p></li>
+<li><p>Buffer de 40 mètres de la géométrie des fractions de segment dont la longueur était supérieure à 360 mètres.</p></li>
+</ul>
+</div></blockquote>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">final</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span>
+<span class="w">              </span><span class="k">select</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="p">,</span><span class="w">  </span><span class="n">st_buffer</span><span class="p">(</span><span class="n">geom_initiale</span><span class="p">,</span><span class="w"> </span><span class="mi">40</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">geom</span><span class="w">  </span><span class="k">from</span><span class="w"> </span><span class="n">troncons_valides</span><span class="w"> </span><span class="c1">-- on récupere le buffer 40m de la geom des fraction de segments initiale</span>
+<span class="w">                   </span><span class="k">union</span>
+<span class="w">                   </span><span class="k">select</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="p">,</span><span class="w">  </span><span class="n">st_buffer</span><span class="p">(</span><span class="n">geom</span><span class="p">,</span><span class="w"> </span><span class="mi">40</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">geom</span><span class="w">  </span><span class="k">from</span><span class="w"> </span><span class="n">troncons_valides</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">st_length</span><span class="p">(</span><span class="n">geom</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">360</span><span class="w"> </span><span class="c1">-- on récupere le buffer 40m  de la geom des segments qui font moins de 400 mètres</span>
+<span class="w">                   </span><span class="k">union</span>
+<span class="w">              </span><span class="k">select</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="p">,</span><span class="w">  </span><span class="n">st_buffer</span><span class="p">(</span><span class="n">geom</span><span class="p">,</span><span class="w"> </span><span class="mi">40</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">geom</span><span class="w">   </span><span class="k">from</span><span class="w"> </span><span class="n">fractions</span><span class="w"> </span><span class="c1">-- on récupère le buffer 40m des geom des fractions de segments qui dépassent 400 mètres</span>
+<span class="w">         </span><span class="p">)</span>
+<span class="w">         </span><span class="k">select</span><span class="w"> </span><span class="n">ST_Multi</span><span class="p">(</span><span class="n">st_union</span><span class="p">(</span><span class="n">geom</span><span class="p">))</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">geom_buffer_400</span><span class="w"> </span><span class="c1">-- on unie les geom buffer en MULTI* geometry collection</span>
+<span class="w">         </span><span class="k">from</span><span class="w"> </span><span class="k">final</span><span class="p">;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../../cadastre/IV_mutation_immo/" class="btn btn-neutral float-left" title="IV- Ajouter un onglet “Mutations immobilières” à la pop-up cadastre de Lizmap" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../II_rapproch_ign/" class="btn btn-neutral float-right" title="II- Rapprochement adresse BDtopo IGN" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, SIG14 team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>I- Produire un calendrier des tâches du plannificateur &mdash; Documentation SIG14  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sphinx_rtd_theme_ext_color_contrast.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+        <script>let toggleHintShow = 'Click to show';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="../../_static/togglebutton.js"></script>
+        <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex/" />
+    <link rel="search" title="Search" href="../../search/" />
+    <link rel="next" title="I- Produire un GeoPackage des orthos tuilées" href="../../traitements_gdal/I_geopackage/" />
+    <link rel="prev" title="II- Rapprochement adresse BDtopo IGN" href="../../deci/II_rapproch_ign/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../">
+            
+              <img src="../../_static/CD14_petit.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search/" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Équipe</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../equipe/I_membres/">I- Membres</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../equipe/II_contact/">II- Contact</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Adressage</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../adressage/I_acc_communes/">I- Accompagnement des Communes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../adressage/II_application_saisie/">II- Application de saisie</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../adressage/III_consultation_exports/">III- Consulter et exporter les données “Adresses” depuis QGIS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../adressage/IV_depot_bal/">IV- Déposer une BAL via l’API BAN avec FME</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Cadastre</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../cadastre/I_maj_annuelle/">I- Mettre à jour les données EDIGEO / Majic III (maj annuelle)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cadastre/II_gpu_docs_urba/">II- Ajouter un onglet “Documents d’urbanisme GPU” à la pop-up cadastre de Lizmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cadastre/III_filiation_parcelles/">III- Ajouter un onglet “Filiation parcellaire” à la pop-up cadastre de Lizmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cadastre/IV_mutation_immo/">IV- Ajouter un onglet “Mutations immobilières” à la pop-up cadastre de Lizmap</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">DECI</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../deci/I_perimetres_pei/">I- Périmètres des bornes incendies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../deci/II_rapproch_ign/">II- Rapprochement adresse BDtopo IGN</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Traitements FME</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">I- Produire un calendrier des tâches du plannificateur</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#normes-de-saisies-sur-le-plannificateur-windows">1 - Normes de saisies sur le plannificateur Windows</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#onglet-description">1.1 - Onglet description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#onglet-declencheur">1.2 - Onglet déclencheur</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#onglet-parametres">1.1 - Onglet Paramètres</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#fonctionnement-du-workbbench-fme">2 - Fonctionnement du workbbench FME</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#charger-les-fichiers-xml-task-schduler">2.1 - Charger les fichiers XML task schduler</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#extraction-des-donnees-de-temporalites-regexp">2.2 - Extraction des données de temporalités (REGEXP)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#creation-des-champs-pour-le-listing-excel">2.3 - Création des champs pour le listing excel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#filtre-sur-les-temporalites">2.4 - Filtre sur les temporalités</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#extraction-du-detail-de-temporalite">2.5 - Extraction du détail de temporalité</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mise-en-forme-du-detail-de-temporalite">2.6 - Mise en forme du détail de temporalité</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#structuration-du-texte-au-format-ics">2.7 - Structuration du texte au format ICS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ecriture-du-fichier-ics">2.8 - Ecriture du fichier ics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mise-en-forme-excel">2.9 - Mise en forme Excel</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#ouverture-des-fichiers">3 - Ouverture des fichiers</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Traitements GDAL</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../traitements_gdal/I_geopackage/">I- Produire un GeoPackage des orthos tuilées</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../traitements_gdal/II_cog/">II- Produire un COG à partir des orthos IGN</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../">Documentation SIG14</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">I- Produire un calendrier des tâches du plannificateur</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/sig14/sig14.github.io/blob/master/traitements_fme/I_plannificateur_taches.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="i-produire-un-calendrier-des-taches-du-plannificateur">
+<h1>I- Produire un calendrier des tâches du plannificateur<a class="headerlink" href="#i-produire-un-calendrier-des-taches-du-plannificateur" title="Permalink to this heading"></a></h1>
+<p>Dans le cadre de ses missions, le pôle SIG du Département enrichit la base de données épaisse, effectue des mises à jour automatiques (interconnexion aux API via l’ETL FME) et des traitements spécifiques sur la base de données.</p>
+<p>Pour cela, des tâches sont programmées via le logiciel ‘Task scheduler’ de windows.</p>
+<p>Avec la multiplication des tâches plannifiées, un traitement FME a été mis en place pour automatiser la création d’un calendrier partagé des tâches windows dans Outlook.</p>
+<a class="reference internal image-reference" href="../../_images/task_calendar.gif"><img alt="../../_images/task_calendar.gif" src="../../_images/task_calendar.gif" style="width: 788.0px; height: 433.0px;" /></a>
+<div class="section" id="normes-de-saisies-sur-le-plannificateur-windows">
+<h2>1 - Normes de saisies sur le plannificateur Windows<a class="headerlink" href="#normes-de-saisies-sur-le-plannificateur-windows" title="Permalink to this heading"></a></h2>
+<p>Afin que l’ensemble des paramètres soient correctement interprété par FME, certaines normes doivent êtres respectées lors de la création/saisie d’une tâche sur windows.</p>
+<div class="section" id="onglet-description">
+<h3>1.1 - Onglet description<a class="headerlink" href="#onglet-description" title="Permalink to this heading"></a></h3>
+<ul>
+<li><p>Saisie de la CATEGORIE dans le format suivant :</p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="n">CATEGORIE</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">(</span><span class="n">Interne</span><span class="w"> </span><span class="n">ou</span><span class="w"> </span><span class="n">Entrant</span><span class="w"> </span><span class="n">ou</span><span class="w"> </span><span class="n">Sortant</span><span class="p">).</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ul>
+<p>NE PAS OUBLIER LE POINT A LA FIN !!</p>
+<ul>
+<li><p>Saisie de la SOURCE des données dans le format suivant :</p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">SOURCE</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">(</span><span class="n">lien</span><span class="w"> </span><span class="n">ou</span><span class="w"> </span><span class="n">nom</span><span class="w"> </span><span class="n">de</span><span class="w"> </span><span class="n">la</span><span class="o">/</span><span class="n">des</span><span class="w"> </span><span class="k">source</span><span class="p">(</span><span class="n">s</span><span class="p">))</span><span class="w"> </span><span class="o">|*</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ul>
+<p>NE PAS OUBLIER LE <a href="#id1"><span class="problematic" id="id2">|</span></a>* A LA FIN !!</p>
+<ul>
+<li><p>Saisie de la DESTINATION des données dans le format suivant :</p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="n">DESTINATION</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">(</span><span class="n">lien</span><span class="w"> </span><span class="n">ou</span><span class="w"> </span><span class="n">nom</span><span class="w"> </span><span class="n">de</span><span class="w"> </span><span class="n">la</span><span class="o">/</span><span class="n">des</span><span class="w"> </span><span class="k">source</span><span class="p">(</span><span class="n">s</span><span class="p">))</span><span class="w"> </span><span class="o">|*</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ul>
+<p>NE PAS OUBLIER LE <a href="#id3"><span class="problematic" id="id4">|</span></a>* A LA FIN !!</p>
+<ul>
+<li><p>Saisie du RESUME de la tâche dans le format suivant :</p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="n">RESUME</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">description</span><span class="w"> </span><span class="n">de</span><span class="w"> </span><span class="n">la</span><span class="w"> </span><span class="n">tâche</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ul>
+<p>LE RESUME ET SON CONTENU DOIT TOUJOURS TERMINER LA DESCRIPTION !!</p>
+<a class="reference internal image-reference" href="../../_images/0_1_description.png"><img alt="../../_images/0_1_description.png" src="../../_images/0_1_description.png" style="width: 316.0px; height: 239.5px;" /></a>
+</div>
+<div class="section" id="onglet-declencheur">
+<h3>1.2 - Onglet déclencheur<a class="headerlink" href="#onglet-declencheur" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p>La date de démarrage doit toujour commencer le même jour que celui programmé (ex : si programmé les lundi, démarrage un lundi ou si programmé le premier vendredi du mois, démarrage un premier vendredi)</p></li>
+</ul>
+<a class="reference internal image-reference" href="../../_images/0_2_date_progra.png"><img alt="../../_images/0_2_date_progra.png" src="../../_images/0_2_date_progra.png" style="width: 632.5px; height: 319.0px;" /></a>
+<ul class="simple">
+<li><p>On ne définit pas d’arrêt de la tâche à cette étape (on se sert de l’exécution limite à une autre étape, cela risque de concurencer)</p></li>
+</ul>
+<a class="reference internal image-reference" href="../../_images/0_3_no_limit_in_time.png"><img alt="../../_images/0_3_no_limit_in_time.png" src="../../_images/0_3_no_limit_in_time.png" style="width: 620.5px; height: 307.5px;" /></a>
+</div>
+<div class="section" id="onglet-parametres">
+<h3>1.1 - Onglet Paramètres<a class="headerlink" href="#onglet-parametres" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p>Programmer l’arrêt de la tâche en fonction de sa durée réelle (c’est cette limite qui va définir la durée de la tâche : en heures ou en minutes)</p></li>
+</ul>
+<a class="reference internal image-reference" href="../../_images/0_4_execution_time_limit.png"><img alt="../../_images/0_4_execution_time_limit.png" src="../../_images/0_4_execution_time_limit.png" style="width: 316.5px; height: 241.0px;" /></a>
+</div>
+</div>
+<div class="section" id="fonctionnement-du-workbbench-fme">
+<h2>2 - Fonctionnement du workbbench FME<a class="headerlink" href="#fonctionnement-du-workbbench-fme" title="Permalink to this heading"></a></h2>
+<p>Le workbench FME se trouve <a class="reference external" href="https://github.com/sig14/sig14.github.io/releases/tag/FME_xml_task_windows_scheduler_to_ics">ici</a></p>
+<div class="section" id="charger-les-fichiers-xml-task-schduler">
+<h3>2.1 - Charger les fichiers XML task schduler<a class="headerlink" href="#charger-les-fichiers-xml-task-schduler" title="Permalink to this heading"></a></h3>
+<p>A chaque création d’une tâche sur le logiciel ‘Task scheduler’ de Windows, un fichier xml est enregistré sur C:WindowsSystem32Tasks*</p>
+<p>FME récupère l’ensemble des fichiers XML se trouvant dans ce dossier.</p>
+</div>
+<div class="section" id="extraction-des-donnees-de-temporalites-regexp">
+<h3>2.2 - Extraction des données de temporalités (REGEXP)<a class="headerlink" href="#extraction-des-donnees-de-temporalites-regexp" title="Permalink to this heading"></a></h3>
+<a class="reference internal image-reference" href="../../_images/I_1_extract_data.png"><img alt="../../_images/I_1_extract_data.png" src="../../_images/I_1_extract_data.png" style="width: 788.0px; height: 239.0px;" /></a>
+<ul>
+<li><p>Récupération du texte entre les balises <strong>URI</strong> (nom de la tâche)</p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span>(?&lt;=&lt;URI&gt;)(.*)(?=&lt;\/URI&gt;)
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Exclure les tâches qui commencent par “User_Feed_” (tâches par défaut de windows)</p></li>
+<li><p>Récupération du texte entre les balises <strong>command</strong> (actions effectuées par la tâche) sous forme de listes</p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span>(?&lt;=&lt;Command&gt;)(.*?)(?=&lt;\/Command&gt;)
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Concaténation des listes d’actions</p></li>
+<li><p>Récupération du texte entre les balises <strong>Description</strong> (Description de la tâche) sous forme de listes</p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span>(?&lt;=&lt;Description&gt;)(.*)(?=&lt;\/Description&gt;)
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>remplacer les sauts de lignes des description par des balises <strong>n</strong> puis saut de ligne (interprétables par Outlook)</p></li>
+<li><p>Récupération de la valeur entre les balises <strong>StarBoundary</strong> (heure et date de démarrage de la tâche)</p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span>(?&lt;=StartBoundary&gt;)(.*?)(?=&lt;\/StartBoundary)
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Supprimer les <strong>:</strong> et <strong>-</strong> de la date de démarrage (interprétables par Outlook)</p></li>
+<li><p>Récupération de la valeur après balises <strong>SheduleBy</strong> (programmation par interval : mois, jours, années)</p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span>(?&lt;=ScheduleBy)(\w*)(?=&gt;)
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Récupération de la valeur après <strong>ExecutionTimeLimit</strong> (limite de temps avant interuption de la tâche)</p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span>(?&lt;=ExecutionTimeLimit&gt;)(\w*)
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Récupération de la valeur comprise entre <strong>CATEGORIE</strong> et <strong>.</strong> (catégorie de donénes entrantes, sortantes ou flux internes)</p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span>(?&lt;=CATEGORIE :)(.*?)(?=\.)
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Supression des espaces dans le champs catégorie</p></li>
+</ul>
+</div>
+<div class="section" id="creation-des-champs-pour-le-listing-excel">
+<h3>2.3 - Création des champs pour le listing excel<a class="headerlink" href="#creation-des-champs-pour-le-listing-excel" title="Permalink to this heading"></a></h3>
+<a class="reference internal image-reference" href="../../_images/I_8_listing_excel.png"><img alt="../../_images/I_8_listing_excel.png" src="../../_images/I_8_listing_excel.png" style="width: 387.5px; height: 190.0px;" /></a>
+<ul>
+<li><p>Récupération des valeurs entre DESTINATION et <a href="#id5"><span class="problematic" id="id6">|</span></a>* (url ou nom de la destination des données)</p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span>(?&lt;=DESTINATION :)(.*?)(?=\|\*)
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Créer une valeur vide pour les entités qui n’ont pas de destination renseignée</p></li>
+<li><p>Récupération des valeurs entre DSOURCE et <a href="#id7"><span class="problematic" id="id8">|</span></a>* (url ou nom de la source des données)</p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span>(?&lt;=SOURCE :)(.*?)(?=\|\*)
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Créer une valeur vide pour les entités qui n’ont pas de source renseignée</p></li>
+<li><p>Récupération des valeurs après RESUME et avant la balise /DESCRIPTION (résumé de la tâche)</p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span>(?&lt;=RESUME :)(.*?)(?=&lt;\/Description&gt;)
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Créer une valeur vide pour les entités qui n’ont pas de résumé renseigné</p></li>
+</ul>
+</div>
+<div class="section" id="filtre-sur-les-temporalites">
+<h3>2.4 - Filtre sur les temporalités<a class="headerlink" href="#filtre-sur-les-temporalites" title="Permalink to this heading"></a></h3>
+<a class="reference internal image-reference" href="../../_images/I_2_filtre_temporalite.png"><img alt="../../_images/I_2_filtre_temporalite.png" src="../../_images/I_2_filtre_temporalite.png" style="width: 129.0px; height: 362.0px;" /></a>
+</div>
+<div class="section" id="extraction-du-detail-de-temporalite">
+<h3>2.5 - Extraction du détail de temporalité<a class="headerlink" href="#extraction-du-detail-de-temporalite" title="Permalink to this heading"></a></h3>
+<a class="reference internal image-reference" href="../../_images/I_3_detail_temporalite.png"><img alt="../../_images/I_3_detail_temporalite.png" src="../../_images/I_3_detail_temporalite.png" style="width: 406.5px; height: 431.0px;" /></a>
+<p><strong>Pour les temporalité Day</strong> :</p>
+<ul>
+<li><p>Récupération des chiffres après la balise <strong>DaysInterval</strong> (interval de jours pour lancement de la tâche)</p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span>(?&lt;=&lt;DaysInterval&gt;)(\d*)
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ul>
+<p><strong>Pour les temporalité Week</strong> :</p>
+<ul>
+<li><p>Récupération des chifres Entre les balises <strong>WeeksInterval</strong> (interval de semaines pour lancement de la tâche)</p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span>(?&lt;=&lt;WeeksInterval&gt;)(.*)(?=&lt;\/WeeksInterval&gt;)
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ul>
+<p><strong>Pour les temporalité Month</strong> :</p>
+<ul>
+<li><p>Récupération du texte Entre les balises <strong>Months</strong> (différents mois de lancement de la tâche)</p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span>(?&lt;=&lt;Months&gt;)(.*)(?=&lt;\/Months)
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Création de liste avec les textes de mois extraits</p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span>(?&lt;=&lt;)(.*?\/&gt;)
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Récupération du chiffre après la balise <strong>Day</strong> (jour des mois de lancement de la tâche)</p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span>(?&lt;=&lt;Day&gt;)(\d*)
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Explosion des listes de mois</p></li>
+</ul>
+<p><strong>Pour les temporalité MonthDayOfWeek</strong> :</p>
+<ul>
+<li><p>Récupération des chiffres après la balise <strong>Week</strong> (numéro de semaine de lancement)</p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span>(?&lt;=&lt;Week&gt;)(\d*)
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Récupération du texte entre les balises <strong>DaysofWeek</strong> (jours de la semaine pour lancement de la tâche)</p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span>(?&lt;=&lt;DaysofWeek&gt;)(.*)(?=&lt;\/DaysofWeek)
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Création des valeurs outlook de jours de semaines en fonction des chiffres extraits (nombres et Prefixes)</p></li>
+<li><p>Récupération du texte Entre les balises <strong>Months</strong> (différents mois de lancement de la tâche)</p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span>(?&lt;=&lt;Months&gt;)(.*)(?=&lt;\/Months)
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Création de liste avec les textes de mois extraits</p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span>(?&lt;=&lt;)(.*?\/&gt;)
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Explosion des listes de mois</p></li>
+</ul>
+</div>
+<div class="section" id="mise-en-forme-du-detail-de-temporalite">
+<h3>2.6 - Mise en forme du détail de temporalité<a class="headerlink" href="#mise-en-forme-du-detail-de-temporalite" title="Permalink to this heading"></a></h3>
+<a class="reference internal image-reference" href="../../_images/I_4_mise_en_forme_detail_temporalite.png"><img alt="../../_images/I_4_mise_en_forme_detail_temporalite.png" src="../../_images/I_4_mise_en_forme_detail_temporalite.png" style="width: 218.5px; height: 260.5px;" /></a>
+<ul class="simple">
+<li><p>Création du numéro de mois correspondant à la valeur de mois extraite</p></li>
+<li><p>Préfixer les attributs <strong>Days</strong> et <strong>Month</strong> en fonction de leur longueur et mise en forme de la date pour Outlook</p></li>
+</ul>
+</div>
+<div class="section" id="structuration-du-texte-au-format-ics">
+<h3>2.7 - Structuration du texte au format ICS<a class="headerlink" href="#structuration-du-texte-au-format-ics" title="Permalink to this heading"></a></h3>
+<a class="reference internal image-reference" href="../../_images/I_5_structuration.png"><img alt="../../_images/I_5_structuration.png" src="../../_images/I_5_structuration.png" style="width: 196.5px; height: 102.5px;" /></a>
+<p><strong>Pour les temporalité Day</strong> :</p>
+<p>BEGIN:VEVENT
+CATEGORIES:Journalier
+SUMMARY: &#64;Value(task_name)
+DTSTART;TZID=”Romance Standard Time”:&#64;Value(start_time)
+RRULE:FREQ=DAILY;INTERVAL=&#64;Value(day_interval)
+DURATION:&#64;Value(duration)
+DESCRIPTION:</p>
+<blockquote>
+<div><p>&#64;Value(description)</p>
+</div></blockquote>
+<p>LOCATION:&#64;Value(task_actions)
+END:VEVENT</p>
+<p><strong>Pour les temporalité Week</strong> :</p>
+<p>BEGIN:VEVENT
+CATEGORIES:Hebdomadaire
+SUMMARY: &#64;Value(task_name)
+DTSTART;TZID=”Romance Standard Time”:&#64;Value(start_time)
+RRULE:FREQ=WEEKLY;INTERVAL=&#64;Value(week_interval)
+DURATION:&#64;Value(duration)
+DESCRIPTION:</p>
+<blockquote>
+<div><p>&#64;Value(description)</p>
+</div></blockquote>
+<p>LOCATION:&#64;Value(task_actions)
+END:VEVENT</p>
+<p><strong>Pour les temporalité Month</strong> :</p>
+<p>BEGIN:VEVENT
+CATEGORIES:Mensuel
+SUMMARY:&#64;Value(task_name)
+DTSTART;TZID=”Romance Standard Time”:&#64;Value(start_time2)
+RRULE:FREQ=YEARLY;BYMONTHDAY=&#64;Value(num_day);BYMONTH=&#64;Value(num_month2)
+DURATION:&#64;Value(duration)
+DESCRIPTION:</p>
+<blockquote>
+<div><p>&#64;Value(description)</p>
+</div></blockquote>
+<p>LOCATION:&#64;Value(task_actions)
+END:VEVENT</p>
+<p><strong>Pour les temporalité MonthDayOfWeek</strong> :</p>
+<p>BEGIN:VEVENT
+CATEGORIES:Mensuel
+SUMMARY:&#64;Value(task_name)
+DTSTART;TZID=”Romance Standard Time”:&#64;Value(start_time2)
+RRULE:FREQ=YEARLY;BYDAY=&#64;Value(num_day2);BYMONTH=&#64;Value(num_month2);BYSETPOS=&#64;Value(week)
+DURATION:&#64;Value(duration)
+DESCRIPTION:</p>
+<blockquote>
+<div><p>&#64;Value(description)</p>
+</div></blockquote>
+<p>LOCATION:&#64;Value(task_actions)
+END:VEVENT</p>
+</div>
+<div class="section" id="ecriture-du-fichier-ics">
+<h3>2.8 - Ecriture du fichier ics<a class="headerlink" href="#ecriture-du-fichier-ics" title="Permalink to this heading"></a></h3>
+<a class="reference internal image-reference" href="../../_images/I_6_writer.png"><img alt="../../_images/I_6_writer.png" src="../../_images/I_6_writer.png" style="width: 276.0px; height: 211.0px;" /></a>
+<p>Dans les paramètres d’attribut du writer, modifier la valeur :</p>
+<p>BEGIN:VCALENDAR
+VERSION:2.0
+&#64;Value(text_line_data)
+END:VCALENDAR</p>
+<p>Et enregistrer en destination Text file avec suffixe .ics dans le nom.</p>
+<a class="reference internal image-reference" href="../../_images/I_7_save_as_ics.png"><img alt="../../_images/I_7_save_as_ics.png" src="../../_images/I_7_save_as_ics.png" style="width: 269.5px; height: 122.5px;" /></a>
+</div>
+<div class="section" id="mise-en-forme-excel">
+<h3>2.9 - Mise en forme Excel<a class="headerlink" href="#mise-en-forme-excel" title="Permalink to this heading"></a></h3>
+<a class="reference internal image-reference" href="../../_images/I_9_miseen_forme_excel.png"><img alt="../../_images/I_9_miseen_forme_excel.png" src="../../_images/I_9_miseen_forme_excel.png" style="width: 336.0px; height: 365.5px;" /></a>
+<ul class="simple">
+<li><p>Création de la périodicité  et de l’interval</p></li>
+</ul>
+<p><strong>Pour les temporalité Day</strong> :</p>
+<p>periodicite : journalier
+interval : Tous les &#64;Value(day_interval) jours</p>
+<p><strong>Pour les temporalité Week</strong> :</p>
+<p>periodicite : hebdomadaire
+interval : Toutes les &#64;Value(week_interval) semaines</p>
+<p><strong>Pour les temporalité Month</strong> :</p>
+<p>periodicite : mensuel
+interval :
+Le &#64;Value(num_day) des mois de :
+&#64;Value(months)</p>
+<p><strong>Pour les temporalité MonthDayOfWeek</strong> :</p>
+<p>periodicite : mesnuel
+interval :
+Le &#64;Value(num_day) de la &#64;Value(week) eme semaine des mois de :
+&#64;Value(months)</p>
+</div>
+</div>
+<div class="section" id="ouverture-des-fichiers">
+<h2>3 - Ouverture des fichiers<a class="headerlink" href="#ouverture-des-fichiers" title="Permalink to this heading"></a></h2>
+<p>Dans outlook, importer le calendrier à partir du fichier ICS créé.</p>
+<a class="reference internal image-reference" href="../../_images/II_1_import_ics.png"><img alt="../../_images/II_1_import_ics.png" src="../../_images/II_1_import_ics.png" style="width: 603.0px; height: 358.0px;" /></a>
+<p>En cliquant sur un rendez-vous, vous pouvez consulter :</p>
+<ul class="simple">
+<li><p>La périodicité des traitements (si paramétrage des catégories dans Outlook : plus bas dans le mail)</p></li>
+<li><p>Le nom de la tâche (objet)</p></li>
+<li><p>L’emplacement de l’action effectuée (emplacement)</p></li>
+<li><p>L’heure de début</p></li>
+<li><p>L’heure de fin (limite d’exécution du traitement)</p></li>
+</ul>
+<p>Dans le corps du RDV :
+-       La catégorie d’import/export données : données entrantes, sortantes ou partagées/transférées en interne
+-       Le chemin/url sources des données
+-       Le chemin/url destination des données
+-       Une description du traitement</p>
+<p>Vous pouvez définir les catégories dans outlook comme ci-dessous pour visualiser la périodicité des traitements en couleur et les modalités d’imports/export de données (entrants, sortants, interne).</p>
+<p>-&gt; Dans Accueil , indicateurs , classer</p>
+<a class="reference internal image-reference" href="../../_images/II_1_categories_outlook.png"><img alt="../../_images/II_1_categories_outlook.png" src="../../_images/II_1_categories_outlook.png" style="width: 860.0px; height: 332.0px;" /></a>
+<p>Dans Excel, ouvrir le fichier .xls</p>
+<a class="reference internal image-reference" href="../../_images/II_1_result_excel.png"><img alt="../../_images/II_1_result_excel.png" src="../../_images/II_1_result_excel.png" style="width: 896.0px; height: 266.0px;" /></a>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../../deci/II_rapproch_ign/" class="btn btn-neutral float-left" title="II- Rapprochement adresse BDtopo IGN" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../../traitements_gdal/I_geopackage/" class="btn btn-neutral float-right" title="I- Produire un GeoPackage des orthos tuilées" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, SIG14 team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

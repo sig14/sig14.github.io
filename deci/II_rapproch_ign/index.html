@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>II- Rapprochement adresse BDtopo IGN &mdash; Documentation SIG14  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sphinx_rtd_theme_ext_color_contrast.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+        <script>let toggleHintShow = 'Click to show';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="../../_static/togglebutton.js"></script>
+        <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex/" />
+    <link rel="search" title="Search" href="../../search/" />
+    <link rel="next" title="I- Produire un calendrier des tâches du plannificateur" href="../../traitements_fme/I_plannificateur_taches/" />
+    <link rel="prev" title="I- Périmètres des bornes incendies" href="../I_perimetres_pei/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../">
+            
+              <img src="../../_static/CD14_petit.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search/" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Équipe</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../equipe/I_membres/">I- Membres</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../equipe/II_contact/">II- Contact</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Adressage</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../adressage/I_acc_communes/">I- Accompagnement des Communes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../adressage/II_application_saisie/">II- Application de saisie</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../adressage/III_consultation_exports/">III- Consulter et exporter les données “Adresses” depuis QGIS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../adressage/IV_depot_bal/">IV- Déposer une BAL via l’API BAN avec FME</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Cadastre</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../cadastre/I_maj_annuelle/">I- Mettre à jour les données EDIGEO / Majic III (maj annuelle)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cadastre/II_gpu_docs_urba/">II- Ajouter un onglet “Documents d’urbanisme GPU” à la pop-up cadastre de Lizmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cadastre/III_filiation_parcelles/">III- Ajouter un onglet “Filiation parcellaire” à la pop-up cadastre de Lizmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cadastre/IV_mutation_immo/">IV- Ajouter un onglet “Mutations immobilières” à la pop-up cadastre de Lizmap</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">DECI</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../I_perimetres_pei/">I- Périmètres des bornes incendies</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">II- Rapprochement adresse BDtopo IGN</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#rapprochement-des-voies-adresses-avec-les-troncons-routes">1- Rapprochement des voies adresses avec les tronçons routes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#segmenter-les-troncons-bdtopo">1.1 Segmenter les tronçons Bdtopo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">1.2 Segmenter les tronçons Bdtopo</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#raprochement-des-adresses">2- Raprochement des adresses</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#projeter-les-points-adresses-sur-les-troncons">2.1 Projeter les points adresses sur les tronçons</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#determiner-de-quels-cotes-se-trouve-les-points-adresse">2.2 Determiner de quels côtés se trouve les points adresse</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ne-conserver-que-les-premiers-et-derniers-points-adresse">2.3 Ne conserver que les premiers et derniers points adresse</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#liste-des-points-adresse-indetermines">3- Liste des points adresse indeterminés</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#voies-adresses-non-affiliees-a-un-troncon">4- Voies adresses non affiliées à un tronçon</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Traitements FME</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../traitements_fme/I_plannificateur_taches/">I- Produire un calendrier des tâches du plannificateur</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Traitements GDAL</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../traitements_gdal/I_geopackage/">I- Produire un GeoPackage des orthos tuilées</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../traitements_gdal/II_cog/">II- Produire un COG à partir des orthos IGN</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../">Documentation SIG14</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">II- Rapprochement adresse BDtopo IGN</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/sig14/sig14.github.io/blob/master/deci/II_rapproch_ign.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="ii-rapprochement-adresse-bdtopo-ign">
+<h1>II- Rapprochement adresse BDtopo IGN<a class="headerlink" href="#ii-rapprochement-adresse-bdtopo-ign" title="Permalink to this heading"></a></h1>
+<p>Afin de faciliter le travail d’intervention des secours, le pôle SIg à répondu à une demande de rapprochement des adresses BAL dont dispose le Département avec les tronçons de voies IGN.</p>
+<p>L’objectif étant de déterminer pour chaque tronçon de BDtopo :
+* Le nom de la voie
+* Le premier numéro à droite
+* Le premier numéro à gauche
+* Le dernier numéro à droite
+* Le dernier numéro à gauche</p>
+<a class="reference internal image-reference" href="../../_images/schema_part_II.png"><img alt="../../_images/schema_part_II.png" src="../../_images/schema_part_II.png" style="width: 580px;" /></a>
+<div class="section" id="rapprochement-des-voies-adresses-avec-les-troncons-routes">
+<h2>1- Rapprochement des voies adresses avec les tronçons routes<a class="headerlink" href="#rapprochement-des-voies-adresses-avec-les-troncons-routes" title="Permalink to this heading"></a></h2>
+<p>Cette première étape vise à associer pour chaque voie tracée et enregistrée par les communes dans la base de données adresse du Département un tronçon BDtopo IGN.</p>
+<p>Pour cela nous faisons appel à la fonction <em>adresse.id_voie_bdtopo_sdis()</em> qui se trouve ici : <a class="reference external" href="https://github.com/sig14/sig14.github.io/blob/master/deci/sql/fonction_rapproche_adresses_voies_ign.sql">fonction sql</a></p>
+<div class="section" id="segmenter-les-troncons-bdtopo">
+<h3>1.1 Segmenter les tronçons Bdtopo<a class="headerlink" href="#segmenter-les-troncons-bdtopo" title="Permalink to this heading"></a></h3>
+<p>Dans un premier temps, la fonction crée une table temporaire des nœuds de BDtopo que l’on va pouvoir indexer pour accélérer le traitement :</p>
+<blockquote>
+<div><p><strong>1 - Sélection des périmètres communes bdtopo correspondant aux périmètres des communes adresses publiées</strong> (pour circonscrire les tronçons sur les bons périmètres)</p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="k">with</span><span class="w"> </span><span class="n">commune_pub</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span>
+<span class="w">   </span><span class="k">select</span><span class="w"> </span><span class="n">st_buffer</span><span class="p">(</span><span class="n">bc</span><span class="p">.</span><span class="n">geom</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">geom</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">adresse</span><span class="p">.</span><span class="n">v_communes_publiees</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">ign</span><span class="p">.</span><span class="n">bdtopo_commune</span><span class="w"> </span><span class="n">bc</span><span class="w"> </span><span class="c1">-- buffer de 100 mètres des communes ign du au décalage ign osm</span>
+<span class="w">         </span><span class="k">where</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">insee_code</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bc</span><span class="p">.</span><span class="n">insee_com</span>
+<span class="w">   </span><span class="p">),</span>
+<span class="n">troncon_com_pub</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span><span class="c1">--- selection des tronçon sur les communes bdtopo sléctionnées plus haut</span>
+<span class="w">   </span><span class="k">select</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">ign</span><span class="p">.</span><span class="n">bdtopo_troncon_de_route</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">commune_pub</span>
+<span class="w">   </span><span class="k">where</span><span class="w"> </span><span class="n">st_intersects</span><span class="p">(</span><span class="n">b</span><span class="p">.</span><span class="n">geom</span><span class="p">,</span><span class="n">commune_pub</span><span class="p">.</span><span class="n">geom</span><span class="p">)</span>
+<span class="w">   </span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>2 - Création de noeuds bdtopo</strong> : segmentation des tronçons tous les 10 mètres, transformation des segments en multipoints, dump pour avoir des géométries uniques.</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">select</span><span class="w"> </span><span class="n">ROW_NUMBER</span><span class="p">()</span><span class="w"> </span><span class="n">OVER</span><span class="p">()</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">id_pt</span><span class="p">,</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">id</span><span class="p">,</span>
+<span class="p">(</span><span class="n">ST_Dump</span><span class="p">(</span><span class="n">ST_AsMultiPoint</span><span class="p">(</span><span class="n">st_segmentize</span><span class="p">(</span><span class="n">ST_Force2D</span><span class="p">(</span><span class="k">c</span><span class="p">.</span><span class="n">geom</span><span class="p">)</span><span class="w"> </span><span class="p">,</span><span class="mi">10</span><span class="p">))::</span><span class="n">geometry</span><span class="p">(</span><span class="n">MULTIPOINT</span><span class="p">,</span><span class="mi">2154</span><span class="p">))).</span><span class="n">geom</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">geom</span><span class="w"> </span><span class="c1">--- création de noeuds multipoints bdtopo à partir de la segmentisation des tronçons(3D)</span>
+<span class="k">from</span><span class="w"> </span><span class="n">troncon_com_pub</span><span class="w">  </span><span class="k">c</span><span class="p">;</span>
+
+<span class="k">CREATE</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="n">node_bd_topo_geom</span><span class="w"> </span><span class="c1">--- création d&#39;un indexe sur la geom de la table</span>
+<span class="k">ON</span><span class="w"> </span><span class="n">node_bd_topo</span><span class="w"> </span><span class="k">USING</span><span class="w"> </span><span class="n">gist</span><span class="w"> </span><span class="p">(</span><span class="n">geom</span><span class="p">)</span>
+<span class="n">TABLESPACE</span><span class="w"> </span><span class="n">pg_default</span><span class="p">;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<a class="reference internal image-reference" href="../../_images/II_1_1_segemnt_bdtopo.png"><img alt="../../_images/II_1_1_segemnt_bdtopo.png" src="../../_images/II_1_1_segemnt_bdtopo.png" style="width: 380px;" /></a>
+</div>
+<div class="section" id="id1">
+<h3>1.2 Segmenter les tronçons Bdtopo<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h3>
+<p>Dans un second temps on rapproche les tronçons dont la majorité des noeuds se trouve sur une voie adresse.</p>
+<blockquote>
+<div><p><strong>1 - Buffer des voies adresses</strong></p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="n">commune_pub</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="c1">------ selection des communes bd_topo correspondant aux communes publiées adresse</span>
+<span class="w">  </span><span class="k">select</span><span class="w"> </span><span class="n">st_buffer</span><span class="p">(</span><span class="n">bc</span><span class="p">.</span><span class="n">geom</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">geom</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">adresse</span><span class="p">.</span><span class="n">v_communes_publiees</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">ign</span><span class="p">.</span><span class="n">bdtopo_commune</span><span class="w"> </span><span class="n">bc</span><span class="w"> </span><span class="c1">-- buffer de 100 mètres des communes ign du au décalage ign osm</span>
+<span class="w">                                </span><span class="k">where</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">insee_code</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bc</span><span class="p">.</span><span class="n">insee_com</span>
+<span class="w">  </span><span class="p">),</span>
+<span class="n">voie</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="c1">------ selection des voies adresses bufferisées sur les communes publiées adresse</span>
+<span class="w">  </span><span class="k">select</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">id_voie</span><span class="p">,</span><span class="w"> </span><span class="n">ST_Buffer</span><span class="p">(</span><span class="n">ST_Buffer</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">geom</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;endcap=flat join=round&#39;</span><span class="p">),</span><span class="w"> </span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;endcap=flat join=round&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">geom</span><span class="w"> </span><span class="c1">-- on aura besoin du buffer pour collecter les noeuds (on créé un buffer de 10 mètres et on raccourci les bords de 5 mètres)</span>
+<span class="w">  </span><span class="k">from</span><span class="w"> </span><span class="n">adresse</span><span class="p">.</span><span class="n">voie</span><span class="w"> </span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="n">commune_pub</span><span class="w"> </span><span class="n">a</span>
+<span class="w">  </span><span class="k">where</span><span class="w"> </span><span class="n">st_intersects</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">geom</span><span class="p">,</span><span class="n">v</span><span class="p">.</span><span class="n">geom</span><span class="p">)</span>
+<span class="w">  </span><span class="p">),</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>2 - Compter le nombre de noeuds par tronçon de route</strong></p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="n">pt_count_troncon</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span><span class="c1">------ Compte le nombre de noeuds par tronçon</span>
+<span class="w">  </span><span class="k">select</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="k">count</span><span class="p">(</span><span class="n">id_pt</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">ct</span>
+<span class="w">  </span><span class="k">from</span><span class="w"> </span><span class="n">node_bd_topo</span>
+<span class="w">  </span><span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">id</span><span class="p">),</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>4 - Rapprocher les noeuds bdtopo qui intersectent le buffer des voies adresses</strong></p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span><span class="c1">------ rapprochement des id_voies et des noeuds à l&#39;intérieur du buffer des voies précédemment créé</span>
+<span class="w">  </span><span class="k">select</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">id_pt</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">voie</span><span class="p">.</span><span class="n">id_voie</span>
+<span class="w">  </span><span class="k">from</span><span class="w"> </span><span class="n">node_bd_topo</span><span class="w">  </span><span class="n">b</span>
+<span class="w">  </span><span class="k">inner</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">voie</span>
+<span class="w">  </span><span class="k">ON</span><span class="w"> </span><span class="n">ST_Within</span><span class="p">(</span><span class="n">b</span><span class="p">.</span><span class="n">geom</span><span class="p">,</span><span class="w"> </span><span class="n">voie</span><span class="p">.</span><span class="n">geom</span><span class="p">)</span>
+<span class="w">  </span><span class="p">),</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>5 - Compter le nombre de noeuds bdtopo par voie adresse</strong></p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="n">l</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="c1">------ Compte le nombre de noeud pour chaque id_voie</span>
+<span class="w">  </span><span class="k">select</span><span class="w"> </span><span class="n">f</span><span class="p">.</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">f</span><span class="p">.</span><span class="n">id_voie</span><span class="p">,</span><span class="w"> </span><span class="k">count</span><span class="p">(</span><span class="n">f</span><span class="p">.</span><span class="n">id_voie</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">ct</span>
+<span class="w">  </span><span class="k">from</span><span class="w"> </span><span class="n">f</span>
+<span class="w">  </span><span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">f</span><span class="p">.</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">f</span><span class="p">.</span><span class="n">id_voie</span>
+<span class="w">  </span><span class="p">),</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>6 - Rapprochement des tronçons à une voie adresse si la majorité de ses nœuds est comprise dans son buffer</strong></p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="n">troncon_node</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="c1">------ Séléctionne les id_tronçon dont la majorité des noeuds intersecte le buffer des voies</span>
+<span class="w">  </span><span class="k">select</span><span class="w"> </span><span class="k">distinct</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="p">(</span><span class="n">l</span><span class="p">.</span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="n">l</span><span class="p">.</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">l</span><span class="p">.</span><span class="n">id_voie</span><span class="p">,</span><span class="w"> </span><span class="n">l</span><span class="p">.</span><span class="n">ct</span>
+<span class="w">  </span><span class="k">from</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">pt_count_troncon</span>
+<span class="w">  </span><span class="k">where</span><span class="w"> </span><span class="n">pt_count_troncon</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">l</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="p">(</span><span class="n">pt_count_troncon</span><span class="p">.</span><span class="n">ct</span><span class="o">/</span><span class="n">l</span><span class="p">.</span><span class="n">ct</span><span class="p">)</span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="c1">-- division du total des noeuds tronçon/le nombre de noeuds pour un même id_voie, si moins de 2, on conserve l&#39;id-tronçon et l&#39;id_voie associé</span>
+<span class="w">  </span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">l</span><span class="p">.</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">l</span><span class="p">.</span><span class="n">ct</span><span class="w"> </span><span class="k">DESC</span><span class="p">)</span>
+
+<span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="n">troncon_node</span><span class="p">.</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">troncon_node</span><span class="p">.</span><span class="n">id_voie</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">.</span><span class="n">geom</span><span class="w"> </span><span class="c1">------ Rapprochement des géométrie de la bd_topo grâce à l&#39;id tronçon des noeuds précédemment sélectionnés</span>
+<span class="w"> </span><span class="k">from</span><span class="w">  </span><span class="n">troncon_node</span><span class="p">,</span><span class="w"> </span><span class="n">ign</span><span class="p">.</span><span class="n">bdtopo_troncon_de_route</span><span class="w"> </span><span class="n">k</span>
+<span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">k</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">troncon_node</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="p">;</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div></blockquote>
+<a class="reference internal image-reference" href="../../_images/II_1_2_buffer_voie_adresse.png"><img alt="../../_images/II_1_2_buffer_voie_adresse.png" src="../../_images/II_1_2_buffer_voie_adresse.png" style="width: 380px;" /></a>
+</div>
+</div>
+<div class="section" id="raprochement-des-adresses">
+<h2>2- Raprochement des adresses<a class="headerlink" href="#raprochement-des-adresses" title="Permalink to this heading"></a></h2>
+<p>Cette seconde étape vise à associer pour chaque tronçon, les points adresses dépendant de la voie qui lui a été attribué.</p>
+<p>Pour cela nous créons une vue matérialisée <em>adresse.vm_sdis_pts_adresse_bdtopo</em> dont le code se trouve ici : <a class="reference external" href="https://github.com/sig14/sig14.github.io/blob/master/deci/sql/vm_rapproch_adresses_point_voie_ign.sql">vm sql</a></p>
+<div class="section" id="projeter-les-points-adresses-sur-les-troncons">
+<h3>2.1 Projeter les points adresses sur les tronçons<a class="headerlink" href="#projeter-les-points-adresses-sur-les-troncons" title="Permalink to this heading"></a></h3>
+<p>On projete le point sur le tronçon le plus prohce associé à la voie dont dépend le point adresse.</p>
+<blockquote>
+<div><p><strong>1 - Projection des points adresse sur les tronçon ayant le même id_voie</strong></p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">with</span><span class="w"> </span><span class="n">bdtopo_idvoie</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span>
+<span class="w">      </span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w">  </span><span class="n">adresse</span><span class="p">.</span><span class="n">id_voie_bdtopo_sdis</span><span class="p">()</span><span class="w"> </span><span class="c1">--- Fonction donnant la séléction des id_tronçons bdtopo et des id_voies adresse</span>
+<span class="w">   </span><span class="p">),</span>
+<span class="w">   </span><span class="n">distance_troncon</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span>
+<span class="w">      </span><span class="k">select</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">id_point</span><span class="p">,</span><span class="w"> </span><span class="n">troncon</span><span class="p">.</span><span class="n">id_troncon</span><span class="p">,</span><span class="w"> </span><span class="n">troncon</span><span class="p">.</span><span class="n">id_voie</span><span class="p">,</span><span class="w"> </span><span class="n">troncon</span><span class="p">.</span><span class="n">geom</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">numero</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">suffixe</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">geom</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">geom_pt_adresse</span><span class="p">,</span>
+<span class="w">      </span><span class="n">ST_LineInterpolatePoint</span><span class="p">(</span><span class="n">ST_LineMerge</span><span class="p">(</span><span class="n">troncon</span><span class="p">.</span><span class="n">geom</span><span class="p">),</span><span class="w"> </span><span class="n">ST_LineLocatePoint</span><span class="p">(</span><span class="n">ST_AsEWKT</span><span class="p">(</span><span class="n">ST_LineMerge</span><span class="p">(</span><span class="n">troncon</span><span class="p">.</span><span class="n">geom</span><span class="p">)),</span><span class="w"> </span><span class="n">ST_AsEWKT</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">geom</span><span class="p">)))</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">geom_pt_proj</span><span class="p">,</span><span class="w"> </span><span class="c1">--- Projection des points adresses sur les tronçon ayant le même id_voie</span>
+<span class="w">      </span><span class="n">st_distance</span><span class="p">(</span><span class="n">troncon</span><span class="p">.</span><span class="n">geom</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">geom</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">dist</span><span class="w"> </span><span class="c1">--- distance entre le point et la voie</span>
+<span class="w">      </span><span class="k">FROM</span><span class="w"> </span><span class="n">bdtopo_idvoie</span><span class="w">  </span><span class="n">troncon</span>
+<span class="w">      </span><span class="k">inner</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">adresse</span><span class="p">.</span><span class="n">point_adresse</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">troncon</span><span class="p">.</span><span class="n">id_voie</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">id_voie</span>
+<span class="w">      </span><span class="k">inner</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">adresse</span><span class="p">.</span><span class="n">v_communes_publiees</span><span class="w"> </span><span class="n">l</span><span class="w">  </span><span class="k">on</span><span class="w"> </span><span class="n">st_intersects</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">geom</span><span class="p">,</span><span class="n">l</span><span class="p">.</span><span class="n">geom</span><span class="p">)</span>
+<span class="w">   </span><span class="p">),</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>2 - Sélection unique des id_points avec id tronçon associés dont la distance est la plus courte</strong> : pour une voie comprenant plusieurs tronçons bdtopo on associe les points adresses aux tronçon le plus proche)</p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="n">point_proj</span><span class="w"> </span><span class="k">as</span><span class="p">(</span><span class="w"> </span><span class="c1">---</span>
+<span class="w">   </span><span class="k">select</span><span class="w"> </span><span class="k">distinct</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="p">(</span><span class="n">distance_troncon</span><span class="p">.</span><span class="n">id_point</span><span class="p">)</span><span class="w"> </span><span class="n">distance_troncon</span><span class="p">.</span><span class="n">id_point</span><span class="p">,</span><span class="w"> </span><span class="n">distance_troncon</span><span class="p">.</span><span class="n">id_troncon</span><span class="p">,</span><span class="w"> </span><span class="n">distance_troncon</span><span class="p">.</span><span class="n">id_voie</span><span class="p">,</span><span class="w"> </span><span class="c1">-- selection distinct d&#39;id_point adresse</span>
+<span class="w">   </span><span class="n">distance_troncon</span><span class="p">.</span><span class="n">numero</span><span class="p">,</span><span class="w"> </span><span class="n">distance_troncon</span><span class="p">.</span><span class="n">suffixe</span><span class="p">,</span><span class="w"> </span><span class="n">distance_troncon</span><span class="p">.</span><span class="n">geom</span><span class="p">,</span><span class="w"> </span><span class="n">geom_pt_adresse</span><span class="p">,</span><span class="w"> </span><span class="n">geom_pt_proj</span>
+<span class="w">   </span><span class="k">from</span><span class="w"> </span><span class="n">distance_troncon</span>
+<span class="w">   </span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">id_point</span><span class="p">,</span><span class="w"> </span><span class="n">dist</span><span class="w"> </span><span class="k">ASC</span><span class="w"> </span><span class="c1">--- ordonner de la plus petite distance à la plus grande pour que distinct sélectionne la première entité avec la plus courte distance</span>
+<span class="p">),</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div></blockquote>
+<a class="reference internal image-reference" href="../../_images/II_2_1_point_proj.png"><img alt="../../_images/II_2_1_point_proj.png" src="../../_images/II_2_1_point_proj.png" style="width: 380px;" /></a>
+</div>
+<div class="section" id="determiner-de-quels-cotes-se-trouve-les-points-adresse">
+<h3>2.2 Determiner de quels côtés se trouve les points adresse<a class="headerlink" href="#determiner-de-quels-cotes-se-trouve-les-points-adresse" title="Permalink to this heading"></a></h3>
+<p>Pour identifier le côté du point adresse par rapport au tronçon.</p>
+<blockquote>
+<div><p><strong>1 - Tracer une ligne prolongée entre le point adresse et son point projeté sur le tronçon</strong></p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="w">            </span><span class="n">line_cross</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="c1">---</span>
+<span class="w">   </span><span class="k">select</span><span class="w"> </span><span class="n">point_proj</span><span class="p">.</span><span class="n">id_point</span><span class="p">,</span><span class="w"> </span><span class="n">point_proj</span><span class="p">.</span><span class="n">id_troncon</span><span class="p">,</span><span class="w"> </span><span class="n">point_proj</span><span class="p">.</span><span class="n">id_voie</span><span class="p">,</span><span class="w"> </span><span class="n">point_proj</span><span class="p">.</span><span class="n">numero</span><span class="p">,</span><span class="w"> </span><span class="n">point_proj</span><span class="p">.</span><span class="n">suffixe</span><span class="p">,</span><span class="w"> </span><span class="n">point_proj</span><span class="p">.</span><span class="n">geom</span><span class="p">,</span><span class="w"> </span><span class="n">geom_pt_adresse</span><span class="p">,</span><span class="w"> </span><span class="n">geom_pt_proj</span><span class="p">,</span>
+<span class="w">   </span><span class="n">ST_MakeLine</span><span class="p">(</span><span class="n">geom_pt_adresse</span><span class="p">,</span><span class="w"> </span><span class="n">ST_TRANSLATE</span><span class="p">(</span><span class="n">geom_pt_adresse</span><span class="p">,</span><span class="w"> </span><span class="n">sin</span><span class="p">(</span><span class="n">ST_AZIMUTH</span><span class="p">(</span><span class="n">geom_pt_adresse</span><span class="p">,</span><span class="n">geom_pt_proj</span><span class="p">))</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">ST_DISTANCE</span><span class="p">(</span><span class="n">geom_pt_adresse</span><span class="p">,</span><span class="n">geom_pt_proj</span><span class="p">)</span>
+<span class="w">   </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">ST_DISTANCE</span><span class="p">(</span><span class="n">geom_pt_adresse</span><span class="p">,</span><span class="n">geom_pt_proj</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="mi">50</span><span class="o">/</span><span class="mi">49</span><span class="p">))),</span><span class="w"> </span><span class="n">cos</span><span class="p">(</span><span class="n">ST_AZIMUTH</span><span class="p">(</span><span class="n">geom_pt_adresse</span><span class="p">,</span><span class="n">geom_pt_proj</span><span class="p">))</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">ST_DISTANCE</span><span class="p">(</span><span class="n">geom_pt_adresse</span><span class="p">,</span><span class="n">geom_pt_proj</span><span class="p">)</span>
+<span class="w">   </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">ST_DISTANCE</span><span class="p">(</span><span class="n">geom_pt_adresse</span><span class="p">,</span><span class="n">geom_pt_proj</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="mi">50</span><span class="o">/</span><span class="mi">49</span><span class="p">)))))</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">geom_segment</span>
+<span class="w">   </span><span class="k">from</span><span class="w"> </span><span class="n">point_proj</span>
+<span class="p">),</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>2 - Definir le coté de du point adresse par rapport au tronçon grâce au sens de croisement du segment précédemment créé</strong></p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="n">point_cote</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span><span class="c1">---</span>
+<span class="w">   </span><span class="k">select</span><span class="w"> </span><span class="n">line_cross</span><span class="p">.</span><span class="n">id_point</span><span class="p">,</span><span class="w"> </span><span class="n">line_cross</span><span class="p">.</span><span class="n">id_troncon</span><span class="p">,</span><span class="w"> </span><span class="n">line_cross</span><span class="p">.</span><span class="n">id_voie</span><span class="p">,</span><span class="w"> </span><span class="n">line_cross</span><span class="p">.</span><span class="n">numero</span><span class="p">,</span><span class="w"> </span><span class="n">line_cross</span><span class="p">.</span><span class="n">suffixe</span><span class="p">,</span>
+<span class="w">   </span><span class="k">case</span><span class="w"> </span><span class="k">WHEN</span><span class="w"> </span><span class="n">ST_LineCrossingDirection</span><span class="p">(</span><span class="n">geom_segment</span><span class="p">,</span><span class="w"> </span><span class="n">ST_LineMerge</span><span class="p">(</span><span class="n">geom</span><span class="p">))</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="s1">&#39;gauche&#39;</span>
+<span class="w">      </span><span class="k">WHEN</span><span class="w"> </span><span class="n">ST_LineCrossingDirection</span><span class="p">(</span><span class="n">geom_segment</span><span class="p">,</span><span class="w"> </span><span class="n">ST_LineMerge</span><span class="p">(</span><span class="n">geom</span><span class="p">)</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="s1">&#39;droite&#39;</span>
+<span class="w">      </span><span class="k">WHEN</span><span class="w"> </span><span class="n">ST_LineCrossingDirection</span><span class="p">(</span><span class="n">geom_segment</span><span class="p">,</span><span class="w"> </span><span class="n">ST_LineMerge</span><span class="p">(</span><span class="n">geom</span><span class="p">)</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="s1">&#39;indefini&#39;</span><span class="w"> </span><span class="c1">--- Si croise ni à gauche ni à droite</span>
+<span class="w">      </span><span class="k">ELSE</span><span class="w"> </span><span class="s1">&#39;probleme&#39;</span><span class="w"> </span><span class="k">end</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">cote_voie</span><span class="p">,</span><span class="w">  </span><span class="c1">--- croise plusieurs fois, donc problème de tracé du tronçon ou cas particulier (rare)</span>
+<span class="w">   </span><span class="n">geom_segment</span><span class="p">,</span><span class="w"> </span><span class="n">geom_pt_adresse</span><span class="p">,</span><span class="w"> </span><span class="n">geom_pt_proj</span>
+<span class="w">   </span><span class="k">from</span><span class="w"> </span><span class="n">line_cross</span>
+<span class="p">),</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div></blockquote>
+<a class="reference internal image-reference" href="../../_images/II_2_2_sens_croisement.png"><img alt="../../_images/II_2_2_sens_croisement.png" src="../../_images/II_2_2_sens_croisement.png" style="width: 380px;" /></a>
+</div>
+<div class="section" id="ne-conserver-que-les-premiers-et-derniers-points-adresse">
+<h3>2.3 Ne conserver que les premiers et derniers points adresse<a class="headerlink" href="#ne-conserver-que-les-premiers-et-derniers-points-adresse" title="Permalink to this heading"></a></h3>
+<p>Pour identifier le côté du point adresse par rapport au tronçon.</p>
+<blockquote>
+<div><p><strong>1 - Sélection des tronçons sur les communes dont l’adressage est certifié/publié sur La BAN</strong></p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="n">commune_publ</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span><span class="w">  </span><span class="c1">------ selection des communes bd_topo correspondant aux communes publiées adresse</span>
+<span class="w">      </span><span class="k">select</span><span class="w"> </span><span class="n">bc</span><span class="p">.</span><span class="n">geom</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">adresse</span><span class="p">.</span><span class="n">v_communes_publiees</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">ign</span><span class="p">.</span><span class="n">bdtopo_commune</span><span class="w"> </span><span class="n">bc</span>
+<span class="w">         </span><span class="k">where</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">insee_code</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bc</span><span class="p">.</span><span class="n">insee_com</span>
+<span class="w">   </span><span class="p">),</span>
+<span class="w">   </span><span class="n">troncon_com_pub</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="c1">--- selection des tronçon sur les communes bdtopo sléctionnées plus haut</span>
+<span class="w">      </span><span class="k">select</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">ign</span><span class="p">.</span><span class="n">bdtopo_troncon_de_route</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">commune_publ</span>
+<span class="w">      </span><span class="k">where</span><span class="w"> </span><span class="n">st_intersects</span><span class="p">(</span><span class="n">b</span><span class="p">.</span><span class="n">geom</span><span class="p">,</span><span class="n">commune_publ</span><span class="p">.</span><span class="n">geom</span><span class="p">)</span>
+<span class="w">   </span><span class="p">),</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>2 - Sélection des points adresses droite/gauches les plus proches du point de fin et départ du tronçon</strong></p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="n">point_pair_first</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="c1">------ selection du point adresse par tronçon à droite le plus proche point de départ du tronçon</span>
+<span class="w">   </span><span class="k">select</span><span class="w"> </span><span class="k">distinct</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">id_troncon</span><span class="p">)</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">id_point</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">id_troncon</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">id_voie</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">numero</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">suffixe</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">cote_voie</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">geom_pt_adresse</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">geom_pt</span><span class="p">,</span>
+<span class="w">   </span><span class="n">st_distance</span><span class="p">(</span><span class="n">ST_StartPoint</span><span class="p">(</span><span class="n">st_linemerge</span><span class="p">(</span><span class="n">tc</span><span class="p">.</span><span class="n">geom</span><span class="p">)),</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">geom_pt_proj</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">dist</span>
+<span class="w">   </span><span class="k">from</span><span class="w"> </span><span class="n">point_cote</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">troncon_com_pub</span><span class="w"> </span><span class="n">tc</span>
+<span class="w">   </span><span class="k">where</span><span class="w"> </span><span class="n">cote_voie</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;droite&#39;</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">id_troncon</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tc</span><span class="p">.</span><span class="n">id</span>
+<span class="w">   </span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">id_troncon</span><span class="p">,</span><span class="w"> </span><span class="n">dist</span><span class="w"> </span><span class="k">ASC</span><span class="w"> </span><span class="c1">--- ordonner de la plus petite distance à la plus grande pour que distinct sélectionne la première entité avec la plus courte distance</span>
+<span class="p">),</span>
+<span class="n">point_pair_der</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="c1">------ selection du point adresse par tronçon à droite et le plus proche du point de fin du tronçon</span>
+<span class="w">   </span><span class="k">select</span><span class="w"> </span><span class="k">distinct</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="p">(</span><span class="n">b</span><span class="p">.</span><span class="n">id_troncon</span><span class="p">)</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">id_point</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">id_troncon</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">id_voie</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">numero</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">suffixe</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">cote_voie</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">geom_pt_adresse</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">geom_pt</span><span class="p">,</span>
+<span class="w">   </span><span class="n">st_distance</span><span class="p">(</span><span class="n">ST_EndPoint</span><span class="p">(</span><span class="n">st_linemerge</span><span class="p">(</span><span class="n">tc</span><span class="p">.</span><span class="n">geom</span><span class="p">)),</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">geom_pt_proj</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">dist</span>
+<span class="w">   </span><span class="k">from</span><span class="w"> </span><span class="n">point_cote</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">troncon_com_pub</span><span class="w"> </span><span class="n">tc</span>
+<span class="w">   </span><span class="k">where</span><span class="w"> </span><span class="n">cote_voie</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;droite&#39;</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">id_troncon</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tc</span><span class="p">.</span><span class="n">id</span>
+<span class="w">   </span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">id_troncon</span><span class="p">,</span><span class="w"> </span><span class="n">dist</span><span class="w"> </span><span class="k">ASC</span>
+<span class="p">),</span>
+<span class="n">point_impair_first</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span><span class="c1">------ selection du points adresse par tronçon à gauche et le plus proche du  point de départ du tronçon</span>
+<span class="w">   </span><span class="k">select</span><span class="w"> </span><span class="k">distinct</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="p">(</span><span class="k">c</span><span class="p">.</span><span class="n">id_troncon</span><span class="p">)</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">id_point</span><span class="p">,</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">id_troncon</span><span class="p">,</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">id_voie</span><span class="p">,</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">numero</span><span class="p">,</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">suffixe</span><span class="p">,</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">cote_voie</span><span class="p">,</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">geom_pt_adresse</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">geom_pt</span><span class="p">,</span>
+<span class="w">   </span><span class="n">st_distance</span><span class="p">(</span><span class="n">ST_StartPoint</span><span class="p">(</span><span class="n">st_linemerge</span><span class="p">(</span><span class="n">tc</span><span class="p">.</span><span class="n">geom</span><span class="p">)),</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">geom_pt_proj</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">dist</span>
+<span class="w">   </span><span class="k">from</span><span class="w"> </span><span class="n">point_cote</span><span class="w"> </span><span class="k">c</span><span class="p">,</span><span class="w"> </span><span class="n">troncon_com_pub</span><span class="w"> </span><span class="n">tc</span>
+<span class="w">   </span><span class="k">where</span><span class="w"> </span><span class="n">cote_voie</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;gauche&#39;</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">id_troncon</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tc</span><span class="p">.</span><span class="n">id</span>
+<span class="w">   </span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">id_troncon</span><span class="p">,</span><span class="w"> </span><span class="n">dist</span><span class="w"> </span><span class="k">ASC</span>
+<span class="p">),</span>
+<span class="n">point_impair_der</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span><span class="c1">------ selection du point adresse par tronçon à gauche et le plus proche du  point de fin du tronçon</span>
+<span class="w">   </span><span class="k">select</span><span class="w"> </span><span class="k">distinct</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="n">id_troncon</span><span class="p">)</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">id_point</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">id_troncon</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">id_voie</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">numero</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">suffixe</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">cote_voie</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">geom_pt_adresse</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">geom_pt</span><span class="p">,</span>
+<span class="w">   </span><span class="n">st_distance</span><span class="p">(</span><span class="n">ST_EndPoint</span><span class="p">(</span><span class="n">st_linemerge</span><span class="p">(</span><span class="n">tc</span><span class="p">.</span><span class="n">geom</span><span class="p">)),</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">geom_pt_proj</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">dist</span>
+<span class="w">   </span><span class="k">from</span><span class="w"> </span><span class="n">point_cote</span><span class="w"> </span><span class="n">d</span><span class="p">,</span><span class="w"> </span><span class="n">troncon_com_pub</span><span class="w"> </span><span class="n">tc</span>
+<span class="w">   </span><span class="k">where</span><span class="w"> </span><span class="n">cote_voie</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;gauche&#39;</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">id_troncon</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tc</span><span class="p">.</span><span class="n">id</span>
+<span class="w">   </span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">id_troncon</span><span class="p">,</span><span class="w"> </span><span class="n">dist</span><span class="w"> </span><span class="k">ASC</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>3 - Jointure des précédentes sélections :</strong> tronçons rapprochés (z),  geométrie tronçon ign (e) et  nom complet des voies (v)</p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">Select</span><span class="w"> </span><span class="n">z</span><span class="p">.</span><span class="n">id_troncon</span><span class="p">,</span><span class="w"> </span><span class="n">z</span><span class="p">.</span><span class="n">id_voie</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">nom_complet</span><span class="p">,</span><span class="w"> </span><span class="c1">------ J</span>
+<span class="n">CONCAT</span><span class="p">(</span><span class="n">point_pair_first</span><span class="p">.</span><span class="n">numero</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="w"> </span><span class="n">point_pair_first</span><span class="p">.</span><span class="n">suffixe</span><span class="p">)</span><span class="w">  </span><span class="k">as</span><span class="w"> </span><span class="n">prem_num_droite</span><span class="p">,</span>
+<span class="n">CONCAT</span><span class="p">(</span><span class="n">point_pair_der</span><span class="p">.</span><span class="n">numero</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="w"> </span><span class="n">point_pair_der</span><span class="p">.</span><span class="n">suffixe</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">der_num_droite</span><span class="p">,</span>
+<span class="n">CONCAT</span><span class="p">(</span><span class="n">point_impair_first</span><span class="p">.</span><span class="n">numero</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="w"> </span><span class="n">point_impair_first</span><span class="p">.</span><span class="n">suffixe</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">prem_num_gauche</span><span class="p">,</span>
+<span class="n">CONCAT</span><span class="p">(</span><span class="n">point_impair_der</span><span class="p">.</span><span class="n">numero</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="w"> </span><span class="n">point_impair_der</span><span class="p">.</span><span class="n">suffixe</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">der_num_gauche</span><span class="p">,</span>
+<span class="n">e</span><span class="p">.</span><span class="n">geom</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">geom_tronçon</span>
+<span class="k">from</span><span class="w"> </span><span class="n">point_cote</span><span class="w"> </span><span class="n">z</span>
+<span class="k">left</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">point_pair_first</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">z</span><span class="p">.</span><span class="n">id_troncon</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">point_pair_first</span><span class="p">.</span><span class="n">id_troncon</span>
+<span class="k">left</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">point_pair_der</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">z</span><span class="p">.</span><span class="n">id_troncon</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">point_pair_der</span><span class="p">.</span><span class="n">id_troncon</span>
+<span class="k">left</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">point_impair_first</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">z</span><span class="p">.</span><span class="n">id_troncon</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">point_impair_first</span><span class="p">.</span><span class="n">id_troncon</span>
+<span class="k">left</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">point_impair_der</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">z</span><span class="p">.</span><span class="n">id_troncon</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">point_impair_der</span><span class="p">.</span><span class="n">id_troncon</span>
+<span class="k">left</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">troncon_com_pub</span><span class="w"> </span><span class="n">e</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">z</span><span class="p">.</span><span class="n">id_troncon</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">id</span>
+<span class="k">left</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">adresse</span><span class="p">.</span><span class="n">voie</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">id_voie</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">z</span><span class="p">.</span><span class="n">id_voie</span>
+<span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">z</span><span class="p">.</span><span class="n">id_troncon</span><span class="p">,</span><span class="w"> </span><span class="n">z</span><span class="p">.</span><span class="n">id_voie</span><span class="p">,</span><span class="w"> </span><span class="n">point_pair_first</span><span class="p">.</span><span class="n">numero</span><span class="p">,</span><span class="w"> </span><span class="n">point_pair_der</span><span class="p">.</span><span class="n">numero</span><span class="p">,</span><span class="w"> </span><span class="n">point_impair_first</span><span class="p">.</span><span class="n">numero</span><span class="p">,</span><span class="w"> </span><span class="n">point_impair_der</span><span class="p">.</span><span class="n">numero</span><span class="p">,</span>
+<span class="n">point_pair_first</span><span class="p">.</span><span class="n">suffixe</span><span class="p">,</span><span class="w"> </span><span class="n">point_pair_der</span><span class="p">.</span><span class="n">suffixe</span><span class="p">,</span><span class="w"> </span><span class="n">point_impair_first</span><span class="p">.</span><span class="n">suffixe</span><span class="p">,</span><span class="w"> </span><span class="n">point_impair_der</span><span class="p">.</span><span class="n">suffixe</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">geom</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">nom_complet</span><span class="w">  </span><span class="p">;</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div></blockquote>
+<a class="reference internal image-reference" href="../../_images/II_2_3_start_point_end_point.png"><img alt="../../_images/II_2_3_start_point_end_point.png" src="../../_images/II_2_3_start_point_end_point.png" style="width: 380px;" /></a>
+</div>
+</div>
+<div class="section" id="liste-des-points-adresse-indetermines">
+<h2>3- Liste des points adresse indeterminés<a class="headerlink" href="#liste-des-points-adresse-indetermines" title="Permalink to this heading"></a></h2>
+<p>On identifie ici les points adresse dont le côté n’a pu être determiné : mauvais tracé d’un tronçon, positionnement particulier du point adresse par rapport au tronçon (à l’extrémité d’un tronçon).</p>
+<p>Pour cela nous créons une vue materialisée <a href="#id2"><span class="problematic" id="id3">*</span></a>adresse.vm_sdis_pts_adresse_indetermine * dont le code se trouve ici : <a class="reference external" href="https://github.com/sig14/sig14.github.io/blob/master/deci/sql/vm_adresses_indeterminees_voies_ign.sql">vm sql</a></p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="w">   </span><span class="k">with</span><span class="w"> </span><span class="n">bdtopo_idvoie</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span><span class="c1">--- Fonction donnant la séléction des id_tronçons bdtopo et des id_voies adresse</span>
+<span class="w">   </span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w">  </span><span class="n">adresse</span><span class="p">.</span><span class="n">id_voie_bdtopo_sdis</span><span class="p">()</span>
+<span class="w">   </span><span class="p">),</span>
+<span class="w">   </span><span class="n">commune_pub</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span><span class="c1">------ selection des communes bd_topo correspondant aux communes publiées adresse</span>
+<span class="w">      </span><span class="k">select</span><span class="w"> </span><span class="n">st_buffer</span><span class="p">(</span><span class="n">bc</span><span class="p">.</span><span class="n">geom</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">geom</span>
+<span class="w">      </span><span class="k">from</span><span class="w"> </span><span class="n">adresse</span><span class="p">.</span><span class="n">v_communes_publiees</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">ign</span><span class="p">.</span><span class="n">bdtopo_commune</span><span class="w"> </span><span class="n">bc</span>
+<span class="w">         </span><span class="k">where</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">insee_code</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bc</span><span class="p">.</span><span class="n">insee_com</span>
+<span class="w">   </span><span class="p">),</span>
+<span class="w">   </span><span class="n">troncon_com_pub</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span><span class="c1">--- selection des tronçon sur les communes bdtopo sléctionnées plus haut</span>
+<span class="w">      </span><span class="k">select</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">ign</span><span class="p">.</span><span class="n">bdtopo_troncon_de_route</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">commune_pub</span>
+<span class="w">      </span><span class="k">where</span><span class="w"> </span><span class="n">st_intersects</span><span class="p">(</span><span class="n">b</span><span class="p">.</span><span class="n">geom</span><span class="p">,</span><span class="n">commune_pub</span><span class="p">.</span><span class="n">geom</span><span class="p">)</span>
+<span class="w">   </span><span class="p">)</span>
+<span class="k">select</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">geom</span><span class="w"> </span><span class="c1">--- selection des tronçon qui n&#39;ont pas d&#39;id_voie associé</span>
+<span class="k">from</span><span class="w"> </span><span class="n">troncon_com_pub</span><span class="w"> </span><span class="n">p</span>
+<span class="k">left</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">bdtopo_idvoie</span><span class="w"> </span><span class="n">a</span>
+<span class="k">on</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">id_troncon</span>
+<span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">geom</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">id_voie</span>
+<span class="k">having</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">id_voie</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">null</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="voies-adresses-non-affiliees-a-un-troncon">
+<h2>4- Voies adresses non affiliées à un tronçon<a class="headerlink" href="#voies-adresses-non-affiliees-a-un-troncon" title="Permalink to this heading"></a></h2>
+<p>On identifie ici les voies adresses pour lesquelles aucun tronçon n’a pu être rapproché : pas de tronçon superposé, une trop petite partie du tronçon superposée.</p>
+<p>Pour cela nous créons une vue materialisée <em>adresse.vm_troncon_no_voie_bd_topo</em> dont le code se trouve ici : <a class="reference external" href="https://github.com/sig14/sig14.github.io/blob/master/deci/sql/vm_voies_adresses_sans_tron%C3%A7on_ign.sql">vm sql</a></p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">with</span><span class="w"> </span><span class="n">bdtopo_idvoie</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span><span class="c1">--- Fonction donnant la séléction des id_tronçons bdtopo et des id_voies adresse</span>
+<span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w">  </span><span class="n">adresse</span><span class="p">.</span><span class="n">id_voie_bdtopo_sdis</span><span class="p">()</span>
+<span class="p">),</span>
+
+<span class="n">distance_troncon</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span><span class="c1">--- Projection des points adresses sur les tronçon ayant le même id_voie et de la distance entre le point et la voie</span>
+<span class="k">select</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">id_point</span><span class="p">,</span><span class="w"> </span><span class="n">troncon</span><span class="p">.</span><span class="n">id_troncon</span><span class="p">,</span><span class="w"> </span><span class="n">troncon</span><span class="p">.</span><span class="n">id_voie</span><span class="p">,</span><span class="w"> </span><span class="n">troncon</span><span class="p">.</span><span class="n">geom</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">numero</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">suffixe</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">geom</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">geom_pt_adresse</span><span class="p">,</span>
+<span class="n">ST_LineInterpolatePoint</span><span class="p">(</span><span class="n">ST_LineMerge</span><span class="p">(</span><span class="n">troncon</span><span class="p">.</span><span class="n">geom</span><span class="p">),</span>
+<span class="n">ST_LineLocatePoint</span><span class="p">(</span><span class="n">ST_AsEWKT</span><span class="p">(</span><span class="n">ST_LineMerge</span><span class="p">(</span><span class="n">troncon</span><span class="p">.</span><span class="n">geom</span><span class="p">)),</span><span class="w"> </span><span class="n">ST_AsEWKT</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">geom</span><span class="p">)))</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">geom_pt_proj</span><span class="p">,</span>
+<span class="n">st_distance</span><span class="p">(</span><span class="n">troncon</span><span class="p">.</span><span class="n">geom</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">geom</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">dist</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">bdtopo_idvoie</span><span class="w">  </span><span class="n">troncon</span>
+<span class="k">inner</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">adresse</span><span class="p">.</span><span class="n">point_adresse</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">troncon</span><span class="p">.</span><span class="n">id_voie</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">id_voie</span>
+<span class="k">inner</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">adresse</span><span class="p">.</span><span class="n">v_communes_publiees</span><span class="w"> </span><span class="n">l</span><span class="w">  </span><span class="k">on</span><span class="w"> </span><span class="n">st_intersects</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">geom</span><span class="p">,</span><span class="n">l</span><span class="p">.</span><span class="n">geom</span><span class="p">)</span>
+<span class="p">),</span>
+<span class="n">point_proj</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span><span class="c1">--- Séléction des unique des id_points avec id tronçon associés dont la distance est la plus courte (une voie pouvant comprendre plusieurs tronçons bdtopo on associe les points adresses aux tronçon le plus proche)</span>
+<span class="k">select</span><span class="w"> </span><span class="k">distinct</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="p">(</span><span class="n">distance_troncon</span><span class="p">.</span><span class="n">id_point</span><span class="p">)</span><span class="w"> </span><span class="n">distance_troncon</span><span class="p">.</span><span class="n">id_point</span><span class="p">,</span><span class="w"> </span><span class="n">distance_troncon</span><span class="p">.</span><span class="n">id_troncon</span><span class="p">,</span>
+<span class="n">distance_troncon</span><span class="p">.</span><span class="n">id_voie</span><span class="p">,</span><span class="w"> </span><span class="n">distance_troncon</span><span class="p">.</span><span class="n">numero</span><span class="p">,</span><span class="w"> </span><span class="n">distance_troncon</span><span class="p">.</span><span class="n">suffixe</span><span class="p">,</span><span class="w"> </span><span class="n">distance_troncon</span><span class="p">.</span><span class="n">geom</span><span class="p">,</span><span class="w"> </span><span class="n">geom_pt_adresse</span><span class="p">,</span><span class="w"> </span><span class="n">geom_pt_proj</span>
+<span class="k">from</span><span class="w"> </span><span class="n">distance_troncon</span>
+<span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">id_point</span><span class="p">,</span><span class="w"> </span><span class="n">dist</span><span class="w"> </span><span class="k">ASC</span><span class="p">),</span>
+<span class="n">line_cross</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="c1">--- tracer une ligne prolongées entre le point adresse et son point projeté sur le tronçon</span>
+<span class="k">select</span><span class="w"> </span><span class="n">point_proj</span><span class="p">.</span><span class="n">id_point</span><span class="p">,</span><span class="w"> </span><span class="n">point_proj</span><span class="p">.</span><span class="n">id_troncon</span><span class="p">,</span><span class="w"> </span><span class="n">point_proj</span><span class="p">.</span><span class="n">id_voie</span><span class="p">,</span><span class="w"> </span><span class="n">point_proj</span><span class="p">.</span><span class="n">numero</span><span class="p">,</span><span class="w"> </span><span class="n">point_proj</span><span class="p">.</span><span class="n">suffixe</span><span class="p">,</span><span class="w"> </span><span class="n">point_proj</span><span class="p">.</span><span class="n">geom</span><span class="p">,</span><span class="w"> </span><span class="n">geom_pt_adresse</span><span class="p">,</span>
+<span class="n">geom_pt_proj</span><span class="p">,</span>
+<span class="n">ST_MakeLine</span><span class="p">(</span><span class="n">geom_pt_adresse</span><span class="p">,</span>
+<span class="n">ST_TRANSLATE</span><span class="p">(</span><span class="n">geom_pt_adresse</span><span class="p">,</span><span class="w"> </span><span class="n">sin</span><span class="p">(</span><span class="n">ST_AZIMUTH</span><span class="p">(</span><span class="n">geom_pt_adresse</span><span class="p">,</span><span class="n">geom_pt_proj</span><span class="p">))</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">ST_DISTANCE</span><span class="p">(</span><span class="n">geom_pt_adresse</span><span class="p">,</span><span class="n">geom_pt_proj</span><span class="p">)</span>
+<span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">ST_DISTANCE</span><span class="p">(</span><span class="n">geom_pt_adresse</span><span class="p">,</span><span class="n">geom_pt_proj</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="mi">50</span><span class="o">/</span><span class="mi">49</span><span class="p">))),</span><span class="w"> </span><span class="n">cos</span><span class="p">(</span><span class="n">ST_AZIMUTH</span><span class="p">(</span><span class="n">geom_pt_adresse</span><span class="p">,</span><span class="n">geom_pt_proj</span><span class="p">))</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">ST_DISTANCE</span><span class="p">(</span><span class="n">geom_pt_adresse</span><span class="p">,</span><span class="n">geom_pt_proj</span><span class="p">)</span>
+<span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">ST_DISTANCE</span><span class="p">(</span><span class="n">geom_pt_adresse</span><span class="p">,</span><span class="n">geom_pt_proj</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="mi">50</span><span class="o">/</span><span class="mi">49</span><span class="p">)))))</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">geom_segment</span>
+<span class="k">from</span><span class="w"> </span><span class="n">point_proj</span><span class="w"> </span><span class="p">),</span>
+<span class="n">point_cote</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span><span class="c1">--- Definir le coté de du point adresse par rapport au tronçon grâce à son sens de croisement du segment précédemment crée</span>
+
+<span class="k">select</span><span class="w"> </span><span class="n">line_cross</span><span class="p">.</span><span class="n">id_point</span><span class="p">,</span><span class="w"> </span><span class="n">line_cross</span><span class="p">.</span><span class="n">id_troncon</span><span class="p">,</span><span class="w"> </span><span class="n">line_cross</span><span class="p">.</span><span class="n">id_voie</span><span class="p">,</span><span class="w"> </span><span class="n">line_cross</span><span class="p">.</span><span class="n">numero</span><span class="p">,</span><span class="w"> </span><span class="n">line_cross</span><span class="p">.</span><span class="n">suffixe</span><span class="p">,</span>
+<span class="k">case</span><span class="w"> </span><span class="k">WHEN</span><span class="w"> </span><span class="n">ST_LineCrossingDirection</span><span class="p">(</span><span class="n">geom_segment</span><span class="p">,</span><span class="w"> </span><span class="n">ST_LineMerge</span><span class="p">(</span><span class="n">geom</span><span class="p">))</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="s1">&#39;gauche&#39;</span>
+<span class="w">      </span><span class="k">WHEN</span><span class="w"> </span><span class="n">ST_LineCrossingDirection</span><span class="p">(</span><span class="n">geom_segment</span><span class="p">,</span><span class="w"> </span><span class="n">ST_LineMerge</span><span class="p">(</span><span class="n">geom</span><span class="p">)</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="s1">&#39;droite&#39;</span>
+<span class="w">      </span><span class="k">WHEN</span><span class="w"> </span><span class="n">ST_LineCrossingDirection</span><span class="p">(</span><span class="n">geom_segment</span><span class="p">,</span><span class="w"> </span><span class="n">ST_LineMerge</span><span class="p">(</span><span class="n">geom</span><span class="p">)</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="s1">&#39;indefini&#39;</span>
+<span class="w">      </span><span class="k">ELSE</span><span class="w"> </span><span class="s1">&#39;probleme&#39;</span><span class="w"> </span><span class="k">end</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">cote_voie</span><span class="p">,</span>
+<span class="n">geom_segment</span><span class="p">,</span><span class="w"> </span><span class="n">geom_pt_adresse</span><span class="p">,</span><span class="w"> </span><span class="n">geom_pt_proj</span>
+<span class="k">from</span><span class="w"> </span><span class="n">line_cross</span><span class="p">)</span>
+
+<span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">point_cote</span><span class="w">  </span><span class="k">where</span><span class="w"> </span><span class="n">cote_voie</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;indefini&#39;</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="n">cote_voie</span><span class="w"> </span><span class="o">=</span><span class="s1">&#39;probleme&#39;</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="c1">--- Sélection des points adresses indéfinis ou à problème par rapport au tronçon de rattachement</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../I_perimetres_pei/" class="btn btn-neutral float-left" title="I- Périmètres des bornes incendies" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../../traitements_fme/I_plannificateur_taches/" class="btn btn-neutral float-right" title="I- Produire un calendrier des tâches du plannificateur" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, SIG14 team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

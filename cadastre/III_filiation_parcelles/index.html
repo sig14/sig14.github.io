@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>III- Ajouter un onglet “Filiation parcellaire” à la pop-up cadastre de Lizmap &mdash; Documentation SIG14  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sphinx_rtd_theme_ext_color_contrast.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+        <script>let toggleHintShow = 'Click to show';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="../../_static/togglebutton.js"></script>
+        <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex/" />
+    <link rel="search" title="Search" href="../../search/" />
+    <link rel="next" title="IV- Ajouter un onglet “Mutations immobilières” à la pop-up cadastre de Lizmap" href="../IV_mutation_immo/" />
+    <link rel="prev" title="II- Ajouter un onglet “Documents d’urbanisme GPU” à la pop-up cadastre de Lizmap" href="../II_gpu_docs_urba/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../">
+            
+              <img src="../../_static/CD14_petit.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search/" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Équipe</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../equipe/I_membres/">I- Membres</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../equipe/II_contact/">II- Contact</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Adressage</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../adressage/I_acc_communes/">I- Accompagnement des Communes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../adressage/II_application_saisie/">II- Application de saisie</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../adressage/III_consultation_exports/">III- Consulter et exporter les données “Adresses” depuis QGIS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../adressage/IV_depot_bal/">IV- Déposer une BAL via l’API BAN avec FME</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Cadastre</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../I_maj_annuelle/">I- Mettre à jour les données EDIGEO / Majic III (maj annuelle)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../II_gpu_docs_urba/">II- Ajouter un onglet “Documents d’urbanisme GPU” à la pop-up cadastre de Lizmap</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">III- Ajouter un onglet “Filiation parcellaire” à la pop-up cadastre de Lizmap</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#traitement-et-import-fme-des-donnees">1- Traitement et import FME des données</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#regexp-correction-du-fichier">1.1 Regexp : correction du fichier</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lecture-du-csv">1.2 Lecture du CSV</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#remplacer-seconde-correction-du-fichier">1.3 Remplacer : seconde correction du fichier</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#champ-html-historique-deroulant">2- Champ HTML historique déroulant</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#fonction-postgresql-gis">2.1 - Fonction postgresql/gis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#parametrage-qgis-plugin-lizmap">2.2 - Paramètrage Qgis/plugin Lizmap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rendu-lizmap">2.3 - Rendu lizmap</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../IV_mutation_immo/">IV- Ajouter un onglet “Mutations immobilières” à la pop-up cadastre de Lizmap</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">DECI</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../deci/I_perimetres_pei/">I- Périmètres des bornes incendies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../deci/II_rapproch_ign/">II- Rapprochement adresse BDtopo IGN</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Traitements FME</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../traitements_fme/I_plannificateur_taches/">I- Produire un calendrier des tâches du plannificateur</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Traitements GDAL</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../traitements_gdal/I_geopackage/">I- Produire un GeoPackage des orthos tuilées</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../traitements_gdal/II_cog/">II- Produire un COG à partir des orthos IGN</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../">Documentation SIG14</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">III- Ajouter un onglet “Filiation parcellaire” à la pop-up cadastre de Lizmap</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/sig14/sig14.github.io/blob/master/cadastre/III_filiation_parcelles.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="iii-ajouter-un-onglet-filiation-parcellaire-a-la-pop-up-cadastre-de-lizmap">
+<h1>III- Ajouter un onglet “Filiation parcellaire” à la pop-up cadastre de Lizmap<a class="headerlink" href="#iii-ajouter-un-onglet-filiation-parcellaire-a-la-pop-up-cadastre-de-lizmap" title="Permalink to this heading"></a></h1>
+<a class="reference internal image-reference" href="../../_images/schema_dfi_cadastre.png"><img alt="../../_images/schema_dfi_cadastre.png" src="../../_images/schema_dfi_cadastre.png" style="width: 1196.0px; height: 595.0px;" /></a>
+<p>Les fichiers départementaux des documents de filiation informatisés (DFI) des parcelles permettent de consulter l’historique des parcelles cadastrales.</p>
+<p>Ce fichier recense les modifications parcellaires réalisées depuis l’informatisation de leur procédure de mise à jour qui, selon les départements, est intervenue entre les années 1980 à 1990. L’origine des différentes mises à jour (documents d’arpentage, croquis de conservation, remaniement…) ainsi que leurs dates sont renseignées.</p>
+<p>Ce fichier sont disponibles sur le site <a class="reference external" href="https://www.data.gouv.fr/fr/datasets/documents-de-filiation-informatises-dfi-des-parcelles/">datagouv.fr</a></p>
+<p>Le fichier est au format txt. Le point-virgule est le caractère séparateur. La taille des champs est fixe.</p>
+<p>Chaque lot d’analyse d’un même document de filiation fait l’objet de deux lignes successives :</p>
+<ul class="simple">
+<li><p>celle de type 1 pour toutes ses parcelles mères (il peut n’y en avoir aucune dans le cas d’extraction du domaine non cadastré) ;</p></li>
+<li><p>celle de type 2 pour toutes ses parcelles filles (il peut n’y en avoir aucune dans le cas de passage au domaine public).</p></li>
+</ul>
+<a class="reference internal image-reference" href="../../_images/filiation_parcelles.gif"><img alt="../../_images/filiation_parcelles.gif" src="../../_images/filiation_parcelles.gif" style="width: 806.0px; height: 491.0px;" /></a>
+<p>A partir de ce fichier, le pôle SIG du Département du Calvados, propose de consulter la généalogie d’une parcelle.</p>
+<div class="section" id="traitement-et-import-fme-des-donnees">
+<h2>1- Traitement et import FME des données<a class="headerlink" href="#traitement-et-import-fme-des-donnees" title="Permalink to this heading"></a></h2>
+<p>Le fichier DFI est difficilement exploitable en brut.</p>
+<p>Le fichier sépare chaque valeur par un ; .</p>
+<p>Le nombre de valeurs de parcelles est variable, ce qui implique un nombre de champ variable.</p>
+<p>Le workbench FME se trouve <a class="reference external" href="https://github.com/sig14/sig14.github.io/releases/tag/FME_filiation_parcelles_dfi">ici</a></p>
+<div class="section" id="regexp-correction-du-fichier">
+<h3>1.1 Regexp : correction du fichier<a class="headerlink" href="#regexp-correction-du-fichier" title="Permalink to this heading"></a></h3>
+<p>Dans un premier temps, afin de pouvoir correcetement lire le fichier, les données parcelles sont réunies en listes dans un seul champ à l’aide d’expression régulière et de l’ETL FME.</p>
+<p>140;001;000;0000299;1;19900305;XXXXXREDACTEURDUDOCUMENTXXXX;00001;2;A0297;A0298;</p>
+<ul>
+<li><p>Identifier les listes de parcelles après le 9e <strong>;</strong></p>
+<blockquote>
+<div><p>(?:[^;]*;){9}(.*)</p>
+</div></blockquote>
+</li>
+</ul>
+<p>match1 : <strong>140;001;000;0000299;1;19900305;XXXXXREDACTEURDUDOCUMENTXXXX;00001;2;A0297;A0298;</strong></p>
+<p>group1 : <strong>A0297;A0298;</strong></p>
+<ul>
+<li><p>Extraire le résultat du group1 dans un attribute creator</p>
+<blockquote>
+<div><p><strong>&#64;Value(list_parcelles{0}.part)</strong></p>
+</div></blockquote>
+</li>
+<li><p>Supprimer les valeurs du group du premier match</p></li>
+</ul>
+<p>match1 : <strong>140;001;000;0000299;1;19900305;XXXXXREDACTEURDUDOCUMENTXXXX;00001;2</strong></p>
+<ul class="simple">
+<li><p>Remplacer les <strong>;</strong> du resultat de liste de parcelles extrait par des <strong>,</strong></p></li>
+</ul>
+<p>group1 : <strong>A0297,A0298,</strong></p>
+<ul class="simple">
+<li><p>Concatener le match 1 et les résultas extraits</p></li>
+</ul>
+<p><strong>140;001;000;0000299;1;19900305;XXXXXREDACTEURDUDOCUMENTXXXX;00001;2;A0297, A0298,</strong></p>
+<ul class="simple">
+<li><p>On ajoute ensuite une ligne avec la liste des nom de champ</p></li>
+</ul>
+<a class="reference internal image-reference" href="../../_images/23_add_name_fiel_.png"><img alt="../../_images/23_add_name_fiel_.png" src="../../_images/23_add_name_fiel_.png" style="width: 783.5px; height: 226.5px;" /></a>
+</div>
+<div class="section" id="lecture-du-csv">
+<h3>1.2 Lecture du CSV<a class="headerlink" href="#lecture-du-csv" title="Permalink to this heading"></a></h3>
+<p>Après écriture du fichier, on lit le fichier CSV en exposant la liste des attributs souhaités.</p>
+<a class="reference internal image-reference" href="../../_images/24_expose_attribute.png"><img alt="../../_images/24_expose_attribute.png" src="../../_images/24_expose_attribute.png" style="width: 269.5px; height: 222.0px;" /></a>
+</div>
+<div class="section" id="remplacer-seconde-correction-du-fichier">
+<h3>1.3 Remplacer : seconde correction du fichier<a class="headerlink" href="#remplacer-seconde-correction-du-fichier" title="Permalink to this heading"></a></h3>
+<p>On effectue une dernière correction du fichier avant intégration dans la base de données.</p>
+<a class="reference internal image-reference" href="../../_images/25_retraitement_dfi.png"><img alt="../../_images/25_retraitement_dfi.png" src="../../_images/25_retraitement_dfi.png" style="width: 369.0px; height: 201.0px;" /></a>
+<ul class="simple">
+<li><p>Ajout des préfixes 0 aux sections et codecom en fonction de la longueur des variables (un 0 si length() = 2,  deux 0 si length() =1 .</p></li>
+<li><p>supprimmer les espaces dans le champ list parcelle</p></li>
+<li><p>supprimmer la dernière virgule en trop dans le champ list parcelle</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="champ-html-historique-deroulant">
+<h2>2- Champ HTML historique déroulant<a class="headerlink" href="#champ-html-historique-deroulant" title="Permalink to this heading"></a></h2>
+<p>L’objectif est ici de pouvoir consulter l’historique des filiations à l’échelle de la parcelle.</p>
+<p>L’utilisateur peut, en cliquant sur une parcelle, consulter la généalogie de sa parcelle, connaitre sa/ses parcelles méres (antérieur), ses parcelles soeurs (issues de la/des même(s) parcelle(s) mère(s)) et connaître la nature de la filiation.</p>
+<p>Pour cela on utilise une fonction postgresql/gis pour alimenter la table parcelle_info du cadastre et une mise en forme du formulaire QGIS en HTML pour publication sur le portail cartographique Lizmap.</p>
+<div class="section" id="fonction-postgresql-gis">
+<h3>2.1 - Fonction postgresql/gis<a class="headerlink" href="#fonction-postgresql-gis" title="Permalink to this heading"></a></h3>
+<ul>
+<li><p>On crée le champ contenant l’html des déroulants détaillant les filiations du plus récent au plus ancien</p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">alter</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">cadastre</span><span class="p">.</span><span class="n">parcelle_info</span><span class="w"> </span><span class="k">add</span><span class="w"> </span><span class="k">column</span><span class="w"> </span><span class="n">tab_filiation</span><span class="w"> </span><span class="nb">text</span><span class="p">;</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ul>
+<p>On lance ensuite une fonction postgresql/gis dont le code SQL se trouve <a class="reference external" href="https://github.com/sig14/sig14.github.io/blob/master/cadastre/sql/fonction_filiation_parcelles_cadastre.sql">ICI</a></p>
+<ul>
+<li><p>Dans un premier temps, la fonction met en place une table temporaire (que l’on va indexer) regroupant ligne par ligne les infos dfi, la nature détaillée des dfi, la liste des parcelles mères et la liste des parcelles filles associées (filiation)</p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">create</span><span class="w"> </span><span class="n">UNLOGGED</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">temp_parcelles_dfi</span><span class="w"> </span><span class="k">as</span>
+<span class="k">SELECT</span>
+<span class="n">a</span><span class="p">.</span><span class="n">code_com</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">code_com</span><span class="p">,</span>
+<span class="w">   </span><span class="n">a</span><span class="p">.</span><span class="n">pref_section</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">pref_section</span><span class="p">,</span>
+<span class="w">   </span><span class="n">a</span><span class="p">.</span><span class="n">id_dfi</span><span class="p">,</span>
+<span class="w">   </span><span class="n">a</span><span class="p">.</span><span class="n">num_analyse</span><span class="p">,</span>
+<span class="w">   </span><span class="n">a</span><span class="p">.</span><span class="n">date_valid</span><span class="p">,</span>
+<span class="w">   </span><span class="k">case</span><span class="w"> </span><span class="k">when</span>
+<span class="w">   </span><span class="n">a</span><span class="p">.</span><span class="n">nature_dfi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;1&#39;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="s1">&#39;arpentage&#39;</span>
+<span class="w">   </span><span class="k">when</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">nature_dfi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;2&#39;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="s1">&#39;croquis de conservation&#39;</span>
+<span class="w">   </span><span class="k">when</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">nature_dfi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;4&#39;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="s1">&#39;remaniement&#39;</span>
+<span class="w">   </span><span class="k">when</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">nature_dfi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;5&#39;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="s1">&#39;arpentage numerique&#39;</span>
+<span class="w">      </span><span class="k">when</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">nature_dfi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;6&#39;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="s1">&#39;lotissement numérique&#39;</span>
+<span class="w">      </span><span class="k">when</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">nature_dfi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;7&#39;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="s1">&#39;lotissement&#39;</span>
+<span class="w">            </span><span class="k">when</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">nature_dfi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;8&#39;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="s1">&#39;rénovation&#39;</span><span class="k">end</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">nature_dfi</span><span class="p">,</span><span class="c1">-- détail de la nature en fonction du code_nature</span>
+<span class="w">   </span><span class="n">a</span><span class="p">.</span><span class="n">list_parcelle</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">parcelles_meres</span><span class="p">,</span><span class="w"> </span><span class="c1">-- liste des parcelles mères quand type_ligne = 1</span>
+<span class="w">   </span><span class="n">b</span><span class="p">.</span><span class="n">list_parcelle</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">parcelles_filles</span><span class="w"> </span><span class="c1">--liste des parcelles filles associées aux parcelles mères quand type_ligne = 2 (jointure sur date, code com, section, id_dfi et numero d&#39;analyse)</span>
+<span class="w">   </span><span class="k">FROM</span><span class="w"> </span><span class="n">ref_foncier</span><span class="p">.</span><span class="n">parcelles_dfi</span><span class="w"> </span><span class="n">a</span><span class="p">,</span>
+<span class="w">   </span><span class="n">ref_foncier</span><span class="p">.</span><span class="n">parcelles_dfi</span><span class="w"> </span><span class="n">b</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">type_ligne</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;1&#39;</span><span class="p">::</span><span class="nb">text</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">type_ligne</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;2&#39;</span><span class="p">::</span><span class="nb">text</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">concat</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">date_valid</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">code_com</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">pref_section</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">id_dfi</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">num_analyse</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">concat</span><span class="p">(</span><span class="n">b</span><span class="p">.</span><span class="n">date_valid</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">code_com</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">pref_section</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">id_dfi</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">num_analyse</span><span class="p">);</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Création d’une table temporaire listant les premières filiations liées aux parcelles actuelles du cadastre</p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">create</span><span class="w"> </span><span class="n">UNLOGGED</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">temp_parcelles_init</span><span class="w"> </span><span class="k">as</span>
+<span class="k">with</span><span class="w"> </span><span class="n">parcelle_init</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span><span class="w">     </span><span class="c1">-- liste des parcelles du cadastre qui sont comprises dans les parcelles filles dfi</span>
+<span class="w">         </span><span class="k">select</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">code_com</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">date_valid</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">nature_dfi</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">pref_section</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">id_dfi</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">num_analyse</span><span class="p">,</span>
+<span class="w">      </span><span class="n">a</span><span class="p">.</span><span class="n">parcelles_meres</span><span class="p">,</span><span class="w"> </span><span class="c1">-- Conservation des parcelles mères dfi dont les filles comprennent une parcelle du cadastre</span>
+<span class="w">      </span><span class="n">concat</span><span class="p">(</span><span class="s1">&#39;{&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">ccosec</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">dnupla</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;}&#39;</span><span class="p">)::</span><span class="nb">text</span><span class="p">[]</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">parcelles_filles</span><span class="p">,</span><span class="w"> </span><span class="c1">-- Parcelle du cadastre associée aux parcelles filles dfi</span>
+<span class="w">      </span><span class="k">replace</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">parcelles_filles</span><span class="p">::</span><span class="nb">text</span><span class="p">,</span><span class="n">concat</span><span class="p">(</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">ccosec</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">dnupla</span><span class="p">),</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="w">  </span><span class="k">as</span><span class="w"> </span><span class="n">parcelles_soeurs</span><span class="w"> </span><span class="c1">-- Supprimer (remplacer par &#39;&#39;) la parcelle du cadastre associée de la liste des parcelles filles pour trouver les parcelles soeurs</span>
+<span class="w">            </span><span class="k">from</span><span class="w"> </span><span class="n">temp_parcelles_dfi</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">cadastre</span><span class="p">.</span><span class="n">parcelle</span><span class="w"> </span><span class="n">b</span>
+<span class="w">            </span><span class="k">where</span><span class="w">  </span><span class="n">concat</span><span class="p">(</span><span class="n">b</span><span class="p">.</span><span class="n">ccosec</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">dnupla</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">ANY</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">parcelles_filles</span><span class="p">::</span><span class="nb">text</span><span class="p">[])</span><span class="w"> </span><span class="c1">-- jointure sur les num parcelle et section cadastre dans les parcelles filles dfi</span>
+<span class="w">            </span><span class="k">and</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">code_com</span><span class="p">::</span><span class="nb">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">ccocom</span><span class="w"> </span><span class="c1">-- et sur une même commune</span>
+<span class="w">            </span><span class="k">and</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">pref_section</span><span class="p">::</span><span class="nb">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">translate</span><span class="p">(</span><span class="n">b</span><span class="p">.</span><span class="n">ccopre</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;0&#39;</span><span class="p">)</span><span class="w">  </span><span class="p">)</span><span class="w"> </span><span class="c1">-- et sur un même prefixe de séction</span>
+
+<span class="w">   </span><span class="k">select</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">code_com</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">date_valid</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">nature_dfi</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">pref_section</span><span class="p">,</span>
+<span class="w">   </span><span class="n">a</span><span class="p">.</span><span class="n">parcelles_meres</span><span class="p">::</span><span class="nb">text</span><span class="p">[],</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">parcelles_filles</span><span class="p">::</span><span class="nb">text</span><span class="p">[]</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="k">replace</span><span class="p">(</span><span class="k">translate</span><span class="p">(</span><span class="n">parcelles_soeurs</span><span class="p">::</span><span class="nb">text</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;{}&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">),</span><span class="w"> </span><span class="s1">&#39;,&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39; &#39;</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">parcelles_soeurs</span><span class="p">,</span><span class="w"> </span><span class="c1">-- transformation en format liste des listes de parcelles</span>
+<span class="w">   </span><span class="mi">1</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">num_filiation</span><span class="p">,</span><span class="w"> </span><span class="c1">-- création d&#39;un numéro de filiation</span>
+<span class="w">   </span><span class="n">concat</span><span class="p">(</span><span class="k">translate</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">parcelles_filles</span><span class="p">::</span><span class="nb">text</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;{}&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">id_filiation</span><span class="w"> </span><span class="c1">---conserver le numéro de parcelle fille initial en format txt</span>
+<span class="w">   </span><span class="k">from</span><span class="w"> </span><span class="n">parcelle_init</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="p">;</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Création d’une table temporaire rapprochant les parcelles filles aux listes de parcelles mères (récursive)</p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="w">         </span><span class="k">CREATE</span><span class="w"> </span><span class="n">UNLOGGED</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">temp_parcelle_filiation</span><span class="w"> </span><span class="k">as</span>
+
+<span class="w">   </span><span class="k">with</span><span class="w"> </span><span class="k">recursive</span><span class="w"> </span><span class="n">search_meres</span><span class="w"> </span><span class="p">(</span><span class="n">code_com</span><span class="p">,</span><span class="w"> </span><span class="n">date_valid</span><span class="p">,</span><span class="w"> </span><span class="n">nature_dfi</span><span class="p">,</span><span class="w"> </span><span class="n">pref_section</span><span class="p">,</span><span class="w">  </span><span class="n">parcelles_meres</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">parcelles_filles</span><span class="p">,</span><span class="w"> </span><span class="n">parcelles_soeurs</span><span class="p">,</span><span class="w">  </span><span class="n">num_filiation</span><span class="p">,</span><span class="w"> </span><span class="n">id_filiation</span><span class="p">)</span><span class="w">  </span><span class="k">as</span><span class="w"> </span><span class="p">(</span><span class="c1">-- paramètres récursive</span>
+
+
+<span class="w">   </span><span class="k">select</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="c1">--selection des filiations initiales au cadastre</span>
+<span class="w">   </span><span class="k">from</span><span class="w"> </span><span class="n">temp_parcelles_init</span><span class="w"> </span><span class="n">a</span>
+
+<span class="w">      </span><span class="k">UNION</span><span class="w"> </span><span class="c1">-- union pour la recursivité</span>
+
+<span class="w">            </span><span class="k">select</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">code_com</span><span class="p">,</span><span class="k">c</span><span class="p">.</span><span class="n">date_valid</span><span class="p">,</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">nature_dfi</span><span class="p">,</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">pref_section</span><span class="p">,</span>
+<span class="w">            </span><span class="k">c</span><span class="p">.</span><span class="n">parcelles_meres</span><span class="p">::</span><span class="nb">text</span><span class="p">[],</span><span class="w"> </span><span class="c1">-- Conservation des parcelles mères dfi dont les filles comprennent d&#39;autres parcelles filles dfi</span>
+<span class="w">            </span><span class="nb">array</span><span class="p">(</span><span class="k">select</span><span class="w"> </span><span class="k">unnest</span><span class="p">(</span><span class="k">c</span><span class="p">.</span><span class="n">parcelles_filles</span><span class="p">::</span><span class="nb">text</span><span class="p">[])</span>
+<span class="w">            </span><span class="k">intersect</span>
+<span class="w">            </span><span class="k">select</span><span class="w"> </span><span class="k">unnest</span><span class="p">(</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">parcelles_meres</span><span class="p">::</span><span class="nb">text</span><span class="p">[]))</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">parcelles_filles</span><span class="w"> </span><span class="p">,</span><span class="c1">---- selectionner les parcelles filles dfi comprises dans les listes de parcelles mères initiales</span>
+
+<span class="w">            </span><span class="nb">array</span><span class="p">(</span><span class="k">select</span><span class="w"> </span><span class="k">unnest</span><span class="p">(</span><span class="k">c</span><span class="p">.</span><span class="n">parcelles_filles</span><span class="p">::</span><span class="nb">text</span><span class="p">[])</span>
+<span class="w">            </span><span class="k">except</span>
+<span class="w">            </span><span class="k">select</span><span class="w"> </span><span class="k">unnest</span><span class="p">(</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">parcelles_meres</span><span class="p">::</span><span class="nb">text</span><span class="p">[]))::</span><span class="nb">text</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">parcelles_soeurs</span><span class="p">,</span><span class="w"> </span><span class="c1">---- selectionner les parcelles filles dfi non comprises dans les listes de parcelles mères initiales pour trouver les parcelles soeurs</span>
+
+<span class="w">            </span><span class="n">d</span><span class="p">.</span><span class="n">num_filiation</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">num_filiation</span><span class="p">,</span><span class="w"> </span><span class="c1">-- ajout de 1 au numéro de filiation</span>
+
+<span class="w">            </span><span class="n">d</span><span class="p">.</span><span class="n">id_filiation</span><span class="w"> </span><span class="c1">--- conserver le numéro de parcelle cadastre initial en txt</span>
+
+<span class="w">            </span><span class="k">from</span><span class="w"> </span><span class="n">temp_parcelles_dfi</span><span class="w"> </span><span class="k">c</span><span class="p">,</span><span class="w"> </span><span class="n">search_meres</span><span class="w"> </span><span class="n">d</span>
+<span class="w">            </span><span class="k">where</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">parcelles_meres</span><span class="p">::</span><span class="nb">text</span><span class="p">[]</span><span class="w">  </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">parcelles_filles</span><span class="p">::</span><span class="nb">text</span><span class="p">[]</span><span class="w"> </span><span class="c1">-- jointure des parcelles dfi aux parcelles initiales quand au moins une parcelle de la liste parcelle mère initiale est comprise dans la liste parcelle fille dfi</span>
+<span class="w">            </span><span class="k">AND</span><span class="w"> </span><span class="n">concat</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="n">code_com</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">pref_section</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">concat</span><span class="p">(</span><span class="k">c</span><span class="p">.</span><span class="n">code_com</span><span class="p">,</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">pref_section</span><span class="p">)),</span><span class="w"> </span><span class="c1">-- et sur le code commune et prefixe de section</span>
+
+<span class="k">result</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span><span class="k">select</span><span class="w"> </span><span class="n">row_number</span><span class="p">()</span><span class="w"> </span><span class="n">over</span><span class="p">()</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">fid</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">search_meres</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="c1">--- selectionner le resultat de la recursive et ajouter un id unique</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>… Suite de la table : création du bloc déroulant HTML avec historique des filiations de parcelles dans un champ text avec num parcelle associé</p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">select</span><span class="w"> </span><span class="n">row_number</span><span class="p">()</span><span class="w"> </span><span class="n">over</span><span class="p">()</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="c1">--- creation du html</span>
+<span class="w">   </span><span class="n">concat</span><span class="p">(</span><span class="c1">-- bloc html creant la table deroulante</span>
+<span class="w">   </span><span class="s1">&#39;&lt;table class = &quot;t2&quot;&gt;</span>
+<span class="s1">&lt;thead&gt;</span>
+<span class="s1">   &lt;tr&gt;</span>
+<span class="s1">      &lt;th&gt;date de filiation &lt;/th&gt;</span>
+<span class="s1">      &lt;th&gt;nature de la filiation&lt;/th&gt;</span>
+<span class="s1">   &lt;/tr&gt;</span>
+<span class="s1">&lt;/thead&gt;</span>
+<span class="s1">&lt;tbody&gt;&#39;</span><span class="p">,</span>
+
+
+<span class="n">string_agg</span><span class="p">(</span><span class="c1">-- aggregation des infos  dfi filles, meres et soeurs : date, parcelles ordonnées par le numéro de filiation</span>
+<span class="w">   </span><span class="p">(</span><span class="s1">&#39;&lt;tr&gt;</span>
+<span class="s1">      &lt;td&gt;&lt;label for=&quot;row&#39;</span><span class="o">||</span><span class="n">fid</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="s1">&#39;&quot;&gt;&lt;/label&gt;&#39;</span><span class="w"> </span><span class="o">||</span><span class="w">  </span><span class="n">date_valid</span><span class="p">::</span><span class="nb">text</span><span class="p">::</span><span class="nb">date</span><span class="w"> </span><span class="o">||</span>
+<span class="w">      </span><span class="s1">&#39;&lt;/td&gt;</span>
+<span class="s1">      &lt;td&gt;&#39;</span><span class="o">||</span><span class="w"> </span><span class="n">nature_dfi</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="s1">&#39;&lt;/td&gt;</span>
+<span class="s1">   &lt;/tr&gt;&lt;tr&gt;</span>
+<span class="s1">      &lt;td colspan=&quot;6&quot;&gt;</span>
+<span class="s1">      &lt;input id=&quot;row&#39;</span><span class="o">||</span><span class="n">fid</span><span class="o">||</span><span class="s1">&#39;&quot; type=&quot;checkbox&quot;&gt;</span>
+<span class="s1">      &lt;table&gt;</span>
+<span class="s1">         &lt;tr&gt;</span>
+<span class="s1">            &lt;th&gt;Nouvelle(s) parcelle(s)&lt;/th&gt;</span>
+<span class="s1">            &lt;th&gt;Parcelle(s) soeur(s)&lt;/th&gt;</span>
+<span class="s1">            &lt;td&gt;Ancienne(s) parcelle(s)&lt;/td&gt;</span>
+<span class="s1">      &lt;/tr&gt;</span>
+<span class="s1">         &lt;tr&gt;</span>
+<span class="s1">            &lt;th&gt;&#39;</span><span class="o">||</span><span class="k">translate</span><span class="p">(</span><span class="n">parcelles_filles</span><span class="p">::</span><span class="nb">text</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;{}&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">||</span><span class="s1">&#39;&lt;/th&gt;</span>
+<span class="s1">            &lt;th&gt;&#39;</span><span class="o">||</span><span class="k">translate</span><span class="p">(</span><span class="n">parcelles_soeurs</span><span class="p">::</span><span class="nb">text</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;{}&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">||</span><span class="s1">&#39;&lt;/th&gt;</span>
+<span class="s1">            &lt;td&gt;&#39;</span><span class="o">||</span><span class="k">translate</span><span class="p">(</span><span class="n">parcelles_meres</span><span class="p">::</span><span class="nb">text</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;{}&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">||</span><span class="s1">&#39;&lt;/td&gt;</span>
+<span class="s1">         &lt;/tr&gt;</span>
+<span class="s1">      &lt;/table&gt;&#39;</span>
+<span class="w">      </span><span class="p">)</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;&lt;/td&gt;</span>
+<span class="s1">   &lt;/tr&gt;&#39;</span>
+<span class="w">      </span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">num_filiation</span><span class="w"> </span><span class="k">asc</span><span class="p">),</span><span class="s1">&#39;&lt;/tbody&gt;</span>
+<span class="s1">&lt;/table&gt;&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">tab_filiation</span><span class="p">,</span><span class="w"> </span><span class="n">concat</span><span class="p">(</span><span class="s1">&#39;140&#39;</span><span class="p">,</span><span class="n">code_com</span><span class="p">,</span><span class="w"> </span><span class="n">pref_section</span><span class="p">,</span><span class="w"> </span><span class="n">id_filiation</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">num_parcelle</span><span class="w"> </span><span class="c1">-- creation du num parcelle : cod dep + codcom + pref_section + num_parcelle cadastre initial</span>
+<span class="w">   </span><span class="k">from</span><span class="w"> </span><span class="k">result</span><span class="w"> </span><span class="n">a</span>
+<span class="w">   </span><span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">code_com</span><span class="p">,</span><span class="w"> </span><span class="n">pref_section</span><span class="p">,</span><span class="w"> </span><span class="n">id_filiation</span><span class="p">;</span><span class="w"> </span><span class="c1">-- grouper par parcelle, pref section et num parcelle cadastre initial</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Mise à jour des champs  HTML de la table parcelle_info grâce aux identifiants parcelles de la table précédement créée.</p></li>
+</ul>
+</div>
+<div class="section" id="parametrage-qgis-plugin-lizmap">
+<h3>2.2 - Paramètrage Qgis/plugin Lizmap<a class="headerlink" href="#parametrage-qgis-plugin-lizmap" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p>Mise à jour de l’info bulle HTML dans les propriété de la couche QGIS</p></li>
+</ul>
+<a class="reference internal image-reference" href="../../_images/18_info_bulle_html.png"><img alt="../../_images/18_info_bulle_html.png" src="../../_images/18_info_bulle_html.png" style="width: 957.0px; height: 511.0px;" /></a>
+<p>Le code HTML (Onglet Filiations + partie tab_filiation) se trouve <a class="reference external" href="https://github.com/sig14/sig14.github.io/blob/master/cadastre/html/popup_cadastre.html">Par ici</a></p>
+</div>
+<div class="section" id="rendu-lizmap">
+<h3>2.3 - Rendu lizmap<a class="headerlink" href="#rendu-lizmap" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p>Mise à jour du CSS dans le panneau de configuration Lizmap</p></li>
+</ul>
+<p>Le code CSS se trouve <a class="reference external" href="https://github.com/sig14/sig14.github.io/blob/master/cadastre/css/dfi_cadastre">ici</a></p>
+<a class="reference internal image-reference" href="../../_images/19_config_css.png"><img alt="../../_images/19_config_css.png" src="../../_images/19_config_css.png" style="width: 891.0px; height: 407.0px;" /></a>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../II_gpu_docs_urba/" class="btn btn-neutral float-left" title="II- Ajouter un onglet “Documents d’urbanisme GPU” à la pop-up cadastre de Lizmap" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../IV_mutation_immo/" class="btn btn-neutral float-right" title="IV- Ajouter un onglet “Mutations immobilières” à la pop-up cadastre de Lizmap" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, SIG14 team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

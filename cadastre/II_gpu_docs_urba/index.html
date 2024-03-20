@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>II- Ajouter un onglet “Documents d’urbanisme GPU” à la pop-up cadastre de Lizmap &mdash; Documentation SIG14  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sphinx_rtd_theme_ext_color_contrast.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+        <script>let toggleHintShow = 'Click to show';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="../../_static/togglebutton.js"></script>
+        <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex/" />
+    <link rel="search" title="Search" href="../../search/" />
+    <link rel="next" title="III- Ajouter un onglet “Filiation parcellaire” à la pop-up cadastre de Lizmap" href="../III_filiation_parcelles/" />
+    <link rel="prev" title="I- Mettre à jour les données EDIGEO / Majic III (maj annuelle)" href="../I_maj_annuelle/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../">
+            
+              <img src="../../_static/CD14_petit.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search/" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Équipe</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../equipe/I_membres/">I- Membres</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../equipe/II_contact/">II- Contact</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Adressage</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../adressage/I_acc_communes/">I- Accompagnement des Communes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../adressage/II_application_saisie/">II- Application de saisie</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../adressage/III_consultation_exports/">III- Consulter et exporter les données “Adresses” depuis QGIS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../adressage/IV_depot_bal/">IV- Déposer une BAL via l’API BAN avec FME</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Cadastre</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../I_maj_annuelle/">I- Mettre à jour les données EDIGEO / Majic III (maj annuelle)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">II- Ajouter un onglet “Documents d’urbanisme GPU” à la pop-up cadastre de Lizmap</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#import-fme-des-donnees-gpu">1- Import FME des données GPU</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#zonages-et-cartes-communales">1.1 - Zonages et cartes communales</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#prescriptions">1.2 - Prescriptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#infos-prescriptions">1.3- Infos prescriptions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#champ-html-gpu-par-parcelle-du-cadastre">2- Champ HTML GPU par parcelle du cadastre</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#fonction-postgresql-gis">2.1 - Fonction postgresql/gis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#parametrage-qgis-plugin-lizmap">2.2 - Paramètrage Qgis/plugin Lizmap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rendu-lizmap">2.3 - Rendu lizmap</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#mise-a-jour-quotidienne-des-donnees">3- Mise à jour quotidienne des données</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#mailing-auto">3.1 - Mailing auto</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fme-import-de-l-emprise-et-supression-des-donnees">3.2 - FME : Import de l’emprise et supression des données</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fme-import-des-donnees-en-fonction-de-l-emprise">3.3 - FME : Import des données en fonction de l’emprise</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fme-postgresql-gis-mise-a-jour-des-champs-html-gpu-du-cadastre">3.4 - FME/PostgreSQL,GIS : Mise à jour des champs html GPU du cadastre</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../III_filiation_parcelles/">III- Ajouter un onglet “Filiation parcellaire” à la pop-up cadastre de Lizmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../IV_mutation_immo/">IV- Ajouter un onglet “Mutations immobilières” à la pop-up cadastre de Lizmap</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">DECI</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../deci/I_perimetres_pei/">I- Périmètres des bornes incendies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../deci/II_rapproch_ign/">II- Rapprochement adresse BDtopo IGN</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Traitements FME</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../traitements_fme/I_plannificateur_taches/">I- Produire un calendrier des tâches du plannificateur</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Traitements GDAL</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../traitements_gdal/I_geopackage/">I- Produire un GeoPackage des orthos tuilées</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../traitements_gdal/II_cog/">II- Produire un COG à partir des orthos IGN</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../">Documentation SIG14</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">II- Ajouter un onglet “Documents d’urbanisme GPU” à la pop-up cadastre de Lizmap</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/sig14/sig14.github.io/blob/master/cadastre/II_gpu_docs_urba.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="ii-ajouter-un-onglet-documents-d-urbanisme-gpu-a-la-pop-up-cadastre-de-lizmap">
+<h1>II- Ajouter un onglet “Documents d’urbanisme GPU” à la pop-up cadastre de Lizmap<a class="headerlink" href="#ii-ajouter-un-onglet-documents-d-urbanisme-gpu-a-la-pop-up-cadastre-de-lizmap" title="Permalink to this heading"></a></h1>
+<p>Le service d’interrogation du GPU permet d’obtenir les différentes informations d’urbanisme intersectant une géométrie (ponctuelle ou surfacique). Ces informations sont disponibles en consultation et en téléchargement sur le <a class="reference external" href="https://www.geoportail-urbanisme.gouv.fr/">Géoportail de l’urbanisme</a></p>
+<p>Le Département met à disposition des communes l’ensemble de ces informations, ainsi que celles du cadastre sur son portail cartographique.
+Afin de faciliter la lecture des informations, l’ensemble des données du GPU sont collectées dans la base de données du Département à chaque mise à jour sur le GPU par les colectivités et agglomérées à l’echelle de la parcelle.</p>
+<a class="reference internal image-reference" href="../../_images/7_schema_fiches_dosc_urba.png"><img alt="../../_images/7_schema_fiches_dosc_urba.png" src="../../_images/7_schema_fiches_dosc_urba.png" style="width: 1196.0px; height: 595.0px;" /></a>
+<p>Cela permet aux partenaires du CD14 de pouvoir consulter rapidement les informations du GPU liées à chaque parcelle : impact des zonages sur la parcelle, documents pdf associés, etc.</p>
+<a class="reference internal image-reference" href="../../_images/docs_urba.gif"><img alt="../../_images/docs_urba.gif" src="../../_images/docs_urba.gif" style="width: 802.0px; height: 499.0px;" /></a>
+<div class="section" id="import-fme-des-donnees-gpu">
+<h2>1- Import FME des données GPU<a class="headerlink" href="#import-fme-des-donnees-gpu" title="Permalink to this heading"></a></h2>
+<p>L’import des données de l’API GPU se fait via le logiciel ETL FME.</p>
+<p>Dans un premier temps les données GPU sont chargées dans la base de données du CD14 à l’échelle du Calvados.</p>
+<p>Les données du GPU sont segmentées par collectivité via un code partition formé :</p>
+<ul class="simple">
+<li><p>du prefixe “DU _”</p></li>
+<li><p>du code insee commune ou siren epci (en fonction du type de document : carte communale, PLU, PLUI)</p></li>
+<li><p>D’un code optionnel de secteur pour les EPCI (A, B, C, D)</p></li>
+</ul>
+<p>Pour le Calvados, les codes insee des communes correspondent aux codes insee des communes historiques (avant loi NOTRE).</p>
+<p>Pour finir, certaines communes sont soumises au RNU (Réglement National d’Urbanisme) et n’ont donc pas de documents d’urbanisme enregistrés sur le GPU.</p>
+<div class="section" id="zonages-et-cartes-communales">
+<h3>1.1 - Zonages et cartes communales<a class="headerlink" href="#zonages-et-cartes-communales" title="Permalink to this heading"></a></h3>
+<p>Un premier projet FME récupère les données d’emprise de document ainsi que les zonages PLU et secteurs de cartes communales.</p>
+<p>Le workbench FME chargeant les données depuis l’API, réalisant le traitement et l’intégration des données en base se trouve <a class="reference external" href="https://github.com/sig14/sig14.github.io/releases/tag/FME_api_zonage_gpu">par ici</a></p>
+<ul class="simple">
+<li><p>Récupération des codes siren EPCI et ajout des potentiels suffixes (code optionnel secteur)</p></li>
+</ul>
+<a class="reference internal image-reference" href="../../_images/9_siren_epci_dosc_urba.png"><img alt="../../_images/9_siren_epci_dosc_urba.png" src="../../_images/9_siren_epci_dosc_urba.png" style="width: 454.0px; height: 206.5px;" /></a>
+<ul class="simple">
+<li><p>Récupération des codes insee des communes historiques</p></li>
+</ul>
+<a class="reference internal image-reference" href="../../_images/10_insee_communes_doc_urba.png"><img alt="../../_images/10_insee_communes_doc_urba.png" src="../../_images/10_insee_communes_doc_urba.png" style="width: 161.0px; height: 117.0px;" /></a>
+<ul class="simple">
+<li><p>Interrogation de l’API pour connaître les communes au RNU ou non</p></li>
+</ul>
+<p>On interroge l’API avec les paramètres suivant :</p>
+<p>URL : <a class="reference external" href="http://apicarto.ign.fr/api/gpu/municipality?insee=&#64;Value(insee">http://apicarto.ign.fr/api/gpu/municipality?insee=&#64;Value(insee</a>)</p>
+<p>HTTP method : GET</p>
+<p>response body : Attribute</p>
+<a class="reference internal image-reference" href="../../_images/11_api_rnu_doc_urba.png"><img alt="../../_images/11_api_rnu_doc_urba.png" src="../../_images/11_api_rnu_doc_urba.png" style="width: 137.0px; height: 274.0px;" /></a>
+<ul class="simple">
+<li><p>Filtrer les communes qui ne sont pas au RNU et stocker les valeurs (rnu = true/flase) dans une table à part (pour information)</p></li>
+</ul>
+<a class="reference internal image-reference" href="../../_images/12_filtre_rnu_doc_urba.png"><img alt="../../_images/12_filtre_rnu_doc_urba.png" src="../../_images/12_filtre_rnu_doc_urba.png" style="width: 359.0px; height: 295.0px;" /></a>
+<ul class="simple">
+<li><p>Récupération des données depuis l’API avec les “DU _” précédemments créés : données emprise, zonage et secteur carte communale</p></li>
+</ul>
+<p>On interroge l’API avec les paramètres suivant :</p>
+<p><strong>emprise</strong> :</p>
+<p>URL : “<a class="reference external" href="https://apicarto.ign.fr/api/gpu/document?partition=DU_&#64;Value(siren">https://apicarto.ign.fr/api/gpu/document?partition=DU_&#64;Value(siren</a>)”</p>
+<p>HTTP method : GET</p>
+<p>response body : Attribute</p>
+<p><strong>zonage</strong> :</p>
+<p>Interrogation de l’API avec les DU_partition précédemment créés</p>
+<p>URL : “<a class="reference external" href="https://apicarto.ign.fr/api/gpu/zone-urba?partition=DU_&#64;Value(siren">https://apicarto.ign.fr/api/gpu/zone-urba?partition=DU_&#64;Value(siren</a>)”</p>
+<p>HTTP method : GET</p>
+<p>response body : Attribute</p>
+<p><strong>secteur carte communale</strong> :</p>
+<p>URL : “<a class="reference external" href="https://apicarto.ign.fr/api/gpu/secteur-cc?partition=DU_&#64;Value(siren">https://apicarto.ign.fr/api/gpu/secteur-cc?partition=DU_&#64;Value(siren</a>)”</p>
+<p>HTTP method : GET</p>
+<p>response body : Attribute</p>
+<a class="reference internal image-reference" href="../../_images/13_get_data_doc_urba.png"><img alt="../../_images/13_get_data_doc_urba.png" src="../../_images/13_get_data_doc_urba.png" style="width: 141.5px; height: 230.5px;" /></a>
+<ul class="simple">
+<li><p>Filtrer les données à partir de la réponse JSON : Expression régulière conservant le chiffre après ‘totalFeatures’ et conservation des lignes dont la valeur est différente de 0.</p></li>
+</ul>
+<a class="reference internal image-reference" href="../../_images/14_numb_feature_filter_doc_urba.png"><img alt="../../_images/14_numb_feature_filter_doc_urba.png" src="../../_images/14_numb_feature_filter_doc_urba.png" style="width: 221.0px; height: 127.5px;" /></a>
+<ul class="simple">
+<li><p>Extraction des données du JSON : exposer les attributs et la géométrie</p></li>
+</ul>
+<a class="reference internal image-reference" href="../../_images/15_expose_attributes_doc_urba.png"><img alt="../../_images/15_expose_attributes_doc_urba.png" src="../../_images/15_expose_attributes_doc_urba.png" style="width: 428.0px; height: 163.5px;" /></a>
+<ul class="simple">
+<li><p>Retraitement des données : supression des prefixes de champs et reprojection de la géométrie (de 4326 à 2154)</p></li>
+</ul>
+<a class="reference internal image-reference" href="../../_images/16_reprojection_doc_urba.png"><img alt="../../_images/16_reprojection_doc_urba.png" src="../../_images/16_reprojection_doc_urba.png" style="width: 250.0px; height: 95.0px;" /></a>
+</div>
+<div class="section" id="prescriptions">
+<h3>1.2 - Prescriptions<a class="headerlink" href="#prescriptions" title="Permalink to this heading"></a></h3>
+<p>Un second projet FME récupère les données de prescriptions linéaires, surfaciques et ponctuels sur le même modèle que précédemment :</p>
+<p>Le workbench FME se trouve <a class="reference external" href="https://github.com/sig14/sig14.github.io/releases/tag/api_prescription_gpu">ICI</a></p>
+<ul class="simple">
+<li><p>Récupération des codes insee des communes historiques qui ne sont pas classées au rnu depuis la table créée dans la partie précédente</p></li>
+</ul>
+<a class="reference internal image-reference" href="../../_images/17_rnu_doc_urba.png"><img alt="../../_images/17_rnu_doc_urba.png" src="../../_images/17_rnu_doc_urba.png" style="width: 113.0px; height: 77.0px;" /></a>
+<ul class="simple">
+<li><p>Récupération des données depuis l’API avec les “DU _” précédemment créés : données linéaires, surfaces et ponctuels</p></li>
+</ul>
+<p>On interroge l’API avec les paramètres suivant :</p>
+<p><strong>surface</strong> :</p>
+<p>URL : “<a class="reference external" href="https://apicarto.ign.fr/api/gpu/info-surf?partition=DU_&#64;Value(siren">https://apicarto.ign.fr/api/gpu/info-surf?partition=DU_&#64;Value(siren</a>)”</p>
+<p>HTPP method : GET</p>
+<p>response body : Attribute</p>
+<p><strong>linéaire</strong> :</p>
+<p>URL : “<a class="reference external" href="https://apicarto.ign.fr/api/gpu/info-lin?partition=DU_&#64;Value(siren">https://apicarto.ign.fr/api/gpu/info-lin?partition=DU_&#64;Value(siren</a>)”</p>
+<p>HTTP method : GET</p>
+<p>response body : Attribute</p>
+<p><strong>ponctuel</strong> :</p>
+<p>URL : “<a class="reference external" href="https://apicarto.ign.fr/api/gpu/info-pct?partition=DU_&#64;Value(siren">https://apicarto.ign.fr/api/gpu/info-pct?partition=DU_&#64;Value(siren</a>)”</p>
+<p>HTTP method : GET</p>
+<p>response body : Attribute</p>
+</div>
+<div class="section" id="infos-prescriptions">
+<h3>1.3- Infos prescriptions<a class="headerlink" href="#infos-prescriptions" title="Permalink to this heading"></a></h3>
+<p>Un dernier projet FME récupère les données informations prescriptions linéaires, surfaciques et ponctuels sur le même modèle que précédemment.</p>
+<p>Le workbench FME se trouve <a class="reference external" href="https://github.com/sig14/sig14.github.io/releases/tag/api_info_prescriptions_gpu">à cet endroit</a></p>
+<ul class="simple">
+<li><p>Récupération des données depuis l’API avec les “DU _” précédemments créés : données linéaires, surfaces et ponctuels</p></li>
+</ul>
+<p>On interroge l’API avec les paramètres suivant :</p>
+<p><strong>surfaces</strong> :</p>
+<p>URL : “<a class="reference external" href="https://apicarto.ign.fr/api/gpu/info-surf?partition=DU_&#64;Value(siren">https://apicarto.ign.fr/api/gpu/info-surf?partition=DU_&#64;Value(siren</a>)”</p>
+<p>HTTP method : GET</p>
+<p>response body : Attribute</p>
+<p><strong>linéaires</strong> :</p>
+<p>URL : “<a class="reference external" href="https://apicarto.ign.fr/api/gpu/info-lin?partition=DU_&#64;Value(siren">https://apicarto.ign.fr/api/gpu/info-lin?partition=DU_&#64;Value(siren</a>)”</p>
+<p>HTTP method : GET</p>
+<p>response body : Attribute</p>
+<p><strong>ponctuels</strong> :</p>
+<p>URL : “<a class="reference external" href="https://apicarto.ign.fr/api/gpu/info-pct?partition=DU_&#64;Value(siren">https://apicarto.ign.fr/api/gpu/info-pct?partition=DU_&#64;Value(siren</a>)”</p>
+<p>HTTP method : GET</p>
+<p>response body : Attribute</p>
+</div>
+</div>
+<div class="section" id="champ-html-gpu-par-parcelle-du-cadastre">
+<h2>2- Champ HTML GPU par parcelle du cadastre<a class="headerlink" href="#champ-html-gpu-par-parcelle-du-cadastre" title="Permalink to this heading"></a></h2>
+<p>L’objectif est ici de pouvoir consulter les données du GPU à l’échelle de la parcelle.</p>
+<p>L’utilisateur peut en cliquant sur une parcelle, consulter les données du GPU qui intersectent la parcelle, ouvrir les documents pdf associés sur le portail du GPU et connaître l’impact des réglements sur la parcelle.</p>
+<p>Pour cela on utilise une fonction postgresql/gis pour alimenter la table parcelle_info du cadastre et une mise en forme du formulaire QGIS en HTML pour publication sur le portail cartographique Lizmap.</p>
+<div class="section" id="fonction-postgresql-gis">
+<h3>2.1 - Fonction postgresql/gis<a class="headerlink" href="#fonction-postgresql-gis" title="Permalink to this heading"></a></h3>
+<ul>
+<li><p>En premier lieu, on corrige les géométries invalides des données GPU intégrées à la base de données CD14</p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">update</span><span class="w"> </span><span class="n">ref_urbanisme</span><span class="p">.</span><span class="n">gpu_api_zonages</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">geom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ST_MakeValid</span><span class="p">(</span><span class="n">geom</span><span class="p">);</span>
+
+<span class="k">update</span><span class="w"> </span><span class="n">ref_urbanisme</span><span class="p">.</span><span class="n">gpu_api_secteur_cc</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">geom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ST_MakeValid</span><span class="p">(</span><span class="n">geom</span><span class="p">);</span>
+
+<span class="k">update</span><span class="w"> </span><span class="n">ref_urbanisme</span><span class="p">.</span><span class="n">gpu_api_prescription_surf</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">geom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ST_MakeValid</span><span class="p">(</span><span class="n">geom</span><span class="p">);</span>
+
+<span class="k">update</span><span class="w"> </span><span class="n">ref_urbanisme</span><span class="p">.</span><span class="n">gpu_api_prescription_lin</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">geom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ST_MakeValid</span><span class="p">(</span><span class="n">geom</span><span class="p">);</span>
+
+<span class="k">update</span><span class="w"> </span><span class="n">ref_urbanisme</span><span class="p">.</span><span class="n">gpu_api_info_prescription_surf</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">geom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ST_MakeValid</span><span class="p">(</span><span class="n">geom</span><span class="p">);</span>
+
+<span class="k">update</span><span class="w"> </span><span class="n">ref_urbanisme</span><span class="p">.</span><span class="n">gpu_api_info_prescription_lin</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">geom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ST_MakeValid</span><span class="p">(</span><span class="n">geom</span><span class="p">);</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>On crée le champ contenant l’html de table contenant les informations GPU par parcelle</p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">cadastre</span><span class="p">.</span><span class="n">parcelle_info</span>
+<span class="k">ADD</span><span class="w"> </span><span class="n">tab_doc_urba</span><span class="w"> </span><span class="nb">varchar</span><span class="p">;</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>On crée ensuite les champs contenant l’html des déroulants détaillant les informations contenues dans le tableau</p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">cadastre</span><span class="p">.</span><span class="n">parcelle_info</span>
+<span class="k">ADD</span><span class="w"> </span><span class="n">deroulant_zonage</span><span class="w"> </span><span class="nb">varchar</span><span class="p">;</span>
+
+<span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">cadastre</span><span class="p">.</span><span class="n">parcelle_info</span>
+<span class="k">ADD</span><span class="w"> </span><span class="n">deroulant_secteur</span><span class="w"> </span><span class="nb">varchar</span><span class="p">;</span>
+
+<span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">cadastre</span><span class="p">.</span><span class="n">parcelle_info</span>
+<span class="k">ADD</span><span class="w"> </span><span class="n">deroulant_prescription</span><span class="w"> </span><span class="nb">varchar</span><span class="p">;</span>
+
+<span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">cadastre</span><span class="p">.</span><span class="n">parcelle_info</span>
+<span class="k">ADD</span><span class="w"> </span><span class="n">deroulant_info</span><span class="w"> </span><span class="nb">varchar</span><span class="p">;</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ul>
+<p>On lance ensuite une fonction postgresql/gis dont le code SQL se trouve <a class="reference external" href="https://github.com/sig14/sig14.github.io/blob/master/cadastre/sql/fiche_parcelle_doc_urba.sql">ici</a></p>
+<ul class="simple">
+<li><p>Dans un premier temps, la fonction met en place des tables temporaires rapprochant les parcelles du cadastre avec les données du GPU. L’objectif est également de pouvoir indexer ces tables temporaires pour accélerer la suite des traitements.</p></li>
+</ul>
+<p><em>exemple de rapprochement des zonages PLU</em></p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">CREATE</span><span class="w"> </span><span class="n">UNLOGGED</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">temp_parcelle_zonage_ref_urbanisme</span><span class="w"> </span><span class="k">as</span>
+<span class="w">   </span><span class="k">select</span><span class="w">  </span><span class="n">p</span><span class="p">.</span><span class="n">geo_parcelle</span><span class="p">,</span><span class="w"> </span><span class="n">z</span><span class="p">.</span><span class="o">*</span>
+<span class="w">   </span><span class="k">FROM</span><span class="w"> </span><span class="n">cadastre</span><span class="p">.</span><span class="n">parcelle_info</span><span class="w"> </span><span class="n">p</span>
+<span class="w">   </span><span class="k">inner</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">ref_urbanisme</span><span class="p">.</span><span class="n">gpu_api_zonages</span><span class="w"> </span><span class="n">z</span>
+<span class="w">   </span><span class="k">on</span><span class="w">  </span><span class="n">st_intersects</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">geom</span><span class="p">,</span><span class="w"> </span><span class="n">z</span><span class="p">.</span><span class="n">geom</span><span class="p">)</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">geom</span><span class="o">&amp;&amp;</span><span class="n">z</span><span class="p">.</span><span class="n">geom</span><span class="p">;</span>
+
+<span class="c1">-- Indexation de la table temporaire</span>
+<span class="w">      </span><span class="k">CREATE</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="n">index_temp_parcelle_zonage_ref_urbanisme</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">temp_parcelle_zonage_ref_urbanisme</span><span class="w"> </span><span class="k">USING</span><span class="w"> </span><span class="n">btree</span><span class="w"> </span><span class="p">(</span><span class="n">geo_parcelle</span><span class="p">);</span>
+<span class="w">      </span><span class="k">CREATE</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="n">index2_temp_parcelle_zonage_ref_urbanisme</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">temp_parcelle_zonage_ref_urbanisme</span><span class="w"> </span><span class="k">USING</span><span class="w"> </span><span class="n">btree</span><span class="w"> </span><span class="p">(</span><span class="n">id</span><span class="p">);</span>
+
+
+<span class="k">CREATE</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="n">index_geom_temp_parcelle_zonage_ref_urbanisme</span>
+<span class="k">ON</span><span class="w"> </span><span class="n">temp_parcelle_zonage_ref_urbanisme</span><span class="w"> </span><span class="k">USING</span><span class="w"> </span><span class="n">gist</span><span class="w"> </span><span class="p">(</span><span class="n">geom</span><span class="p">);</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li><p>Dans un second temps, on réalise l’union des tables temporaires, on calcule l’impact des zonages GPU par parcelle (par intersection) ainsi que la surface totale de chaque zonage.</p></li>
+</ul>
+<p><em>exemple d’UNION des zonages PLU et secteurs cartes communales</em></p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">with</span><span class="w"> </span><span class="n">parcelle_ref_urbanisme</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span>
+<span class="w">   </span><span class="c1">--- selection des infos parcelles et zonages + impact zonage sur parcelle (intersection) + surface zonage total en metres carré</span>
+<span class="w">   </span><span class="p">(</span><span class="k">select</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">geo_parcelle</span><span class="p">,</span><span class="n">z</span><span class="p">.</span><span class="n">partition</span><span class="p">,</span><span class="w"> </span><span class="n">z</span><span class="p">.</span><span class="n">nomfic</span><span class="p">,</span><span class="n">z</span><span class="p">.</span><span class="n">datappro</span><span class="p">::</span><span class="nb">date</span><span class="p">,</span><span class="w"> </span><span class="n">z</span><span class="p">.</span><span class="n">destdomi</span><span class="p">,</span><span class="w"> </span><span class="n">z</span><span class="p">.</span><span class="n">datvalid</span><span class="p">::</span><span class="nb">date</span><span class="p">,</span><span class="w"> </span><span class="n">concat</span><span class="p">(</span><span class="n">round</span><span class="p">(</span><span class="n">st_area</span><span class="p">(</span><span class="n">z</span><span class="p">.</span><span class="n">geom</span><span class="p">)::</span><span class="nb">numeric</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)::</span><span class="nb">text</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39; m²&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">surface</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Zonages&#39;</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">type_doc</span><span class="p">,</span><span class="w"> </span><span class="n">z</span><span class="p">.</span><span class="n">libelle</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">nom</span><span class="p">,</span><span class="w"> </span><span class="n">st_area</span><span class="p">(</span><span class="n">ST_CollectionExtract</span><span class="p">(</span><span class="n">st_intersection</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">geom</span><span class="p">,</span><span class="w"> </span><span class="n">z</span><span class="p">.</span><span class="n">geom</span><span class="p">),</span><span class="mi">3</span><span class="p">))</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">impact</span><span class="p">,</span>
+
+<span class="w">            </span><span class="s1">&#39;surf&#39;</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">impact_txt</span><span class="p">,</span>
+<span class="w">            </span><span class="n">z</span><span class="p">.</span><span class="n">libelong</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">commentaire</span><span class="p">,</span><span class="w"> </span><span class="n">st_area</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">geom</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">area_parcelle</span>
+<span class="w">   </span><span class="k">FROM</span><span class="w"> </span><span class="n">cadastre</span><span class="p">.</span><span class="n">parcelle_info</span><span class="w"> </span><span class="n">p</span>
+<span class="w">   </span><span class="k">join</span><span class="w"> </span><span class="n">temp_parcelle_zonage_ref_urbanisme</span><span class="w">  </span><span class="n">z</span>
+<span class="w">   </span><span class="k">on</span><span class="w">  </span><span class="n">z</span><span class="p">.</span><span class="n">geo_parcelle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">geo_parcelle</span>
+<span class="w">   </span><span class="p">)</span>
+<span class="w">   </span><span class="k">UNION</span>
+<span class="w">   </span><span class="c1">--- selection des infos parcelles et secteurs cartes communales + impact secteur sur parcelle (intersection) + surface secteure total en metres carré</span>
+<span class="w">   </span><span class="p">(</span><span class="k">select</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">geo_parcelle</span><span class="p">,</span><span class="n">z</span><span class="p">.</span><span class="n">partition</span><span class="p">,</span><span class="w"> </span><span class="n">z</span><span class="p">.</span><span class="n">nomfic</span><span class="p">,</span><span class="n">z</span><span class="p">.</span><span class="n">datappro</span><span class="p">::</span><span class="nb">date</span><span class="p">,</span><span class="w"> </span><span class="n">z</span><span class="p">.</span><span class="n">destdomi</span><span class="p">,</span><span class="w"> </span><span class="n">z</span><span class="p">.</span><span class="n">datvalid</span><span class="p">::</span><span class="nb">date</span><span class="p">,</span><span class="w"> </span><span class="n">concat</span><span class="p">(</span><span class="n">round</span><span class="p">(</span><span class="n">st_area</span><span class="p">(</span><span class="n">z</span><span class="p">.</span><span class="n">geom</span><span class="p">)::</span><span class="nb">numeric</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)::</span><span class="nb">text</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39; m²&#39;</span><span class="p">)</span><span class="w">  </span><span class="k">as</span><span class="w"> </span><span class="n">surface</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Secteurs&#39;</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">type_doc</span><span class="p">,</span><span class="w"> </span><span class="n">z</span><span class="p">.</span><span class="n">libelle</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">nom</span><span class="p">,</span><span class="w"> </span><span class="n">st_area</span><span class="p">(</span><span class="n">ST_CollectionExtract</span><span class="p">(</span><span class="n">st_intersection</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">geom</span><span class="p">,</span><span class="w"> </span><span class="n">z</span><span class="p">.</span><span class="n">geom</span><span class="p">),</span><span class="mi">3</span><span class="p">))</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">impact</span><span class="p">,</span>
+<span class="w">                        </span><span class="s1">&#39;surf&#39;</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">impact_txt</span><span class="p">,</span>
+<span class="w">            </span><span class="n">z</span><span class="p">.</span><span class="n">libelong</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">commentaire</span><span class="p">,</span><span class="w"> </span><span class="n">st_area</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">geom</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">area_parcelle</span>
+<span class="w">   </span><span class="k">FROM</span><span class="w"> </span><span class="n">cadastre</span><span class="p">.</span><span class="n">parcelle_info</span><span class="w"> </span><span class="n">p</span>
+<span class="w">   </span><span class="k">join</span><span class="w"> </span><span class="n">temp_parcelle_secteurs_ref_urbanisme</span><span class="w"> </span><span class="n">z</span>
+<span class="w">   </span><span class="k">on</span><span class="w">   </span><span class="n">z</span><span class="p">.</span><span class="n">geo_parcelle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">geo_parcelle</span>
+<span class="w">   </span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul>
+<li><p>On ne conserve que les entités dont l’impact sur la parcelle est supérieur à 1 ou qui sont des ponctuels et on construit les liens html pour consultation des documents pdf sur le GPU (concatenation de blocs html + num partition + clé dossier pdf emprise + nom de fichier)</p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">select</span><span class="w"> </span><span class="n">geo_parcelle</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">parcelle</span><span class="p">,</span><span class="w"> </span><span class="n">type_doc</span><span class="p">,</span><span class="w"> </span><span class="n">destdomi</span><span class="p">,</span><span class="w"> </span><span class="n">nom</span><span class="p">,</span><span class="w"> </span><span class="n">datappro</span><span class="p">,</span><span class="w"> </span><span class="n">datvalid</span><span class="p">,</span><span class="w"> </span><span class="n">surface</span><span class="p">,</span><span class="w"> </span><span class="n">impact</span><span class="p">,</span>
+<span class="k">case</span><span class="w"> </span><span class="k">when</span><span class="w"> </span><span class="n">impact_txt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;surf&#39;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">            </span><span class="n">concat</span><span class="p">(</span><span class="n">round</span><span class="p">(</span><span class="n">impact</span><span class="p">::</span><span class="nb">numeric</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)::</span><span class="nb">text</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39; m²&#39;</span><span class="p">)</span>
+<span class="w">            </span><span class="k">when</span><span class="w"> </span><span class="n">impact_txt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;lin&#39;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">            </span><span class="n">concat</span><span class="p">(</span><span class="n">impact</span><span class="p">::</span><span class="nb">text</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;m&#39;</span><span class="p">)</span>
+<span class="w">            </span><span class="k">else</span><span class="w"> </span><span class="n">impact_txt</span><span class="w"> </span><span class="k">end</span><span class="w"> </span><span class="c1">-- creation de l&#39;impact en text avec suffixe m² si surf, m si lineaire, sinon pas de suffixe</span>
+<span class="w">            </span><span class="k">as</span><span class="w"> </span><span class="n">impact_text</span><span class="w"> </span><span class="p">,</span>
+<span class="k">case</span><span class="w"> </span><span class="k">when</span><span class="w"> </span><span class="n">parcelle_ref_urbanisme</span><span class="p">.</span><span class="n">nomfic</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w">  </span><span class="k">then</span><span class="w"> </span><span class="n">concat</span><span class="p">(</span><span class="s1">&#39;&lt;a href=&quot;&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;https://wxs-gpu.mongeoportail.ign.fr/externe/documents/&#39;</span><span class="p">,</span><span class="n">parcelle_ref_urbanisme</span><span class="p">.</span><span class="n">partition</span><span class="p">,</span><span class="s1">&#39;/&#39;</span><span class="p">,</span>
+<span class="n">b</span><span class="p">.</span><span class="n">id</span><span class="p">,</span><span class="s1">&#39;/&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">parcelle_ref_urbanisme</span><span class="p">.</span><span class="n">nomfic</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;&quot; target=&quot;_blank&quot;&gt;Règlement&lt;/a&gt;&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;no data&#39;</span><span class="w"> </span><span class="k">end</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">reglement</span><span class="p">,</span>
+
+<span class="n">commentaire</span><span class="p">,</span><span class="w"> </span><span class="n">round</span><span class="p">(</span><span class="n">impact</span><span class="o">*</span><span class="mi">100</span><span class="o">/</span><span class="n">area_parcelle</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">taux_inclusion</span><span class="w"> </span><span class="c1">-- création taux d&#39;inclusion : pourcentage de l&#39;impact sur la surface de la parcelle</span>
+<span class="k">from</span><span class="w"> </span><span class="n">parcelle_ref_urbanisme</span>
+<span class="k">left</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">ref_urbanisme</span><span class="p">.</span><span class="n">gpu_api_emprise</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">parcelle_ref_urbanisme</span><span class="p">.</span><span class="n">partition</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">partition</span><span class="w"> </span><span class="c1">-- jointure  de l&#39;emprise pour selection de la clé dossier pdf</span>
+<span class="k">where</span><span class="w">  </span><span class="p">(</span><span class="n">parcelle_ref_urbanisme</span><span class="p">.</span><span class="n">impact</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="n">parcelle_ref_urbanisme</span><span class="p">.</span><span class="n">impact_txt</span><span class="w"> </span><span class="o">=</span><span class="s1">&#39;ponctuel&#39;</span><span class="p">)</span>
+<span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">geo_parcelle</span><span class="p">,</span><span class="w"> </span><span class="n">type_doc</span><span class="w"> </span><span class="k">DESC</span><span class="p">,</span><span class="w"> </span><span class="n">nom</span><span class="w"> </span><span class="k">ASC</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>On construit ensuite les déroulants de détail en html(en accordéon) : concatenation de blocs html et des champs d’informations. On concatène seulement les valeurs non nulles.</p></li>
+</ul>
+<p><em>exemple de création de déroulant accordéon zonage PLU</em></p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">select</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">parcelle</span><span class="p">,</span><span class="w"> </span><span class="c1">-- création d&#39;un déroulant &quot;accordion html&quot; zonage pour détail du zonage par parcelle</span>
+<span class="w">      </span><span class="n">string_agg</span><span class="p">(</span>
+<span class="w">                  </span><span class="p">(</span><span class="s1">&#39;&lt;br&gt;&lt;details class=&quot;accordion_urba&quot;&gt;&lt;summary&gt; Zone &#39;</span><span class="o">||</span><span class="k">coalesce</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">nom</span><span class="p">,</span><span class="w"> </span><span class="k">null</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">||</span><span class="s1">&#39;&lt;/summary&gt;&lt;b&gt;DestDomi&lt;/b&gt;      &#39;</span><span class="o">||</span><span class="k">coalesce</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">destdomi</span><span class="p">,</span><span class="k">null</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">||</span><span class="s1">&#39;&lt;br&gt;&lt;b&gt;Description&lt;/b&gt;     &#39;</span><span class="o">||</span><span class="k">coalesce</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">commentaire</span><span class="p">,</span><span class="k">null</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">||</span><span class="s1">&#39; &lt;br&gt;&lt;b&gt;Approbation&lt;/b&gt;     &#39;</span><span class="o">||</span><span class="k">coalesce</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">datappro</span><span class="p">::</span><span class="nb">text</span><span class="p">,</span><span class="k">null</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">||</span><span class="s1">&#39; &lt;br&gt;&lt;b&gt;Validité&lt;/b&gt;     &#39;</span><span class="o">||</span><span class="k">coalesce</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">datvalid</span><span class="p">::</span><span class="nb">text</span><span class="p">,</span><span class="k">null</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">||</span><span class="s1">&#39; &lt;br&gt;&lt;b&gt;Surface &lt;/b&gt;     &#39;</span><span class="o">||</span><span class="k">coalesce</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">surface</span><span class="p">::</span><span class="nb">text</span><span class="p">,</span><span class="k">null</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">||</span><span class="s1">&#39; &lt;/details&gt;&#39;</span><span class="p">),</span><span class="w"> </span><span class="s1">&#39;&#39;</span>
+<span class="w">      </span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">type_doc</span><span class="w"> </span><span class="k">DESC</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">nom</span><span class="w"> </span><span class="k">ASC</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">deroulant_zonage</span><span class="w"> </span><span class="c1">-- ordonne par type de document descendant et par nom de document acsendant</span>
+<span class="w">            </span><span class="k">from</span><span class="w"> </span><span class="n">pre_fiche</span><span class="w"> </span><span class="n">a</span>
+<span class="w">            </span><span class="k">where</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">type_doc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Zonages&#39;</span>
+<span class="w">            </span><span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">parcelle</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul>
+<li><p>création du tableau HTML principal détaillant le zonage ou carte communale, les prescriptions et les infos prescriptions et ajout des déroulants de détails précédemment créés</p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">select</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">geo_parcelle</span><span class="p">::</span><span class="nb">varchar</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">parcelle</span><span class="p">,</span><span class="w"> </span><span class="n">concat</span><span class="p">(</span><span class="c1">-- creation du tableau HTML principal détaillant le zonage ou carte communale, les prescriptions et les infos prescriptions</span>
+<span class="w">      </span><span class="s1">&#39;&lt;table class = &quot;t1&quot; &gt;</span>
+<span class="s1">&lt;tr&gt;</span>
+<span class="s1">   &lt;th&gt; Types &lt;/th&gt;</span>
+<span class="s1">   &lt;th&gt; Nom &lt;/th&gt;</span>
+<span class="s1">   &lt;th&gt; Règlement &lt;/th&gt;</span>
+<span class="s1">   &lt;th&gt; Impact &lt;/th&gt;</span>
+<span class="s1">   &lt;th&gt; Commentaire &lt;/th&gt;</span>
+<span class="s1">   &lt;th&gt; Taux d&#39;&#39;inclusion &lt;/th&gt;</span>
+<span class="s1">&lt;/tr&gt;</span>
+<span class="s1">&lt;tr&gt;&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">string_agg</span><span class="p">(</span><span class="w"> </span><span class="c1">-- concatenation bloc html + aggregation des champs d&#39;informations</span>
+<span class="w">   </span><span class="p">(</span><span class="s1">&#39;&lt;td&gt; &#39;</span><span class="w">  </span><span class="o">||</span><span class="k">coalesce</span><span class="p">(</span><span class="n">b</span><span class="p">.</span><span class="n">type_doc</span><span class="p">,</span><span class="k">null</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">||</span><span class="w">  </span><span class="s1">&#39;  &lt;/td&gt;&lt;td&gt; &#39;</span><span class="w"> </span><span class="o">||</span><span class="k">coalesce</span><span class="p">(</span><span class="n">b</span><span class="p">.</span><span class="n">nom</span><span class="p">,</span><span class="k">null</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">||</span><span class="w"> </span><span class="s1">&#39;  &lt;/td&gt;&lt;td&gt; &#39;</span><span class="w"> </span><span class="o">||</span><span class="k">coalesce</span><span class="p">(</span><span class="n">b</span><span class="p">.</span><span class="n">reglement</span><span class="p">,</span><span class="k">null</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">||</span><span class="w"> </span><span class="s1">&#39;  &lt;/td&gt;&lt;td&gt;  &#39;</span><span class="w"> </span><span class="o">||</span><span class="k">coalesce</span><span class="p">(</span><span class="n">impact_text</span><span class="p">,</span><span class="k">null</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">||</span><span class="w"> </span><span class="s1">&#39;  &lt;/td&gt;&lt;td&gt;  &#39;</span><span class="o">||</span><span class="k">coalesce</span><span class="p">(</span><span class="n">b</span><span class="p">.</span><span class="n">commentaire</span><span class="p">,</span><span class="k">null</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">||</span><span class="s1">&#39;  &lt;/td&gt;&lt;td&gt;  &#39;</span><span class="w"> </span><span class="o">||</span><span class="k">coalesce</span><span class="p">(</span><span class="n">b</span><span class="p">.</span><span class="n">taux_inclusion</span><span class="p">::</span><span class="nb">text</span><span class="p">,</span><span class="k">null</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">||</span><span class="w">  </span><span class="s1">&#39;  &lt;/td&gt;&#39;</span><span class="w"> </span><span class="p">),</span><span class="s1">&#39;&lt;/tr&gt;</span>
+<span class="s1">      &lt;tr&gt;&#39;</span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">type_doc</span><span class="w"> </span><span class="k">DESC</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">nom</span><span class="w"> </span><span class="k">ASC</span><span class="p">),</span><span class="w"> </span><span class="c1">-- ordonne par type de document descendant et par nom de document acsendant</span>
+<span class="w">      </span><span class="s1">&#39;&lt;/tr&gt;</span>
+<span class="s1">      &lt;/table&gt;&#39;</span><span class="p">)::</span><span class="nb">varchar</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">tab_doc_urba</span><span class="p">,</span><span class="w"> </span><span class="n">deroulant_zonages</span><span class="p">.</span><span class="n">deroulant_zonage</span><span class="p">::</span><span class="nb">varchar</span><span class="w"> </span><span class="p">,</span><span class="n">deroulant_secteurs</span><span class="p">.</span><span class="n">deroulant_secteur</span><span class="p">::</span><span class="nb">varchar</span><span class="p">,</span><span class="w"> </span><span class="c1">-- ajout des champs html déroulants</span>
+<span class="w">         </span><span class="n">deroulant_prescriptions</span><span class="p">.</span><span class="n">deroulant_prescription</span><span class="p">::</span><span class="nb">varchar</span><span class="p">,</span><span class="w"> </span><span class="n">deroulant_infos</span><span class="p">.</span><span class="n">deroulant_info</span><span class="p">::</span><span class="nb">varchar</span><span class="p">,</span>
+<span class="n">a</span><span class="p">.</span><span class="n">geom</span>
+<span class="k">from</span>
+<span class="n">cadastre</span><span class="p">.</span><span class="n">parcelle_info</span><span class="w"> </span><span class="n">a</span>
+<span class="k">left</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">pre_fiche</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">parcelle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">geo_parcelle</span>
+<span class="k">left</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">deroulant_zonages</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">deroulant_zonages</span><span class="p">.</span><span class="n">parcelle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">geo_parcelle</span>
+<span class="k">left</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">deroulant_secteurs</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">deroulant_secteurs</span><span class="p">.</span><span class="n">parcelle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">geo_parcelle</span>
+<span class="k">left</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">deroulant_prescriptions</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">deroulant_prescriptions</span><span class="p">.</span><span class="n">parcelle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">geo_parcelle</span>
+<span class="k">left</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">deroulant_infos</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">deroulant_infos</span><span class="p">.</span><span class="n">parcelle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">geo_parcelle</span>
+<span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">geo_parcelle</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">geom</span><span class="p">,</span><span class="w"> </span><span class="n">deroulant_zonages</span><span class="p">.</span><span class="n">deroulant_zonage</span><span class="p">,</span><span class="n">deroulant_secteurs</span><span class="p">.</span><span class="n">deroulant_secteur</span><span class="p">,</span>
+<span class="n">deroulant_prescriptions</span><span class="p">.</span><span class="n">deroulant_prescription</span><span class="p">,</span><span class="w"> </span><span class="n">deroulant_infos</span><span class="p">.</span><span class="n">deroulant_info</span><span class="p">;</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>création d’un index sur la table temporaire et update des champs html de la table parcelle info</p></li>
+</ul>
+<p><em>exemple de mise à jour du champs tableau html</em></p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">update</span><span class="w"> </span><span class="n">cadastre</span><span class="p">.</span><span class="n">parcelle_info</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">tab_doc_urba</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">z</span><span class="p">.</span><span class="n">tab_doc_urba</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">temp_fiche</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">z</span><span class="p">.</span><span class="n">parcelle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">parcelle_info</span><span class="p">.</span><span class="n">geo_parcelle</span><span class="p">;</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="parametrage-qgis-plugin-lizmap">
+<h3>2.2 - Paramètrage Qgis/plugin Lizmap<a class="headerlink" href="#parametrage-qgis-plugin-lizmap" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p>Mise à jour de l’info bulle HTML dans les propriétés de la couche QGIS</p></li>
+</ul>
+<a class="reference internal image-reference" href="../../_images/18_info_bulle_html.png"><img alt="../../_images/18_info_bulle_html.png" src="../../_images/18_info_bulle_html.png" style="width: 957.0px; height: 511.0px;" /></a>
+<p>Le code HTML (Onglet Urbanisme + parties tab_doc_urba + deroulant : secteurs, zonages, prescriptions, info) se trouve <a class="reference external" href="https://github.com/sig14/sig14.github.io/blob/master/cadastre/html/popup_cadastre.html">ici</a></p>
+</div>
+<div class="section" id="rendu-lizmap">
+<h3>2.3 - Rendu lizmap<a class="headerlink" href="#rendu-lizmap" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p>Mise à jour du CSS dans le panneau de configuration Lizmap</p></li>
+</ul>
+<p>Le code CSS se trouve <a class="reference external" href="https://github.com/sig14/sig14.github.io/blob/master/cadastre/css/docs_urba_cadastre.css">en suivant ce lien</a></p>
+<a class="reference internal image-reference" href="../../_images/19_config_css.png"><img alt="../../_images/19_config_css.png" src="../../_images/19_config_css.png" style="width: 891.0px; height: 407.0px;" /></a>
+</div>
+</div>
+<div class="section" id="mise-a-jour-quotidienne-des-donnees">
+<h2>3- Mise à jour quotidienne des données<a class="headerlink" href="#mise-a-jour-quotidienne-des-donnees" title="Permalink to this heading"></a></h2>
+<p>A chaque modification d’un document ou ajout par une collectivité sur le GPU, le pôle SIG du Département met à jour les données issues du GPU dans la base de données CD14 et met également à jour les fiches HTML de la table parcelle_info du cadastre.</p>
+<div class="section" id="mailing-auto">
+<h3>3.1 - Mailing auto<a class="headerlink" href="#mailing-auto" title="Permalink to this heading"></a></h3>
+<p>Le Géoportail de l’Urbanisme met à disposition un flux ATOM permettant de connaître les dernières mises à jour de documents sur le GPU.</p>
+<p>La documentation suivante décrit comment exploiter ce flux : <a class="reference external" href="https://www.geoportail-urbanisme.gouv.fr/image/UtilisationATOM_GPU_1-0.pdf">https://www.geoportail-urbanisme.gouv.fr/image/UtilisationATOM_GPU_1-0.pdf</a></p>
+<p>Le pôle SIG utilise un site dédié qui exploite ce flux afin d’envoyer un mail à l’équipe SIG à chaque ajout d’une commmune du Département du calvados.</p>
+<p>A la réception de ce mail, un membre de l’équipe déclenche un fichier batch, permettant d’indiquer le numéro de partition et lançant 3 workbench FME de suppression, d’intégration des données GPU dans la BD CD14 et de mise à jour des champs HTML des parcelles du cadastre.</p>
+<blockquote>
+<div><div class="highlight-batch notranslate"><div class="highlight"><pre><span></span><span class="k">set</span> <span class="k">/p</span> <span class="nv">siren</span><span class="p">=</span> <span class="s2">&quot; Saisir l&#39;INSEE de la commune ou le Siren de l&#39;EPCI entre guillemets &quot;</span>
+
+D<span class="p">:</span><span class="nl">/apps/FME2022/fme.exe</span><span class="c1"> &quot;D:/_FME/DOC_URBA/api_gpu2postgis/Commune_epci/1_DROP_DATA.fmw&quot; --siren %siren%</span>
+
+D<span class="p">:</span><span class="nl">/apps/FME2022/fme.exe</span><span class="c1"> &quot;D:/_FME/DOC_URBA/api_gpu2postgis/Commune_epci/2_INSERT_DATA.fmw&quot; --siren %siren%</span>
+
+D<span class="p">:</span><span class="nl">/apps/FME2022/fme.exe</span><span class="c1"> &quot;D:/_FME/DOC_URBA/api_gpu2postgis/Commune_epci/3_FICHE_DOC_URBA_CADASTRE.fmw&quot; --siren %siren%</span>
+
+<span class="k">pause</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="fme-import-de-l-emprise-et-supression-des-donnees">
+<h3>3.2 - FME : Import de l’emprise et supression des données<a class="headerlink" href="#fme-import-de-l-emprise-et-supression-des-donnees" title="Permalink to this heading"></a></h3>
+<p>Le premier worbench FME supprime les données GPU de la base sur le périmètre des nouvelles données importées.</p>
+<p>Le workbench FME se <a class="reference external" href="https://github.com/sig14/sig14.github.io/releases/tag/FME_drop_data_gpu">télécharge ici</a></p>
+<ul class="simple">
+<li><p>Récupération du code siren EPCI ou insee commune entré dans le batch et ajout des potentiels suffixes (code optionnel secteur)</p></li>
+</ul>
+<a class="reference internal image-reference" href="../../_images/20_partition_maj_.png"><img alt="../../_images/20_partition_maj_.png" src="../../_images/20_partition_maj_.png" style="width: 344.0px; height: 300.0px;" /></a>
+<ul class="simple">
+<li><p>Interrogation de l’API avec code partition pour récupérer l’emprise</p></li>
+</ul>
+<a class="reference internal image-reference" href="../../_images/21_emprise_maj_.png"><img alt="../../_images/21_emprise_maj_.png" src="../../_images/21_emprise_maj_.png" style="width: 221.0px; height: 272.0px;" /></a>
+<p><em>Paramètres interrogation API</em> :</p>
+<p>Interrogation de l’API avec les DU_partition précédemment créés</p>
+<p>URL : <a class="reference external" href="https://apicarto.ign.fr/api/gpu/document?partition=DU_&#64;Value(siren">https://apicarto.ign.fr/api/gpu/document?partition=DU_&#64;Value(siren</a>)</p>
+<p>HTTP method : GET</p>
+<p>response body : Attribute</p>
+<ul class="simple">
+<li><p>Interrogation de l’API avec code partition pour récupérer l’emprise</p></li>
+</ul>
+<a class="reference internal image-reference" href="../../_images/21_emprise_maj_.png"><img alt="../../_images/21_emprise_maj_.png" src="../../_images/21_emprise_maj_.png" style="width: 221.0px; height: 272.0px;" /></a>
+<ul class="simple">
+<li><p>Filtrer les données à partir de la réponse JSON : Expression régulière conservant le chiffre après ‘totalFeatures’ et conservation des lignes dont la valeur est différente de 0.</p></li>
+</ul>
+<a class="reference internal image-reference" href="../../_images/14_numb_feature_filter_doc_urba.png"><img alt="../../_images/14_numb_feature_filter_doc_urba.png" src="../../_images/14_numb_feature_filter_doc_urba.png" style="width: 221.0px; height: 127.5px;" /></a>
+<ul class="simple">
+<li><p>Extraction des données du JSON : exposer les attributs et la géométrie</p></li>
+</ul>
+<a class="reference internal image-reference" href="../../_images/15_expose_attributes_doc_urba.png"><img alt="../../_images/15_expose_attributes_doc_urba.png" src="../../_images/15_expose_attributes_doc_urba.png" style="width: 428.0px; height: 163.5px;" /></a>
+<ul class="simple">
+<li><p>Retraitement des données : supression des prefixes de champs et reprojection de la géométrie (de 4326 à 2154)</p></li>
+</ul>
+<a class="reference internal image-reference" href="../../_images/16_reprojection_doc_urba.png"><img alt="../../_images/16_reprojection_doc_urba.png" src="../../_images/16_reprojection_doc_urba.png" style="width: 250.0px; height: 95.0px;" /></a>
+<ul class="simple">
+<li><p>Insertion des données dans la table historique_import_donnees et lancement d’une requête SQL supprimant les données GPU dont le “DU _” est égal au “DU _” de leur emprise intersectant le buffer de - 500 mètres de la nouvelle emprise insérée.</p></li>
+</ul>
+<a class="reference internal image-reference" href="../../_images/22_supression_partition_.png"><img alt="../../_images/22_supression_partition_.png" src="../../_images/22_supression_partition_.png" style="width: 294.0px; height: 271.5px;" /></a>
+<p><em>Exemple SQL de supression de zonages PLU</em></p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">delete</span>
+<span class="k">from</span><span class="w"> </span><span class="n">ref_urbanisme</span><span class="p">.</span><span class="n">gpu_api_zonages</span><span class="w"> </span><span class="k">g</span>
+<span class="k">where</span><span class="w"> </span><span class="k">g</span><span class="p">.</span><span class="n">partition</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="p">(</span>
+<span class="w">   </span><span class="k">select</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">partition</span>
+<span class="w">   </span><span class="k">from</span><span class="w"> </span><span class="n">ref_urbanisme</span><span class="p">.</span><span class="n">historique_imports_du</span><span class="w"> </span><span class="n">a</span>
+<span class="w">   </span><span class="k">left</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">ref_urbanisme</span><span class="p">.</span><span class="n">gpu_api_emprise</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">st_intersects</span><span class="p">(</span><span class="n">b</span><span class="p">.</span><span class="n">geom</span><span class="p">,</span><span class="w"> </span><span class="n">st_buffer</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">geom</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mi">500</span><span class="p">))</span>
+<span class="k">where</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">date_import</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">now</span><span class="p">()::</span><span class="nb">date</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">partition</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;DU_$(siren)%&#39;</span>
+<span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">partition</span><span class="p">);</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="fme-import-des-donnees-en-fonction-de-l-emprise">
+<h3>3.3 - FME : Import des données en fonction de l’emprise<a class="headerlink" href="#fme-import-des-donnees-en-fonction-de-l-emprise" title="Permalink to this heading"></a></h3>
+<p>Le second worbench FME insère les nouvelles données GPU au niveau du code partition “DU _” entré dans le batch sur le modèle décrit dans la partie 1.</p>
+<p>Le workbench FME se  <a class="reference external" href="https://github.com/sig14/sig14.github.io/releases/tag/FME_insert_data_gpu_on_du">trouve ici</a></p>
+</div>
+<div class="section" id="fme-postgresql-gis-mise-a-jour-des-champs-html-gpu-du-cadastre">
+<h3>3.4 - FME/PostgreSQL,GIS : Mise à jour des champs html GPU du cadastre<a class="headerlink" href="#fme-postgresql-gis-mise-a-jour-des-champs-html-gpu-du-cadastre" title="Permalink to this heading"></a></h3>
+<p>Le dernier worbench FME lance une fonction mettant à jour les champs HTML du cadastre au niveau du nouveau “DU _ partition” renseigné dans le batch.</p>
+<p>Le workbench FME  <a class="reference external" href="https://github.com/sig14/sig14.github.io/releases/tag/FME_fiches_cadastre_docs_urba_gpu">se télécharge ici</a></p>
+<p>Ce workbench fonctionne comme le premier workbench récupérant l’emprise, mais avec une dernière requête qui corrige les géométries invalides des documents GPU et qui lance une fonction postgresql de mise à jour des champs HTML de la table parcelle_info du cadastre.</p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">update</span><span class="w"> </span><span class="n">ref_urbanisme</span><span class="p">.</span><span class="n">gpu_api_zonages</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">geom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ST_MakeValid</span><span class="p">(</span><span class="n">geom</span><span class="p">)</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">gpu_api_zonages</span><span class="p">.</span><span class="n">partition</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">@</span><span class="n">Value</span><span class="p">(</span><span class="n">partition</span><span class="p">);</span>
+
+<span class="k">update</span><span class="w"> </span><span class="n">ref_urbanisme</span><span class="p">.</span><span class="n">gpu_api_secteur_cc</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">geom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ST_MakeValid</span><span class="p">(</span><span class="n">geom</span><span class="p">)</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">gpu_api_secteur_cc</span><span class="p">.</span><span class="n">partition</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">@</span><span class="n">Value</span><span class="p">(</span><span class="n">partition</span><span class="p">);</span>
+
+<span class="k">update</span><span class="w"> </span><span class="n">ref_urbanisme</span><span class="p">.</span><span class="n">gpu_api_prescription_surf</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">geom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ST_MakeValid</span><span class="p">(</span><span class="n">geom</span><span class="p">)</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">gpu_api_prescription_surf</span><span class="p">.</span><span class="n">partition</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">@</span><span class="n">Value</span><span class="p">(</span><span class="n">partition</span><span class="p">);</span>
+
+<span class="k">update</span><span class="w"> </span><span class="n">ref_urbanisme</span><span class="p">.</span><span class="n">gpu_api_prescription_lin</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">geom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ST_MakeValid</span><span class="p">(</span><span class="n">geom</span><span class="p">)</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">gpu_api_prescription_lin</span><span class="p">.</span><span class="n">partition</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">@</span><span class="n">Value</span><span class="p">(</span><span class="n">partition</span><span class="p">);</span>
+
+<span class="k">update</span><span class="w"> </span><span class="n">ref_urbanisme</span><span class="p">.</span><span class="n">gpu_api_info_prescription_surf</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">geom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ST_MakeValid</span><span class="p">(</span><span class="n">geom</span><span class="p">)</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">gpu_api_info_prescription_surf</span><span class="p">.</span><span class="n">partition</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">@</span><span class="n">Value</span><span class="p">(</span><span class="n">partition</span><span class="p">);</span>
+<span class="k">update</span><span class="w"> </span><span class="n">ref_urbanisme</span><span class="p">.</span><span class="n">gpu_api_info_prescription_lin</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">geom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ST_MakeValid</span><span class="p">(</span><span class="n">geom</span><span class="p">)</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">gpu_api_info_prescription_lin</span><span class="p">.</span><span class="n">partition</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">@</span><span class="n">Value</span><span class="p">(</span><span class="n">partition</span><span class="p">);</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Une requête à part permet de mettre à jour le html :</p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">select</span><span class="w"> </span><span class="n">ref_urbanisme</span><span class="p">.</span><span class="n">fiches_parcelles_lizmap</span><span class="p">(</span><span class="o">@</span><span class="n">Value</span><span class="p">(</span><span class="n">partition</span><span class="p">));</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../I_maj_annuelle/" class="btn btn-neutral float-left" title="I- Mettre à jour les données EDIGEO / Majic III (maj annuelle)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../III_filiation_parcelles/" class="btn btn-neutral float-right" title="III- Ajouter un onglet “Filiation parcellaire” à la pop-up cadastre de Lizmap" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, SIG14 team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IV- Déposer une BAL via l’API BAN avec FME &mdash; Documentation SIG14  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sphinx_rtd_theme_ext_color_contrast.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+        <script>let toggleHintShow = 'Click to show';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="../../_static/togglebutton.js"></script>
+        <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex/" />
+    <link rel="search" title="Search" href="../../search/" />
+    <link rel="next" title="I- Mettre à jour les données EDIGEO / Majic III (maj annuelle)" href="../../cadastre/I_maj_annuelle/" />
+    <link rel="prev" title="III- Consulter et exporter les données “Adresses” depuis QGIS" href="../III_consultation_exports/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../">
+            
+              <img src="../../_static/CD14_petit.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search/" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Équipe</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../equipe/I_membres/">I- Membres</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../equipe/II_contact/">II- Contact</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Adressage</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../I_acc_communes/">I- Accompagnement des Communes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../II_application_saisie/">II- Application de saisie</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../III_consultation_exports/">III- Consulter et exporter les données “Adresses” depuis QGIS</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">IV- Déposer une BAL via l’API BAN avec FME</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#boite-a-outils">Boite à outils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ere-etape-preparation-des-donnees">1ère Etape : Préparation des données</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#e-etape-chaine-de-traitement-fme">2e Etape : Chaîne de traitement FME</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ajouter-les-donnees-sources">2.1 - Ajouter les données sources</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ajouter-les-jetons-d-acces-api">2.2 - Ajouter les jetons d’accès API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#selection-des-communes-avec-mises-a-jour-de-points-adresse">2.3 - Sélection des communes avec mises à jour de points adresse</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#selection-des-communes-avec-suppression-ou-ajout-de-points-adresse">2.4 - Sélection des communes avec suppression ou ajout de points adresse</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#agregation-des-communes-filtrees">2.5 - Agrégation des communes filtrées</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#requetes-a-l-api">2.6 - Requêtes à l’API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mail-recapitulatif">2.6 - Mail récapitulatif</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#integration-du-compte-de-points-publies-dans-la-base-de-donnees">2.7 - Intégration du compte de points publiés dans la base de données</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#e-etape-mailing-automatique">3e Etape :  Mailing automatique</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#enregistrement-des-donnees-adresses">3.1 - Enregistrement des données adresses</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#traitement-fme">3.2 - Traitement FME</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Cadastre</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../cadastre/I_maj_annuelle/">I- Mettre à jour les données EDIGEO / Majic III (maj annuelle)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cadastre/II_gpu_docs_urba/">II- Ajouter un onglet “Documents d’urbanisme GPU” à la pop-up cadastre de Lizmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cadastre/III_filiation_parcelles/">III- Ajouter un onglet “Filiation parcellaire” à la pop-up cadastre de Lizmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cadastre/IV_mutation_immo/">IV- Ajouter un onglet “Mutations immobilières” à la pop-up cadastre de Lizmap</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">DECI</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../deci/I_perimetres_pei/">I- Périmètres des bornes incendies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../deci/II_rapproch_ign/">II- Rapprochement adresse BDtopo IGN</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Traitements FME</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../traitements_fme/I_plannificateur_taches/">I- Produire un calendrier des tâches du plannificateur</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Traitements GDAL</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../traitements_gdal/I_geopackage/">I- Produire un GeoPackage des orthos tuilées</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../traitements_gdal/II_cog/">II- Produire un COG à partir des orthos IGN</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../">Documentation SIG14</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">IV- Déposer une BAL via l’API BAN avec FME</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/sig14/sig14.github.io/blob/master/adressage/IV_depot_bal.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="iv-deposer-une-bal-via-l-api-ban-avec-fme">
+<h1>IV- Déposer une BAL via l’API BAN avec FME<a class="headerlink" href="#iv-deposer-une-bal-via-l-api-ban-avec-fme" title="Permalink to this heading"></a></h1>
+<a class="reference internal image-reference" href="../../_images/FME_depot_bal.png"><img alt="../../_images/FME_depot_bal.png" src="../../_images/FME_depot_bal.png" style="width: 880px;" /></a>
+<p>Etalab, via sa plateforme adresse.data.gouv.fr met à disposition une <strong>API</strong> permettant de déposer les mises à jour de <strong>Bases Adresses Locales</strong> dans la <strong>Base Adresse Nationale</strong>.</p>
+<p><a class="reference external" href="https://github.com/BaseAdresseNationale/api-depot/wiki/Documentation">Documentation github de l’API de dépot</a>.</p>
+<p>Les communes ou leurs représentants peuvent, avec un justificatif, obtenir une habilitation à déposer les fichiers adresses BAL sur un périmètre donné.</p>
+<p>Ainsi, le Département du Calvados, dans le cadre de sa mission d’accompagnement à l’adressage des Communes, téléverse chaque nuit les fichiers BAL communaux certifiés par les Communes partenaires.</p>
+<div class="section" id="boite-a-outils">
+<h2>Boite à outils<a class="headerlink" href="#boite-a-outils" title="Permalink to this heading"></a></h2>
+<p>La méthodologie développée ici s’appuie sur les travaux réalisés et publiés par <strong>l’Agglomération de la Région de Compiègne</strong> : <a class="reference external" href="https://github.com/sigagglocompiegne/rva/blob/master/api/doc_api_balc_fme.md">github de l’ARC</a>.</p>
+<p>Elle repose sur le système de gestion de <strong>base de données PostgreSQL</strong> sous licence BSD et le logiciel <strong>ETL</strong> propriétaire <strong>FME</strong> développé par SAFE Software.</p>
+<p>Ces développements ont été réalisés sous système d’exploitation Windows.</p>
+</div>
+<div class="section" id="ere-etape-preparation-des-donnees">
+<h2>1ère Etape : Préparation des données<a class="headerlink" href="#ere-etape-preparation-des-donnees" title="Permalink to this heading"></a></h2>
+<p>L’ensemble des données adresses mises à jours et certifiées quotidiennement par les Communes dans le cadre de l’accompagnement CD14 sont stockées dans une table (ici nommée <strong>adresse.v_bal_dept</strong>) au sein de la Base de Données SIG du Département.</p>
+<p>Ces données sont structurées selont le modèle de données BAL attendu par l’API de dépot : <a class="reference external" href="https://aitf-sig-topo.github.io/voies-adresses/">ressources AITF voies-adresses</a>.</p>
+<p>Un validateur en ligne permet de vérifier que les fichiers à déposer répondent bien à ce standart : <a class="reference external" href="https://adresse.data.gouv.fr/bases-locales/validateur">Validateur BAL adresse.data.gouv</a>.</p>
+<a class="reference internal image-reference" href="../../_images/bal_dept.png"><img alt="../../_images/bal_dept.png" src="../../_images/bal_dept.png" style="width: 880px;" /></a>
+<p>Un traitement FME enregistre chaque nuit les entités adresses de cette table par commune dans des fichiers CSV nommés avec la valeurs INSEE de chaque commune ayant certifié son adressage (illustration ci-dessous)</p>
+<a class="reference internal image-reference" href="../../_images/enregistrement_csv_ban.png"><img alt="../../_images/enregistrement_csv_ban.png" src="../../_images/enregistrement_csv_ban.png" style="width: 383.0px; height: 231.5px;" /></a>
+<p>Une seconde table de données regroupe l’ensemble des données adresses aglomérées à la Commune. Elle contient les champs suivants :</p>
+<ul class="simple">
+<li><p>L’INSEE de la commune</p></li>
+<li><p>Le nom de la commune</p></li>
+<li><p>Le nombre total de points adresses recencés le matin avant 6h00</p></li>
+<li><p>Le nombre total de points adresses recencés le soir après 23h00</p></li>
+<li><p>Le nombre total de points adresses modifiés dans la journée (comptabilisé le soir après 23h00)</p></li>
+</ul>
+<p>Les 3 derniers champs de cette table sont mis à jours quotidienement comme suit :</p>
+<blockquote>
+<div><dl>
+<dt><strong>1-</strong> Mise en place de fichiers Batch pour exécution des script sql via psql</dt><dd><blockquote>
+<div><div class="highlight-Batch notranslate"><div class="highlight"><pre><span></span><span class="p">@</span><span class="k">echo</span> off
+<span class="k">CALL</span> D:\_cron_postgres\conf\config_db_pg.bat
+<span class="k">setlocal</span>
+<span class="k">set</span> <span class="nv">PGPASSWORD</span><span class="p">=</span><span class="nv">%PGPASSWORD%</span>
+<span class="s2">&quot;D:\PostgreSQL\11\bin\psql.exe&quot;</span> -h <span class="nv">%PGHOSTNAME%</span> -U <span class="nv">%PGUSER%</span> -d <span class="nv">%PGROLE%</span> -p <span class="nv">%PGPORT%</span> -f D:\_cron_postgres\adressage\api_ban\scripts\count_pts_matin.sql
+<span class="k">endlocal</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>2-</strong> Ex2cution des script sql  suivants :</p>
+<blockquote>
+<div><ul>
+<li><dl>
+<dt>A 6h00 du matin* :</dt><dd><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="c1">-- Compte le nombre de points adresse par commune</span>
+<span class="k">update</span><span class="w"> </span><span class="n">adresse</span><span class="p">.</span><span class="n">commune</span><span class="w"> </span><span class="k">set</span><span class="w">  </span><span class="n">nb_pts_matin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ct</span>
+<span class="k">from</span><span class="w"> </span><span class="p">(</span>
+<span class="w">        </span><span class="k">select</span><span class="w"> </span><span class="k">count</span><span class="p">(</span><span class="n">commune_insee</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">ct</span><span class="p">,</span><span class="w"> </span><span class="n">commune_insee</span>
+<span class="w">        </span><span class="k">from</span><span class="w"> </span><span class="n">adresse</span><span class="p">.</span><span class="n">v_bal_dept</span>
+<span class="w">        </span><span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">commune_insee</span>
+<span class="w">        </span><span class="p">)</span><span class="n">b</span>
+<span class="k">where</span><span class="w"> </span><span class="n">commune</span><span class="p">.</span><span class="n">insee_code</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">commune_insee</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>A 23h00 le soir* :</dt><dd><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="c1">-- Remet le compte de points modifiés à null dans la table commune</span>
+<span class="k">update</span><span class="w"> </span><span class="n">adresse</span><span class="p">.</span><span class="n">commune</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">nb_pts_modif_today</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">null</span><span class="p">;</span>
+
+<span class="c1">-- Compte le nombre de points adresse modifié dans la journée (date now) par commune</span>
+<span class="k">update</span><span class="w">  </span><span class="n">adresse</span><span class="p">.</span><span class="n">commune</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">nb_pts_modif_today</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ct</span>
+<span class="k">from</span><span class="w"> </span><span class="p">(</span>
+<span class="w">        </span><span class="k">select</span><span class="w"> </span><span class="k">count</span><span class="p">(</span><span class="n">commune_insee</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">ct</span><span class="p">,</span><span class="w"> </span><span class="n">commune_insee</span>
+<span class="w">        </span><span class="k">from</span><span class="w"> </span><span class="n">adresse</span><span class="p">.</span><span class="n">v_bal_dept</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">date_der_maj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">NOW</span><span class="p">()::</span><span class="nb">DATE</span>
+<span class="w">        </span><span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">commune_insee</span>
+<span class="w">        </span><span class="p">)</span><span class="n">b</span>
+<span class="k">where</span><span class="w"> </span><span class="n">commune</span><span class="p">.</span><span class="n">insee_code</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">commune_insee</span><span class="p">;</span>
+
+<span class="c1">-- Compte le nombre de points adresse par commune</span>
+<span class="k">update</span><span class="w">  </span><span class="n">adresse</span><span class="p">.</span><span class="n">commune</span><span class="w"> </span><span class="k">set</span><span class="w">  </span><span class="n">nb_pts_soir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ct</span>
+<span class="k">from</span><span class="w"> </span><span class="p">(</span>
+<span class="w">        </span><span class="k">select</span><span class="w"> </span><span class="k">count</span><span class="p">(</span><span class="n">commune_insee</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">ct</span><span class="p">,</span><span class="w"> </span><span class="n">commune_insee</span>
+<span class="w">        </span><span class="k">from</span><span class="w"> </span><span class="n">adresse</span><span class="p">.</span><span class="n">v_bal_dept</span>
+<span class="w">        </span><span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">commune_insee</span>
+<span class="w">        </span><span class="p">)</span><span class="n">b</span>
+<span class="k">where</span><span class="w"> </span><span class="n">commune</span><span class="p">.</span><span class="n">insee_code</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">commune_insee</span><span class="p">;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section" id="e-etape-chaine-de-traitement-fme">
+<h2>2e Etape : Chaîne de traitement FME<a class="headerlink" href="#e-etape-chaine-de-traitement-fme" title="Permalink to this heading"></a></h2>
+<p><em>Vous pouvez télécharger la dernière version du projet FME en cliquant sur le lien ci dessous :</em></p>
+<p><a class="reference external" href="https://github.com/sig14/sig14.github.io/files/10873043/api_depot_bal.zip">Téléchargement du projet FME</a></p>
+<div class="section" id="ajouter-les-donnees-sources">
+<h3>2.1 - Ajouter les données sources<a class="headerlink" href="#ajouter-les-donnees-sources" title="Permalink to this heading"></a></h3>
+<p>Ajout de la première table de données à l’échelle des communes dans le projet FME.</p>
+<a class="reference internal image-reference" href="../../_images/1_FME_donnees_sources.png"><img alt="../../_images/1_FME_donnees_sources.png" src="../../_images/1_FME_donnees_sources.png" style="width: 214.0px; height: 168.0px;" /></a>
+<p>Supprimer les champs inutiles. Ne garder que les champs suivants :</p>
+<ul class="simple">
+<li><p>Le nom  communes du département</p></li>
+<li><p>Leurs code INSEE</p></li>
+<li><p>Le nombre de points adresses total par commune actualisé chaque matin</p></li>
+<li><p>Le nombre points adresses total par commune actualisé chaque soir</p></li>
+<li><p>Le nombre de points modifié dans la journée actualisé chaque soir</p></li>
+</ul>
+</div>
+<div class="section" id="ajouter-les-jetons-d-acces-api">
+<h3>2.2 - Ajouter les jetons d’accès API<a class="headerlink" href="#ajouter-les-jetons-d-acces-api" title="Permalink to this heading"></a></h3>
+<p>Utiliser le transformer <strong>AttributeCreator</strong>.
+Créer un nouveau champs <strong>“jeton”</strong> et attribuer la valeur de votre jeton d’accès à l’API.</p>
+<a class="reference internal image-reference" href="../../_images/2_FME_jeton_API.png"><img alt="../../_images/2_FME_jeton_API.png" src="../../_images/2_FME_jeton_API.png" style="width: 301.0px; height: 313.5px;" /></a>
+</div>
+<div class="section" id="selection-des-communes-avec-mises-a-jour-de-points-adresse">
+<h3>2.3 - Sélection des communes avec mises à jour de points adresse<a class="headerlink" href="#selection-des-communes-avec-mises-a-jour-de-points-adresse" title="Permalink to this heading"></a></h3>
+<a class="reference internal image-reference" href="../../_images/3_FME_verif_MAJ.png"><img alt="../../_images/3_FME_verif_MAJ.png" src="../../_images/3_FME_verif_MAJ.png" style="width: 580px;" /></a>
+<p>Dans cette partie, nous ne conserverons que les communes dont au moins 1 point a été mis à jour dans la journée.</p>
+<p>Pour cela :</p>
+<ul class="simple">
+<li><p>Ajouter le transformer <strong>testFilter</strong> pour ne garder que les communes dont le compte de points de la journée (<em>pts_modif_today</em>) est égal ou supérieur à 1.</p></li>
+</ul>
+<a class="reference internal image-reference" href="../../_images/4_FME_test_MAJ.png"><img alt="../../_images/4_FME_test_MAJ.png" src="../../_images/4_FME_test_MAJ.png" style="width: 337.5px; height: 319.5px;" /></a>
+<ul class="simple">
+<li><p>Supprimer ensuite les champs non nécessaires à l’agrégation, pour ne conserver que : <strong>le jeton</strong>,  <strong>le nom de la commune</strong> et <strong>le code insee</strong></p></li>
+</ul>
+</div>
+<div class="section" id="selection-des-communes-avec-suppression-ou-ajout-de-points-adresse">
+<h3>2.4 - Sélection des communes avec suppression ou ajout de points adresse<a class="headerlink" href="#selection-des-communes-avec-suppression-ou-ajout-de-points-adresse" title="Permalink to this heading"></a></h3>
+<a class="reference internal image-reference" href="../../_images/5_FME_verif_ajout_supr.png"><img alt="../../_images/5_FME_verif_ajout_supr.png" src="../../_images/5_FME_verif_ajout_supr.png" style="width: 780px;" /></a>
+<p>Dans cette partie, nous ne conserverons que les communes pour lesquelles des adresses ont été suprimées ou ajoutées.</p>
+<p>Pour cela :</p>
+<ul class="simple">
+<li><p>Ajouter le transformer <strong>testFilter</strong> pour ne garder que les communes dont le compte de point du matin (<em>nb_pts_matin</em>) est différent du compte de point du soir (<em>nb_pts_soir</em>).</p></li>
+</ul>
+<a class="reference internal image-reference" href="../../_images/6_FME_test_ajout_supr.png"><img alt="../../_images/6_FME_test_ajout_supr.png" src="../../_images/6_FME_test_ajout_supr.png" style="width: 487.5px; height: 292.0px;" /></a>
+<ul class="simple">
+<li><p>Supprimer ensuite les champs non nécessaires à l’aggregation, pour ne conserver que : <strong>le jeton</strong>,  <strong>le nom de la commune</strong> et <strong>le code insee</strong></p></li>
+</ul>
+</div>
+<div class="section" id="agregation-des-communes-filtrees">
+<h3>2.5 - Agrégation des communes filtrées<a class="headerlink" href="#agregation-des-communes-filtrees" title="Permalink to this heading"></a></h3>
+<p>Une fois les deux filtres éffectués, on agrége l’ensemble des données avec le transformer <strong>Aggregator</strong>.</p>
+<a class="reference internal image-reference" href="../../_images/7_FME_aggregation_com.png"><img alt="../../_images/7_FME_aggregation_com.png" src="../../_images/7_FME_aggregation_com.png" style="width: 448.5px; height: 415.5px;" /></a>
+</div>
+<div class="section" id="requetes-a-l-api">
+<h3>2.6 - Requêtes à l’API<a class="headerlink" href="#requetes-a-l-api" title="Permalink to this heading"></a></h3>
+<a class="reference internal image-reference" href="../../_images/8_FME_requête_api_com.png"><img alt="../../_images/8_FME_requ%C3%AAte_api_com.png" src="../../_images/8_FME_requ%C3%AAte_api_com.png" style="width: 880px;" /></a>
+<p>Le traitement pour dépot des BAL à l’API se déroule comme suit :</p>
+<ul class="simple">
+<li><p>Mise à jour des adresses d’une Commune par dépot d’une nouvelle BAL qui écrase l’ancienne :  <strong>REVISION</strong></p></li>
+<li><p>Téléversement du fichier au format BAL : <strong>TELEVERSEMENT</strong></p></li>
+<li><p>Validation des données transmises :  <strong>VALIDATION</strong></p></li>
+<li><p>Publication de la nouvelle BAL :  <strong>PUBLICATION</strong></p></li>
+<li><p>Récupération de la Réponse de l’API : <strong>REPONSE</strong></p></li>
+</ul>
+<p><strong>REVISION</strong></p>
+<blockquote>
+<div><p><strong>1-</strong> Utliser le Transformer <strong>HTTPCaller</strong> comme suit</p>
+</div></blockquote>
+<a class="reference internal image-reference" href="../../_images/10_caller_revision.png"><img alt="../../_images/10_caller_revision.png" src="../../_images/10_caller_revision.png" style="width: 480px;" /></a>
+<p><em>Paramètres :</em></p>
+<p>1 <em>URL :</em> <a class="reference external" href="https://plateforme.adresse.data.gouv.fr/api-depot/communes/&#64;Value(insee)/revisions">https://plateforme.adresse.data.gouv.fr/api-depot/communes/&#64;Value(insee)/revisions</a></p>
+<p>2 <em>Méthode HTTP</em> : POST</p>
+<dl>
+<dt>3 <em>En-têtes :</em></dt><dd><p><em>Nom =</em> Authorization
+<em>Valeur =</em> Token &#64;Value(jeton)</p>
+</dd>
+<dt>4 <em>Corps</em> :</dt><dd><p><em>Type de données à charger =</em> Specify Upload Body
+<em>Corps de la requête =</em> { “context”: { “nomComplet”: “A remplacer”, “organisation”: “A remplacer” } }
+<em>Type de contenu =</em> json</p>
+</dd>
+<dt>5 <em>Réponse</em> :</dt><dd><blockquote>
+<div><p><em>Enregistrer le corps de la réponse dans =</em> Attribut
+<em>Attribut de réponse =</em> _response_body</p>
+</div></blockquote>
+<p><strong>2-</strong> Récupérer l’ID dans la réponse avec les transformer <em>JSONFragmenter</em> et <em>Tester</em> comme suit :</p>
+</dd>
+</dl>
+<a class="reference internal image-reference" href="../../_images/11_recup_id_revision.png"><img alt="../../_images/11_recup_id_revision.png" src="../../_images/11_recup_id_revision.png" style="width: 880px;" /></a>
+<p><strong>TELEVERSEMENT</strong></p>
+<blockquote>
+<div><p><strong>1-</strong> Utliser le Transformer <strong>HTTPCaller</strong> comme suit</p>
+</div></blockquote>
+<a class="reference internal image-reference" href="../../_images/12_FME_caller_televersement.png"><img alt="../../_images/12_FME_caller_televersement.png" class="align-center" src="../../_images/12_FME_caller_televersement.png" style="width: 480px;" /></a>
+<p><em>Paramètres :</em></p>
+<p>1 <em>URL :</em> <a class="reference external" href="https://plateforme.adresse.data.gouv.fr/api-depot/revisions/&#64;Value(_response_body)/files/bal">https://plateforme.adresse.data.gouv.fr/api-depot/revisions/&#64;Value(_response_body)/files/bal</a></p>
+<p>2 <em>Méthode HTTP</em> : PUT</p>
+<dl>
+<dt>4 <em>Paramètres complémentaires de la requête :</em></dt><dd><p><em>Nom =</em> Content-MD5
+<em>Valeur =</em> 1234567890abcdedf1234567890abcdedf</p>
+</dd>
+<dt>4 <em>En-têtes :</em></dt><dd><p><em>Nom =</em> Authorization
+<em>Valeur =</em> Token &#64;Value(jeton)</p>
+</dd>
+<dt>5 <em>Corps</em> :</dt><dd><p><em>Type de données à charger =</em> Envoyer à partir d’un fichier
+<em>Chemin du fichier à charger = * Le chemin vers les fichiers CSV adresse par commune créés en partie I
+*Type de contenu =</em> text/csv</p>
+</dd>
+<dt>6 <em>Réponse</em> :</dt><dd><blockquote>
+<div><p><em>Enregistrer le corps de la réponse dans =</em> Attribut
+<em>Attribut de réponse =</em> _response_body</p>
+</div></blockquote>
+<p><strong>2-</strong> Récupérer l’ID dans la réponse avec les transformer <strong>JSONFragmenter</strong> et <strong>Tester</strong> comme précédemment pour la révision</p>
+</dd>
+</dl>
+<p><strong>VALIDATION</strong></p>
+<blockquote>
+<div><p><strong>1-</strong> Utliser le Transformer <strong>HTTPCaller</strong> comme suit</p>
+</div></blockquote>
+<a class="reference internal image-reference" href="../../_images/13_FME_caller_validation.png"><img alt="../../_images/13_FME_caller_validation.png" class="align-center" src="../../_images/13_FME_caller_validation.png" style="width: 480px;" /></a>
+<p><em>Paramètres :</em></p>
+<p>1 <em>URL :</em> <a class="reference external" href="https://plateforme.adresse.data.gouv.fr/api-depot/revisions/&#64;Value(_response_body)/compute">https://plateforme.adresse.data.gouv.fr/api-depot/revisions/&#64;Value(_response_body)/compute</a></p>
+<p>2 <em>Méthode HTTP</em> : POST</p>
+<blockquote>
+<div><p><strong>2-</strong> Récupérer l’ID dans la réponse avec les transformer <strong>JSONFragmenter</strong> et <strong>Tester</strong> comme précédemment pour la validation</p>
+</div></blockquote>
+<p><strong>PUBLICATION</strong></p>
+<blockquote>
+<div><p><strong>1-</strong> Utliser le Transformer <strong>HTTPCaller</strong> comme suit</p>
+</div></blockquote>
+<a class="reference internal image-reference" href="../../_images/14_FME_caller_publication.png"><img alt="../../_images/14_FME_caller_publication.png" class="align-center" src="../../_images/14_FME_caller_publication.png" style="width: 480px;" /></a>
+<p><em>Paramètres :</em></p>
+<p>1 <em>URL :</em> <a class="reference external" href="https://plateforme.adresse.data.gouv.fr/api-depot/revisions/&#64;Value(_response_body)/publish">https://plateforme.adresse.data.gouv.fr/api-depot/revisions/&#64;Value(_response_body)/publish</a></p>
+<blockquote>
+<div><p><strong>2-</strong> Récupérer l’ID dans la réponse avec les transformer <em>JSONFragmenter</em> et <em>Tester</em> comme précédemment pour la validation</p>
+</div></blockquote>
+<p>A la fin de cette étape, vos adresses sont publiées sur la BAN.</p>
+<p><strong>REPONSE</strong></p>
+<blockquote>
+<div><p><strong>1-</strong> Utliser le Transformer <strong>HTTPCaller</strong> comme suit</p>
+</div></blockquote>
+<a class="reference internal image-reference" href="../../_images/15_FME_caller_reponse.png"><img alt="../../_images/15_FME_caller_reponse.png" class="align-center" src="../../_images/15_FME_caller_reponse.png" style="width: 480px;" /></a>
+<p><em>Paramètres :</em></p>
+<p>1 <em>URL :</em> <a class="reference external" href="https://plateforme.adresse.data.gouv.fr/api-depot/communes/&#64;Value(insee)/current-revision">https://plateforme.adresse.data.gouv.fr/api-depot/communes/&#64;Value(insee)/current-revision</a></p>
+<p>2 <em>Méthode HTTP</em> : GET</p>
+<blockquote>
+<div><p><strong>2-</strong> Récupérer l’ID dans la réponse avec les transformer <strong>JSONFragmenter</strong> et <strong>Tester</strong> comme précédemment pour la validation</p>
+</div></blockquote>
+</div>
+<div class="section" id="mail-recapitulatif">
+<h3>2.6 - Mail récapitulatif<a class="headerlink" href="#mail-recapitulatif" title="Permalink to this heading"></a></h3>
+<a class="reference internal image-reference" href="../../_images/16_FME_mail.png"><img alt="../../_images/16_FME_mail.png" src="../../_images/16_FME_mail.png" style="width: 880px;" /></a>
+<p>Suite à la réponse de l’API, on supprime les champs inutiles pour ne conserver que  :</p>
+<ul class="simple">
+<li><p>Commune</p></li>
+<li><p>Insee</p></li>
+<li><p>response_body</p></li>
+</ul>
+<p>Avec le Transformer <strong>StringSearcher</strong>, on extrait par expression régulière les valeurs de chiffres après rowsCounts. L’idée est ici d’extraire le nombre d’adresses publiées de la réponse API.</p>
+<blockquote>
+<div><p><strong>(?&lt;=rowsCount”:)[w+.-]+</strong></p>
+</div></blockquote>
+<p>On créé ensuite un nouvel attribut comprenant le nombre de points extraits de la réponse suivi du texte que l’on souhaite ajouter.</p>
+<a class="reference internal image-reference" href="../../_images/17_FME_mail_attrribute_create.png"><img alt="../../_images/17_FME_mail_attrribute_create.png" src="../../_images/17_FME_mail_attrribute_create.png" style="width: 480px;" /></a>
+<p>Puis, on met en place une liste sur le champ précédemment créé et on va concatener la liste au niveau des sauts de lignes. Ceci pour n’obtenir qu’une seule entité à intégrer dans le mail.</p>
+<a class="reference internal image-reference" href="../../_images/18_FME_mail_list_concat.png"><img alt="../../_images/18_FME_mail_list_concat.png" src="../../_images/18_FME_mail_list_concat.png" style="width: 199.0px; height: 113.5px;" /></a>
+<p>Enfin, avec le transformer <strong>Emailer</strong>, on envoie dans le corps du mail la valeur de concatenation de liste.</p>
+<a class="reference internal image-reference" href="../../_images/19_FME_mail_Emailer.png"><img alt="../../_images/19_FME_mail_Emailer.png" src="../../_images/19_FME_mail_Emailer.png" style="width: 594.5px; height: 371.5px;" /></a>
+</div>
+<div class="section" id="integration-du-compte-de-points-publies-dans-la-base-de-donnees">
+<h3>2.7 - Intégration du compte de points publiés dans la base de données<a class="headerlink" href="#integration-du-compte-de-points-publies-dans-la-base-de-donnees" title="Permalink to this heading"></a></h3>
+<a class="reference internal image-reference" href="../../_images/20_Intégration_bd.png"><img alt="../../_images/20_Int%C3%A9gration_bd.png" src="../../_images/20_Int%C3%A9gration_bd.png" style="width: 680px;" /></a>
+<p>Après identification du compte de points publiés, on supprime les champs inutiles pour ne garder que :</p>
+<ul class="simple">
+<li><p>Le nombre de points publiés extrait par <strong>StringSearcher</strong>  (<em>_rows</em>)</p></li>
+<li><p>Le code INSEE de la commune</p></li>
+</ul>
+<p>On crée ensuite un champs <em>date_depot_api</em> avec la date du jour (<strong>AttributeCreator</strong> : &#64;DateTimeFormat(&#64;DateTimeNow(local), %Y%m%d)).</p>
+<p>On insère finalement les données dans la table <em>commune</em> citée en partie I au niveau de la correspondance insee (<strong>DatabaseUpdater</strong>).</p>
+<a class="reference internal image-reference" href="../../_images/21_FME_Databaseupdater.png"><img alt="../../_images/21_FME_Databaseupdater.png" src="../../_images/21_FME_Databaseupdater.png" style="width: 276.0px; height: 338.5px;" /></a>
+</div>
+</div>
+<div class="section" id="e-etape-mailing-automatique">
+<h2>3e Etape :  Mailing automatique<a class="headerlink" href="#e-etape-mailing-automatique" title="Permalink to this heading"></a></h2>
+<p>En complément de la chaine de traitement détaillée précédemment, un bilan hebdomadaire est réalisé sur la base de données adresse du Département.</p>
+<p>Ce bilan vise à recenser le détail des points adresses modifiés, supprimés et ajoutés sur les communes ayant publié leur BAN durant les 7 derniers jours.</p>
+<p>Il est transmis chaque début de semaine au chef de projet adresse du Département et aux partennaires du projet (La poste, DGFIP, …).</p>
+<div class="section" id="enregistrement-des-donnees-adresses">
+<h3>3.1 - Enregistrement des données adresses<a class="headerlink" href="#enregistrement-des-donnees-adresses" title="Permalink to this heading"></a></h3>
+<p><strong>Chaque lundi à 4h (n7) et à 5h du matin (n0)</strong> :</p>
+<p>Enregistrement au format CSV d’une table de données des adresses sur les communes publiées. Elle contient les champs suivants :</p>
+<ul>
+<li><p>L’identifiant du point</p></li>
+<li><p>Le nom de la commune et son code INSEE</p></li>
+<li><p>L’adresse complète du point</p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">copy</span><span class="w"> </span><span class="p">(</span><span class="k">select</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">id_point</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">commune_nom</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">insee_code</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">adresse_complete</span>
+<span class="k">from</span><span class="w"> </span><span class="n">adresse</span><span class="p">.</span><span class="n">v_point_adresse</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">adresse</span><span class="p">.</span><span class="n">v_communes_publiees</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="k">where</span><span class="w">  </span><span class="n">a</span><span class="p">.</span><span class="n">insee_code</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">insee_code</span><span class="w"> </span><span class="p">)</span>
+<span class="k">TO</span><span class="w"> </span><span class="s1">&#39;D:\BD_adresse\bakup_adresses\v_point_adresse_dimanche.csv&#39;</span><span class="w"> </span><span class="k">DELIMITER</span><span class="w"> </span><span class="s1">&#39;,&#39;</span><span class="w"> </span><span class="n">CSV</span><span class="w"> </span><span class="n">HEADER</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="s1">&#39;NULL&#39;</span><span class="p">;</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ul>
+<p>Enregistrement au format CSV d’une table de données des adresses modifiées durant les 7 derniers jours sur les communes publiées. Elle contient les champs suivants :</p>
+<ul>
+<li><p>L’identifiant du point</p></li>
+<li><p>Le nom de la commune et son code INSEE</p></li>
+<li><p>L’adresse complète du point</p></li>
+<li><p>La date de modification du point</p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">copy</span><span class="w"> </span><span class="p">(</span><span class="k">select</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">id_point</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">date_modif</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">commune_nom</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">insee_code</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">adresse_complete</span>
+<span class="k">from</span><span class="w"> </span><span class="n">adresse</span><span class="p">.</span><span class="n">v_point_adresse</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">adresse</span><span class="p">.</span><span class="n">v_communes_publiees</span><span class="w"> </span><span class="n">b</span>
+<span class="k">where</span><span class="w">  </span><span class="n">a</span><span class="p">.</span><span class="n">insee_code</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">insee_code</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">date_modif</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="k">current_date</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nb">integer</span><span class="w"> </span><span class="s1">&#39;7&#39;</span><span class="p">))</span>
+<span class="k">TO</span><span class="w"> </span><span class="s1">&#39;D:\BD_adresse\bakup_adresses\v_point_adresse_dimanche_modif.csv&#39;</span><span class="w"> </span><span class="k">DELIMITER</span><span class="w"> </span><span class="s1">&#39;,&#39;</span><span class="w"> </span><span class="n">CSV</span><span class="w"> </span><span class="n">HEADER</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="s1">&#39;NULL&#39;</span><span class="p">;</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ul>
+<p>Enregistrement au format CSV d’une table de données des adresses créées durant les 7 derniers jours sur les communes publiées. Elle contient les champs suivants :</p>
+<ul>
+<li><p>L’identifiant du point</p></li>
+<li><p>Le nom de la commune et son code INSEE</p></li>
+<li><p>L’adresse complète du point</p></li>
+<li><p>La date de création du point</p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">copy</span><span class="w"> </span><span class="p">(</span><span class="k">select</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">id_point</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">date_creation</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">commune_nom</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">insee_code</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">adresse_complete</span>
+<span class="k">from</span><span class="w"> </span><span class="n">adresse</span><span class="p">.</span><span class="n">v_point_adresse</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">adresse</span><span class="p">.</span><span class="n">v_communes_publiees</span><span class="w"> </span><span class="n">b</span>
+<span class="k">where</span><span class="w">  </span><span class="n">a</span><span class="p">.</span><span class="n">insee_code</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">insee_code</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">date_creation</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="k">current_date</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nb">integer</span><span class="w"> </span><span class="s1">&#39;7&#39;</span><span class="p">)</span><span class="w"> </span><span class="p">)</span>
+<span class="k">TO</span><span class="w"> </span><span class="s1">&#39;D:\BD_adresse\bakup_adresses\v_point_adresse_dimanche_creation.csv&#39;</span><span class="w"> </span><span class="k">DELIMITER</span><span class="w"> </span><span class="s1">&#39;,&#39;</span><span class="w"> </span><span class="n">CSV</span><span class="w"> </span><span class="n">HEADER</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="s1">&#39;NULL&#39;</span><span class="p">;</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ul>
+</div>
+<div class="section" id="traitement-fme">
+<h3>3.2 - Traitement FME<a class="headerlink" href="#traitement-fme" title="Permalink to this heading"></a></h3>
+<p><strong>Chaque lundi à 4h30 du matin</strong> :</p>
+<p><em>Vous pouvez télécharger la dernière version du projet FME en cliquant sur le lien ci dessous :</em></p>
+<p><a class="reference external" href="https://github.com/sig14/sig14.github.io/releases/tag/FME_mail">Téléchargement du FME</a></p>
+<p>Le traitement se déroule comme suit :</p>
+<ul class="simple">
+<li><p>Jointures des points adresse n0 - n7 , ne garder que les n0 non joints</p></li>
+</ul>
+<a class="reference internal image-reference" href="../../_images/22_mailing_comptage_n0_n7.png"><img alt="../../_images/22_mailing_comptage_n0_n7.png" src="../../_images/22_mailing_comptage_n0_n7.png" style="width: 680px;" /></a>
+<ul class="simple">
+<li><p>comparaisons des points adresses modifiés n7 avec les adresses n0. Ajout champ modif_geom et modif_semantique pour connaitre la modif.</p></li>
+</ul>
+<a class="reference internal image-reference" href="../../_images/22_mailing_comparaison_n0__modifn7.png"><img alt="../../_images/22_mailing_comparaison_n0__modifn7.png" src="../../_images/22_mailing_comparaison_n0__modifn7.png" style="width: 680px;" /></a>
+<ul class="simple">
+<li><p>export csv pour pièce jointe des adresses suprimées et modifiées</p></li>
+<li><p>Comptage des points adresse modifiés durant les 7 derniers jours et non créés durant les 7 derniers jours</p></li>
+</ul>
+<a class="reference internal image-reference" href="../../_images/23_mailing_comparaison_n0_n7.png"><img alt="../../_images/23_mailing_comparaison_n0_n7.png" src="../../_images/23_mailing_comparaison_n0_n7.png" style="width: 680px;" /></a>
+<ul class="simple">
+<li><p>Points adresses créés durant les 7 derniers jours</p></li>
+</ul>
+<a class="reference internal image-reference" href="../../_images/24_mailing_comptage_pts__modif_n7.png"><img alt="../../_images/24_mailing_comptage_pts__modif_n7.png" src="../../_images/24_mailing_comptage_pts__modif_n7.png" style="width: 1000px;" /></a>
+<ul class="simple">
+<li><p>Jointure des comptages et envoi du mail</p></li>
+</ul>
+<a class="reference internal image-reference" href="../../_images/25_mailing_comptage_pts__crees_n7.png"><img alt="../../_images/25_mailing_comptage_pts__crees_n7.png" src="../../_images/25_mailing_comptage_pts__crees_n7.png" style="width: 1000px;" /></a>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../III_consultation_exports/" class="btn btn-neutral float-left" title="III- Consulter et exporter les données “Adresses” depuis QGIS" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../../cadastre/I_maj_annuelle/" class="btn btn-neutral float-right" title="I- Mettre à jour les données EDIGEO / Majic III (maj annuelle)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, SIG14 team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>II- Application de saisie &mdash; Documentation SIG14  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sphinx_rtd_theme_ext_color_contrast.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+        <script>let toggleHintShow = 'Click to show';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="../../_static/togglebutton.js"></script>
+        <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex/" />
+    <link rel="search" title="Search" href="../../search/" />
+    <link rel="next" title="III- Consulter et exporter les données “Adresses” depuis QGIS" href="../III_consultation_exports/" />
+    <link rel="prev" title="I- Accompagnement des Communes" href="../I_acc_communes/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../">
+            
+              <img src="../../_static/CD14_petit.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search/" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Équipe</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../equipe/I_membres/">I- Membres</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../equipe/II_contact/">II- Contact</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Adressage</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../I_acc_communes/">I- Accompagnement des Communes</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">II- Application de saisie</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#triggers-et-fonctions">1- Triggers et fonctions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-d-aide-a-la-numerotation">1.1 Module d’aide à la numérotation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#outils-de-controle">2- Outils de contrôle</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#controles-postgis">2.1 - Contrôles postgis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dashboard-qgis">2.2 - Dashboard QGis</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../III_consultation_exports/">III- Consulter et exporter les données “Adresses” depuis QGIS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../IV_depot_bal/">IV- Déposer une BAL via l’API BAN avec FME</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Cadastre</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../cadastre/I_maj_annuelle/">I- Mettre à jour les données EDIGEO / Majic III (maj annuelle)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cadastre/II_gpu_docs_urba/">II- Ajouter un onglet “Documents d’urbanisme GPU” à la pop-up cadastre de Lizmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cadastre/III_filiation_parcelles/">III- Ajouter un onglet “Filiation parcellaire” à la pop-up cadastre de Lizmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cadastre/IV_mutation_immo/">IV- Ajouter un onglet “Mutations immobilières” à la pop-up cadastre de Lizmap</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">DECI</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../deci/I_perimetres_pei/">I- Périmètres des bornes incendies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../deci/II_rapproch_ign/">II- Rapprochement adresse BDtopo IGN</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Traitements FME</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../traitements_fme/I_plannificateur_taches/">I- Produire un calendrier des tâches du plannificateur</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Traitements GDAL</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../traitements_gdal/I_geopackage/">I- Produire un GeoPackage des orthos tuilées</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../traitements_gdal/II_cog/">II- Produire un COG à partir des orthos IGN</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../">Documentation SIG14</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">II- Application de saisie</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/sig14/sig14.github.io/blob/master/adressage/II_application_saisie.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="ii-application-de-saisie">
+<h1>II- Application de saisie<a class="headerlink" href="#ii-application-de-saisie" title="Permalink to this heading"></a></h1>
+<div class="section" id="triggers-et-fonctions">
+<h2>1- Triggers et fonctions<a class="headerlink" href="#triggers-et-fonctions" title="Permalink to this heading"></a></h2>
+<div class="section" id="module-d-aide-a-la-numerotation">
+<h3>1.1 Module d’aide à la numérotation<a class="headerlink" href="#module-d-aide-a-la-numerotation" title="Permalink to this heading"></a></h3>
+<p>Il existe deux types de numérotation différents :</p>
+<ul class="simple">
+<li><p>La numérotation <strong>classique</strong></p></li>
+</ul>
+<img alt="../../_images/numerotation_classique.png" src="../../_images/numerotation_classique.png" />
+<p>Cette numérotation consiste à numéroter de deux en deux avec les numéros pairs à droite de la voie et les numéros impairs à gauche. C’est le système historique en France utilisé par une majorité des communes, notamment en ville.
+L’inconvénient est que ce système n’est pas évolutif. En cas de nouvelles constructions s’intercalant entre deux numéros consécutifs il faut ajouter un numéro à extension (bis puis ter par exemple).</p>
+<ul class="simple">
+<li><p>La numérotation <strong>métrique</strong></p></li>
+</ul>
+<img alt="../../_images/numerotation_metrique.png" src="../../_images/numerotation_metrique.png" />
+<p>Ce second système consiste à calculer le numéro en fonction de la distance depuis le début de la voie. Beaucoup plus évolutif car elle permet d’intercaler autant de numéros que l’on souhaite, cette numérotation permet également de donner une information précieuse sur la distance à parcourir jusqu’à la propriété. Cela est notamment très utile pour les secours ou les livreurs. Les numéros pairs et impairs peuvent être séparés de chaque côté de la voie, bien que ce ne soit pas obligatoire.</p>
+<p>Quel que soit le type de numérotation choisi par la commune, l’application propose une aide à la numérotation automatique.</p>
+<p>Pour la numérotation classique, une fonction soumet le numéro qu’elle considère être le plus juste à l’utilisateur en regardant les numéros déjà présents avant et après sur la voie. Au positionnement d’un premier point adresse à droite de la voie, l’outil proposera le n°2, puis pour un second le n°4 et ainsi de suite. À la création d’un point adresse entre le n°2 et le n°4, l’outil proposera un n°2 bis puis un n°2 ter etc.</p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">DECLARE</span>
+<span class="w">        </span><span class="n">numa</span><span class="w"> </span><span class="nb">integer</span><span class="p">;</span>
+<span class="w">        </span><span class="n">numb</span><span class="w"> </span><span class="nb">integer</span><span class="p">;</span>
+<span class="w">        </span><span class="n">numc</span><span class="w"> </span><span class="nb">integer</span><span class="p">;</span>
+<span class="w">        </span><span class="n">sens</span><span class="w"> </span><span class="nb">boolean</span><span class="p">;</span>
+<span class="w">        </span><span class="n">s</span><span class="w"> </span><span class="nb">text</span><span class="p">;</span>
+<span class="w">        </span><span class="n">rec</span><span class="w"> </span><span class="nb">text</span><span class="p">;</span>
+<span class="w">        </span><span class="n">suff</span><span class="w"> </span><span class="nb">text</span><span class="p">[];</span>
+<span class="w">        </span><span class="n">idvoie</span><span class="w"> </span><span class="nb">integer</span><span class="p">;</span>
+<span class="w">        </span><span class="n">isleft</span><span class="w"> </span><span class="nb">boolean</span><span class="p">;</span>
+<span class="w">        </span><span class="n">test</span><span class="w"> </span><span class="nb">boolean</span><span class="p">;</span>
+
+<span class="k">BEGIN</span>
+<span class="w">        </span><span class="c1">-- Get idvoie</span>
+<span class="w">        </span><span class="k">SELECT</span><span class="w"> </span><span class="n">adresse</span><span class="p">.</span><span class="n">get_id_voie</span><span class="p">(</span><span class="n">pgeom</span><span class="p">)</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">idvoie</span><span class="p">;</span>
+
+<span class="c1">-- Aucune voie dévérouillée trouvée</span>
+<span class="k">IF</span><span class="w"> </span><span class="n">idvoie</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">THEN</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">query</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="n">numc</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">idvoie</span><span class="p">;</span>
+<span class="k">END</span><span class="w"> </span><span class="k">IF</span><span class="p">;</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="n">adresse</span><span class="p">.</span><span class="n">calcul_point_position</span><span class="p">(</span><span class="n">adresse</span><span class="p">.</span><span class="n">calcul_segment_proche</span><span class="p">(</span><span class="n">geom</span><span class="p">,</span><span class="w"> </span><span class="n">pgeom</span><span class="p">),</span><span class="n">pgeom</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">isleft</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">adresse</span><span class="p">.</span><span class="n">voie</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">statut_voie_num</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">FALSE</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">id_voie</span><span class="o">=</span><span class="n">idvoie</span><span class="p">;</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">sens_numerotation</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">sens</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">adresse</span><span class="p">.</span><span class="n">voie</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">id_voie</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">idvoie</span><span class="p">;</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="n">numero</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">numa</span>
+<span class="k">FROM</span><span class="p">(</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">ST_Distance</span><span class="p">(</span><span class="n">pgeom</span><span class="p">,</span><span class="w"> </span><span class="n">p1</span><span class="p">.</span><span class="n">geom</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">dist</span><span class="p">,</span><span class="w"> </span><span class="n">p1</span><span class="p">.</span><span class="n">numero</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">numero</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">adresse</span><span class="p">.</span><span class="n">point_adresse</span><span class="w"> </span><span class="n">p1</span><span class="p">,</span><span class="w"> </span><span class="n">adresse</span><span class="p">.</span><span class="n">voie</span><span class="w"> </span><span class="n">v</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">statut_voie_num</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">FALSE</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">p1</span><span class="p">.</span><span class="n">id_voie</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">idvoie</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">id_voie</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">idvoie</span><span class="w"> </span><span class="k">AND</span>
+<span class="w">        </span><span class="p">(</span><span class="n">ST_LineLocatePoint</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">geom</span><span class="p">,</span><span class="w"> </span><span class="n">ST_ClosestPoint</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">geom</span><span class="p">,</span><span class="w"> </span><span class="n">pgeom</span><span class="p">))</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">ST_LineLocatePoint</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">geom</span><span class="p">,</span><span class="w"> </span><span class="n">ST_ClosestPoint</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">geom</span><span class="p">,</span><span class="w"> </span><span class="n">p1</span><span class="p">.</span><span class="n">geom</span><span class="p">)))</span><span class="w"> </span><span class="o">&gt;</span><span class="mi">0</span>
+<span class="w">        </span><span class="k">AND</span>
+<span class="w">        </span><span class="n">isleft</span><span class="w"> </span><span class="o">=</span>
+<span class="w">        </span><span class="n">adresse</span><span class="p">.</span><span class="n">calcul_point_position</span><span class="p">(</span><span class="n">adresse</span><span class="p">.</span><span class="n">calcul_segment_proche</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">geom</span><span class="p">,</span><span class="w"> </span><span class="n">p1</span><span class="p">.</span><span class="n">geom</span><span class="p">),</span><span class="w"> </span><span class="n">p1</span><span class="p">.</span><span class="n">geom</span><span class="p">)</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">dist</span><span class="w"> </span><span class="k">LIMIT</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">a</span><span class="p">;</span>
+
+<span class="n">suff</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">ARRAY</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;bis&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;ter&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;qua&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;qui&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;c&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;d&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;e&#39;</span><span class="p">];</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="n">numero</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">numb</span>
+<span class="k">FROM</span><span class="p">(</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">ST_Distance</span><span class="p">(</span><span class="n">pgeom</span><span class="p">,</span><span class="w"> </span><span class="n">p1</span><span class="p">.</span><span class="n">geom</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">dist</span><span class="p">,</span><span class="w"> </span><span class="n">p1</span><span class="p">.</span><span class="n">numero</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">numero</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">adresse</span><span class="p">.</span><span class="n">point_adresse</span><span class="w"> </span><span class="n">p1</span><span class="p">,</span><span class="w"> </span><span class="n">adresse</span><span class="p">.</span><span class="n">voie</span><span class="w"> </span><span class="n">v</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">statut_voie_num</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">FALSE</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">p1</span><span class="p">.</span><span class="n">id_voie</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">idvoie</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">id_voie</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">idvoie</span><span class="w"> </span><span class="k">AND</span>
+<span class="w">        </span><span class="p">(</span><span class="n">ST_LineLocatePoint</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">geom</span><span class="p">,</span><span class="w"> </span><span class="n">ST_ClosestPoint</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">geom</span><span class="p">,</span><span class="w"> </span><span class="n">pgeom</span><span class="p">))</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">ST_LineLocatePoint</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">geom</span><span class="p">,</span><span class="w"> </span><span class="n">ST_ClosestPoint</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">geom</span><span class="p">,</span><span class="w"> </span><span class="n">p1</span><span class="p">.</span><span class="n">geom</span><span class="p">)))</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">0</span>
+<span class="w">        </span><span class="k">AND</span>
+<span class="w">        </span><span class="n">isleft</span><span class="w"> </span><span class="o">=</span>
+<span class="w">        </span><span class="n">adresse</span><span class="p">.</span><span class="n">calcul_point_position</span><span class="p">(</span><span class="n">adresse</span><span class="p">.</span><span class="n">calcul_segment_proche</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">geom</span><span class="p">,</span><span class="w"> </span><span class="n">p1</span><span class="p">.</span><span class="n">geom</span><span class="p">),</span><span class="w"> </span><span class="n">p1</span><span class="p">.</span><span class="n">geom</span><span class="p">)</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">dist</span><span class="w"> </span><span class="k">LIMIT</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
+
+<span class="k">IF</span><span class="w"> </span><span class="n">numa</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">numb</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">THEN</span>
+<span class="w">        </span><span class="n">test</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">false</span><span class="p">;</span>
+<span class="w">        </span><span class="k">IF</span><span class="w"> </span><span class="n">numb</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">numa</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="k">THEN</span>
+<span class="w">         </span><span class="n">numc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">numa</span><span class="o">+</span><span class="mi">2</span><span class="p">;</span>
+<span class="w">        </span><span class="k">ELSE</span>
+<span class="w">                </span><span class="n">FOREACH</span><span class="w"> </span><span class="n">rec</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="nb">ARRAY</span><span class="w"> </span><span class="n">suff</span><span class="w"> </span><span class="n">LOOP</span>
+<span class="w">                        </span><span class="k">IF</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="k">TRUE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">adresse</span><span class="p">.</span><span class="n">point_adresse</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">id_voie</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">idvoie</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">numero</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">numa</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">suffixe</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rec</span><span class="p">)</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">AND</span><span class="w">                              </span><span class="k">NOT</span><span class="w"> </span><span class="n">test</span><span class="w"> </span><span class="k">THEN</span>
+<span class="w">                                </span><span class="n">test</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">true</span><span class="p">;</span>
+<span class="w">                                </span><span class="n">numc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">numa</span><span class="p">;</span>
+<span class="w">                                </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rec</span><span class="p">;</span>
+<span class="w">                        </span><span class="k">END</span><span class="w"> </span><span class="k">IF</span><span class="p">;</span>
+<span class="w">                </span><span class="k">END</span><span class="w"> </span><span class="n">LOOP</span><span class="p">;</span>
+<span class="w">        </span><span class="k">END</span><span class="w"> </span><span class="k">IF</span><span class="p">;</span>
+<span class="k">ELSIF</span><span class="w"> </span><span class="n">numa</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">numb</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">THEN</span>
+<span class="w">        </span><span class="n">numc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">numa</span><span class="o">+</span><span class="mi">2</span><span class="p">;</span>
+<span class="k">ELSIF</span><span class="w"> </span><span class="n">numa</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">numb</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">THEN</span>
+<span class="w">        </span><span class="k">IF</span><span class="w"> </span><span class="n">numb</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">&gt;</span><span class="mi">0</span><span class="w"> </span><span class="k">THEN</span>
+<span class="w">                </span><span class="n">numc</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="n">numb</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">        </span><span class="k">ELSIF</span><span class="w"> </span><span class="n">numb</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">THEN</span>
+<span class="w">                </span><span class="n">test</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">false</span><span class="p">;</span>
+<span class="w">                </span><span class="n">FOREACH</span><span class="w"> </span><span class="n">rec</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="nb">ARRAY</span><span class="w"> </span><span class="n">suff</span><span class="w"> </span><span class="n">LOOP</span>
+<span class="w">                        </span><span class="k">IF</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="k">TRUE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">adresse</span><span class="p">.</span><span class="n">point_adresse</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">id_voie</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">idvoie</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">numero</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">numb</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">suffixe</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rec</span><span class="p">)</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">AND</span><span class="w">                              </span><span class="k">NOT</span><span class="w"> </span><span class="n">test</span><span class="w"> </span><span class="k">THEN</span>
+<span class="w">                                </span><span class="n">test</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">true</span><span class="p">;</span>
+<span class="w">                                </span><span class="n">numc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">numb</span><span class="p">;</span>
+<span class="w">                                </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rec</span><span class="p">;</span>
+<span class="w">                        </span><span class="k">END</span><span class="w"> </span><span class="k">IF</span><span class="p">;</span>
+<span class="w">                </span><span class="k">END</span><span class="w"> </span><span class="n">LOOP</span><span class="p">;</span>
+<span class="w">        </span><span class="k">END</span><span class="w"> </span><span class="k">IF</span><span class="p">;</span>
+<span class="k">ELSIF</span><span class="w"> </span><span class="n">numa</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">numb</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">THEN</span>
+<span class="w">        </span><span class="k">IF</span><span class="w"> </span><span class="n">isleft</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="n">sens</span><span class="w"> </span><span class="k">THEN</span>
+<span class="w">                </span><span class="n">numc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">        </span><span class="k">ELSIF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="n">isleft</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="n">sens</span><span class="w"> </span><span class="k">THEN</span>
+<span class="w">                </span><span class="n">numc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">        </span><span class="k">ELSIF</span><span class="w"> </span><span class="n">isleft</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">sens</span><span class="w"> </span><span class="k">THEN</span>
+<span class="w">                </span><span class="n">numc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">        </span><span class="k">ELSIF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="n">isleft</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">sens</span><span class="w"> </span><span class="k">THEN</span>
+<span class="w">                </span><span class="n">numc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">        </span><span class="k">END</span><span class="w"> </span><span class="k">IF</span><span class="p">;</span>
+<span class="k">END</span><span class="w"> </span><span class="k">IF</span><span class="p">;</span>
+
+<span class="k">return</span><span class="w"> </span><span class="n">query</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="n">numc</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">idvoie</span><span class="p">;</span>
+<span class="k">END</span><span class="p">;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Pour la numérotation métrique, une fonction calcule la distance avec <code class="docutils literal notranslate"><span class="pre">ST_Length</span></code> et répartit aussi automatiquement les numéros pairs à droite et impairs à gauche. Via la variable <code class="docutils literal notranslate"><span class="pre">sens</span></code>, l’utilisateur peut sélectionner la voie qu’il a dessinée et la numéroter en sens inverse. L’application prend en compte cette information et calcule le nunéro “à l’envers”.</p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">DECLARE</span>
+<span class="w">        </span><span class="n">num</span><span class="w"> </span><span class="nb">integer</span><span class="p">;</span>
+<span class="w">        </span><span class="n">idvoie</span><span class="w"> </span><span class="nb">integer</span><span class="p">;</span>
+<span class="w">        </span><span class="n">numc</span><span class="w"> </span><span class="nb">integer</span><span class="p">;</span>
+<span class="w">        </span><span class="n">sens</span><span class="w"> </span><span class="nb">boolean</span><span class="p">;</span>
+<span class="w">        </span><span class="n">res</span><span class="w"> </span><span class="nb">text</span><span class="p">;</span>
+<span class="w">        </span><span class="n">rec</span><span class="w"> </span><span class="nb">text</span><span class="p">;</span>
+<span class="w">        </span><span class="n">isleft</span><span class="w"> </span><span class="nb">boolean</span><span class="p">;</span>
+<span class="w">        </span><span class="n">test</span><span class="w"> </span><span class="nb">boolean</span><span class="p">;</span>
+<span class="w">        </span><span class="n">suff</span><span class="w"> </span><span class="nb">text</span><span class="p">[];</span>
+<span class="k">BEGIN</span>
+
+<span class="c1">-- Get idvoie</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">adresse</span><span class="p">.</span><span class="n">get_id_voie</span><span class="p">(</span><span class="n">pgeom</span><span class="p">)</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">idvoie</span><span class="p">;</span>
+
+<span class="c1">-- Aucune voie dévérouillée trouvée</span>
+<span class="k">IF</span><span class="w"> </span><span class="n">idvoie</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">THEN</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">query</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="n">numc</span><span class="p">,</span><span class="w"> </span><span class="n">res</span><span class="p">,</span><span class="w"> </span><span class="n">idvoie</span><span class="p">;</span>
+<span class="k">END</span><span class="w"> </span><span class="k">IF</span><span class="p">;</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">sens_numerotation</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">sens</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">adresse</span><span class="p">.</span><span class="n">voie</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">id_voie</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">idvoie</span><span class="p">;</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="n">adresse</span><span class="p">.</span><span class="n">calcul_point_position</span><span class="p">(</span><span class="n">adresse</span><span class="p">.</span><span class="n">calcul_segment_proche</span><span class="p">(</span><span class="n">geom</span><span class="p">,</span><span class="w"> </span><span class="n">pgeom</span><span class="p">),</span><span class="n">pgeom</span><span class="p">)</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">isleft</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">adresse</span><span class="p">.</span><span class="n">voie</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">statut_voie_num</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">FALSE</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">id_voie</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">idvoie</span><span class="p">;</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="n">round</span><span class="p">(</span><span class="n">ST_Length</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">geom</span><span class="p">)</span><span class="o">*</span><span class="n">ST_LineLocatePoint</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">geom</span><span class="p">,</span><span class="w"> </span><span class="n">pgeom</span><span class="p">))::</span><span class="nb">integer</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">num</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">adresse</span><span class="p">.</span><span class="n">voie</span><span class="w"> </span><span class="n">v</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">id_voie</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">idvoie</span><span class="p">;</span>
+
+<span class="n">suff</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">ARRAY</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;bis&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;ter&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;qua&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;qui&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;c&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;d&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;e&#39;</span><span class="p">];</span>
+
+<span class="k">IF</span><span class="w"> </span><span class="n">isleft</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">num</span><span class="o">%</span><span class="mi">2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="n">sens</span><span class="w"> </span><span class="k">THEN</span>
+<span class="w">        </span><span class="n">num</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">num</span><span class="w"> </span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
+<span class="k">ELSIF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="n">isleft</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">num</span><span class="o">%</span><span class="mi">2</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="n">sens</span><span class="w"> </span><span class="k">THEN</span>
+<span class="w">        </span><span class="n">num</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">num</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="k">ELSIF</span><span class="w"> </span><span class="n">isleft</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">num</span><span class="o">%</span><span class="mi">2</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">sens</span><span class="w"> </span><span class="k">THEN</span>
+<span class="w">        </span><span class="n">num</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">num</span><span class="w"> </span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
+<span class="k">ELSIF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="n">isleft</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">num</span><span class="o">%</span><span class="mi">2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">sens</span><span class="w"> </span><span class="k">THEN</span>
+<span class="w">        </span><span class="n">num</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">num</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="k">END</span><span class="w"> </span><span class="k">IF</span><span class="p">;</span>
+
+<span class="n">test</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">false</span><span class="p">;</span>
+<span class="n">WHILE</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="n">test</span><span class="w"> </span><span class="n">LOOP</span>
+<span class="w">        </span><span class="k">IF</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="k">TRUE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">adresse</span><span class="p">.</span><span class="n">point_adresse</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">id_voie</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">idvoie</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">numero</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">num</span><span class="p">)</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">THEN</span>
+<span class="w">                </span><span class="n">test</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">true</span><span class="p">;</span>
+<span class="w">                </span><span class="n">numc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">num</span><span class="p">;</span>
+<span class="w">        </span><span class="k">ELSE</span>
+<span class="w">                </span><span class="n">FOREACH</span><span class="w"> </span><span class="n">rec</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="nb">ARRAY</span><span class="w"> </span><span class="n">suff</span><span class="w"> </span><span class="n">LOOP</span>
+<span class="w">                        </span><span class="k">IF</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="k">TRUE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">adresse</span><span class="p">.</span><span class="n">point_adresse</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">id_voie</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">idvoie</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">numero</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">num</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">suffixe</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rec</span><span class="p">)</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">AND</span><span class="w">                               </span><span class="k">NOT</span><span class="w"> </span><span class="n">test</span><span class="w"> </span><span class="k">THEN</span>
+<span class="w">                                </span><span class="n">test</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">true</span><span class="p">;</span>
+<span class="w">                                </span><span class="n">numc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">num</span><span class="p">;</span>
+<span class="w">                                </span><span class="n">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rec</span><span class="p">;</span>
+<span class="w">                        </span><span class="k">END</span><span class="w"> </span><span class="k">IF</span><span class="p">;</span>
+<span class="w">                </span><span class="k">END</span><span class="w"> </span><span class="n">LOOP</span><span class="p">;</span>
+<span class="w">        </span><span class="k">END</span><span class="w"> </span><span class="k">IF</span><span class="p">;</span>
+<span class="w">        </span><span class="n">num</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">num</span><span class="w"> </span><span class="o">+</span><span class="mi">2</span><span class="p">;</span>
+<span class="k">END</span><span class="w"> </span><span class="n">LOOP</span><span class="p">;</span>
+
+<span class="k">RETURN</span><span class="w"> </span><span class="n">query</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="n">numc</span><span class="p">,</span><span class="w"> </span><span class="n">res</span><span class="p">,</span><span class="w"> </span><span class="n">idvoie</span><span class="p">;</span>
+<span class="k">END</span><span class="p">;</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="outils-de-controle">
+<h2>2- Outils de contrôle<a class="headerlink" href="#outils-de-controle" title="Permalink to this heading"></a></h2>
+<p>Solution SIG permettant d’affiner et de réduire le temps de contrôle de saisie des agents et d’assurer un suivi interactif des données.</p>
+<p>Lorsque les communes effectuent la saisie dans l’application cartographique dédiée du Département, elles doivent créer un ensemble de points adresses (numérotés) et de linéaires de voies (dénommés). Cette saisie doit respecter un ensemble de règles et de normes afin d’assurer la cohérence du plan d’adressage de la commune et de ses voisines (même type de numérotation, même sens de numérotation, etc.) et d’optimiser la prise en compte de ces adresses par les organismes remplissant des missions de services aux citoyens (repérage facilité pour les secours, limite de nombre de caractères pris en compte par les GPS, etc.).</p>
+<p>De plus, la base de données fournie doit répondre à des normes de qualité sémantiques (nom unique, etc.) et géographiques (pas d’auto intersection de linéaires, points adresses localisés dans une parcelle, etc.).</p>
+<div class="section" id="controles-postgis">
+<h3>2.1 - Contrôles postgis<a class="headerlink" href="#controles-postgis" title="Permalink to this heading"></a></h3>
+<p>Liste de défauts fréquemment rencontrés :</p>
+<ul class="simple">
+<li><p>Points adresse hors parcelles</p></li>
+</ul>
+<a class="reference internal image-reference" href="../../_images/2.1_erreur_hp.png"><img alt="../../_images/2.1_erreur_hp.png" src="../../_images/2.1_erreur_hp.png" style="width: 480px;" /></a>
+<ul class="simple">
+<li><p>Point adresse plus près d’une autre voie que celle à laquelle il est rattaché</p></li>
+</ul>
+<a class="reference internal image-reference" href="../../_images/2.1_erreur_adresse_voie.png"><img alt="../../_images/2.1_erreur_adresse_voie.png" src="../../_images/2.1_erreur_adresse_voie.png" style="width: 480px;" /></a>
+<ul class="simple">
+<li><p>Point adresse pair ou impair du mauvais côté de la voie</p></li>
+</ul>
+<a class="reference internal image-reference" href="../../_images/2.1_erreur_impair.png"><img alt="../../_images/2.1_erreur_impair.png" src="../../_images/2.1_erreur_impair.png" style="width: 480px;" /></a>
+<ul class="simple">
+<li><p>Erreurs de tracé de voies (ex : auto intersection)</p></li>
+</ul>
+<a class="reference internal image-reference" href="../../_images/2.1_erreur_trace.png"><img alt="../../_images/2.1_erreur_trace.png" src="../../_images/2.1_erreur_trace.png" style="width: 480px;" /></a>
+<ul class="simple">
+<li><p>Voie portant le même nom qu’une autre voie de la même commune</p></li>
+</ul>
+<a class="reference internal image-reference" href="../../_images/2.1_erreur_meme_nom_voie.png"><img alt="../../_images/2.1_erreur_meme_nom_voie.png" src="../../_images/2.1_erreur_meme_nom_voie.png" style="width: 480px;" /></a>
+<ul class="simple">
+<li><p>Voies avec un nom trop long</p></li>
+</ul>
+<a class="reference internal image-reference" href="../../_images/2.1_erreur_nom_trop_long.png"><img alt="../../_images/2.1_erreur_nom_trop_long.png" src="../../_images/2.1_erreur_nom_trop_long.png" style="width: 480px;" /></a>
+<p>Sur la base de cette liste, un ensemble de scripts SQL permet d’identifier automatiquement ces différents cas :</p>
+<ol class="arabic simple">
+<li><p>Détecter automatiquement des erreurs de saisie sémantiques dans les données adresse</p></li>
+<li><p>Détecter les erreurs de saisie géométrique</p></li>
+<li><p>Produire un bilan sur l’ensemble des données de référence.</p></li>
+</ol>
+<p>Les scripts listés sont disponibles ici :<a class="reference external" href="https://github.com/sig14/sig14.github.io/blob/master/adressage/sql/outils_controles.sql">Scripts de contrôle</a></p>
+<p>Description des scripts</p>
+<p><strong>adresse.f_point_voie_distant()</strong></p>
+<p><em>Synopsis</em></p>
+<p>Fonction trigger adresse.f_point_voie_distant()
+Identifie les points adresse plus près d’une autre voie que celle à laquelle ils appartiennent et retourne la distance entre le point et sa voie de rattachement.</p>
+<p><em>Description</em></p>
+<p>Retourne un BOOLEAN dans le champ c_erreur_dist_voie» de la table point_adresse.
+Retourne un Integer dans le champ « c_dist_voie» de la table point_adresse.
+Elle identifie ainsi la voie la plus proche dans un rayon de 10 km autour du point. Si la voie identifiée contient un « id_voie » différent de celui du point, la fonction retourne TRUE, sinon FALSE.</p>
+<p>Elle calcule également la distance entre le point adresse et sa voie de rattachement.
+Cette fonction se déclenche à chaque modification de la table point_adresse au niveau de la ligne modifiée.</p>
+<a class="reference internal image-reference" href="../../_images/2.1_f1.png"><img alt="../../_images/2.1_f1.png" src="../../_images/2.1_f1.png" style="width: 480px;" /></a>
+<p><strong>adresse.point_proj()</strong></p>
+<p><em>Synopsis</em></p>
+<p>Fonction adresse. point_proj (ptgeom geometry, ptgeom_proj geometry);
+Projette un point sur la voix de rattachement du point adresse.</p>
+<p><em>Description</em></p>
+<p>Retourne une géométrie point dans un champ nommé « geom_pt_proj».
+Elle crée un point à partir de la localisation du point le plus proche du point adresse d’entrée, sur la ligne possédant le même id_voie que ce point d’entrée.
+Fonctions postgis mobilisées :
+•       ST_LineLocatePoint(voie.geom, point_adresse.geom) -&gt; float between 0 and 1
+•       ST_LineInterpolatePoint(voie.geom, float between 0 and 1)</p>
+<a class="reference internal image-reference" href="../../_images/2.1_f2.png"><img alt="../../_images/2.1_f2.png" src="../../_images/2.1_f2.png" style="width: 480px;" /></a>
+<p><strong>adresse.segment_prolong()</strong></p>
+<p><em>Synopsis</em></p>
+<p>Fonction trigger adresse.segment_prolong(pgeom geometry, idv integer);
+Dessine un segment prolongé du point adresse au point projeté.</p>
+<p><em>Description</em></p>
+<p>Retourne une géométrie ligne dans un champ nommé « geom_segment_prolong».
+Dessine un segment du point adresse à un point projeté au 50/49e de la distance entre le point adresse et son point projeté.
+Fonctions postgis mobilisées :
+•       ST_DISTANCE(ptgeom,ptgeom_proj) as distance_pt
+•       ST_AZIMUTH(ptgeom,ptgeom_proj) as azimuth_pt
+•       ST_TRANSLATE (ptgeom, sinus(azimuth_pt) * distance_pt + 50/49 distance_pt, cosinus(azimuth_pt)*distance_pt+50/49 distance_pt as translation_pt
+•       ST_MakeLine(ptgeom, translation_pt)</p>
+<a class="reference internal image-reference" href="../../_images/2.1_f3.png"><img alt="../../_images/2.1_f3.png" src="../../_images/2.1_f3.png" style="width: 480px;" /></a>
+<p><strong>adresse.f_cote_voie()</strong></p>
+<p><em>Synopsis</em></p>
+<p>Fonction adresse.f_cote_voie(idv integer, geom_segment geometry);</p>
+<p>Indique la position du point par rapport à sa voie de rattachement : droite, gauche, indéfinie. Sinon problème (voie mal tracée, point non rattaché à une voie, …)</p>
+<p><em>Description</em></p>
+<p>Retourne du texte dans un champ nommé « cote_voie».</p>
+<p>Elle identifie si le segment prolongé créé à partir du point projeté sur la voie de rattachement du point adresse, croise la ligne à gauche, à droite, ne croise pas ou croise plusieurs fois.</p>
+<p>Fonction postgis mobilisée :
+•       ST_LineCrossingDirection(geom_segment, voie_geom)</p>
+<a class="reference internal image-reference" href="../../_images/2.1_f4.png"><img alt="../../_images/2.1_f4.png" src="../../_images/2.1_f4.png" style="width: 480px;" /></a>
+<p><strong>adresse.c_erreur_cote_parite()</strong></p>
+<p><em>Synopsis</em></p>
+<p>Fonction adresse.c_erreur_cote_parite(numero integer, cote_voie  geometry);</p>
+<p>Identifie si le point adresse est pair ou impair et du mauvais côté de la voie à laquelle il est rattaché : true (erreur coté), false (pas derreur) ou indefini.</p>
+<p>Sinon problème (voie mal tracée, point non rattaché à une voie, …)</p>
+<p><em>Description</em></p>
+<p>Retourne du texte dans un champ nommé « erreur_cote_parite».</p>
+<p>Elle identifie si le côté duquel se trouve le point adresse correspond à la parité de son numéro.</p>
+<p><em>Exemple</em>
+Le numéro 5 impair se trouve du coté droit.
+•       Erreur_cote_parite = True</p>
+<p><strong>adresse.f_erreur_cote_parite()</strong></p>
+<p><em>Synopsis</em></p>
+<p>Fonction trigger adresse.f_erreur_cote_parite();  Identifie les points adresse pairs ou impairs du mauvais côté de la voie, à gauche ou à droite.</p>
+<p><em>Description</em></p>
+<p>Retourne un BOOLEAN dans le champ « c_erreur_cote_parite» de la table point_adresse. Elle identifie ainsi si le point adresse créé est à gauche ou à droite de la voie.</p>
+<p>Si le point adresse est pair, mais à gauche de la voie ou si le point adresse est impair mais à droite de la voie, la fonction retourne TRUE, sinon FALSE.</p>
+<p>Sinon indefini. Sinon problème (voie mal tracée, point non rattaché à une voie, …)</p>
+<p>La fonction se déclenche à chaque modification du « geom » du point et s’éffectue en 4 étapes :
+1-      Projection du point adresse sur sa voie de rattachement
+•       adresse.point_proj(pgeom geometry, idv integer)
+2-      Dessin d’un segment prolongé au 50/49 de la taille du segment initial.
+•       adresse.point_segment_prolong(pgeom geometry, idv integer)
+3-      Identification du sens de croisement du segment prolongé
+•       adresse.f_cote_voie(idv integer, geom_segment geometry)
+4-      Comparaison avec le numéro du point adresse d’origine.
+•       adresse.c_erreur_cote_parite(numero integer, cote_voie  geometry)</p>
+<a class="reference internal image-reference" href="../../_images/2.1_f5.png"><img alt="../../_images/2.1_f5.png" src="../../_images/2.1_f5.png" style="width: 480px;" /></a>
+<p><strong>adresse.segment_extract()</strong></p>
+<p><em>Synopsis</em></p>
+<p>Fonction adresse.segment_extract(table_name varchar, id_line varchar, geom_line varchar);</p>
+<p>Extrait des segments à partir de polylignes.</p>
+<p><em>Description</em></p>
+<p>Retourne une table composée de 3 champs ( id bigint,  id_voie integer, geom_segment geometry).</p>
+<p>Sélectionne les nœuds des voies. Puis trace des lignes entre les différents nœuds créés.
+Fonctions postgis mobilisées :
+•       ST_DumpPoints(voie_geom)
+•       ST_makeline()</p>
+<a class="reference internal image-reference" href="../../_images/2.1_f6.png"><img alt="../../_images/2.1_f6.png" src="../../_images/2.1_f6.png" style="width: 480px;" /></a>
+<p><strong>adresse.line_rotation()</strong></p>
+<p><em>Synopsis</em></p>
+<p>Fonction adresse.line_rotation( lgeom geometry);</p>
+<p>Retourne les segments au niveau de leur centroide raccourcis de 2/3</p>
+<p><em>Description</em></p>
+<p>Retourne une géométrie de lignes dans un champ nommé « geom_rotate».</p>
+<p>Elle effectue une rotation à 80,1 degrès d’1/3 du segment au niveau de son centroide.
+Fonction postgis mobilisées :
+•       ST_LineSubstring(lgeom, 0.333 ::real, 0.666::real) as substring
+•       ST_centroid(lgeom) as centroid
+•       st_rotate(substring, centroid) as rotate
+•       ST_CollectionExtract(rotate)</p>
+<a class="reference internal image-reference" href="../../_images/2.1_f7.png"><img alt="../../_images/2.1_f7.png" src="../../_images/2.1_f7.png" style="width: 480px;" /></a>
+<p><strong>adresse.f_voie_erreur_trace()</strong></p>
+<p><em>Synopsis</em></p>
+<p>Fonction adresse.f_voie_erreur_trace();
+Identifier les voies avec erreur de tracés (plusieurs passages de lignes, voies recourbées sur elles-mêmes, etc.)</p>
+<p><em>Description</em></p>
+<p>Retourne un BOOLEAN dans le champ « c_erreur_trace» de la table adresse.voie.</p>
+<p>Elle identifie ainsi si la voie qui croise plusieurs fois un segment retourné. La voie croise plusieurs fois, la fonction retourne TRUE, sinon FALSE.</p>
+<p>La fonction se déclenche à chaque modif/ajout du « geom » de la voie et s’effectue en 3 étapes :
+1-      Extrait des segments à partir de polylignes
+•       adresse.segment_extract(table_name varchar, id_line varchar, geom_line varchar
+2-      Retourne les segments au niveau de leur centroides raccourcis de 2/3
+•       adresse.line_rotation( lgeom geometry);
+3-      Identification du sens de croisement du segment prolongé
+•       ST_LineCrossingDirection(New.geom, geom_rotate)</p>
+<a class="reference internal image-reference" href="../../_images/2.1_f8.png"><img alt="../../_images/2.1_f8.png" src="../../_images/2.1_f8.png" style="width: 480px;" /></a>
+<p><strong>adresse.f_bilan_pt_parcelle()</strong></p>
+<p><em>Synopsis</em></p>
+<p>Fonction adresse.f_bilan_pt_parcelle();
+Bilan du nombre de points adresse et dernière date de modification d’un point par parcelle.</p>
+<p><em>Description</em></p>
+<p>Retourne un integer dans le champ « nb_pt_adresse» et une DATE dans le champ « date_pt_modif »  de la table adresse.parcelle.</p>
+<p>Elle compte d’abord le nombre d’id point adresse par parcelle. Puis ajoute la date de modification associée nulle ou la plus récente.</p>
+<p>La fonction se déclenche à chaque modif/ajout du « geom » du point adresse.</p>
+<a class="reference internal image-reference" href="../../_images/2.1_f9.png"><img alt="../../_images/2.1_f9.png" src="../../_images/2.1_f9.png" style="width: 480px;" /></a>
+<p><strong>adresse.f_commune_repet_nom_voie()</strong></p>
+<p><em>Synopsis</em></p>
+<p>Fonction trigger adresse.f_commune_repet_nom_voie();</p>
+<p>Identifie les voies portant le même nom qu’une autre voie de la même commune.</p>
+<p><em>Description</em></p>
+<p>Retourne un BOOLEAN dans un champ nommé « c-repet-nom_voie» de la table adresse.voie.</p>
+<p>Elle sélectionne le nom des communes, le nom des voies et le nombre d’itération du nom des voies par commune.</p>
+<p>Si aucun nom n’est répertorié elle retournera FALSE sinon TRUE.</p>
+<p>Elle se déclenche à chaque création ou modification d’une valeur du champ nom.</p>
+<a class="reference internal image-reference" href="../../_images/2.1_f10.png"><img alt="../../_images/2.1_f10.png" src="../../_images/2.1_f10.png" style="width: 480px;" /></a>
+<p><strong>adresse.f_controle_longueur_nom()</strong></p>
+<p><em>Synopsis</em></p>
+<p>Fonction trigger adresse.f_controle_longueur_nom() ;</p>
+<p>Identifie les voies portant un nom de plus de 24 caractères.</p>
+<p><em>Description</em></p>
+<p>Retourne un BOOLEAN dans un champ nommé « c_long_nom» de la table adresse.voie.</p>
+<p>Si le nom de la voie fait plus de 24 caractères la fonction retournera TRUE sinon FALSE</p>
+<p>Elle se déclenche à chaque création ou modification d’une valeur du champ nom.</p>
+<a class="reference internal image-reference" href="../../_images/2.1_f11.png"><img alt="../../_images/2.1_f11.png" src="../../_images/2.1_f11.png" style="width: 480px;" /></a>
+<p><strong>adresse.f_voie_double_saisie()</strong></p>
+<p><em>Synopsis</em></p>
+<p>Fonction trigger adresse.f_voie_double_saisie() ;</p>
+<p>Identifie les voies saisies en 2 fois.</p>
+<p><em>Description</em></p>
+<p>Retourne un BOOLEAN dans un champ nommé « c_saisie_double» de la table adresse.voie.</p>
+<p>Cette requête retourne les voies à moins de 500 mètres de la nouvelle voie créée et dont le nom est proche de celui-ci. Si aucune voie n’est répertoriée elle retournera FALSE sinon TRUE.</p>
+<p>Elle se déclenche à chaque création ou modification sur la table voie.</p>
+<a class="reference internal image-reference" href="../../_images/2.1_f12.png"><img alt="../../_images/2.1_f12.png" src="../../_images/2.1_f12.png" style="width: 480px;" /></a>
+</div>
+<div class="section" id="dashboard-qgis">
+<h3>2.2 - Dashboard QGis<a class="headerlink" href="#dashboard-qgis" title="Permalink to this heading"></a></h3>
+<p>Tableau de bord de suivi des indicateurs clés du projet, intégré aux logiciels SIG utilisés quotidiennement par les équipes et les partenaires.</p>
+<a class="reference internal image-reference" href="../../_images/intro.png"><img alt="../../_images/intro.png" src="../../_images/intro.png" style="width: 728.0px; height: 377.5px;" /></a>
+<p><strong>Un outil de suivi intégré</strong></p>
+<p>Au sein du pôle SIG, nous souhaitions obtenir une vue d’ensemble des données produites au fur et à mesure de l’avancement du projet. Il fallait donc identifier une solution SIG permettant d’assurer un suivi interactif des données (contrôle des erreurs de saisies et bilan de l’avancement du projet).
+Elle devait s’intégrer au logiciel QGIS utilisé par le chargé de mission SIG du Département et sur l’application cartographique Lizmap à disposition des communes et des partenaires.</p>
+<p>Nous nous sommes appuyés sur une méthodologie publiée sur le site &lt;<a class="reference external" href="https://plugins.QGIS.org/geopackages/5/">https://plugins.QGIS.org/geopackages/5/</a>&gt; (Sutton, 2020) , afin de développer un « dashboard » par manipulation des étiquettes de couches QGIS.</p>
+<p>Cette méthode permet, en créant une couche spécifique de tableau de bord, de paramétrer le style des étiquettes de la couche et via requêtes sql d’agrégation, de produire un tableau interactif de suivi des données présentes dans le projet QGIS.</p>
+<p><strong>Les étapes de construction du dashboard</strong></p>
+<p><em>Etape 1 : création de la couche dashboard</em></p>
+<p>Créer une couche « dashboard » de polygones composée des champs suivant :</p>
+<a class="reference internal image-reference" href="../../_images/1_champs_dashboard.png"><img alt="../../_images/1_champs_dashboard.png" src="../../_images/1_champs_dashboard.png" style="width: 334.0px; height: 239.5px;" /></a>
+<p><em>Etape 2 : créer un polygone</em></p>
+<p>Éditer la couche « dashboard » et créer un polygone suivant l’emprise du projet.</p>
+<a class="reference internal image-reference" href="../../_images/2_polygon_dashboard.png"><img alt="../../_images/2_polygon_dashboard.png" src="../../_images/2_polygon_dashboard.png" style="width: 960.0px; height: 515.0px;" /></a>
+<p><em>Etape 3 : symbologie de la couche</em></p>
+<p>Ouvrir les propriétés de la couche dashboard et dans l’onglet symbologie sélectionner ‘aucun symbole’.</p>
+<p>Le polygone doit disparaître à l’écran.</p>
+<a class="reference internal image-reference" href="../../_images/3_symbologie_dashboard.png"><img alt="../../_images/3_symbologie_dashboard.png" src="../../_images/3_symbologie_dashboard.png" style="width: 816.5px; height: 416.5px;" /></a>
+<p><em>Etape 4 : paramétrer les étiquettes</em></p>
+<p>Sélectionner ‘Etiquettes simples’ dans l’onglet Étiquettes. Dans le sous onglet valeur, faites une sélection par expression et inscrivez le code suivant : <cite>eval( “label_expression”)</cite></p>
+<a class="reference internal image-reference" href="../../_images/4_etiquettes_dashboard.png"><img alt="../../_images/4_etiquettes_dashboard.png" src="../../_images/4_etiquettes_dashboard.png" style="width: 816.5px; height: 416.5px;" /></a>
+<p>Dans le sous-onglet texte cliquer sur l’icône à droite de la police. Aller chercher type de champ et pointer vers le champ <strong>font</strong> de la table « dashboard » créée à l’étape 1.</p>
+<a class="reference internal image-reference" href="../../_images/5_etiquettes_dashboard.png"><img alt="../../_images/5_etiquettes_dashboard.png" src="../../_images/5_etiquettes_dashboard.png" style="width: 816.5px; height: 416.5px;" /></a>
+<p>Faire de même avec le <strong>style</strong> et pointer sur le champ style.</p>
+<a class="reference internal image-reference" href="../../_images/6_etiquettes_dashboard.png"><img alt="../../_images/6_etiquettes_dashboard.png" src="../../_images/6_etiquettes_dashboard.png" style="width: 816.5px; height: 416.5px;" /></a>
+<p>Faire de même avec la <strong>couleur</strong> et pointer sur le champ _**font_color**_.</p>
+<a class="reference internal image-reference" href="../../_images/7_etiquettes_dashboard.png"><img alt="../../_images/7_etiquettes_dashboard.png" src="../../_images/7_etiquettes_dashboard.png" style="width: 816.5px; height: 416.5px;" /></a>
+<p>Aller maintenant dans l’onglet <strong>arrière-plan.</strong></p>
+<p>Faire de même que précédemment avec la <strong>taille X</strong> et pointer sur le champ _**width**_.</p>
+<a class="reference internal image-reference" href="../../_images/8_etiquettes_dashboard.png"><img alt="../../_images/8_etiquettes_dashboard.png" src="../../_images/8_etiquettes_dashboard.png" style="width: 816.5px; height: 459.5px;" /></a>
+<p>Faire de même que précédemment avec la <strong>taille Y</strong> et pointer sur le champ _**height**_.</p>
+<a class="reference internal image-reference" href="../../_images/9_etiquettes_dashboard.png"><img alt="../../_images/9_etiquettes_dashboard.png" src="../../_images/9_etiquettes_dashboard.png" style="width: 816.5px; height: 459.5px;" /></a>
+<p>Faire de même avec la <strong>couleur de remplissage</strong> et pointer sur le champ _**bg_colour**_.</p>
+<a class="reference internal image-reference" href="../../_images/10_etiquettes_dashboard.png"><img alt="../../_images/10_etiquettes_dashboard.png" src="../../_images/10_etiquettes_dashboard.png" style="width: 816.5px; height: 459.5px;" /></a>
+<p>Aller maintenant dans l’onglet <strong>position</strong>.</p>
+<p>Choisir l’option quadrant de l’image ci-dessous.</p>
+<p>Cliquer sur l’icône à droite de <strong>décalage X,Y</strong>. Choisissez cette fois-ci la sélection par expression.</p>
+<p>Dans le constructeur de requête qui s’ouvre, indiquer la variable suivante : <cite>array( “label_offset_x” , “label_offset_y”)</cite>
+Appuyer sur ok.</p>
+<a class="reference internal image-reference" href="../../_images/11_etiquettes_dashboard.png"><img alt="../../_images/11_etiquettes_dashboard.png" src="../../_images/11_etiquettes_dashboard.png" style="width: 500.0px; height: 281.0px;" /></a>
+<p>Pour finir, afin de fixer les étiquettes selon l’emprise de la carte, cocher la case <strong>générateur de géométrie</strong> et inscrire l’expression suivante : start_point( &#64;map_extent )</p>
+<a class="reference internal image-reference" href="../../_images/last_emprise_carte_expression.png"><img alt="../../_images/last_emprise_carte_expression.png" src="../../_images/last_emprise_carte_expression.png" style="width: 827.0px; height: 400.5px;" /></a>
+<p><em>Etape 5 : Remplir les champs de la table attributaire</em></p>
+<p>Revenir à la table attributaire de « dashboard ».</p>
+<p>Donner un nom qui mette en évidence l’action. Ici le titre de la première étiquette que nous appellerons fenêtre dashboard.</p>
+<p>Puis indiquer dans le champ “label expression” l’expression qui s’affichera dans la première fenêtre dashboard, ici, simplement le titre <strong>‘nbr pt total’</strong></p>
+<a class="reference internal image-reference" href="../../_images/12_1rst_fenetre_dashboard.png"><img alt="../../_images/12_1rst_fenetre_dashboard.png" src="../../_images/12_1rst_fenetre_dashboard.png" style="width: 500.0px; height: 35.5px;" /></a>
+<p>Paramétrer ensuite les champs qui vont déterminer la taille, la position, la couleur de fond et la police de la première fenêtre Dashboard.</p>
+<a class="reference internal image-reference" href="../../_images/12_1rst_fenetre_suite_dashboard.png"><img alt="../../_images/12_1rst_fenetre_suite_dashboard.png" src="../../_images/12_1rst_fenetre_suite_dashboard.png" style="width: 500.0px; height: 25.5px;" /></a>
+<p>Au fur et à mesure des modifications des valeurs de champ, lorsque vous enregistrez, vous devez voir apparaître la 1ere fenêtre Dashboard et les modifications apportées.</p>
+<a class="reference internal image-reference" href="../../_images/12_1rst_fenetre_vue.png"><img alt="../../_images/12_1rst_fenetre_vue.png" src="../../_images/12_1rst_fenetre_vue.png" style="width: 250.0px; height: 42.5px;" /></a>
+<p>Si aucune fenêtre n’apparaît au niveau de votre projet QGIS, jouez avec les différents champs (surtout label_offset x, label_offset y), cela peut être un problème de position de la fenêtre. Si elle n’apparaît toujours pas, reprenez les étapes précédentes.</p>
+<p><em>Etape 6 : Créer de nouvelles fenêtres dashboard</em></p>
+<p>Pour créer une nouvelle fenêtre dashboard, passer la table attributaire en mode édition. Copier la première ligne et coller la dans la partie blanche de la table attributaire. Une deuxième ligne identique apparaît.</p>
+<a class="reference internal image-reference" href="../../_images/13_2nd_fenetre_dashboard.png"><img alt="../../_images/13_2nd_fenetre_dashboard.png" src="../../_images/13_2nd_fenetre_dashboard.png" style="width: 500.0px; height: 38.0px;" /></a>
+<p><em>Etape 7 : Paramétrer des requêtes dans les nouvelles lignes</em></p>
+<p>Une fois la nouvelle entité créée, modifier les valeurs de champ de la seconde pour positionner la deuxième fenêtre sous la première.  Vous pouvez modifier le champ label_expression avec une requête sql qgis qui vous permettra d’afficher la valeur souhaitée dans cette deuxième fenêtre.</p>
+<a class="reference internal image-reference" href="../../_images/14_2nd_fenetre_vue.png"><img alt="../../_images/14_2nd_fenetre_vue.png" src="../../_images/14_2nd_fenetre_vue.png" style="width: 150.0px; height: 42.0px;" /></a>
+<p><em>Exemple de table attributaire dashboard et rendu</em></p>
+<p>Ci-dessous, nous avons organisé la table avec une fenêtre par ligne comme suit : une 1ère fenêtre avec valeur « titre » suivie d’une fenêtre affichant une valeur « expression ».</p>
+<a class="reference internal image-reference" href="../../_images/15_ex_table_attrib.png"><img alt="../../_images/15_ex_table_attrib.png" src="../../_images/15_ex_table_attrib.png" style="width: 500.0px; height: 185.5px;" /></a>
+<a class="reference internal image-reference" href="../../_images/16_ex_table_attrib_suite.png"><img alt="../../_images/16_ex_table_attrib_suite.png" src="../../_images/16_ex_table_attrib_suite.png" style="width: 500.0px; height: 236.5px;" /></a>
+<p><em>Exemple de requêtes utilisées</em></p>
+<p>1- Total de la somme des valeurs de la colonne pt_total de la couche Infos Communes</p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">aggregate</span><span class="p">(</span><span class="n">layer</span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Infos Communes&#39;</span><span class="p">,</span><span class="w"> </span><span class="k">aggregate</span><span class="p">:</span><span class="o">=</span><span class="s1">&#39;sum&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">expression</span><span class="p">:</span><span class="o">=</span><span class="n">pt_total</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>2- Total de la somme des valeurs de la colonne pt_total des entités sélectionnées sur la couche Infos Communes</p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">aggregate</span><span class="p">(</span><span class="n">layer</span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Infos Communes&#39;</span><span class="p">,</span><span class="w"> </span><span class="k">aggregate</span><span class="p">:</span><span class="o">=</span><span class="s1">&#39;sum&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">expression</span><span class="p">:</span><span class="o">=</span><span class="n">pt_total</span><span class="p">,</span><span class="w"> </span><span class="n">filter</span><span class="p">:</span><span class="o">=</span><span class="n">is_selected</span><span class="p">(</span><span class="s1">&#39;Infos Communes&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;$&#39;</span><span class="n">currentfeature</span><span class="w"> </span><span class="p">)</span><span class="w">  </span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>3- Nombre de communes accompagnées (champ : actif, valeur : oui) dans la couche Infos Communes</p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">aggregate</span><span class="p">(</span><span class="n">layer</span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Infos Communes&#39;</span><span class="p">,</span><span class="w"> </span><span class="k">aggregate</span><span class="p">:</span><span class="o">=</span><span class="s1">&#39;count&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">expression</span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">actif</span><span class="p">,</span><span class="w"> </span><span class="n">filter</span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">actif</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;Oui&#39;</span><span class="w"> </span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><em>Exemple de rendu</em></p>
+<p>Le dashboard est utilisé par le pôle SIG afin de contrôler les erreurs de saisies en temps réel par les communes et présenter un bilan général de l’avancement du projet.</p>
+<p>Ci-dessous, un exemple d’affichage des bilans adresses (en haut à droite) après sélection d’une commune sous QGIS.</p>
+<a class="reference internal image-reference" href="../../_images/qgis_dashboard.gif"><img alt="../../_images/qgis_dashboard.gif" src="../../_images/qgis_dashboard.gif" style="width: 960.0px; height: 515.0px;" /></a>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../I_acc_communes/" class="btn btn-neutral float-left" title="I- Accompagnement des Communes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../III_consultation_exports/" class="btn btn-neutral float-right" title="III- Consulter et exporter les données “Adresses” depuis QGIS" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, SIG14 team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

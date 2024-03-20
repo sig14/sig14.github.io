@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IV- Ajouter un onglet “Mutations immobilières” à la pop-up cadastre de Lizmap &mdash; Documentation SIG14  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sphinx_rtd_theme_ext_color_contrast.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+        <script>let toggleHintShow = 'Click to show';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="../../_static/togglebutton.js"></script>
+        <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex/" />
+    <link rel="search" title="Search" href="../../search/" />
+    <link rel="next" title="I- Périmètres des bornes incendies" href="../../deci/I_perimetres_pei/" />
+    <link rel="prev" title="III- Ajouter un onglet “Filiation parcellaire” à la pop-up cadastre de Lizmap" href="../III_filiation_parcelles/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../">
+            
+              <img src="../../_static/CD14_petit.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search/" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Équipe</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../equipe/I_membres/">I- Membres</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../equipe/II_contact/">II- Contact</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Adressage</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../adressage/I_acc_communes/">I- Accompagnement des Communes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../adressage/II_application_saisie/">II- Application de saisie</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../adressage/III_consultation_exports/">III- Consulter et exporter les données “Adresses” depuis QGIS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../adressage/IV_depot_bal/">IV- Déposer une BAL via l’API BAN avec FME</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Cadastre</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../I_maj_annuelle/">I- Mettre à jour les données EDIGEO / Majic III (maj annuelle)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../II_gpu_docs_urba/">II- Ajouter un onglet “Documents d’urbanisme GPU” à la pop-up cadastre de Lizmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../III_filiation_parcelles/">III- Ajouter un onglet “Filiation parcellaire” à la pop-up cadastre de Lizmap</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">IV- Ajouter un onglet “Mutations immobilières” à la pop-up cadastre de Lizmap</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#champ-html-historique-deroulant">1- Champ HTML historique déroulant</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#fonction-postgresql-gis">1.1 - Fonction postgresql/gis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#parametrage-qgis-plugin-lizmap">2.2 - Paramètrage Qgis/plugin Lizmap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rendu-lizmap">1.3 - Rendu lizmap</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">DECI</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../deci/I_perimetres_pei/">I- Périmètres des bornes incendies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../deci/II_rapproch_ign/">II- Rapprochement adresse BDtopo IGN</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Traitements FME</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../traitements_fme/I_plannificateur_taches/">I- Produire un calendrier des tâches du plannificateur</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Traitements GDAL</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../traitements_gdal/I_geopackage/">I- Produire un GeoPackage des orthos tuilées</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../traitements_gdal/II_cog/">II- Produire un COG à partir des orthos IGN</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../">Documentation SIG14</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">IV- Ajouter un onglet “Mutations immobilières” à la pop-up cadastre de Lizmap</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/sig14/sig14.github.io/blob/master/cadastre/IV_mutation_immo.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="iv-ajouter-un-onglet-mutations-immobilieres-a-la-pop-up-cadastre-de-lizmap">
+<h1>IV- Ajouter un onglet “Mutations immobilières” à la pop-up cadastre de Lizmap<a class="headerlink" href="#iv-ajouter-un-onglet-mutations-immobilieres-a-la-pop-up-cadastre-de-lizmap" title="Permalink to this heading"></a></h1>
+<a class="reference internal image-reference" href="../../_images/schema_dvf_cadastre.png"><img alt="../../_images/schema_dvf_cadastre.png" src="../../_images/schema_dvf_cadastre.png" style="width: 1121.0px; height: 595.0px;" /></a>
+<p>Le jeu de données « Demandes de valeurs foncières », publié et produit par la direction générale des finances publiques, permet de connaître les transactions immobilières intervenues au cours des cinq dernières années. Les données contenues sont issues des actes notariés et des informations cadastrales.</p>
+<p>Il est disponible sur le site <a class="reference external" href="https://www.data.gouv.fr/fr/datasets/5c4ae55a634f4117716d5656/">datagouv.fr</a></p>
+<p>Les fichiers correspondant chacun à un millésime sont mis à disposition au format.txt. sur cinq ans.</p>
+<p>Les fichiers mis à disposition font l’objet d’une mise à jour <strong>semestrielle, en avril et en octobre</strong>.</p>
+<p>A partir de ce fichier, le pôle SIG du Département du Calvados, propose de consulter l’historique des mutations immobilières et leurs valeures foncières à l’échelle d’une parcelle.</p>
+<a class="reference internal image-reference" href="../../_images/mutation_immo.gif"><img alt="../../_images/mutation_immo.gif" src="../../_images/mutation_immo.gif" style="width: 902.0px; height: 458.0px;" /></a>
+<div class="section" id="champ-html-historique-deroulant">
+<h2>1- Champ HTML historique déroulant<a class="headerlink" href="#champ-html-historique-deroulant" title="Permalink to this heading"></a></h2>
+<p>L’objectif est ici de pouvoir consulter l’historique des mutations immobilières et les valeurs foncières à l’échelle de la parcelle.</p>
+<p>L’utilisateur peut en cliquant sur une parcelle, consulter les différentes mutations immobilières opérées sur la parcelle ces 5 dernières années.</p>
+<p>Pour cela on utilise une fonction postgresql/gis pour alimenter la table parcelle_info du cadastre et une mise en forme du formulaire QGIS en HTML pour publication sur le portail cartographique Lizmap.</p>
+<div class="section" id="fonction-postgresql-gis">
+<h3>1.1 - Fonction postgresql/gis<a class="headerlink" href="#fonction-postgresql-gis" title="Permalink to this heading"></a></h3>
+<ul>
+<li><p>On créé le champ contenant l’html des déroulants détaillant les filiations du plus récent au plus ancien</p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">cadastre</span><span class="p">.</span><span class="n">parcelle_info</span>
+<span class="k">ADD</span><span class="w"> </span><span class="k">column</span><span class="w"> </span><span class="n">deroulant_dvf</span><span class="w"> </span><span class="nb">varchar</span><span class="p">;</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ul>
+<p>On lance ensuite une fonction postgresql/gis dont le code SQL se trouve <a class="reference external" href="https://github.com/sig14/sig14.github.io/blob/master/cadastre/sql/fonction_dvf_cadastre.sql">à cet endroit</a></p>
+<ul>
+<li><p>Dans un premier temps, on sélectionne des valeurs de champs distincts pour éviter les doublons</p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">select</span><span class="w">  </span><span class="k">distinct</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="p">(</span>
+<span class="w">            </span><span class="n">a</span><span class="p">.</span><span class="n">code_ch</span><span class="p">,</span>
+<span class="w">            </span><span class="n">a</span><span class="p">.</span><span class="n">ref_doct</span><span class="p">,</span>
+<span class="w">            </span><span class="n">a</span><span class="p">.</span><span class="n">no_disposition</span><span class="p">,...</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>On joint les natures de cultures et cultures spéciales (créer une table à partir de la notice descriptive disponible sur le site <a class="reference external" href="https://www.data.gouv.fr/fr/datasets/5c4ae55a634f4117716d5656/">datagouv.fr</a> ), ainsi que les numéros de parcelles du cadastre.</p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="n">row_number</span><span class="p">()</span><span class="w"> </span><span class="n">over</span><span class="p">()</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="c1">-- creation d&#39;un id unique</span>
+<span class="w">     </span><span class="n">b</span><span class="p">.</span><span class="n">geo_parcelle</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">geom</span><span class="p">,</span><span class="w"> </span><span class="n">date_mutation</span><span class="p">,</span><span class="w"> </span><span class="n">nature_mutation</span><span class="p">,</span><span class="w"> </span><span class="n">valeur_fonciere</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">concat</span><span class="p">(</span><span class="n">no_voie</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="w"> </span><span class="n">type_de_voie</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">voie</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="w"> </span><span class="n">code_postal</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">adresse</span><span class="w"> </span><span class="p">,</span>
+<span class="w">     </span><span class="n">type_local</span><span class="p">,</span><span class="w"> </span><span class="n">nb_piece_princ</span><span class="p">,</span><span class="w">  </span><span class="n">surf_reelle_bati</span><span class="p">,</span><span class="w"> </span><span class="n">surf_terrain</span><span class="p">,</span>
+<span class="w">        </span><span class="k">c</span><span class="p">.</span><span class="n">libelle</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">nature_culture</span><span class="p">,</span><span class="w"> </span><span class="c1">-- ajout de la nature culture</span>
+<span class="w">        </span><span class="n">d</span><span class="p">.</span><span class="n">libelle</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">nature_culture_speciale</span><span class="w"> </span><span class="c1">-- ajout de la nature culture spéciale</span>
+<span class="w">  </span><span class="k">from</span><span class="w"> </span><span class="n">cadastre</span><span class="p">.</span><span class="n">parcelle_info</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="c1">--- jointure de la tbale parcelle_info</span>
+<span class="w">  </span><span class="k">inner</span><span class="w"> </span><span class="k">join</span><span class="w">  </span><span class="n">ref_foncier</span><span class="p">.</span><span class="n">valeurs_foncieres</span><span class="w"> </span><span class="n">a</span>
+<span class="w">  </span><span class="k">on</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">geo_parcelle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">concat</span><span class="p">(</span><span class="n">concat</span><span class="p">(</span><span class="n">code_dep</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;0&#39;</span><span class="p">),</span>
+<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="k">when</span><span class="w"> </span><span class="k">length</span><span class="p">(</span><span class="n">code_com</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="n">concat</span><span class="p">(</span><span class="s1">&#39;00&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">code_com</span><span class="p">)</span>
+<span class="w">  </span><span class="k">when</span><span class="w"> </span><span class="k">length</span><span class="p">(</span><span class="n">code_com</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="n">concat</span><span class="p">(</span><span class="s1">&#39;0&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">code_com</span><span class="p">)</span>
+<span class="w">  </span><span class="k">else</span><span class="w"> </span><span class="n">code_com</span><span class="w"> </span><span class="k">end</span><span class="w">  </span><span class="p">,</span><span class="w"> </span><span class="n">pref_section</span><span class="p">,</span>
+<span class="k">case</span><span class="w"> </span><span class="k">when</span><span class="w"> </span><span class="k">length</span><span class="p">(</span><span class="n">section</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="n">concat</span><span class="p">(</span><span class="s1">&#39;0&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">section</span><span class="p">)</span>
+<span class="w">   </span><span class="k">else</span><span class="w">  </span><span class="n">section</span><span class="w"> </span><span class="k">end</span><span class="p">,</span><span class="w"> </span><span class="n">no_plan</span><span class="p">)</span>
+<span class="w">  </span><span class="k">left</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">ref_foncier</span><span class="p">.</span><span class="n">valeurs_foncieres_cultures</span><span class="w"> </span><span class="k">c</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">nature_culture</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">code</span>
+<span class="w">  </span><span class="k">left</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">ref_foncier</span><span class="p">.</span><span class="n">valeurs_foncieres_cultures_speciales</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">nature_culture_speciale</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">code</span><span class="p">)</span>
+
+<span class="w">  </span><span class="n">pars</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span><span class="k">select</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">geo_parcelle</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">date_mutation</span><span class="p">,</span><span class="w"> </span><span class="n">valeur_fonciere</span><span class="p">,</span><span class="w"> </span><span class="n">nature_mutation</span><span class="p">,</span><span class="w"> </span><span class="n">adresse</span><span class="p">,</span><span class="n">surf_terrain</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">type_local</span><span class="p">,</span><span class="n">a</span><span class="p">.</span><span class="n">nb_piece_princ</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">surf_reelle_bati</span><span class="p">,</span><span class="w">   </span><span class="n">a</span><span class="p">.</span><span class="n">nature_culture</span><span class="p">,</span><span class="w">  </span><span class="n">a</span><span class="p">.</span><span class="n">nature_culture_speciale</span>
+<span class="w">      </span><span class="k">from</span><span class="w">    </span><span class="n">parcelles_dvf</span><span class="w"> </span><span class="n">a</span>
+<span class="w">      </span><span class="k">group</span><span class="w"> </span><span class="k">by</span>
+<span class="w">  </span><span class="n">a</span><span class="p">.</span><span class="n">geo_parcelle</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">date_mutation</span><span class="p">,</span><span class="w"> </span><span class="n">valeur_fonciere</span><span class="p">,</span><span class="w"> </span><span class="n">nature_mutation</span><span class="p">,</span><span class="w"> </span><span class="n">adresse</span><span class="p">,</span><span class="n">surf_terrain</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">type_local</span><span class="p">,</span><span class="n">a</span><span class="p">.</span><span class="n">nb_piece_princ</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">surf_reelle_bati</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">nature_culture</span><span class="p">,</span><span class="w">  </span><span class="n">a</span><span class="p">.</span><span class="n">nature_culture_speciale</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">surf_terrain</span>
+
+<span class="w">  </span><span class="p">),</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Création du champ html : bloc html + info mutation, décomposition type local + nature culture</p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="w">     </span><span class="n">group_parcelle</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span><span class="c1">--- creation du champ html : bloc html + info mutation, decomposition type local + nature culture</span>
+<span class="w">         </span><span class="k">select</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">geo_parcelle</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">date_mutation</span><span class="p">,</span>
+
+<span class="w">         </span><span class="n">concat</span><span class="p">(</span><span class="s1">&#39;&lt;br&gt;&lt;details class=&quot;accordion_valeur_fonc&quot;&gt;&lt;summary&gt;&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">nature_mutation</span><span class="p">,</span><span class="s1">&#39; / &#39;</span><span class="p">,</span><span class="w"> </span><span class="k">coalesce</span><span class="p">(</span><span class="n">valeur_fonciere</span><span class="p">,</span><span class="k">null</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;xx&#39;</span><span class="p">),</span><span class="s1">&#39; euros &lt;br&gt;&#39;</span><span class="p">,</span>
+<span class="w">         </span><span class="n">date_mutation</span><span class="p">,</span><span class="s1">&#39;&lt;br&gt;&#39;</span><span class="p">,</span><span class="k">coalesce</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">adresse</span><span class="p">,</span><span class="k">null</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">),</span><span class="w"> </span><span class="s1">&#39;&lt;/summary&gt;&#39;</span><span class="p">,</span>
+<span class="w">         </span><span class="n">string_agg</span><span class="p">(</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;&lt;br&gt; &#39;</span><span class="o">||</span><span class="w"> </span><span class="k">case</span><span class="w"> </span><span class="k">when</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">type_local</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Maison&#39;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="s1">&#39;&lt;img class=&quot;fit-picture&quot; src=&quot;https://raw.githubusercontent.com/sig14/sig14.github.io/main/img/house.png&quot; width=&quot;20&quot;&#39;</span>
+<span class="w">                           </span><span class="k">when</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">type_local</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Appartement&#39;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="s1">&#39;&lt;img class=&quot;fit-picture&quot; src=&quot;https://raw.githubusercontent.com/sig14/sig14.github.io/main/img/apartment-xxl.png&quot; width=&quot;20&quot;&#39;</span>
+<span class="w">                           </span><span class="k">when</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">type_local</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Local industriel. commercial ou assimilé&#39;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="s1">&#39;&lt;img class=&quot;fit-picture&quot; src=&quot;https://raw.githubusercontent.com/sig14/sig14.github.io/main/img/shop.png&quot; width=&quot;20&quot;&#39;</span>
+<span class="w">                           </span><span class="k">when</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">type_local</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Dépendance&#39;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="s1">&#39;&lt;img class=&quot;fit-picture&quot; src=&quot;https://raw.githubusercontent.com/sig14/sig14.github.io/main/img/dependance.png&quot; width=&quot;20&quot;&#39;</span>
+<span class="w">                           </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="w"> </span><span class="k">end</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="s1">&#39;&lt;/img&gt;     &#39;</span><span class="o">||</span><span class="c1">-- decompostion du type de local : ajout d&#39;un lien vers image github associé selon le type</span>
+
+<span class="w">           </span><span class="n">concat</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">type_local</span><span class="p">,</span><span class="s1">&#39; &lt;br&gt;     &#39;</span><span class="p">)</span>
+<span class="w">           </span><span class="o">||</span><span class="k">case</span><span class="w"> </span><span class="k">when</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">nb_piece_princ</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;0&#39;</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">nb_piece_princ</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">null</span><span class="p">)</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="s1">&#39;&#39;</span>
+<span class="w">            </span><span class="k">else</span><span class="w"> </span><span class="n">concat</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">nb_piece_princ</span><span class="p">::</span><span class="nb">text</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39; pièces&lt;br&gt;     &#39;</span><span class="p">)</span><span class="w"> </span><span class="k">end</span><span class="w"> </span><span class="o">||</span>
+<span class="w">           </span><span class="k">case</span><span class="w"> </span><span class="k">when</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">surf_reelle_bati</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;0&#39;</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">surf_reelle_bati</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">null</span><span class="p">)</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="n">concat</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">surf_reelle_bati</span><span class="p">::</span><span class="nb">text</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;m²&lt;br&gt;&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">end</span><span class="p">),</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="w"> </span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">date_mutation</span><span class="p">::</span><span class="nb">date</span><span class="w"> </span><span class="k">DESC</span>
+<span class="w">           </span><span class="p">))</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">html_general</span><span class="p">,</span>
+
+
+<span class="w">       </span><span class="n">concat</span><span class="p">(</span>
+<span class="w">           </span><span class="c1">--- ajout de la nature terrain si present : surface terrain avec image terrain associé , null si pas de valeur de surface</span>
+<span class="w">      </span><span class="k">nullif</span><span class="p">(</span><span class="n">concat</span><span class="p">(</span><span class="w"> </span><span class="s1">&#39;&lt;br&gt;&lt;br&gt;&lt;img class=&quot;fit-picture&quot; src=&quot;https://raw.githubusercontent.com/sig14/sig14.github.io/main/img/grass.png&quot; width=&quot;20&quot; &lt;/img&gt; Terrain&lt;br&gt;&#39;</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">surf_terrain</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39; m² &lt;br&gt;&#39;</span><span class="p">),</span>
+<span class="w">   </span><span class="s1">&#39;&lt;br&gt;&lt;br&gt;&lt;img class=&quot;fit-picture&quot; src=&quot;https://raw.githubusercontent.com/sig14/sig14.github.io/main/img/grass.png&quot; width=&quot;20&quot; &lt;/img&gt; Terrain&lt;br&gt; m² &lt;br&gt;&#39;</span><span class="p">),</span>
+
+<span class="w">    </span><span class="k">nullif</span><span class="p">(</span><span class="k">translate</span><span class="p">(</span><span class="n">array_agg</span><span class="p">(</span><span class="w"> </span><span class="k">DISTINCT</span><span class="w"> </span><span class="n">nature_culture</span><span class="p">::</span><span class="nb">text</span><span class="w"> </span><span class="p">)::</span><span class="nb">text</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;{}&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="w"> </span><span class="p">),</span><span class="w"> </span><span class="s1">&#39;NULL&#39;</span><span class="p">),</span><span class="s1">&#39;&lt;br&gt;&#39;</span><span class="w"> </span><span class="c1">--- aggregation des natures de cultures, null si pas de valeur</span>
+<span class="w">   </span><span class="p">,</span><span class="w"> </span><span class="k">nullif</span><span class="p">(</span><span class="k">replace</span><span class="p">(</span><span class="k">translate</span><span class="p">(</span><span class="n">array_agg</span><span class="p">(</span><span class="w"> </span><span class="k">DISTINCT</span><span class="w"> </span><span class="n">nature_culture_speciale</span><span class="p">::</span><span class="nb">text</span><span class="p">)::</span><span class="nb">text</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;{}&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">),</span><span class="w"> </span><span class="s1">&#39;NULL&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">),</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="w">  </span><span class="c1">--- aggregation des natures de cultures    spéciales, null si pas de valeur</span>
+<span class="w">      </span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">html_terrain</span>
+<span class="w">   </span><span class="k">from</span><span class="w"> </span><span class="n">pars</span><span class="w"> </span><span class="n">a</span>
+<span class="w">   </span><span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">geo_parcelle</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">date_mutation</span><span class="p">,</span><span class="w"> </span><span class="n">valeur_fonciere</span><span class="p">,</span><span class="w"> </span><span class="n">nature_mutation</span><span class="p">,</span><span class="w"> </span><span class="n">adresse</span><span class="p">,</span><span class="n">surf_terrain</span>
+<span class="w">      </span><span class="p">),</span>
+
+<span class="n">concatenation</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span><span class="k">select</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">geo_parcelle</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">date_mutation</span><span class="p">,</span><span class="w"> </span><span class="n">concat</span><span class="p">(</span><span class="n">html_general</span><span class="p">,</span><span class="w"> </span><span class="n">string_agg</span><span class="p">((</span><span class="n">html_terrain</span><span class="p">),</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">),</span><span class="w"> </span><span class="s1">&#39;&lt;/details&gt;&#39;</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">deroulant_dvf</span>
+<span class="k">from</span><span class="w"> </span><span class="n">group_parcelle</span><span class="w"> </span><span class="n">a</span>
+<span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">geo_parcelle</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">date_mutation</span><span class="p">,</span><span class="w"> </span><span class="n">html_general</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Agréger les déroulants par parcelle et les ordonner par date de mutation</p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">select</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">geo_parcelle</span><span class="p">,</span><span class="w"> </span><span class="n">string_agg</span><span class="p">((</span><span class="n">deroulant_dvf</span><span class="p">),</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="w"> </span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">date_mutation</span><span class="p">::</span><span class="nb">date</span><span class="w"> </span><span class="k">DESC</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">deroulant_dvf</span>
+<span class="k">from</span><span class="w"> </span><span class="n">concatenation</span><span class="w"> </span><span class="n">a</span>
+<span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">geo_parcelle</span><span class="p">;</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>indexation de la table, vider et updater le champ déroulant html de cadastre.parcelle_info au niveau du numéro de parcelle</p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">CREATE</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="n">index_temp_dvf</span><span class="w">  </span><span class="k">ON</span><span class="w"> </span><span class="n">temp_dvf</span><span class="w">  </span><span class="k">USING</span><span class="w"> </span><span class="n">btree</span><span class="w"> </span><span class="p">(</span><span class="n">geo_parcelle</span><span class="p">);</span>
+
+<span class="k">update</span><span class="w"> </span><span class="n">cadastre</span><span class="p">.</span><span class="n">parcelle_info</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">deroulant_dvf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">null</span><span class="p">;</span>
+
+<span class="k">update</span><span class="w"> </span><span class="n">cadastre</span><span class="p">.</span><span class="n">parcelle_info</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">deroulant_dvf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">deroulant_dvf</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">temp_dvf</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">geo_parcelle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">parcelle_info</span><span class="p">.</span><span class="n">geo_parcelle</span><span class="p">;</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ul>
+</div>
+<div class="section" id="parametrage-qgis-plugin-lizmap">
+<h3>2.2 - Paramètrage Qgis/plugin Lizmap<a class="headerlink" href="#parametrage-qgis-plugin-lizmap" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p>Mise à jour de l’info bulle HTML dans les propriétés de la couche QGIS</p></li>
+</ul>
+<a class="reference internal image-reference" href="../../_images/18_info_bulle_html.png"><img alt="../../_images/18_info_bulle_html.png" src="../../_images/18_info_bulle_html.png" style="width: 957.0px; height: 511.0px;" /></a>
+<p>Le code HTML (onglet mutation immobilière + partie deroulant_dvf) se trouve <a class="reference external" href="https://github.com/sig14/sig14.github.io/blob/master/cadastre/html/popup_cadastre.html">par ici</a></p>
+</div>
+<div class="section" id="rendu-lizmap">
+<h3>1.3 - Rendu lizmap<a class="headerlink" href="#rendu-lizmap" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p>Mise à jour du CSS dans le panneau de configuration Lizmap</p></li>
+</ul>
+<p>Le code CSS se <a class="reference external" href="https://github.com/sig14/sig14.github.io/blob/master/cadastre/css/dvf_cadastre.css">trouve ici</a></p>
+<a class="reference internal image-reference" href="../../_images/19_config_css.png"><img alt="../../_images/19_config_css.png" src="../../_images/19_config_css.png" style="width: 891.0px; height: 407.0px;" /></a>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../III_filiation_parcelles/" class="btn btn-neutral float-left" title="III- Ajouter un onglet “Filiation parcellaire” à la pop-up cadastre de Lizmap" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../../deci/I_perimetres_pei/" class="btn btn-neutral float-right" title="I- Périmètres des bornes incendies" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, SIG14 team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
