@@ -546,7 +546,9 @@ Ce workbench fonctionne comme le premier workbench récupérant l'emprise, mais 
                update ref_urbanisme.gpu_api_info_prescription_surf set geom = ST_MakeValid(geom) where gpu_api_info_prescription_surf.partition = @Value(partition);
                update ref_urbanisme.gpu_api_info_prescription_lin set geom = ST_MakeValid(geom) where gpu_api_info_prescription_lin.partition = @Value(partition);
 
+Une requête à part permet de mettre à jour le html :
+
+         .. code-block:: sql
+
                select ref_urbanisme.fiches_parcelles_lizmap(@Value(partition));
 
-
-Cette dernière fonction fonctionne comme décrit en partie 2, mais uniquement pour les parcelles concernées par les nouveaux documents insérés (au niveau du nouveau "DU _" ).
